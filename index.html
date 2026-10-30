@@ -676,6 +676,177 @@
     }
 
     /* -------------------------------------------------------------
+       CORNER DRAG-TO-RESIZE HANDLE & 3D PHOTOGRAPHY FLIP-BOOK
+       ------------------------------------------------------------- */
+    .book-resize-corner {
+      position: absolute;
+      top: -12px;
+      left: -12px;
+      z-index: 60;
+      height: 32px;
+      padding: 0 10px;
+      border-radius: 999px;
+      background: #fde047;
+      color: #1800ad;
+      border: 2px solid #1800ad;
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.35);
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      font-family: 'Gaegu', 'Fredoka', cursive;
+      font-weight: 700;
+      font-size: 0.95rem;
+      cursor: nwse-resize;
+      user-select: none;
+      touch-action: none;
+      transition: transform 0.18s ease, background-color 0.18s ease;
+    }
+
+    .book-resize-corner:hover {
+      transform: scale(1.08);
+      background: #fef08a;
+    }
+
+    .book-resize-corner:active {
+      transform: scale(0.95);
+    }
+
+    .photo-book-spread {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0;
+      position: relative;
+      background: #fdfbf7;
+      border-radius: 10px;
+      height: var(--pb-spread-h, 360px);
+      overflow: hidden;
+      user-select: none;
+      touch-action: pan-y;
+    }
+
+    .photo-book-page {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      padding: 18px 20px 24px 20px;
+      background-color: #fdfbf7;
+      background-image:
+        radial-gradient(#cbd5e1 1px, transparent 1px),
+        linear-gradient(135deg, rgba(255,255,255,0.92) 0%, rgba(244,240,230,0.55) 50%, rgba(255,255,255,0.96) 100%);
+      background-size: 16px 16px, 100% 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    .photo-book-page.page-left {
+      box-shadow: inset -20px 0 30px -12px rgba(0, 0, 0, 0.15);
+      border-right: 1px solid #d6d0c2;
+    }
+
+    .photo-book-page.page-right {
+      box-shadow: inset 20px 0 30px -12px rgba(0, 0, 0, 0.15);
+      border-left: 1px solid #d6d0c2;
+    }
+
+    .photo-page-mount {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 4px;
+    }
+
+    .photo-page-img {
+      max-width: 100%;
+      max-height: 100%;
+      width: auto;
+      height: auto;
+      object-fit: contain;
+      border-radius: 3px;
+      background: #ffffff;
+      padding: 6px;
+      box-shadow: 0 10px 24px -6px rgba(0, 0, 0, 0.28), 0 2px 6px rgba(0, 0, 0, 0.12);
+      transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+      cursor: url("stickers/ladybug_cursor.png") 5 2, pointer;
+    }
+
+    .photo-page-img:hover {
+      transform: scale(1.025);
+    }
+
+    .photo-page-num {
+      position: absolute;
+      bottom: 6px;
+      font-family: 'Gaegu', 'Fredoka', cursive;
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: #78716c;
+      pointer-events: none;
+    }
+
+    .page-left .photo-page-num {
+      left: 14px;
+    }
+
+    .page-right .photo-page-num {
+      right: 14px;
+    }
+
+    .page-turn-edge-btn {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 30;
+      width: 34px;
+      height: 54px;
+      border-radius: 10px;
+      background: rgba(24, 0, 173, 0.82);
+      color: #ffffff;
+      border: 1.5px solid rgba(253, 224, 71, 0.7);
+      font-family: 'Gaegu', 'Fredoka', cursive;
+      font-size: 1.5rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.25);
+      transition: all 0.2s ease;
+    }
+
+    .page-turn-edge-btn:hover:not(:disabled) {
+      background: #1800ad;
+      transform: translateY(-50%) scale(1.08);
+    }
+
+    .page-turn-edge-btn:disabled {
+      opacity: 0.22;
+      pointer-events: none;
+    }
+
+    @keyframes flipSpreadNext {
+      0% { transform: perspective(1400px) rotateY(10deg) scale(0.98); opacity: 0.75; }
+      100% { transform: perspective(1400px) rotateY(0deg) scale(1); opacity: 1; }
+    }
+
+    @keyframes flipSpreadPrev {
+      0% { transform: perspective(1400px) rotateY(-10deg) scale(0.98); opacity: 0.75; }
+      100% { transform: perspective(1400px) rotateY(0deg) scale(1); opacity: 1; }
+    }
+
+    .flip-anim-next {
+      animation: flipSpreadNext 0.34s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .flip-anim-prev {
+      animation: flipSpreadPrev 0.34s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    /* -------------------------------------------------------------
        MULTI-COLUMN MASONRY PHOTO WALL (ZERO WORDS)
        ------------------------------------------------------------- */
     .masonry-gallery {
@@ -879,15 +1050,21 @@
        ============================================================= -->
   <main class="w-full relative">
 
-    <!-- 3D ANIMATED STICKER BOOK (OPENS AT BOTTOM-RIGHT • SCROLLABLE & PEELABLE) -->
+    <!-- 3D ANIMATED STICKER BOOK (OPENS AT BOTTOM-RIGHT • SCROLLABLE, RESIZABLE & PEELABLE) -->
     <div id="sticker-book-stage" class="sticker-book-stage" aria-hidden="true">
       <div class="sticker-book-3d-wrapper">
         
+        <!-- Corner Drag-to-Resize Handle -->
+        <div id="sticker-book-resize-corner" class="book-resize-corner" title="Drag corner to resize book!">
+          <span>⤡</span>
+          <span class="hidden sm:inline">drag size</span>
+        </div>
+
         <!-- 3D Swinging Cover Flap on Open -->
         <div id="sticker-book-cover-flap" class="sticker-book-cover-flap"></div>
 
         <!-- Top Page Tabs & Controls (Cute Handwritten Font) -->
-        <div class="flex items-center justify-between px-1.5 pb-1.5 select-none">
+        <div class="flex items-center justify-between pl-14 sm:pl-24 pr-1.5 pb-1.5 select-none">
           <div class="flex items-center gap-1.5">
             <button type="button" onclick="switchStickerSpread('all')" id="sb-tab-all" class="sb-tab-btn is-active" title="All Stickers (Scrollable!)">✦ all</button>
             <button type="button" onclick="switchStickerSpread(0)" id="sb-tab-0" class="sb-tab-btn" title="Spread 1: Cats & Friends">🐾 pals</button>
@@ -920,20 +1097,70 @@
 
       </div>
     </div>
+
+    <!-- 3D ANIMATED PHOTOGRAPHY BOOK (1 PHOTO PER PAGE • SWIPEABLE & CORNER-RESIZABLE) -->
+    <div id="photo-book-stage" class="sticker-book-stage" aria-hidden="true">
+      <div id="photo-book-wrapper" class="sticker-book-3d-wrapper">
+
+        <!-- Corner Drag-to-Resize Handle -->
+        <div id="photo-book-resize-corner" class="book-resize-corner" title="Click and drag corner to make book bigger!">
+          <span>⤡</span>
+          <span class="hidden sm:inline">drag bigger</span>
+        </div>
+
+        <!-- 3D Swinging Cover Flap on Open -->
+        <div id="photo-book-cover-flap" class="sticker-book-cover-flap"></div>
+
+        <!-- Top Book Header Bar (Title Tab, Page Flip Controls, Maximize & Close) -->
+        <div class="flex items-center justify-between pl-16 sm:pl-28 pr-1.5 pb-1.5 select-none">
+          <div class="flex items-center gap-2">
+            <span id="pb-title-tab" class="sb-tab-btn is-active">✦ all works</span>
+            <span id="pb-page-indicator" class="font-cute text-white text-base sm:text-lg font-bold px-2">1–2 / 34</span>
+          </div>
+          <div class="flex items-center gap-1.5">
+            <button type="button" id="pb-top-prev" onclick="stepPhotoBookSpread(-1)" class="sb-tab-btn" title="Previous Pages (or swipe right)">‹ prev</button>
+            <button type="button" id="pb-top-next" onclick="stepPhotoBookSpread(1)" class="sb-tab-btn" title="Next Pages (or swipe left)">next ›</button>
+            <button type="button" onclick="togglePhotoBookMaximize()" class="sb-tab-btn" title="Toggle Big / Cozy Size">⤢</button>
+            <button type="button" onclick="closePhotoBook()" class="sb-tab-btn" title="Close Book">✕</button>
+          </div>
+        </div>
+
+        <!-- Open Two-Page Photo Spread (1 Photograph on Left Page, 1 Photograph on Right Page) -->
+        <div id="photo-book-spread" class="photo-book-spread">
+          
+          <button type="button" id="pb-edge-prev" onclick="stepPhotoBookSpread(-1)" class="page-turn-edge-btn left-2" title="Previous Page">‹</button>
+          <button type="button" id="pb-edge-next" onclick="stepPhotoBookSpread(1)" class="page-turn-edge-btn right-2" title="Next Page">›</button>
+
+          <!-- Left Page (1 Photo) -->
+          <div id="photo-page-left" class="photo-book-page page-left"></div>
+
+          <!-- Center Spiral Rings -->
+          <div class="sticker-book-spiral" aria-hidden="true">
+            <span class="spiral-ring"></span>
+            <span class="spiral-ring"></span>
+            <span class="spiral-ring"></span>
+            <span class="spiral-ring"></span>
+            <span class="spiral-ring"></span>
+            <span class="spiral-ring"></span>
+            <span class="spiral-ring"></span>
+          </div>
+
+          <!-- Right Page (1 Photo) -->
+          <div id="photo-page-right" class="photo-book-page page-right"></div>
+        </div>
+
+      </div>
+    </div>
     
-    <!-- COFFEE TABLE BOOKS SHELF (ZERO WORDS, PURE ART MONOGRAPHS) -->
-    <section class="max-w-[1400px] mx-auto pt-6 pb-2 px-3 sm:px-6 md:px-8">
+    <!-- COFFEE TABLE BOOKS SHELF -->
+    <section class="max-w-[1400px] mx-auto pt-6 pb-10 px-3 sm:px-6 md:px-8">
       <div id="books-shelf" class="book-shelf">
-        <!-- Dynamically populated books -->
+        <!-- Dynamically populated cute sticker-decorated books -->
       </div>
     </section>
 
-    <!-- MULTI-COLUMN MASONRY PHOTO WALL (ZERO WORDS, NATURAL HEIGHTS) -->
-    <section class="w-full">
-      <div id="masonry-gallery" class="masonry-gallery">
-        <!-- Dynamically populated photos with break-inside: avoid -->
-      </div>
-    </section>
+    <!-- Hidden legacy container for compatibility -->
+    <div id="masonry-gallery" class="hidden"></div>
 
   </main>
 
@@ -1063,24 +1290,137 @@
       { src: 'photos/autumn/MOR_FIVE_13.jpg', title: 'Curbside Leaves', info: 'Autumn Series • 35mm Film', book: 'autumn' }
     ];
 
-    // COFFEE TABLE BOOKS CATALOG
+    // COFFEE TABLE BOOKS CATALOG (CUTE STICKER-DECORATED COLOUR THEME STORY)
     const BOOKS = [
-      { id: 'sticker_book', isStickerBook: true, isUpcoming: false },
-      { id: 'all', cover: 'photos/ass1/img_0103.jpg', isUpcoming: false },
-      { id: 'ass1', cover: 'photos/ass1/img_0023.jpg', isUpcoming: false },
-      { id: 'autumn', cover: 'photos/autumn/MOR_FIVE_1.jpg', isUpcoming: false },
-      { id: 'sports', bg: 'linear-gradient(145deg, #101c2e, #1e3352)', title: 'Sports Photos', isUpcoming: true },
-      { id: 'photo_essay', bg: 'linear-gradient(145deg, #10261b, #1d4530)', title: 'Photo Essay', isUpcoming: true },
-      { id: 'live_events', bg: 'linear-gradient(145deg, #3d1c14, #612c1f)', title: 'Live Events', isUpcoming: true },
-      { id: 'environment', bg: 'linear-gradient(145deg, #1f2329, #343a42)', title: 'Environment', isUpcoming: true },
-      { id: 'features', bg: 'linear-gradient(145deg, #2d1324, #4a1f3c)', title: 'Features', isUpcoming: true }
+      {
+        id: 'sticker_book',
+        isStickerBook: true,
+        isUpcoming: false,
+        badge: '★ stickers!',
+        themeColor: '#1800ad',
+        coverBg: 'linear-gradient(145deg, #1800ad 0%, #2b14cc 100%)',
+        innerBg: '#150096',
+        borderCol: '#fde047',
+        topLeftSticker: 'stickers/sb_clay_star.png',
+        topRightSticker: 'stickers/sb_miffy_book.png',
+        centerSticker: 'stickers/sb_wizard_cat.png'
+      },
+      {
+        id: 'all',
+        cover: 'photos/ass1/img_0103.jpg',
+        isUpcoming: false,
+        title: 'All Works',
+        badge: '✦ all works',
+        themeColor: '#2563eb',
+        coverBg: 'linear-gradient(145deg, #3b82f6 0%, #1d4ed8 100%)',
+        innerBg: '#2563eb',
+        borderCol: '#bfdbfe',
+        topLeftSticker: 'stickers/canva_camera.png',
+        topRightSticker: 'stickers/sb_twin_stars.png',
+        bottomSticker: 'stickers/sb_star_ladybug.png'
+      },
+      {
+        id: 'ass1',
+        cover: 'photos/ass1/img_0023.jpg',
+        isUpcoming: false,
+        title: 'Urban Observations',
+        badge: '📷 urban 01',
+        themeColor: '#dc2626',
+        coverBg: 'linear-gradient(145deg, #ef4444 0%, #b91c1c 100%)',
+        innerBg: '#dc2626',
+        borderCol: '#fecaca',
+        topLeftSticker: 'stickers/sb_black_cat.png',
+        topRightSticker: 'stickers/sb_yellow_starburst.png',
+        bottomSticker: 'stickers/canva_shoes.png'
+      },
+      {
+        id: 'autumn',
+        cover: 'photos/autumn/MOR_FIVE_1.jpg',
+        isUpcoming: false,
+        title: 'Autumn Series',
+        badge: '🍂 autumn 02',
+        themeColor: '#ea580c',
+        coverBg: 'linear-gradient(145deg, #f97316 0%, #c2410c 100%)',
+        innerBg: '#ea580c',
+        borderCol: '#fed7aa',
+        topLeftSticker: 'stickers/sb_poppy_flower.png',
+        topRightSticker: 'stickers/sb_monarch.png',
+        bottomSticker: 'stickers/sb_apple.png'
+      },
+      {
+        id: 'sports',
+        title: 'Sports Photos',
+        badge: '⚡ sports',
+        isUpcoming: true,
+        themeColor: '#16a34a',
+        coverBg: 'linear-gradient(145deg, #22c55e 0%, #15803d 100%)',
+        innerBg: '#16a34a',
+        borderCol: '#bbf7d0',
+        topLeftSticker: 'stickers/sb_stitched_star.png',
+        topRightSticker: 'stickers/sb_yellow_starburst.png',
+        centerSticker: 'stickers/sb_star_boots.png'
+      },
+      {
+        id: 'photo_essay',
+        title: 'Photo Essay',
+        badge: '📖 essay',
+        isUpcoming: true,
+        themeColor: '#db2777',
+        coverBg: 'linear-gradient(145deg, #ec4899 0%, #be185d 100%)',
+        innerBg: '#db2777',
+        borderCol: '#fbcfe8',
+        topLeftSticker: 'stickers/sb_pink_button.png',
+        topRightSticker: 'stickers/sb_clay_star.png',
+        centerSticker: 'stickers/sb_three_kittens.png'
+      },
+      {
+        id: 'live_events',
+        title: 'Live Events',
+        badge: '🎶 live',
+        isUpcoming: true,
+        themeColor: '#7c3aed',
+        coverBg: 'linear-gradient(145deg, #8b5cf6 0%, #5b21b6 100%)',
+        innerBg: '#7c3aed',
+        borderCol: '#ddd6fe',
+        topLeftSticker: 'stickers/sb_party_hat.png',
+        topRightSticker: 'stickers/sb_pink_starburst.png',
+        centerSticker: 'stickers/vinyl_sticker.png'
+      },
+      {
+        id: 'environment',
+        title: 'Environment',
+        badge: '🌿 nature',
+        isUpcoming: true,
+        themeColor: '#0d9488',
+        coverBg: 'linear-gradient(145deg, #14b8a6 0%, #0f766e 100%)',
+        innerBg: '#0d9488',
+        borderCol: '#99f6e4',
+        topLeftSticker: 'stickers/sb_caterpillar.png',
+        topRightSticker: 'stickers/sb_pink_butterfly.png',
+        centerSticker: 'stickers/sb_dragonfly.png'
+      },
+      {
+        id: 'features',
+        title: 'Features',
+        badge: '✨ features',
+        isUpcoming: true,
+        themeColor: '#e11d48',
+        coverBg: 'linear-gradient(145deg, #f43f5e 0%, #be123c 100%)',
+        innerBg: '#e11d48',
+        borderCol: '#fecdd3',
+        topLeftSticker: 'stickers/sb_moon.png',
+        topRightSticker: 'stickers/sb_blue_bird.png',
+        centerSticker: 'stickers/canva_cake.png'
+      }
     ];
 
-    let currentBookId = 'all';
+    let currentBookId = null;
     let currentGalleryPhotos = ALL_PHOTOS;
     let isStickerBookOpen = false;
+    let isPhotoBookOpen = false;
+    let currentPhotoSpreadIdx = 0;
 
-    // RENDER COFFEE TABLE BOOKS
+    // RENDER COFFEE TABLE BOOKS (CUTE STICKER-DECORATED COLOUR STORY)
     function renderBooks() {
       const shelf = document.getElementById('books-shelf');
       shelf.innerHTML = '';
@@ -1089,32 +1429,40 @@
         const item = document.createElement('div');
         const activeClass = b.isStickerBook
           ? (isStickerBookOpen ? 'is-sticker-book-open' : '')
-          : (b.id === currentBookId ? 'is-active' : '');
+          : ((isPhotoBookOpen && b.id === currentBookId) ? 'is-sticker-book-open' : '');
         item.className = `book-item ${activeClass}`;
         
         const hardcover = document.createElement('div');
-        hardcover.className = `book-hardcover ${b.isStickerBook ? 'sticker-book-shelf-cover' : ''}`;
+        hardcover.className = 'book-hardcover';
+        hardcover.style.background = b.coverBg;
+        hardcover.style.border = `1.5px solid ${b.borderCol || 'rgba(255,255,255,0.4)'}`;
+        hardcover.title = `${b.badge} — Click to open book!`;
 
-        if (b.isStickerBook) {
-          hardcover.title = 'Open Sticker Book ★ Pull stickers onto the blue header!';
+        if (b.cover) {
+          // Active Photo Book Cover: Mini Polaroid Frame + Little Stickers + Title Sticker Pill
           hardcover.innerHTML = `
-            <div class="w-full h-full relative flex flex-col items-center justify-between overflow-hidden rounded-sm border border-yellow-300/45 bg-[#1800ad] p-1.5 select-none">
-              <div class="w-full flex justify-between items-start">
-                <img src="stickers/sb_clay_star.png" alt="" class="w-7 h-7 object-contain rotate-[-14deg] drop-shadow">
-                <img src="stickers/sb_miffy_book.png" alt="" class="w-7 h-7 object-contain rotate-[12deg] drop-shadow">
+            <div class="w-full h-full relative flex flex-col items-center justify-between overflow-hidden rounded-sm border border-white/30 p-1.5 select-none" style="background: ${b.innerBg};">
+              <div class="w-full flex justify-between items-start z-20 pointer-events-none">
+                <img src="${b.topLeftSticker}" alt="" class="w-6 h-6 sm:w-7 sm:h-7 object-contain rotate-[-12deg] drop-shadow">
+                <img src="${b.topRightSticker}" alt="" class="w-6 h-6 sm:w-7 sm:h-7 object-contain rotate-[14deg] drop-shadow">
               </div>
-              <img src="stickers/sb_wizard_cat.png" alt="" class="w-14 h-16 sm:w-16 sm:h-20 object-contain relative z-10 drop-shadow-lg -my-1">
-              <span class="relative z-20 bg-[#faf7f0] text-[#1800ad] font-cute font-bold text-sm sm:text-base leading-none px-2 py-0.5 rounded-full shadow">★ stickers!</span>
+              <div class="relative z-10 w-[84%] h-[56%] bg-white p-1 pb-2.5 rounded-[2px] shadow-md rotate-[-2deg] flex items-center justify-center -my-1">
+                <img src="${b.cover}" alt="${b.title || ''}" class="w-full h-full object-cover rounded-[1px]">
+                ${b.bottomSticker ? `<img src="${b.bottomSticker}" alt="" class="w-6 h-6 object-contain absolute -bottom-2 -right-2 rotate-[10deg] drop-shadow">` : ''}
+              </div>
+              <span class="relative z-20 bg-[#faf7f0] font-cute font-bold text-xs sm:text-sm leading-none px-2 py-0.5 rounded-full shadow border border-stone-300 whitespace-nowrap" style="color: ${b.themeColor};">${b.badge}</span>
             </div>
           `;
-        } else if (!b.isUpcoming && b.cover) {
-          hardcover.innerHTML = `<img src="${b.cover}" alt="Book Cover" class="book-inner-photo">`;
         } else {
-          hardcover.style.background = b.bg || '#1a1815';
+          // Sticker Book or Upcoming Series Book: Cute Stickers + Title Sticker Pill
           hardcover.innerHTML = `
-            <div class="w-full h-full flex flex-col items-center justify-center border border-white/10 p-2 text-center select-none">
-              <span class="text-white/40 text-lg">✦</span>
-              <span class="text-white/30 text-[9px] font-mono-exif tracking-widest mt-2 block">35MM</span>
+            <div class="w-full h-full relative flex flex-col items-center justify-between overflow-hidden rounded-sm border border-white/30 p-1.5 select-none" style="background: ${b.innerBg};">
+              <div class="w-full flex justify-between items-start z-20 pointer-events-none">
+                <img src="${b.topLeftSticker}" alt="" class="w-6 h-6 sm:w-7 sm:h-7 object-contain rotate-[-14deg] drop-shadow">
+                <img src="${b.topRightSticker}" alt="" class="w-6 h-6 sm:w-7 sm:h-7 object-contain rotate-[12deg] drop-shadow">
+              </div>
+              <img src="${b.centerSticker}" alt="" class="w-12 h-14 sm:w-14 sm:h-16 object-contain relative z-10 drop-shadow-lg -my-1">
+              <span class="relative z-20 bg-[#faf7f0] font-cute font-bold text-xs sm:text-sm leading-none px-2 py-0.5 rounded-full shadow border border-stone-300 whitespace-nowrap" style="color: ${b.themeColor};">${b.badge}</span>
             </div>
           `;
         }
@@ -1123,42 +1471,282 @@
 
         item.addEventListener('click', () => {
           if (b.isStickerBook) {
+            if (isPhotoBookOpen) closePhotoBook(true);
             toggleStickerBook();
             return;
           }
-          if (b.isUpcoming) {
-            document.getElementById('upcoming-modal-title').textContent = b.title || 'Upcoming Series';
-            document.getElementById('upcoming-modal').showModal();
-            return;
+          if (isStickerBookOpen) toggleStickerBook(false);
+          if (isPhotoBookOpen && currentBookId === b.id) {
+            closePhotoBook();
+          } else {
+            openPhotoBook(b.id);
           }
-          currentBookId = b.id;
-          renderBooks();
-          renderMasonry();
         });
 
         shelf.appendChild(item);
       });
     }
 
-    // RENDER MASONRY GALLERY (ZERO WORDS, PURE PHOTOGRAPHY, NATURAL HEIGHTS)
     function renderMasonry() {
-      const gallery = document.getElementById('masonry-gallery');
-      gallery.innerHTML = '';
+      // Legacy stub (portfolio now opens inside the interactive 3D flip-book!)
+    }
 
-      if (currentBookId === 'all') {
+    // =============================================================
+    // 3D INTERACTIVE PHOTOGRAPHY FLIP-BOOK (1 PHOTO PER PAGE + SWIPE + RESIZE)
+    // =============================================================
+    function openPhotoBook(bookId) {
+      const bookObj = BOOKS.find((b) => b.id === bookId) || BOOKS[1];
+      currentBookId = bookObj.id;
+      isPhotoBookOpen = true;
+      currentPhotoSpreadIdx = 0;
+
+      if (bookObj.id === 'all') {
         currentGalleryPhotos = ALL_PHOTOS;
       } else {
-        currentGalleryPhotos = ALL_PHOTOS.filter(p => p.book === currentBookId);
+        currentGalleryPhotos = ALL_PHOTOS.filter((p) => p.book === bookObj.id);
       }
 
-      currentGalleryPhotos.forEach((photo, idx) => {
-        const card = document.createElement('div');
-        card.className = 'masonry-photo-item';
-        card.innerHTML = `<img src="${photo.src}" alt="Abigail Morra Photography" loading="lazy">`;
-        card.addEventListener('click', () => openLightbox(idx));
-        gallery.appendChild(card);
-      });
+      const stage = document.getElementById('photo-book-stage');
+      const wrapper = document.getElementById('photo-book-wrapper');
+      const flap = document.getElementById('photo-book-cover-flap');
+      const titleTab = document.getElementById('pb-title-tab');
+
+      // Match 3D book binding color to the selected book's colour theme!
+      wrapper.style.background = bookObj.themeColor || '#1800ad';
+      wrapper.style.borderColor = bookObj.borderCol || '#fde047';
+      flap.style.background = bookObj.coverBg || '#1800ad';
+      titleTab.textContent = bookObj.badge || '✦ photos';
+      titleTab.style.color = bookObj.themeColor || '#1800ad';
+
+      renderPhotoBookSpread();
+
+      flap.style.animation = 'none';
+      void flap.offsetWidth;
+      flap.style.animation = '';
+      stage.classList.add('is-open');
+      stage.setAttribute('aria-hidden', 'false');
+      playSparkleTwinkle();
+      renderBooks();
     }
+
+    function closePhotoBook(silent) {
+      const stage = document.getElementById('photo-book-stage');
+      isPhotoBookOpen = false;
+      stage.classList.remove('is-open');
+      stage.setAttribute('aria-hidden', 'true');
+      if (!silent) playSparkleNote(1567.98, 0.025, 0.16);
+      renderBooks();
+    }
+
+    function stepPhotoBookSpread(delta) {
+      const totalSpreads = Math.max(1, Math.ceil(currentGalleryPhotos.length / 2));
+      const nextIdx = currentPhotoSpreadIdx + delta;
+      if (nextIdx < 0 || nextIdx >= totalSpreads) return;
+      currentPhotoSpreadIdx = nextIdx;
+      renderPhotoBookSpread(delta > 0 ? 'next' : 'prev');
+      playSparkleNote(delta > 0 ? 2093.0 : 1760.0, 0.028, 0.18);
+    }
+
+    function renderPhotoBookSpread(animDir) {
+      const leftPage = document.getElementById('photo-page-left');
+      const rightPage = document.getElementById('photo-page-right');
+      const spreadEl = document.getElementById('photo-book-spread');
+      const indicator = document.getElementById('pb-page-indicator');
+      const prevBtns = [document.getElementById('pb-top-prev'), document.getElementById('pb-edge-prev')];
+      const nextBtns = [document.getElementById('pb-top-next'), document.getElementById('pb-edge-next')];
+
+      leftPage.innerHTML = '';
+      rightPage.innerHTML = '';
+
+      const bookObj = BOOKS.find((b) => b.id === currentBookId) || BOOKS[1];
+
+      if (currentGalleryPhotos.length === 0) {
+        // Upcoming series spread with cute stickers & note
+        indicator.textContent = 'coming soon ✦';
+        prevBtns.forEach((b) => { if (b) b.disabled = true; });
+        nextBtns.forEach((b) => { if (b) b.disabled = true; });
+
+        leftPage.innerHTML = `
+          <div class="flex flex-col items-center justify-center text-center p-4 select-none">
+            <img src="${bookObj.centerSticker || 'stickers/sb_wizard_cat.png'}" alt="" class="w-24 h-24 object-contain drop-shadow-lg mb-2">
+            <span class="font-cute text-xl font-bold text-stone-800">${bookObj.title || bookObj.badge}</span>
+          </div>
+        `;
+        rightPage.innerHTML = `
+          <div class="flex flex-col items-center justify-center text-center p-4 select-none">
+            <img src="stickers/canva_camera.png" alt="" class="w-20 h-20 object-contain drop-shadow mb-2 rotate-[-6deg]">
+            <p class="font-cute text-lg font-bold text-stone-600">35mm film rolls in the darkroom 🐾</p>
+            <p class="font-cute text-base text-stone-500">scans coming soon!</p>
+          </div>
+        `;
+        return;
+      }
+
+      const totalPhotos = currentGalleryPhotos.length;
+      const totalSpreads = Math.ceil(totalPhotos / 2);
+      const leftIdx = currentPhotoSpreadIdx * 2;
+      const rightIdx = leftIdx + 1;
+
+      const p1Num = leftIdx + 1;
+      const p2Num = Math.min(totalPhotos, rightIdx + 1);
+      indicator.textContent = p1Num === p2Num ? `${p1Num} / ${totalPhotos}` : `${p1Num}–${p2Num} / ${totalPhotos}`;
+
+      prevBtns.forEach((b) => { if (b) b.disabled = currentPhotoSpreadIdx <= 0; });
+      nextBtns.forEach((b) => { if (b) b.disabled = currentPhotoSpreadIdx >= totalSpreads - 1; });
+
+      // Populate Left Page (1 Photograph)
+      const leftPhoto = currentGalleryPhotos[leftIdx];
+      if (leftPhoto) {
+        leftPage.appendChild(createPhotoPageContent(leftPhoto, leftIdx));
+      }
+
+      // Populate Right Page (1 Photograph, or end-of-book colophon sticker if odd count)
+      const rightPhoto = currentGalleryPhotos[rightIdx];
+      if (rightPhoto) {
+        rightPage.appendChild(createPhotoPageContent(rightPhoto, rightIdx));
+      } else {
+        const endDiv = document.createElement('div');
+        endDiv.className = 'flex flex-col items-center justify-center text-center p-4 select-none opacity-80';
+        endDiv.innerHTML = `
+          <img src="stickers/sb_wizard_cat.png" alt="" class="w-20 h-20 object-contain drop-shadow mb-1">
+          <span class="font-cute text-lg font-bold text-stone-500">✦ end of book ✦</span>
+        `;
+        rightPage.appendChild(endDiv);
+      }
+
+      if (animDir) {
+        spreadEl.classList.remove('flip-anim-next', 'flip-anim-prev');
+        void spreadEl.offsetWidth;
+        spreadEl.classList.add(animDir === 'next' ? 'flip-anim-next' : 'flip-anim-prev');
+      }
+    }
+
+    function createPhotoPageContent(photo, idx) {
+      const mount = document.createElement('div');
+      mount.className = 'photo-page-mount';
+
+      const img = document.createElement('img');
+      img.src = photo.src;
+      img.alt = photo.title || 'Photograph';
+      img.className = 'photo-page-img';
+      img.title = 'Click to view full-screen details • Drag/swipe to flip pages';
+      mount.appendChild(img);
+
+      const num = document.createElement('span');
+      num.className = 'photo-page-num';
+      num.textContent = String(idx + 1).padStart(2, '0');
+      mount.appendChild(num);
+
+      return mount;
+    }
+
+    // Swipe Left / Right on the Photo Book Spread to Turn Pages (or Click Photo for Lightbox)
+    (function setupPhotoBookSwipe() {
+      const spreadEl = document.getElementById('photo-book-spread');
+      if (!spreadEl) return;
+      let startX = 0;
+      let startY = 0;
+      let isSwiping = false;
+      let clickedImgIdx = null;
+
+      spreadEl.addEventListener('pointerdown', (e) => {
+        if (e.target.closest('button')) return;
+        isSwiping = true;
+        startX = e.clientX;
+        startY = e.clientY;
+        const imgEl = e.target.closest('.photo-page-img');
+        if (imgEl) {
+          const isRight = Boolean(imgEl.closest('.page-right'));
+          clickedImgIdx = currentPhotoSpreadIdx * 2 + (isRight ? 1 : 0);
+        } else {
+          clickedImgIdx = null;
+        }
+      });
+
+      window.addEventListener('pointerup', (e) => {
+        if (!isSwiping) return;
+        isSwiping = false;
+        const dx = e.clientX - startX;
+        const dy = e.clientY - startY;
+        if (Math.abs(dx) > 42 && Math.abs(dx) > Math.abs(dy) * 1.2) {
+          if (dx < 0) stepPhotoBookSpread(1);
+          else stepPhotoBookSpread(-1);
+        } else if (Math.hypot(dx, dy) < 8 && clickedImgIdx !== null && currentGalleryPhotos[clickedImgIdx]) {
+          openLightbox(clickedImgIdx);
+        }
+        clickedImgIdx = null;
+      });
+    })();
+
+    // Corner Drag-to-Resize Engine for Both Photo Book & Sticker Book
+    let isPhotoBookMaximized = false;
+
+    function togglePhotoBookMaximize() {
+      const stage = document.getElementById('photo-book-stage');
+      const spread = document.getElementById('photo-book-spread');
+      isPhotoBookMaximized = !isPhotoBookMaximized;
+      if (isPhotoBookMaximized) {
+        stage.style.width = `${Math.min(window.innerWidth * 0.94, 1240)}px`;
+        spread.style.setProperty('--pb-spread-h', `${Math.min(window.innerHeight * 0.76, 680)}px`);
+      } else {
+        stage.style.width = '';
+        spread.style.setProperty('--pb-spread-h', '360px');
+      }
+      playSparkleTwinkle();
+    }
+
+    function setupCornerResize(cornerId, stageId, spreadId, isSticker) {
+      const corner = document.getElementById(cornerId);
+      const stage = document.getElementById(stageId);
+      const spread = document.getElementById(spreadId);
+      if (!corner || !stage || !spread) return;
+
+      let isResizing = false;
+      let startX = 0, startY = 0, startW = 0, startH = 0;
+
+      corner.addEventListener('pointerdown', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        isResizing = true;
+        startX = e.clientX;
+        startY = e.clientY;
+        startW = stage.getBoundingClientRect().width;
+        startH = spread.getBoundingClientRect().height;
+        corner.setPointerCapture(e.pointerId);
+        playSparkleNote(2093.0, 0.025, 0.15);
+      });
+
+      corner.addEventListener('pointermove', (e) => {
+        if (!isResizing) return;
+        // Since book is anchored at bottom-right, dragging top-left corner left/up increases width/height!
+        const dx = startX - e.clientX;
+        const dy = startY - e.clientY;
+        const newW = Math.max(420, Math.min(window.innerWidth - 28, startW + dx));
+        const newH = Math.max(220, Math.min(window.innerHeight - 110, startH + dy));
+        stage.style.width = `${newW}px`;
+        if (isSticker) {
+          spread.style.maxHeight = `${newH}px`;
+          spread.style.height = `${newH}px`;
+        } else {
+          spread.style.setProperty('--pb-spread-h', `${newH}px`);
+        }
+      });
+
+      const stopResize = (e) => {
+        if (!isResizing) return;
+        isResizing = false;
+        if (e && e.pointerId !== undefined) {
+          try { corner.releasePointerCapture(e.pointerId); } catch (err) {}
+        }
+        playSparkleNote(2637.02, 0.028, 0.18);
+      };
+
+      corner.addEventListener('pointerup', stopResize);
+      corner.addEventListener('pointercancel', stopResize);
+    }
+
+    setupCornerResize('photo-book-resize-corner', 'photo-book-stage', 'photo-book-spread', false);
+    setupCornerResize('sticker-book-resize-corner', 'sticker-book-stage', 'sticker-book-scroll', true);
 
     // LIGHTBOX LOGIC
     const lightbox = document.getElementById('photo-lightbox');
@@ -1210,6 +1798,12 @@
         if (e.key === 'ArrowRight') document.getElementById('modal-next-btn').click();
       } else if (gilbertModal.open) {
         if (e.key === 'Escape') closeGilbertModal();
+      } else if (isPhotoBookOpen) {
+        if (e.key === 'Escape') closePhotoBook();
+        if (e.key === 'ArrowLeft') stepPhotoBookSpread(-1);
+        if (e.key === 'ArrowRight') stepPhotoBookSpread(1);
+      } else if (isStickerBookOpen) {
+        if (e.key === 'Escape') toggleStickerBook(false);
       }
     });
 
