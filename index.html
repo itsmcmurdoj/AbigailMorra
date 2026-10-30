@@ -1285,12 +1285,37 @@
         <canvas id="abi-dino-canvas" width="720" height="250" class="w-full h-auto block"></canvas>
       </div>
 
-      <!-- Bottom Controls Hint -->
+      <!-- Arcade High-Score Name Entry Bar (Pops up on Game Over!) -->
+      <form id="dino-score-entry-form" onsubmit="submitAbiDinoHighScore(event)" class="hidden mt-2.5 bg-[#1800ad] text-white px-3.5 py-2.5 rounded-xl border-2 border-[#fde047] flex flex-wrap items-center justify-between gap-2 shadow-lg">
+        <div class="flex items-center gap-2">
+          <span class="font-cute font-bold text-base sm:text-lg text-[#fde047]">🏆 NEW RUN SCORE: <span id="dino-entry-score-val" class="font-mono-exif text-white">00000</span></span>
+        </div>
+        <div class="flex items-center gap-2 flex-1 sm:flex-initial justify-end">
+          <input id="dino-player-name" type="text" maxlength="12" placeholder="ENTER NAME..." autocomplete="off"
+                 class="px-2.5 py-1 rounded-lg bg-[#fdfbf7] text-[#1800ad] font-mono-exif font-bold text-xs sm:text-sm uppercase tracking-wider border-2 border-[#fde047] focus:outline-none w-36 sm:w-44 select-text">
+          <button type="submit" id="dino-save-score-btn" class="px-3 py-1 bg-[#fde047] hover:bg-yellow-300 text-[#1800ad] font-cute font-bold text-base rounded-lg shadow transition-transform active:scale-95">
+            ★ log score
+          </button>
+        </div>
+      </form>
+
+      <!-- Bottom Controls Hint & Live Global Arcade Leaderboard -->
       <div class="mt-2.5 flex items-center justify-between font-cute text-sm sm:text-base font-bold text-stone-600 px-1">
         <span>👱‍♀️ Jump over film rolls &amp; dodge the flying orange Gilberts! 🐱🪽</span>
         <button type="button" onclick="restartAbiDinoGame()" class="px-3 py-0.5 bg-[#1800ad] text-[#fde047] rounded-full text-sm hover:bg-blue-800 transition-colors">
           ↻ play again
         </button>
+      </div>
+
+      <!-- Global Arcade High Scores Leaderboard (Visible to Everyone!) -->
+      <div class="mt-2.5 bg-[#140078] text-white rounded-xl p-3 border border-[#fde047]/60 shadow-inner">
+        <div class="flex items-center justify-between border-b border-white/20 pb-1.5 mb-2">
+          <span class="font-mono-exif font-bold text-xs tracking-widest text-[#fde047] uppercase">🕹️ ARCADE HIGH SCORES (GLOBAL LEADERBOARD)</span>
+          <span id="dino-leaderboard-status" class="font-mono-exif text-[10px] text-blue-200">LIVE ✦</span>
+        </div>
+        <div id="dino-leaderboard-list" class="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-1 font-mono-exif text-xs">
+          <!-- Populated dynamically with global arcade high scores -->
+        </div>
       </div>
     </div>
   </dialog>
@@ -2903,11 +2928,197 @@
       });
     }
 
+    // =============================================================
+    // GLOBAL ARCADE HIGH SCORE LEADERBOARD (SHARED ACROSS ALL VISITORS!)
+    // =============================================================
+    const DINO_LOCAL_STORAGE_KEY = 'abigail_justyna_arcade_leaderboard_v1';
+    const DINO_KV_GET_URL = 'https://keyvalue.immanuel.co/api/KeyVal/GetValue/kuqx791h/justyna_board';
+    const DINO_KV_SET_BASE = 'https://keyvalue.immanuel.co/api/KeyVal/UpdateValue/kuqx791h/justyna_board/';
+    const DINO_NTFY_TOPIC = 'https://ntfy.sh/abigail_morra_justyna_gilbert_arcade_scores_v2';
+
+    let dinoLeaderboard = [
+      { name: 'JUSTYNA', score: 240 },
+      { name: 'ABIGAIL', score: 210 },
+      { name: 'GILBERT', score: 150 }
+    ];
+    let lastSubmittedHighlight = null;
+
+    function encodeLeaderboardB64(arr) {
+      try {
+        const json = JSON.stringify(arr);
+        return btoa(unescape(encodeURIComponent(json)))
+          .replace(/=+$/g, '')
+          .replace(/\+/g, '-')
+          .replace(/\//g, '_');
+      } catch (e) {
+        return '';
+      }
+    }
+
+    function decodeLeaderboardB64(b64) {
+      try {
+        const cleaned = String(b64 || '').replace(/^"+|"+$/g, '').trim();
+        if (!cleaned) return [];
+        const std = cleaned.replace(/-/g, '+').replace(/_/g, '/');
+        const pad = std + '==='.slice((std.length + 3) % 4);
+        const json = decodeURIComponent(escape(atob(pad)));
+        const parsed = JSON.parse(json);
+        return Array.isArray(parsed) ? parsed : [];
+      } catch (e) {
+        return [];
+      }
+    }
+
+    function mergeAndSortScores(...lists) {
+      const map = new Map();
+      lists.flat().forEach((entry) => {
+        if (!entry || typeof entry.name !== 'string') return;
+        const cleanName = entry.name.trim().toUpperCase().slice(0, 12);
+        const cleanScore = Math.floor(Number(entry.score) || 0);
+        if (!cleanName || cleanScore <= 0) return;
+        const key = `${cleanName}__${cleanScore}`;
+        if (!map.has(key)) {
+          map.set(key, { name: cleanName, score: cleanScore });
+        }
+      });
+      const merged = Array.from(map.values()).sort((a, b) => b.score - a.score).slice(0, 10);
+      if (merged.length > 0 && merged[0].score > dinoHighScore) {
+        dinoHighScore = merged[0].score;
+      }
+      return merged;
+    }
+
+    function loadLocalLeaderboard() {
+      try {
+        const raw = localStorage.getItem(DINO_LOCAL_STORAGE_KEY);
+        if (raw) {
+          const parsed = JSON.parse(raw);
+          if (Array.isArray(parsed)) {
+            dinoLeaderboard = mergeAndSortScores(dinoLeaderboard, parsed);
+          }
+        }
+      } catch (e) {}
+    }
+
+    function saveLocalLeaderboard() {
+      try {
+        localStorage.setItem(DINO_LOCAL_STORAGE_KEY, JSON.stringify(dinoLeaderboard));
+      } catch (e) {}
+    }
+
+    function renderDinoLeaderboard() {
+      const listEl = document.getElementById('dino-leaderboard-list');
+      if (!listEl) return;
+      listEl.innerHTML = '';
+      const ranks = ['1ST', '2ND', '3RD', '4TH', '5TH', '6TH', '7TH', '8TH', '9TH', '10TH'];
+      dinoLeaderboard.slice(0, 8).forEach((entry, idx) => {
+        const row = document.createElement('div');
+        const isHighlighted =
+          lastSubmittedHighlight &&
+          entry.name === lastSubmittedHighlight.name &&
+          entry.score === lastSubmittedHighlight.score;
+        row.className = `flex items-center justify-between px-2 py-0.5 rounded ${
+          isHighlighted ? 'bg-[#fde047] text-[#1800ad] font-bold' : 'text-blue-100'
+        }`;
+        const medal = idx === 0 ? '👑 ' : idx === 1 ? '🥈 ' : idx === 2 ? '🥉 ' : '';
+        row.innerHTML = `
+          <span><strong class="${isHighlighted ? 'text-[#1800ad]' : 'text-[#fde047]'}">${ranks[idx] || (idx + 1)}</strong> ${medal}${entry.name}</span>
+          <span class="tracking-wider">${String(entry.score).padStart(5, '0')}</span>
+        `;
+        listEl.appendChild(row);
+      });
+    }
+
+    async function fetchGlobalDinoLeaderboard() {
+      loadLocalLeaderboard();
+      renderDinoLeaderboard();
+      try {
+        const [kvRes, ntfyRes] = await Promise.allSettled([
+          fetch(DINO_KV_GET_URL, { cache: 'no-store' }).then((r) => r.text()),
+          fetch(`${DINO_NTFY_TOPIC}/json?poll=1&since=1700000000`, { cache: 'no-store' }).then((r) => r.text())
+        ]);
+
+        let kvScores = [];
+        if (kvRes.status === 'fulfilled' && kvRes.value) {
+          kvScores = decodeLeaderboardB64(kvRes.value);
+        }
+
+        let ntfyScores = [];
+        if (ntfyRes.status === 'fulfilled' && ntfyRes.value) {
+          ntfyRes.value.split('\n').forEach((line) => {
+            if (!line.trim()) return;
+            try {
+              const outer = JSON.parse(line);
+              if (outer && outer.message) {
+                const inner = JSON.parse(outer.message);
+                if (inner && inner.name && inner.score) ntfyScores.push(inner);
+              }
+            } catch (e) {}
+          });
+        }
+
+        dinoLeaderboard = mergeAndSortScores(dinoLeaderboard, kvScores, ntfyScores);
+        saveLocalLeaderboard();
+        renderDinoLeaderboard();
+      } catch (e) {
+        renderDinoLeaderboard();
+      }
+    }
+
+    async function submitAbiDinoHighScore(evt) {
+      if (evt) evt.preventDefault();
+      const inputEl = document.getElementById('dino-player-name');
+      const formEl = document.getElementById('dino-score-entry-form');
+      const statusEl = document.getElementById('dino-leaderboard-status');
+      const rawName = (inputEl ? inputEl.value : '').trim().toUpperCase().replace(/[^A-Z0-9 _🐾★♥!-]/g, '').slice(0, 12);
+      const playerName = rawName || 'PLAYER 1';
+      const finalScore = Math.max(1, Math.floor(dinoState.score));
+
+      const newEntry = { name: playerName, score: finalScore };
+      lastSubmittedHighlight = newEntry;
+      dinoLeaderboard = mergeAndSortScores(dinoLeaderboard, [newEntry]);
+      saveLocalLeaderboard();
+      renderDinoLeaderboard();
+      playDinoMilestoneSound();
+
+      if (formEl) formEl.classList.add('hidden');
+      if (statusEl) statusEl.textContent = 'SAVED TO GLOBAL BOARD ★';
+
+      // Persist globally to both permanent KV cloud store and live ntfy stream!
+      const b64 = encodeLeaderboardB64(dinoLeaderboard);
+      try {
+        await Promise.allSettled([
+          b64 ? fetch(`${DINO_KV_SET_BASE}${b64}`, { method: 'POST' }) : Promise.resolve(),
+          fetch(DINO_NTFY_TOPIC, {
+            method: 'POST',
+            body: JSON.stringify({ name: playerName, score: finalScore, ts: Date.now() })
+          })
+        ]);
+      } catch (e) {}
+    }
+
+    function showDinoScoreEntryBar() {
+      const formEl = document.getElementById('dino-score-entry-form');
+      const scoreValEl = document.getElementById('dino-entry-score-val');
+      const inputEl = document.getElementById('dino-player-name');
+      const finalScore = Math.floor(dinoState.score);
+      if (scoreValEl) {
+        scoreValEl.textContent = String(finalScore).padStart(5, '0');
+      }
+      if (formEl && finalScore >= 1) {
+        formEl.classList.remove('hidden');
+        if (inputEl) {
+          setTimeout(() => inputEl.focus(), 60);
+        }
+      }
+    }
+
     function openAbiDinoGame() {
       if (!abiDinoModal) return;
       isDinoModalOpen = true;
       abiDinoModal.setAttribute('open', '');
       playDinoMilestoneSound();
+      fetchGlobalDinoLeaderboard();
       restartAbiDinoGame();
     }
 
@@ -2926,6 +3137,11 @@
     }
 
     function restartAbiDinoGame() {
+      const formEl = document.getElementById('dino-score-entry-form');
+      if (formEl) formEl.classList.add('hidden');
+      const inputEl = document.getElementById('dino-player-name');
+      if (inputEl) inputEl.blur();
+
       dinoState.running = true;
       dinoState.gameOver = false;
       dinoState.score = 0;
@@ -2963,6 +3179,13 @@
 
     window.addEventListener('keydown', (e) => {
       if (!isDinoModalOpen) return;
+      const nameInput = document.getElementById('dino-player-name');
+      if (nameInput && document.activeElement === nameInput) {
+        if (e.key === 'Escape') {
+          nameInput.blur();
+        }
+        return;
+      }
       if (e.key === 'Escape') {
         closeAbiDinoGame();
         return;
@@ -3364,6 +3587,7 @@
               dinoHighScore = Math.floor(dinoState.score);
             }
             playDinoGameOverSound();
+            showDinoScoreEntryBar();
           }
 
           if (obs.x < -70) {
