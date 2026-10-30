@@ -146,19 +146,56 @@
       max-height: 92vh;
     }
 
-    /* Smooth Stationery Paper Bottom Edge (No Zig-Zag!) */
+    /* Smooth Layered Physical Sketchbook Paper Sheet (Taped onto the Blue!) */
     .torn-paper-edge {
-      position: absolute;
-      bottom: -1px;
-      left: 0;
-      right: 0;
-      height: 16px;
-      background-color: var(--newsprint-bg);
-      border-radius: 22px 22px 0 0;
+      display: none;
+    }
+
+    .tactile-paper-sheet {
+      position: relative;
+      z-index: 25;
+      margin-top: -14px;
+      background-color: #faf6ec;
+      background-image:
+        radial-gradient(rgba(120, 105, 82, 0.16) 1.15px, transparent 1.15px),
+        repeating-linear-gradient(
+          0deg,
+          transparent 0px,
+          transparent 27px,
+          rgba(168, 154, 130, 0.12) 27px,
+          rgba(168, 154, 130, 0.12) 28px
+        ),
+        linear-gradient(
+          180deg,
+          #fffdf7 0%,
+          #faf6ec 18%,
+          #f5efe0 100%
+        );
+      background-size: 22px 22px, 100% 28px, 100% 100%;
+      border-top: 2px solid #fffefb;
+      border-radius: 14px 14px 0 0;
       box-shadow:
-        0 -6px 18px rgba(0, 0, 0, 0.22),
-        inset 0 2px 0 rgba(255, 255, 255, 0.85);
-      z-index: 20;
+        0 -12px 30px rgba(8, 0, 56, 0.42),
+        0 -3px 8px rgba(0, 0, 0, 0.22),
+        inset 0 3px 0 rgba(255, 255, 255, 0.95),
+        inset 0 0 60px rgba(145, 125, 90, 0.14);
+    }
+
+    /* Second slightly crooked stacked paper sheet peeking out underneath the top edge */
+    .tactile-paper-sheet::before {
+      content: "";
+      position: absolute;
+      top: -7px;
+      left: 1.2%;
+      right: 1.2%;
+      height: 14px;
+      background: #efe9d8;
+      border-top: 1px solid rgba(255, 255, 255, 0.75);
+      border-radius: 12px 12px 0 0;
+      transform: rotate(-0.35deg);
+      box-shadow: 0 -5px 14px rgba(0, 0, 0, 0.28);
+      z-index: -1;
+      pointer-events: none;
     }
 
     /* -------------------------------------------------------------
@@ -1058,58 +1095,58 @@
 
   <!-- =============================================================
        2. COFFEE TABLE BOOKS SHELF & MULTI-COLUMN MASONRY GALLERY
-       (ZERO WORDS PAST BLUE HEADER • PURE PHOTOGRAPHY CONTENT)
+       (TACTILE SKETCHBOOK PAPER SHEET TAPED ONTO THE BLUE WITH WASHI TAPE!)
        ============================================================= -->
-  <main id="white-page-main" class="w-full relative min-h-[340px]">
+  <main id="white-page-main" class="tactile-paper-sheet w-full relative min-h-[360px]">
 
-    <!-- CUTE WASHI TAPE STRIPS STUCK ONTO THE WHITE PAGE (DRAGGABLE!) -->
+    <!-- CUTE WASHI TAPE STRIPS OVERLAPPING THE BLUE & PAPER BORDER (DRAGGABLE!) -->
     <div id="white-page-stickers-layer" class="absolute inset-0 pointer-events-none z-30 overflow-visible">
-      <!-- 1. Pink Polka-Dot Washi Tape taping the top-left of the white page -->
+      <!-- 1. Pink Polka-Dot Washi Tape angled across the top-left blue/paper corner -->
       <div class="drag-item pointer-events-auto"
            data-on-white-page="true"
-           style="left: 4.5%; top: -14px; width: 13.5%; --current-rot: -4deg; z-index: 31;"
+           style="left: 2.5%; top: -28px; width: 14.5%; --current-rot: -15deg; z-index: 36;"
            title="Pink Polka-Dot Washi Tape 🎀 (Drag me!)">
-        <img src="stickers/washi_pink_dots.png" alt="Washi Tape" class="w-full h-auto block drop-shadow-sm pointer-events-none">
+        <img src="stickers/washi_pink_dots.png" alt="Washi Tape" class="w-full h-auto block drop-shadow-md pointer-events-none">
       </div>
 
-      <!-- 2. Green Gingham Washi Tape on top-center-left of the white page -->
+      <!-- 2. Green Gingham Washi Tape straddling the blue & paper seam -->
       <div class="drag-item pointer-events-auto"
            data-on-white-page="true"
-           style="left: 29.5%; top: -10px; width: 12.0%; --current-rot: 2.5deg; z-index: 31;"
+           style="left: 24.5%; top: -24px; width: 13.0%; --current-rot: 7deg; z-index: 36;"
            title="Green Gingham Washi Tape 🌿 (Drag me!)">
-        <img src="stickers/washi_green_gingham.png" alt="Washi Tape" class="w-full h-auto block drop-shadow-sm pointer-events-none">
+        <img src="stickers/washi_green_gingham.png" alt="Washi Tape" class="w-full h-auto block drop-shadow-md pointer-events-none">
       </div>
 
-      <!-- 3. Strawberry Jam Washi Tape on top-center-right of the white page -->
+      <!-- 3. Pastel Rainbow Plaid Washi Tape straddling the center seam -->
       <div class="drag-item pointer-events-auto"
            data-on-white-page="true"
-           style="left: 58.0%; top: -11px; width: 11.5%; --current-rot: -2deg; z-index: 31;"
+           style="left: 46.5%; top: -26px; width: 12.2%; --current-rot: -5deg; z-index: 36;"
+           title="Pastel Plaid Washi Tape 🌈 (Drag me!)">
+        <img src="stickers/washi_rainbow_plaid.png" alt="Washi Tape" class="w-full h-auto block drop-shadow-md pointer-events-none">
+      </div>
+
+      <!-- 4. Strawberry Jam Washi Tape straddling the right-center blue & paper seam -->
+      <div class="drag-item pointer-events-auto"
+           data-on-white-page="true"
+           style="left: 66.5%; top: -22px; width: 12.2%; --current-rot: 9deg; z-index: 36;"
            title="Strawberry Jam Washi Tape 🍓 (Drag me!)">
-        <img src="stickers/washi_strawberry_jam.png" alt="Washi Tape" class="w-full h-auto block drop-shadow-sm pointer-events-none">
+        <img src="stickers/washi_strawberry_jam.png" alt="Washi Tape" class="w-full h-auto block drop-shadow-md pointer-events-none">
       </div>
 
-      <!-- 4. Yellow Gingham Washi Tape taping top-right of the white page -->
+      <!-- 5. Yellow Gingham Washi Tape angled across the top-right blue/paper corner -->
       <div class="drag-item pointer-events-auto"
            data-on-white-page="true"
-           style="left: 82.5%; top: -12px; width: 12.2%; --current-rot: 4.5deg; z-index: 31;"
+           style="left: 84.0%; top: -26px; width: 13.2%; --current-rot: 16deg; z-index: 36;"
            title="Yellow Gingham Washi Tape 🌼 (Drag me!)">
-        <img src="stickers/washi_yellow_gingham.png" alt="Washi Tape" class="w-full h-auto block drop-shadow-sm pointer-events-none">
+        <img src="stickers/washi_yellow_gingham.png" alt="Washi Tape" class="w-full h-auto block drop-shadow-md pointer-events-none">
       </div>
 
-      <!-- 5. Pastel Rainbow Plaid Washi Tape stuck on the lower-left white page -->
+      <!-- 6. Pink Grid Washi Tape stuck on the lower-right paper edge -->
       <div class="drag-item pointer-events-auto"
            data-on-white-page="true"
-           style="left: 2.2%; top: 76%; width: 11.8%; --current-rot: 6deg; z-index: 31;"
-           title="Pastel Plaid Washi Tape 🎀 (Drag me!)">
-        <img src="stickers/washi_rainbow_plaid.png" alt="Washi Tape" class="w-full h-auto block drop-shadow-sm pointer-events-none">
-      </div>
-
-      <!-- 6. Pink Grid Washi Tape stuck on the lower-right white page -->
-      <div class="drag-item pointer-events-auto"
-           data-on-white-page="true"
-           style="left: 85.0%; top: 74%; width: 12.0%; --current-rot: -5deg; z-index: 31;"
+           style="left: 85.5%; top: 76%; width: 12.0%; --current-rot: -8deg; z-index: 35;"
            title="Pink Grid Washi Tape ✨ (Drag me!)">
-        <img src="stickers/washi_pink_grid.png" alt="Washi Tape" class="w-full h-auto block drop-shadow-sm pointer-events-none">
+        <img src="stickers/washi_pink_grid.png" alt="Washi Tape" class="w-full h-auto block drop-shadow-md pointer-events-none">
       </div>
     </div>
 
@@ -2142,9 +2179,8 @@
       const whiteLayer = document.getElementById('white-page-stickers-layer');
       if (!heroCanvas || !whiteMain || !whiteLayer) return false;
 
-      const hRect = heroCanvas.getBoundingClientRect();
       const wRect = whiteMain.getBoundingClientRect();
-      if (cy < hRect.bottom - 10 || wRect.width <= 0 || wRect.height <= 0) {
+      if (cy < wRect.top - 52 || wRect.width <= 0 || wRect.height <= 0) {
         return false;
       }
 
@@ -2155,7 +2191,7 @@
       const rawLeftPct = ((cx - wRect.left - wPx * 0.5) / wRect.width) * 100;
       const rawTopPx = cy - wRect.top - hPx * 0.5;
       const leftPct = Math.max(-2, Math.min(94, rawLeftPct));
-      const topPx = Math.max(-22, Math.min(wRect.height - 20, rawTopPx));
+      const topPx = Math.max(-68, Math.min(wRect.height - 20, rawTopPx));
 
       removeStickerFromAllBookPages(el);
       topStickerZ += 1;
