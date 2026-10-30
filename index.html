@@ -1,0 +1,994 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ABIGAIL MORRA — Film Photography Portfolio</title>
+  <meta name="description" content="Film photography portfolio of Abigail Morra. Captured on 35mm film in Toronto.">
+  <meta property="og:title" content="ABIGAIL MORRA — Film Photography Portfolio">
+  <meta property="og:description" content="Film photography portfolio of Abigail Morra. Captured on 35mm film in Toronto.">
+  <meta property="og:image" content="MOR_FIVE_12.jpg">
+  <meta property="og:type" content="website">
+  <meta name="twitter:card" content="summary_large_image">
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Google Fonts: Hand-drawn crayon/marker + Classic Book Serif -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Covered+By+Your+Grace&family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Nanum+Pen+Script&family=Reenie+Beanie&display=swap" rel="stylesheet">
+
+  <style>
+    /* -------------------------------------------------------------
+       ILLUSTRATED RED LADYBUG CURSOR
+       Hotspot configured at the front snout/antenna tip (38, 14)
+       ------------------------------------------------------------- */
+    :root {
+      --ladybug-cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='44' height='40' viewBox='0 0 44 40'%3E%3Cpath d='M34 9 C36 8 38 7 40 5' stroke='%23111' stroke-width='2.2' stroke-linecap='round' fill='none'/%3E%3Cpath d='M35 13 C38 12 41 12 42 10' stroke='%23111' stroke-width='2' stroke-linecap='round' fill='none'/%3E%3Cpath d='M13 29 v5 h-2 M15 29 l2 3 h-1 M21 29 v5 h-2 M23 29 l2 3 h-1 M29 29 v5 h-2 M31 29 l2 3' stroke='%23111' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round' fill='none'/%3E%3Cpath d='M8 28 C7 24 9 14 19 10 C29 6 36 12 36 21 C36 28 32 29 8 28 Z' fill='%23c81612'/%3E%3Cpath d='M30 18 C33 14 36 17 38 21 C40 25 39 29 36 29 C32 29 29 25 30 18 Z' fill='%23111'/%3E%3Cpath d='M8 20 C10 18 14 20 14 24 C14 27 10 28 8 27 Z' fill='%23111'/%3E%3Ccircle cx='21' cy='23' r='4' fill='%23111'/%3E%3Ccircle cx='25' cy='14' r='2.8' fill='%23111'/%3E%3Ccircle cx='34' cy='23' r='2.4' fill='%23ffffff'/%3E%3Ccircle cx='34.5' cy='23' r='1.2' fill='%23111'/%3E%3Cpath d='M36 27 C37 27.5 38 26.5 38 25' stroke='%23c81612' stroke-width='1.5' stroke-linecap='round' fill='none'/%3E%3C/svg%3E"), 38 14, auto;
+
+      --ladybug-hover: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='44' height='40' viewBox='0 0 44 40'%3E%3Cpath d='M33 7 C36 5 39 4 41 2' stroke='%23183296' stroke-width='2.6' stroke-linecap='round' fill='none'/%3E%3Cpath d='M35 11 C38 10 42 9 44 7' stroke='%23183296' stroke-width='2.4' stroke-linecap='round' fill='none'/%3E%3Cpath d='M13 29 v5 h-2 M15 29 l2 3 h-1 M21 29 v5 h-2 M23 29 l2 3 h-1 M29 29 v5 h-2 M31 29 l2 3' stroke='%23111' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round' fill='none'/%3E%3Cpath d='M8 28 C7 24 9 14 19 10 C29 6 36 12 36 21 C36 28 32 29 8 28 Z' fill='%23d61b17'/%3E%3Cpath d='M30 18 C33 14 36 17 38 21 C40 25 39 29 36 29 C32 29 29 25 30 18 Z' fill='%23111'/%3E%3Cpath d='M8 20 C10 18 14 20 14 24 C14 27 10 28 8 27 Z' fill='%23111'/%3E%3Ccircle cx='21' cy='23' r='4' fill='%23111'/%3E%3Ccircle cx='25' cy='14' r='2.8' fill='%23111'/%3E%3Ccircle cx='34' cy='23' r='2.8' fill='%23ffffff'/%3E%3Ccircle cx='34.8' cy='23' r='1.3' fill='%23183296'/%3E%3Cpath d='M36 27 C37 27.5 38 26.5 38 25' stroke='%23d61b17' stroke-width='1.8' stroke-linecap='round' fill='none'/%3E%3C/svg%3E"), 38 14, pointer;
+      
+      --doodle-blue: #19318c;
+    }
+
+    html, body {
+      cursor: var(--ladybug-cursor) !important;
+      background-color: #fdfcf7;
+      color: #1a1918;
+      overflow-x: hidden;
+    }
+
+    a, button, .photo-plate {
+      cursor: var(--ladybug-hover) !important;
+    }
+
+    /* Floating Animated Ladybug Cursor Overlay */
+    #ladybug-cursor {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 48px;
+      height: 44px;
+      pointer-events: none;
+      z-index: 9999;
+      transform: translate3d(-38px, -14px, 0);
+      transform-origin: 38px 14px;
+      transition: transform 0.08s ease-out, filter 0.2s ease;
+      will-change: transform;
+    }
+
+    .ladybug-walking {
+      animation: ladybugStep 0.22s infinite alternate ease-in-out;
+    }
+
+    @keyframes ladybugStep {
+      0% { transform: translateY(0px) rotate(-1.5deg); }
+      100% { transform: translateY(-2px) rotate(1.5deg); }
+    }
+
+    #ladybug-cursor.hovering {
+      transform: translate3d(-38px, -14px, 0) scale(1.15) rotate(-6deg);
+      filter: drop-shadow(0 2px 6px rgba(24, 50, 150, 0.45));
+    }
+
+    #ladybug-cursor.clicking {
+      transform: translate3d(-38px, -14px, 0) scale(0.92, 0.85);
+    }
+
+    @media (hover: none) and (pointer: coarse) {
+      #ladybug-cursor {
+        display: none !important;
+      }
+    }
+
+    /* Tactile Fine Art Rag Paper Texture */
+    .paper-bg {
+      background-color: #fdfcf7;
+      background-image:
+        radial-gradient(rgba(35, 30, 20, 0.04) 1px, transparent 1px),
+        radial-gradient(rgba(35, 30, 20, 0.02) 1px, #fdfcf7 1px);
+      background-size: 24px 24px, 12px 12px;
+      background-position: 0 0, 6px 6px;
+    }
+
+    /* Hand-Drawn Pen Script Title: Smaller & Closer Together */
+    .pen-script-title {
+      font-family: 'Nanum Pen Script', 'Covered By Your Grace', cursive;
+      letter-spacing: -0.01em;
+      word-spacing: 0.12em;
+      color: #19318c;
+      text-shadow: 0.4px 0.4px 0px rgba(25, 49, 140, 0.25);
+    }
+
+    .editorial-caption {
+      font-family: 'EB Garamond', Garamond, Georgia, serif;
+    }
+
+    /* UNIFIED TEXTURED CRAYON / FELT-BRUSH DOODLE STYLING */
+    .doodle-stroke {
+      stroke: #19318c;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      filter: url(#crayon-roughness);
+      mix-blend-mode: multiply;
+      opacity: 0.94;
+    }
+
+    .doodle-fill {
+      fill: #19318c;
+      filter: url(#crayon-roughness);
+      mix-blend-mode: multiply;
+      opacity: 0.92;
+    }
+
+    /* Live Interactive Drawing Canvas: CLAMPED TO TOP HEADER ZONE */
+    #drawing-canvas {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 220px; /* Clamped strictly to header area above red line */
+      z-index: 35;
+      pointer-events: none;
+    }
+
+    #drawing-canvas.active {
+      pointer-events: auto;
+    }
+  </style>
+</head>
+<body class="paper-bg min-h-screen relative antialiased selection:bg-[#19318c] selection:text-white">
+
+  <!-- Interactive Drawing Canvas Overlay (Restricted to Header Zone) -->
+  <canvas id="drawing-canvas"></canvas>
+
+  <!-- SVG Filter providing the exact tactile crayon / felt-brush paper tooth across ALL doodles -->
+  <svg class="hidden" aria-hidden="true">
+    <defs>
+      <filter id="crayon-roughness" x="-15%" y="-15%" width="130%" height="130%">
+        <feTurbulence type="fractalNoise" baseFrequency="0.55" numOctaves="4" result="noise" />
+        <feDisplacementMap in="SourceGraphic" in2="noise" scale="2.2" xChannelSelector="R" yChannelSelector="G" result="displaced" />
+        <feGaussianBlur in="displaced" stdDeviation="0.25" result="blurred" />
+        <feMerge>
+          <feMergeNode in="displaced" />
+          <feMergeNode in="blurred" />
+        </feMerge>
+      </filter>
+    </defs>
+  </svg>
+
+  <!-- Illustrated Red Ladybug Cursor Tracker -->
+  <div id="ladybug-cursor" aria-hidden="true">
+    <div id="ladybug-body-wrapper" class="w-full h-full relative">
+      <svg viewBox="0 0 54 48" class="w-full h-full overflow-visible" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <g id="lb-antennae">
+          <path d="M40 10 C42 8 46 7 49 4" stroke="#111" stroke-width="2.6" stroke-linecap="round"/>
+          <path d="M42 16 C45 15 48 14 50 12" stroke="#111" stroke-width="2.3" stroke-linecap="round"/>
+        </g>
+        <g id="lb-legs" stroke="#111" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M15 36 v6 h-2.5"/>
+          <path d="M18 36 l2.5 4 h-1.5"/>
+          <path d="M25 36 v6 h-2.5"/>
+          <path d="M28 36 l2.5 4 h-1.5"/>
+          <path d="M35 36 v6 h-2.5"/>
+          <path d="M38 36 l2.5 4"/>
+        </g>
+        <path d="M9 35 C7 29 10 16 23 12 C35 8 44 14 44 26 C44 35 39 36 9 35 Z" fill="#c51613" stroke="#b21310" stroke-width="1.2"/>
+        <path d="M36 21 C39 16 44 19 47 24 C50 29 48 35 44 36 C39 36 35 31 36 21 Z" fill="#111111"/>
+        <path d="M9 25 C11 22 17 24 17 29 C17 33 12 35 9 34 Z" fill="#111111"/>
+        <circle cx="25" cy="28" r="5.2" fill="#111111"/>
+        <circle cx="31" cy="17" r="3.4" fill="#111111"/>
+        <circle cx="42" cy="28" r="3.2" fill="#ffffff"/>
+        <circle id="lb-pupil" cx="42.6" cy="28" r="1.6" fill="#111111"/>
+        <path d="M44.5 33 C45.5 33.5 47 32.5 47 30.5" stroke="#c51613" stroke-width="2" stroke-linecap="round"/>
+      </svg>
+    </div>
+  </div>
+
+  <!-- ============================================================== -->
+  <!-- MAIN COMPOSITION CONTAINER                                     -->
+  <!-- ============================================================== -->
+  <main class="w-full max-w-[1100px] mx-auto min-h-screen px-4 sm:px-8 pt-3 sm:pt-5 pb-20 relative select-none">
+
+    <!-- ----------------------------------------------------------- -->
+    <!-- HEADER ZONE (USER DOODLE AREA ABOVE RED LINE)               -->
+    <!-- ----------------------------------------------------------- -->
+    <header id="header-doodle-zone" class="relative w-full max-w-[980px] mx-auto mb-2 sm:mb-3 min-h-[110px] flex items-center justify-center">
+
+      <!-- TOP-LEFT MARGIN GREEN ZONE DOODLE -->
+      <div class="absolute -top-3 -left-4 sm:left-0 w-28 sm:w-40 pointer-events-none">
+        <svg viewBox="0 0 160 90" fill="none" class="w-full overflow-visible">
+          <!-- Looping wavy banner flourish -->
+          <path d="M10,65 C35,20 60,15 95,45 C125,70 145,50 155,30" class="doodle-stroke" stroke-width="2.8" />
+          <path d="M45,45 C55,25 70,30 65,48" class="doodle-stroke" stroke-width="2.2" />
+        </svg>
+      </div>
+
+      <!-- DOODLE: DACHSHUND ON SKATEBOARD (Given plenty of clean space, NO OVERLAPS) -->
+      <div class="absolute top-2 left-20 sm:left-32 w-28 sm:w-36 pointer-events-none transform -rotate-2">
+        <svg viewBox="0 0 280 160" fill="none" class="w-full overflow-visible">
+          <path d="M40,78 C90,78 160,76 195,68 C220,62 245,54 250,56 C245,62 235,68 220,78 C205,88 198,105 196,118" 
+                class="doodle-stroke" stroke-width="3" />
+          <circle cx="251" cy="55" r="3" class="doodle-fill" />
+          <ellipse cx="200" cy="62" rx="7" ry="3.5" class="doodle-stroke" stroke-width="2.4" fill="none" />
+          <circle cx="201" cy="62" r="2" class="doodle-fill" />
+          <path d="M228,60 L236,65" class="doodle-stroke" stroke-width="2.4" />
+          <path d="M165,68 C135,64 116,68 115,76 C115,84 140,84 165,84" class="doodle-stroke" stroke-width="2.8" />
+          <path d="M78,82 C42,82 24,76 24,70 C24,66 45,64 78,72" class="doodle-stroke" stroke-width="2.8" />
+          <path d="M76,76 L72,118" class="doodle-stroke" stroke-width="2.8" />
+          <path d="M96,110 L168,110" class="doodle-stroke" stroke-width="2.6" />
+          <path d="M72,118 L84,118 M76,122 L76,116 M80,122 L80,116" class="doodle-stroke" stroke-width="2.4" />
+          <path d="M86,114 L96,118" class="doodle-stroke" stroke-width="2.4" />
+          <path d="M165,114 L175,118" class="doodle-stroke" stroke-width="2.4" />
+          <path d="M194,118 L204,118 M198,122 L198,116 M201,122 L201,116" class="doodle-stroke" stroke-width="2.4" />
+          <path d="M50,115 C75,128 175,134 238,124 C246,120 248,116 244,122 C236,132 165,138 52,126 C46,122 46,118 50,115 Z" 
+                class="doodle-stroke" stroke-width="2.8" fill="none" />
+          <circle cx="75" cy="136" r="4.2" class="doodle-stroke" stroke-width="2.4" />
+          <circle cx="94" cy="136" r="4.2" class="doodle-stroke" stroke-width="2.4" />
+          <circle cx="198" cy="134" r="4.2" class="doodle-stroke" stroke-width="2.4" />
+          <circle cx="216" cy="132" r="4.2" class="doodle-stroke" stroke-width="2.4" />
+        </svg>
+      </div>
+
+      <!-- Compact & Sized Title: Stacked (ABIGAIL on top, MORRA under) -->
+      <div class="relative z-10 mx-auto px-4 text-center flex flex-col items-center">
+        <h1 class="pen-script-title text-4xl sm:text-5xl md:text-6xl font-normal uppercase leading-[0.88] tracking-[-0.01em] flex flex-col items-center">
+          <span>ABIGAIL</span>
+          <span class="mt-0.5">MORRA</span>
+        </h1>
+      </div>
+
+      <!-- DOODLE: SPIRAL & STARBURST DIRECTLY BESIDE NAME -->
+      <div class="absolute top-8 right-32 sm:right-56 w-16 sm:w-20 pointer-events-none">
+        <svg viewBox="0 0 80 50" fill="none" class="w-full overflow-visible">
+          <path d="M18,22 C18,12 30,10 32,20 C34,28 22,32 16,28 C8,24 8,12 18,8 C28,4 38,12 36,24" 
+                class="doodle-stroke" stroke-width="2.2" />
+          <polygon points="56,20 58,25 63,25 59,28 61,33 56,30 52,33 54,28 50,25 55,25" class="doodle-fill" />
+          <path d="M56,12 L56,6 M64,14 L70,10 M66,22 L72,24" class="doodle-stroke" stroke-width="1.8" />
+        </svg>
+      </div>
+
+      <!-- DOODLE: STAR CONSTELLATION CLIMBERS (Over right shoulder) -->
+      <div class="absolute -top-3 right-16 sm:right-28 w-24 sm:w-32 pointer-events-none transform rotate-3">
+        <svg viewBox="0 0 160 210" fill="none" class="w-full overflow-visible">
+          <path d="M22,32 L16,22 M22,32 L28,20 M22,32 L10,34 M22,32 L34,36" class="doodle-stroke" stroke-width="2" />
+          <path d="M22,34 C26,28 32,32 30,38 C56,36 90,44 104,78 C114,104 102,130 114,152" class="doodle-stroke" stroke-width="2.2" />
+          <polygon points="46,28 48,34 54,34 49,38 51,44 46,40 41,44 43,38 38,34 44,34" class="doodle-fill" />
+          <polygon points="86,34 88,40 94,40 89,44 91,50 86,46 81,50 83,44 78,40 84,40" class="doodle-fill" />
+        </svg>
+      </div>
+
+      <!-- NEW DOODLE: TINY FLUTTER BUG BESIDE TITLE -->
+      <div class="absolute top-12 left-[58%] w-10 sm:w-12 pointer-events-none">
+        <svg viewBox="0 0 40 40" fill="none" class="w-full overflow-visible">
+          <!-- Little winged bug in matching line stroke -->
+          <ellipse cx="20" cy="20" rx="4" ry="7" class="doodle-stroke" stroke-width="2" />
+          <path d="M18,17 C13,12 8,15 10,21 C12,25 17,21 17,21" class="doodle-stroke" stroke-width="1.8" />
+          <path d="M22,17 C27,12 32,15 30,21 C28,25 23,21 23,21" class="doodle-stroke" stroke-width="1.8" />
+          <path d="M19,13 L17,9 M21,13 L23,9" class="doodle-stroke" stroke-width="1.8" />
+        </svg>
+      </div>
+
+      <!-- TOP-RIGHT MARGIN GREEN ZONE DOODLE -->
+      <div class="absolute -top-2 -right-3 sm:right-0 w-28 sm:w-44 pointer-events-none">
+        <svg viewBox="0 0 180 110" fill="none" class="w-full overflow-visible">
+          <!-- Flowing zigzag wave as in screenshot -->
+          <path d="M10,85 C30,30 55,15 85,25 C115,35 130,85 155,75 C170,68 175,40 178,55" class="doodle-stroke" stroke-width="2.8" />
+          <polygon points="120,20 122,25 127,25 123,28 125,33 120,30 116,33 118,28 114,25 119,25" class="doodle-fill" />
+        </svg>
+      </div>
+
+      <!-- NEW DOODLE: CAMERA WITH FLASH (Placed in the clear zone to the lower-left of Abigail Morra) -->
+      <div class="absolute bottom-1 left-4 sm:left-12 w-11 sm:w-13 pointer-events-none">
+        <svg viewBox="0 0 64 64" fill="none" class="w-full overflow-visible">
+          <!-- Flash block on top -->
+          <rect x="23" y="6" width="18" height="11" rx="3" class="doodle-stroke" stroke-width="2.4" />
+          <!-- Flash mount stalk -->
+          <path d="M28,17 L28,21 M36,17 L36,21" class="doodle-stroke" stroke-width="2.2" />
+          <!-- Camera body -->
+          <path d="M13,27 C13,23 17,21 21,21 L43,21 C47,21 51,23 51,27 L51,52 C51,56 47,58 43,58 L21,58 C17,58 13,56 13,52 Z" class="doodle-stroke" stroke-width="2.6" />
+          <!-- Shutter button on left -->
+          <path d="M16,21 L16,17 C16,15.5 19,15.5 19,17 L19,21" class="doodle-stroke" stroke-width="2" />
+          <!-- Lens circle -->
+          <circle cx="35" cy="40" r="10" class="doodle-stroke" stroke-width="2.4" />
+          <circle cx="35" cy="40" r="4.5" class="doodle-stroke" stroke-width="1.8" />
+        </svg>
+      </div>
+
+      <!-- NEW DOODLE: PEEKING HAND FRAMER WITH EYES (Placed in the open gap between Morra and top-right flourish) -->
+      <div class="absolute -bottom-2 right-8 sm:right-16 w-12 sm:w-14 pointer-events-none">
+        <svg viewBox="0 0 70 80" fill="none" class="w-full overflow-visible">
+          <!-- Outer cupped hand frame silhouette -->
+          <path d="M20,68 C12,60 12,40 20,26 C24,20 28,16 38,12 C48,8 60,14 62,24 C64,36 58,48 56,58 C52,68 32,74 20,68 Z" class="doodle-stroke" stroke-width="2.4" />
+          <!-- Horizontal knuckles -->
+          <path d="M30,19 C36,16 46,20 48,26" class="doodle-stroke" stroke-width="2.2" />
+          <path d="M28,27 C34,24 44,28 46,34" class="doodle-stroke" stroke-width="2.2" />
+          <!-- Vertical fingers -->
+          <path d="M23,34 L23,54 M28,34 L28,52 M34,34 L34,50" class="doodle-stroke" stroke-width="2.2" />
+          <!-- Peeking eyes cutout box -->
+          <rect x="36" y="38" width="18" height="18" rx="2" class="doodle-stroke" stroke-width="2" />
+          <!-- Big peeking pupils -->
+          <path d="M40,46 C40,42 45,42 45,46 L45,52 L40,52 Z" class="doodle-fill" />
+          <path d="M48,46 C48,42 53,42 53,46 L53,52 L48,52 Z" class="doodle-fill" />
+        </svg>
+      </div>
+
+    </header>
+
+    <!-- ----------------------------------------------------------- -->
+    <!-- GALLERY & WHITE-SPACE MARGINS (NO USER DOODLE UNDER HERE)   -->
+    <!-- Gallery shifted right, leaving room on the left             -->
+    <!-- ----------------------------------------------------------- -->
+    <div class="relative w-full flex flex-col md:flex-row items-start justify-end gap-5 sm:gap-7 mt-0.5">
+
+      <!-- LEFT MARGIN (GREEN ZONE DOODLE AREA) -->
+      <div class="w-full md:w-[32%] flex flex-col items-center md:items-start pl-2 sm:pl-4 pointer-events-none select-none relative self-stretch">
+        
+        <!-- Large flowing vertical lightning-wave doodle + extra matching line doodles -->
+        <div class="w-24 sm:w-36 sticky top-12 mt-4">
+          <svg viewBox="0 0 130 420" fill="none" class="w-full overflow-visible">
+            <path d="M60,10 C20,60 10,110 45,150 C70,180 20,220 50,265 C70,295 40,325 35,335 C30,350 48,370 42,390" 
+                  class="doodle-stroke" stroke-width="3" />
+            <!-- Scattered crayon stars along left edge -->
+            <polygon points="85,60 87,66 93,66 88,70 90,76 85,72 80,76 82,70 77,66 83,66" class="doodle-fill" />
+            <polygon points="25,190 27,195 33,195 28,199 30,204 25,201 20,204 22,199 18,195 24,195" class="doodle-fill" />
+            <polygon points="75,280 77,285 82,285 78,288 80,293 75,290 71,293 73,288 69,285 74,285" class="doodle-fill" />
+            
+            <!-- Little crawling inchworm bug -->
+            <path d="M40,115 C45,108 52,108 55,115 C60,108 67,108 70,115" class="doodle-stroke" stroke-width="2.2" />
+            <circle cx="72" cy="114" r="1.8" class="doodle-fill" />
+
+            <!-- New matched spiral loop doodle -->
+            <path d="M78,160 C78,150 90,148 92,158 C94,166 82,170 76,166 C68,162 68,150 78,146 C88,142 98,150 96,162" 
+                  class="doodle-stroke" stroke-width="2.2" />
+
+            <!-- New little beetle in matching line stroke -->
+            <ellipse cx="68" cy="235" rx="5" ry="7" class="doodle-stroke" stroke-width="2" />
+            <path d="M63,230 L57,227 M63,235 L56,235 M63,240 L57,243" class="doodle-stroke" stroke-width="1.8" />
+            <path d="M73,230 L79,227 M73,235 L80,235 M73,240 L79,243" class="doodle-stroke" stroke-width="1.8" />
+            <path d="M66,228 L63,222 M70,228 L73,222" class="doodle-stroke" stroke-width="1.8" />
+          </svg>
+        </div>
+
+        <!-- NEW DOODLE GROUP 1: WALKING SMILEY SPARK & ROUND CRITTER (Clear area on left beneath main wave) -->
+        <div class="w-24 sm:w-28 mt-4 ml-1 pointer-events-none">
+          <svg viewBox="0 0 110 170" fill="none" class="w-full overflow-visible">
+            <!-- Round walking smiling character -->
+            <g transform="translate(30, 8)">
+              <circle cx="32" cy="30" r="22" class="doodle-fill" />
+              <circle cx="26" cy="24" r="2.2" fill="#fdfcf7" />
+              <circle cx="38" cy="24" r="2.2" fill="#fdfcf7" />
+              <path d="M25,32 C28,37 36,37 39,32" stroke="#fdfcf7" stroke-width="2.6" stroke-linecap="round" fill="none" />
+              <!-- Walking feet -->
+              <path d="M20,48 L15,62 L8,63" class="doodle-stroke" stroke-width="3" />
+              <path d="M42,48 L48,62 L56,60" class="doodle-stroke" stroke-width="3" />
+            </g>
+
+            <!-- Spiky walking starburst character -->
+            <g transform="translate(6, 82)">
+              <path d="M30,10 L35,20 L46,14 L44,25 L56,27 L48,36 L56,46 L44,48 L45,60 L34,54 L28,64 L24,53 L13,57 L17,46 L7,40 L16,32 L10,21 L22,23 Z" class="doodle-fill" />
+              <circle cx="26" cy="36" r="2" fill="#fdfcf7" />
+              <circle cx="38" cy="36" r="2" fill="#fdfcf7" />
+              <path d="M25,43 C29,48 35,48 39,43" stroke="#fdfcf7" stroke-width="2.4" stroke-linecap="round" fill="none" />
+              <!-- Angular stick legs walking -->
+              <path d="M22,58 L12,74 L20,77" class="doodle-stroke" stroke-width="2.8" />
+              <path d="M36,56 L44,72 L53,68" class="doodle-stroke" stroke-width="2.8" />
+            </g>
+          </svg>
+        </div>
+
+        <!-- NEW DOODLE GROUP 2: TALL SLENDER STEM FLOWER + MULTI-POINT BURST STAR (Lower left margin) -->
+        <div class="w-20 sm:w-24 mt-6 ml-2 pointer-events-none">
+          <svg viewBox="0 0 80 180" fill="none" class="w-full overflow-visible">
+            <!-- Tall slender stem flower -->
+            <g transform="translate(10, 0)">
+              <!-- Petals head -->
+              <path d="M24,18 C20,12 25,6 30,10 C34,14 30,20 28,21 C33,18 39,20 38,26 C36,31 30,29 28,26 C30,32 26,36 21,34 C16,32 18,25 21,24 C16,26 12,22 14,17 C17,12 22,17 24,19" class="doodle-stroke" stroke-width="2.4" fill="none" />
+              <!-- Long pencil stem with leaf branch -->
+              <path d="M24,24 L20,110 L18,150" class="doodle-stroke" stroke-width="2" />
+              <path d="M18,150 L12,88" class="doodle-stroke" stroke-width="1.8" />
+            </g>
+
+            <!-- Asymmetrical burst star nestled alongside stem -->
+            <g transform="translate(38, 95)">
+              <path d="M18,18 L34,2 M18,18 L38,15 M18,18 L42,28 M18,18 L28,36 M18,18 L16,40 M18,18 L4,32 M18,18 L2,18 M18,18 L6,6 M18,18 L20,0" class="doodle-stroke" stroke-width="2.4" />
+            </g>
+          </svg>
+        </div>
+
+      </div>
+
+      <!-- RIGHT SIDE: STEPPED GALLERY (Made smaller, aligned right) -->
+      <div class="w-full md:w-[68%] max-w-[620px] relative z-10">
+
+        <!-- 4-Column Stepped Cascade: 6, 5, 4, 3 descending -->
+        <div class="grid grid-cols-4 gap-2 sm:gap-2.5 items-start">
+
+          <!-- COLUMN 1: 6 CARDS DEEP -->
+          <div class="flex flex-col gap-2 sm:gap-2.5">
+            <!-- 1. Purple House at the topish -->
+            <div class="photo-plate relative aspect-[3/4.2] overflow-hidden bg-stone-200 border border-stone-300/60 shadow-sm group"
+                 data-title="Victorian in Violet" data-caption="Autumn foliage & purple facade"
+                 data-src="MOR_FIVE_12.jpg">
+              <img src="MOR_FIVE_12.jpg" 
+                   alt="Purple Victorian house framed by autumn leaves" 
+                   class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+            </div>
+
+            <!-- 2. Motion Blur Portrait -->
+            <div class="photo-plate relative aspect-[3/4.2] overflow-hidden bg-stone-200 border border-stone-300/60 shadow-sm group"
+                 data-title="Portrait in Motion" data-caption="Blue & brown stripes • 35mm film"
+                 data-src="IMG_0053.jpg">
+              <img src="IMG_0053.jpg" 
+                   alt="Portrait with motion blur" 
+                   class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+            </div>
+
+            <!-- 3. Rusty Silverado Tailgate -->
+            <div class="photo-plate relative aspect-[3/4.2] overflow-hidden bg-stone-200 border border-stone-300/60 shadow-sm group"
+                 data-title="Silverado Weathering" data-caption="Chrome & rust patina study"
+                 data-src="MOR_FIVE_2.jpg">
+              <img src="MOR_FIVE_2.jpg" 
+                   alt="Rusted Silverado truck bumper" 
+                   class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+            </div>
+
+            <!-- 4. Plastic Wrapped Porch Under Construction -->
+            <div class="photo-plate relative aspect-[3/4.2] overflow-hidden bg-stone-200 border border-stone-300/60 shadow-sm group"
+                 data-title="House No. 282" data-caption="Sheeting, stairs & iron railing"
+                 data-src="MOR_FIVE_8.jpg">
+              <img src="MOR_FIVE_8.jpg" 
+                   alt="Brick house with plastic wrap and front steps" 
+                   class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+            </div>
+
+            <!-- 5. Concrete Steps Crack -->
+            <div class="photo-plate relative aspect-[3/4.2] overflow-hidden bg-stone-200 border border-stone-300/60 shadow-sm group"
+                 data-title="Broken Threshold" data-caption="Weathered porch steps & railing"
+                 data-src="MOR_FIVE_3.jpg">
+              <img src="MOR_FIVE_3.jpg" 
+                   alt="Cracked porch stairs with fallen leaves" 
+                   class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+            </div>
+
+            <!-- 6. Foundation & Soil Debris (MOR_FIVE_7) -->
+            <div class="photo-plate relative aspect-[3/4.2] overflow-hidden bg-stone-200 border border-stone-300/60 shadow-sm group"
+                 data-title="Foundation & Soil Debris" data-caption="Organic decomposition • Autumn garden study"
+                 data-src="MOR_FIVE_7.jpg">
+              <img src="MOR_FIVE_7.jpg" 
+                   alt="Discarded packaging and organic debris decompose in dry dirt beside foundation wall" 
+                   class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+            </div>
+          </div>
+
+          <!-- COLUMN 2: 5 CARDS DEEP -->
+          <div class="flex flex-col gap-2 sm:gap-2.5">
+            <!-- 1. Skeleton Hands in Grass (Near the top) -->
+            <div class="photo-plate relative aspect-[3/4.2] overflow-hidden bg-stone-200 border border-stone-300/60 shadow-sm group"
+                 data-title="Rising from the Lawn" data-caption="Halloween skeleton in grass"
+                 data-src="MOR_FIVE_13.jpg">
+              <img src="MOR_FIVE_13.jpg" 
+                   alt="Skeleton hands and skull emerging from lawn" 
+                   class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+            </div>
+
+            <!-- 2. Red Column & Passing Streetcar -->
+            <div class="photo-plate relative aspect-[3/4.2] overflow-hidden bg-stone-200 border border-stone-300/60 shadow-sm group"
+                 data-title="Sankofa Red & Red Streetcar" data-caption="Motion blur transit study • Yonge Street"
+                 data-src="IMG_0007.jpg">
+              <img src="IMG_0007.jpg" 
+                   alt="Sankofa Square red column with passing streetcar" 
+                   class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+            </div>
+
+            <!-- 3. Gardening Shears Pruning -->
+            <div class="photo-plate relative aspect-[3/4.2] overflow-hidden bg-stone-200 border border-stone-300/60 shadow-sm group"
+                 data-title="Pruning the Overgrowth" data-caption="Long shears in foliage"
+                 data-src="MOR_FIVE_11.jpg">
+              <img src="MOR_FIVE_11.jpg" 
+                   alt="Person trimming garden hedge with shears" 
+                   class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+            </div>
+
+            <!-- 4. Mended Wicker Armchair (MOR_FIVE_9) -->
+            <div class="photo-plate relative aspect-[3/4.2] overflow-hidden bg-stone-200 border border-stone-300/60 shadow-sm group"
+                 data-title="Mended Wicker" data-caption="Black duct tape repair & autumn leaves"
+                 data-src="MOR_FIVE_9.jpg">
+              <img src="MOR_FIVE_9.jpg" 
+                   alt="Outdoor wicker armchair repaired with black duct tape" 
+                   class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+            </div>
+
+            <!-- 5. Hollow Pumpkin on the Ground -->
+            <div class="photo-plate relative aspect-[3/4.2] overflow-hidden bg-stone-200 border border-stone-300/60 shadow-sm group"
+                 data-title="Hollowed Gourd" data-caption="Carved pumpkin decay & autumn light"
+                 data-src="MOR_FIVE_6.jpg">
+              <img src="MOR_FIVE_6.jpg" 
+                   alt="Hollowed pumpkin among fallen leaves" 
+                   class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+            </div>
+          </div>
+
+          <!-- COLUMN 3: 4 CARDS DEEP -->
+          <div class="flex flex-col gap-2 sm:gap-2.5">
+            <!-- 1. Curb Shoes (Yellow Heel Near Top) -->
+            <div class="photo-plate relative aspect-[3/4.2] overflow-hidden bg-stone-200 border border-stone-300/60 shadow-sm group"
+                 data-title="Curbside Heels & Teacups" data-caption="Yellow strap sandal, boots & porcelain"
+                 data-src="MOR_FIVE_10.jpg">
+              <img src="MOR_FIVE_10.jpg" 
+                   alt="Yellow high heel sandal and boots on curb with teacup" 
+                   class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+            </div>
+
+            <!-- 2. Zamboni 'GO BLUES' -->
+            <div class="photo-plate relative aspect-[3/4.2] overflow-hidden bg-stone-200 border border-stone-300/60 shadow-sm group"
+                 data-title="Cobalt Zamboni" data-caption="Ice rink arena • Go Blues"
+                 data-src="MOR_THREE_1.jpg">
+              <img src="MOR_THREE_1.jpg" 
+                   alt="Blue Zamboni on ice rink" 
+                   class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+            </div>
+
+            <!-- 3. Rusted Utility Pole Detail -->
+            <div class="photo-plate relative aspect-[3/4.2] overflow-hidden bg-stone-200 border border-stone-300/60 shadow-sm group"
+                 data-title="Flaking Iron & Wood Shim" data-caption="Industrial street texture"
+                 data-src="MOR_FIVE_4.jpg">
+              <img src="MOR_FIVE_4.jpg" 
+                   alt="Corroded metal pipe strapped with clamp" 
+                   class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+            </div>
+
+            <!-- 4. Downtown Toronto Street Signage / Filmores Hotel -->
+            <div class="photo-plate relative aspect-[3/4.2] overflow-hidden bg-stone-200 border border-stone-300/60 shadow-sm group"
+                 data-title="Filmores Hotel & Neon Marquee" data-caption="Liquidation Auction • Urban textures"
+                 data-src="MOR_TWO_3.JPG.jpg">
+              <img src="MOR_TWO_3.JPG.jpg" 
+                   alt="Filmores Hotel vintage signage" 
+                   class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+            </div>
+          </div>
+
+          <!-- COLUMN 4: 3 CARDS DEEP -->
+          <div class="flex flex-col gap-2 sm:gap-2.5">
+            <!-- 1. Autumn Red & Yellow Tree Canopy -->
+            <div class="photo-plate relative aspect-[3/4.2] overflow-hidden bg-stone-200 border border-stone-300/60 shadow-sm group"
+                 data-title="Split Canopy" data-caption="Maple foliage and power lines"
+                 data-src="MOR_FIVE_1.jpg">
+              <img src="MOR_FIVE_1.jpg" 
+                   alt="Vibrant red and green autumn tree canopy" 
+                   class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+            </div>
+
+            <!-- 2. Glass Reflection Player in Penalty Box -->
+            <div class="photo-plate relative aspect-[3/4.2] overflow-hidden bg-stone-200 border border-stone-300/60 shadow-sm group"
+                 data-title="Through the Glass Barrier" data-caption="Intensity & isolation on the bench"
+                 data-src="IMG_0557-2.jpg">
+              <img src="IMG_0557-2.jpg" 
+                   alt="Hockey player viewed through rink glass" 
+                   class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+            </div>
+
+            <!-- 3. Autumn Orange Peel Still Life -->
+            <div class="photo-plate relative aspect-[3/4.2] overflow-hidden bg-stone-200 border border-stone-300/60 shadow-sm group"
+                 data-title="Fallen Foliage & Citrus" data-caption="Autumn ground textures • Toronto"
+                 data-src="MOR_FIVE_5.jpg">
+              <img src="MOR_FIVE_5.jpg" 
+                   alt="Orange peel among autumn leaves" 
+                   class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+      <!-- RIGHT OUTER MARGIN (GREEN ZONE DOODLE AREA) -->
+      <div class="hidden lg:block w-16 xl:w-20 pointer-events-none select-none relative self-stretch">
+        <div class="w-16 sticky top-24">
+          <svg viewBox="0 0 60 280" fill="none" class="w-full overflow-visible">
+            <!-- Flowing zigzag margin streak matching green screenshot line -->
+            <path d="M15,10 C45,50 50,110 20,150 C55,190 40,240 10,270" class="doodle-stroke" stroke-width="2.6" />
+            <polygon points="35,70 37,74 42,74 38,77 40,82 35,79 31,82 33,77 29,74 34,74" class="doodle-fill" />
+            <polygon points="20,210 22,214 27,214 23,217 25,222 20,219 16,222 18,217 14,214 19,214" class="doodle-fill" />
+          </svg>
+        </div>
+
+        <!-- NEW DOODLE GROUP 3: SHOOTING LOOP STAR & 5-PETAL CRAYON FLOWER (Right margin under existing doodle) -->
+        <div class="w-16 mt-8 pointer-events-none">
+          <svg viewBox="0 0 70 200" fill="none" class="w-full overflow-visible">
+            <!-- Shooting star with loopy tail -->
+            <g transform="translate(6, 10)">
+              <polygon points="20,8 24,18 35,16 28,24 32,34 22,28 14,35 15,24 6,18 16,17" class="doodle-fill" />
+              <!-- Loopy swirl ribbon tail -->
+              <path d="M22,30 C20,44 32,46 36,38 C40,28 26,26 24,42 C20,62 38,68 48,60 C56,54 58,62 52,70" class="doodle-stroke" stroke-width="2.4" />
+            </g>
+
+            <!-- 5-Petal rounded daisy doodle -->
+            <g transform="translate(10, 115)">
+              <path d="M25,18 C28,11 36,12 36,18 C36,23 30,24 28,25 C34,26 38,32 34,37 C30,41 24,37 23,34 C22,40 15,41 12,36 C8,31 13,26 17,25 C12,24 8,18 12,13 C16,9 22,13 23,18 Z" class="doodle-stroke" stroke-width="2.4" fill="none" />
+              <!-- Small center dash -->
+              <ellipse cx="23" cy="25" rx="3.5" ry="1.6" class="doodle-fill" />
+            </g>
+          </svg>
+        </div>
+      </div>
+
+    </div>
+
+  </main>
+
+  <!-- ============================================================== -->
+  <!-- DISCREET DOODLE CONTROLLER (BOTTOM-RIGHT)                      -->
+  <!-- ============================================================== -->
+  <aside class="fixed bottom-5 right-5 z-40 bg-white/90 backdrop-blur-md px-3.5 py-2 rounded-full shadow-lg border border-stone-300/80 flex items-center gap-2 select-none text-xs">
+    <label for="localPhotoInput" title="Load your images from your computer" class="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-stone-100 hover:bg-stone-200 text-stone-800 transition-all font-sans font-medium text-[11px] tracking-wider uppercase cursor-pointer border border-stone-300">
+      <svg class="w-3.5 h-3.5 text-[#19318c]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+        <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
+        <circle cx="8.5" cy="8.5" r="1.5"/>
+        <polyline points="21 15 16 10 5 21"/>
+      </svg>
+      <span>Load Photos</span>
+      <input type="file" id="localPhotoInput" multiple accept="image/*" class="hidden">
+    </label>
+
+    <button id="toggleDoodleBtn" type="button" class="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-[#19318c] text-white hover:bg-[#13256e] transition-all font-sans font-medium text-[11px] tracking-wider uppercase">
+      <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M12 20h9"/>
+        <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/>
+      </svg>
+      <span id="doodleBtnLabel">Doodle: Off</span>
+    </button>
+    <button id="clearDoodleBtn" type="button" title="Clear screen doodles" class="px-2.5 py-1.5 rounded-full text-stone-500 hover:text-stone-800 hover:bg-stone-200/70 transition-all font-sans text-[11px] tracking-wide uppercase font-medium">
+      Clear
+    </button>
+  </aside>
+
+  <!-- ============================================================== -->
+  <!-- MINIMAL CLEAN LIGHTBOX MODAL                                   -->
+  <!-- ============================================================== -->
+  <div id="lightbox" class="fixed inset-0 z-50 bg-black/90 backdrop-blur-sm hidden items-center justify-center p-4 sm:p-8 select-none" role="dialog" aria-modal="true">
+    <button id="closeLightbox" aria-label="Close image" class="absolute top-4 right-4 z-50 text-white/70 hover:text-white text-3xl font-mono p-2 transition">
+      ✕
+    </button>
+    
+    <div class="relative max-w-4xl max-h-[85vh] flex flex-col items-center">
+      <img id="lightboxImg" src="" alt="Enlarged film frame" class="max-h-[75vh] w-auto object-contain shadow-2xl rounded-sm">
+      <div class="mt-4 text-center">
+        <h3 id="lightboxTitle" class="editorial-caption text-white text-lg sm:text-xl font-medium tracking-wide"></h3>
+        <p id="lightboxCaption" class="editorial-caption italic text-stone-400 text-xs sm:text-sm mt-0.5"></p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================================== -->
+  <!-- JAVASCRIPT: Animated Ladybug Cursor, Sparkle Audio & Lightbox   -->
+  <!-- ============================================================== -->
+  <script>
+    // --- 1. Illustrated Ladybug Cursor Tracking ---
+    const lbCursor = document.getElementById('ladybug-cursor');
+    const lbBodyWrapper = document.getElementById('ladybug-body-wrapper');
+    const lbAntennae = document.getElementById('lb-antennae');
+    const lbPupil = document.getElementById('lb-pupil');
+
+    let moveTimeout = null;
+    const HOTSPOT_X = 46;
+    const HOTSPOT_Y = 18;
+
+    window.addEventListener('pointermove', (e) => {
+      lbCursor.style.transform = `translate3d(${e.clientX - HOTSPOT_X}px, ${e.clientY - HOTSPOT_Y}px, 0)`;
+
+      // Step walking sway animation
+      lbBodyWrapper.classList.add('ladybug-walking');
+      clearTimeout(moveTimeout);
+      moveTimeout = setTimeout(() => {
+        lbBodyWrapper.classList.remove('ladybug-walking');
+      }, 150);
+    });
+
+    // Hover state reactions
+    const interactiveTargets = '.photo-plate, #closeLightbox, #toggleDoodleBtn, #clearDoodleBtn';
+    document.addEventListener('mouseover', (e) => {
+      if (e.target.closest(interactiveTargets)) {
+        lbCursor.classList.add('hovering');
+        if (lbPupil) lbPupil.setAttribute('fill', '#19318c');
+        if (lbAntennae) {
+          lbAntennae.querySelectorAll('path').forEach(p => p.setAttribute('stroke', '#19318c'));
+        }
+      }
+    });
+
+    document.addEventListener('mouseout', (e) => {
+      if (e.target.closest(interactiveTargets)) {
+        lbCursor.classList.remove('hovering');
+        if (lbPupil) lbPupil.setAttribute('fill', '#111111');
+        if (lbAntennae) {
+          lbAntennae.querySelectorAll('path').forEach(p => p.setAttribute('stroke', '#111111'));
+        }
+      }
+    });
+
+    window.addEventListener('pointerdown', (e) => {
+      lbCursor.classList.add('clicking');
+      if (e.target.closest(interactiveTargets)) {
+        playSparkleSound();
+      }
+    });
+
+    window.addEventListener('pointerup', () => {
+      lbCursor.classList.remove('clicking');
+    });
+
+    // --- 2. Delicate Musical Sparkle Chime Synth (Web Audio API) ---
+    let audioCtx = null;
+    function getAudioCtx() {
+      if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+      return audioCtx;
+    }
+
+    function playSparkleSound() {
+      try {
+        const audio = getAudioCtx();
+        if (!audio) return;
+        if (audio.state === 'suspended') audio.resume();
+
+        const notes = [1046.5, 1318.5, 1567.98, 2093.0, 2637.02]; // C6, E6, G6, C7, E7
+        const now = audio.currentTime;
+
+        notes.forEach((freq, idx) => {
+          const osc = audio.createOscillator();
+          const gain = audio.createGain();
+          const startTime = now + idx * 0.035;
+
+          osc.type = 'sine';
+          osc.frequency.setValueAtTime(freq, startTime);
+
+          gain.gain.setValueAtTime(0.001, startTime);
+          gain.gain.exponentialRampToValueAtTime(0.045, startTime + 0.015);
+          gain.gain.exponentialRampToValueAtTime(0.0001, startTime + 0.35);
+
+          osc.connect(gain);
+          gain.connect(audio.destination);
+
+          osc.start(startTime);
+          osc.stop(startTime + 0.36);
+        });
+      } catch (err) {
+        // Audio synthesis fallback
+      }
+    }
+
+    // --- 3. Interactive Doodle Canvas (STRICTLY CLAMPED TO HEADER AREA) ---
+    const canvas = document.getElementById('drawing-canvas');
+    const drawCtx = canvas.getContext('2d');
+    const headerZone = document.getElementById('header-doodle-zone');
+    const toggleDoodleBtn = document.getElementById('toggleDoodleBtn');
+    const doodleBtnLabel = document.getElementById('doodleBtnLabel');
+    const clearDoodleBtn = document.getElementById('clearDoodleBtn');
+
+    let isDoodlingActive = false;
+    let isDrawing = false;
+    let lastX = 0;
+    let lastY = 0;
+    let maxAllowedY = 180;
+
+    function resizeCanvas() {
+      const dpr = window.devicePixelRatio || 1;
+      const rect = headerZone.getBoundingClientRect();
+      const scrollY = window.pageYOffset || document.documentElement.scrollTop;
+      
+      // Canvas height is clamped strictly to the bottom of the header zone (above red line)
+      maxAllowedY = rect.bottom + scrollY + 10;
+      
+      canvas.width = window.innerWidth * dpr;
+      canvas.height = maxAllowedY * dpr;
+      canvas.style.height = `${maxAllowedY}px`;
+      
+      drawCtx.scale(dpr, dpr);
+    }
+    resizeCanvas();
+    window.addEventListener('resize', resizeCanvas);
+    window.addEventListener('scroll', resizeCanvas, { passive: true });
+
+    toggleDoodleBtn.addEventListener('click', () => {
+      isDoodlingActive = !isDoodlingActive;
+      playSparkleSound();
+      if (isDoodlingActive) {
+        canvas.classList.add('active');
+        toggleDoodleBtn.classList.remove('bg-[#19318c]');
+        toggleDoodleBtn.classList.add('bg-blue-600', 'ring-2', 'ring-blue-400');
+        doodleBtnLabel.textContent = 'Doodle: On';
+      } else {
+        canvas.classList.remove('active');
+        toggleDoodleBtn.classList.remove('bg-blue-600', 'ring-2', 'ring-blue-400');
+        toggleDoodleBtn.classList.add('bg-[#19318c]');
+        doodleBtnLabel.textContent = 'Doodle: Off';
+      }
+    });
+
+    clearDoodleBtn.addEventListener('click', () => {
+      playSparkleSound();
+      drawCtx.clearRect(0, 0, canvas.width, canvas.height);
+    });
+
+    function getCoords(e) {
+      const clientX = e.clientX || (e.touches && e.touches[0].clientX) || 0;
+      const clientY = e.clientY || (e.touches && e.touches[0].clientY) || 0;
+      const scrollY = window.pageYOffset || document.documentElement.scrollTop;
+      return {
+        x: clientX,
+        y: clientY + scrollY
+      };
+    }
+
+    function startDrawing(e) {
+      if (!isDoodlingActive) return;
+      const coords = getCoords(e);
+      // Strictly prevent drawing if starting below the red header boundary line
+      if (coords.y > maxAllowedY) return;
+
+      isDrawing = true;
+      lastX = coords.x;
+      lastY = coords.y;
+    }
+
+    function draw(e) {
+      if (!isDoodlingActive || !isDrawing) return;
+      const coords = getCoords(e);
+
+      // If dragging below allowed boundary, terminate stroke immediately
+      if (coords.y > maxAllowedY) {
+        isDrawing = false;
+        return;
+      }
+
+      drawCtx.beginPath();
+      drawCtx.strokeStyle = '#19318c';
+      drawCtx.lineWidth = 2.8;
+      drawCtx.lineCap = 'round';
+      drawCtx.lineJoin = 'round';
+      drawCtx.moveTo(lastX, lastY);
+      drawCtx.lineTo(coords.x, coords.y);
+      drawCtx.stroke();
+
+      lastX = coords.x;
+      lastY = coords.y;
+    }
+
+    function stopDrawing() {
+      isDrawing = false;
+    }
+
+    canvas.addEventListener('mousedown', startDrawing);
+    canvas.addEventListener('mousemove', draw);
+    window.addEventListener('mouseup', stopDrawing);
+
+    canvas.addEventListener('touchstart', startDrawing, { passive: true });
+    canvas.addEventListener('touchmove', draw, { passive: true });
+    window.addEventListener('touchend', stopDrawing);
+
+    // --- 4. Clean Lightbox Modal ---
+    const lightbox = document.getElementById('lightbox');
+    const lightboxImg = document.getElementById('lightboxImg');
+    const lightboxTitle = document.getElementById('lightboxTitle');
+    const lightboxCaption = document.getElementById('lightboxCaption');
+    const closeLightboxBtn = document.getElementById('closeLightbox');
+
+    document.querySelectorAll('.photo-plate').forEach((plate) => {
+      plate.addEventListener('click', () => {
+        if (isDoodlingActive) return; // Do not open lightbox when drawing mode is on
+        const img = plate.querySelector('img');
+        const src = img ? img.src : plate.getAttribute('data-src');
+        const title = plate.getAttribute('data-title');
+        const caption = plate.getAttribute('data-caption');
+
+        lightboxImg.src = src;
+        lightboxTitle.textContent = title || '';
+        lightboxCaption.textContent = caption || '';
+        lightbox.classList.remove('hidden');
+        lightbox.classList.add('flex');
+      });
+    });
+
+    closeLightboxBtn.addEventListener('click', () => {
+      lightbox.classList.add('hidden');
+      lightbox.classList.remove('flex');
+    });
+
+    lightbox.addEventListener('click', (e) => {
+      if (e.target === lightbox) {
+        lightbox.classList.add('hidden');
+        lightbox.classList.remove('flex');
+      }
+    });
+
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && !lightbox.classList.contains('hidden')) {
+        lightbox.classList.add('hidden');
+        lightbox.classList.remove('flex');
+      }
+    });
+
+    // --- 5. Automatic Local Image Loader & Offline Storage ---
+    // Reads selected image files directly into memory so local downloaded HTML files display immediately
+    const localPhotoInput = document.getElementById('localPhotoInput');
+
+    function applyImageDataUrl(filename, dataUrl) {
+      // Normalize filename comparison (handles spaces, lowercase, and exact match)
+      const cleanName = filename.trim().toLowerCase();
+      document.querySelectorAll('.photo-plate').forEach((plate) => {
+        const plateSrc = (plate.getAttribute('data-src') || '').trim().toLowerCase();
+        if (plateSrc === cleanName || cleanName.includes(plateSrc) || plateSrc.includes(cleanName)) {
+          const img = plate.querySelector('img');
+          if (img) {
+            img.src = dataUrl;
+          }
+        }
+      });
+    }
+
+    if (localPhotoInput) {
+      localPhotoInput.addEventListener('change', (e) => {
+        const files = Array.from(e.target.files || []);
+        if (!files.length) return;
+
+        files.forEach((file) => {
+          const reader = new FileReader();
+          reader.onload = (evt) => {
+            const dataUrl = evt.target.result;
+            applyImageDataUrl(file.name, dataUrl);
+            try {
+              // Cache in local storage for persistence across reloads
+              localStorage.setItem('morra_img_' + file.name.toLowerCase(), dataUrl);
+            } catch(e) {
+              // LocalStorage quota may be exceeded for large raw files, handled gracefully
+            }
+          };
+          reader.readAsDataURL(file);
+        });
+
+        playSparkleSound();
+      });
+
+      // Restore previously saved pictures from memory on page load
+      window.addEventListener('DOMContentLoaded', () => {
+        try {
+          Object.keys(localStorage).forEach((key) => {
+            if (key.startsWith('morra_img_')) {
+              const fname = key.replace('morra_img_', '');
+              const dataUrl = localStorage.getItem(key);
+              if (dataUrl) {
+                applyImageDataUrl(fname, dataUrl);
+              }
+            }
+          });
+        } catch(e) {}
+      });
+    }
+
+    // --- 6. Editorial Archival Placeholder Fallback for Unscanned Frames ---
+    document.querySelectorAll('.photo-plate img').forEach(img => {
+      img.addEventListener('error', function() {
+        this.style.display = 'none';
+        const plate = this.closest('.photo-plate');
+        if (plate && !plate.querySelector('.fallback-placeholder')) {
+          const title = plate.getAttribute('data-title') || 'Upcoming Scan';
+          const caption = plate.getAttribute('data-caption') || '35mm Film Archive';
+          const placeholder = document.createElement('div');
+          placeholder.className = 'fallback-placeholder absolute inset-0 flex flex-col items-center justify-center p-3 text-center bg-[#f6f4ee] border border-stone-300/70 transition-all select-none';
+          placeholder.innerHTML = `
+            <svg class="w-6 h-6 text-[#19318c]/70 mb-1.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
+              <circle cx="8.5" cy="8.5" r="1.5"/>
+              <polyline points="21 15 16 10 5 21"/>
+            </svg>
+            <span class="font-serif italic text-stone-700 text-xs sm:text-sm font-medium leading-tight">${title}</span>
+            <span class="font-sans text-[9px] sm:text-[10px] text-stone-500 uppercase tracking-widest mt-1 line-clamp-1">${caption}</span>
+            <span class="text-[8px] text-[#19318c] font-sans font-medium tracking-wider uppercase mt-2 px-1.5 py-0.5 rounded bg-blue-50/80 border border-blue-200/50">Archive Plate</span>
+          `;
+          plate.appendChild(placeholder);
+        }
+      });
+    });
+
+  </script>
+</body>
+</html>
