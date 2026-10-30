@@ -146,28 +146,18 @@
       max-height: 92vh;
     }
 
-    /* Deckle Torn Paper Bottom Transition */
+    /* Smooth Stationery Paper Bottom Edge (No Zig-Zag!) */
     .torn-paper-edge {
       position: absolute;
       bottom: -1px;
       left: 0;
       right: 0;
-      height: 36px;
+      height: 16px;
       background-color: var(--newsprint-bg);
-      clip-path: polygon(
-        0% 100%, 100% 100%, 100% 45%,
-        98.5% 15%, 97% 55%, 95.5% 20%, 94% 65%, 92.5% 25%, 91% 60%, 89.5% 15%,
-        88% 50%, 86.5% 10%, 85% 55%, 83.5% 20%, 82% 65%, 80.5% 15%, 79% 50%,
-        77.5% 10%, 76% 55%, 74.5% 25%, 73% 65%, 71.5% 15%, 70% 50%, 68.5% 20%,
-        67% 60%, 65.5% 10%, 64% 50%, 62.5% 25%, 61% 65%, 59.5% 15%, 58% 55%,
-        56.5% 20%, 55% 60%, 53.5% 10%, 52% 50%, 50.5% 25%, 49% 65%, 47.5% 15%,
-        46% 55%, 44.5% 20%, 43% 60%, 41.5% 10%, 40% 50%, 38.5% 25%, 37% 65%,
-        35.5% 15%, 34% 55%, 32.5% 20%, 31% 60%, 29.5% 10%, 28% 50%, 26.5% 25%,
-        25% 65%, 23.5% 15%, 22% 55%, 20.5% 20%, 19% 60%, 17.5% 10%, 16% 50%,
-        14.5% 25%, 13% 65%, 11.5% 15%, 10% 55%, 8.5% 20%, 7% 60%, 5.5% 10%,
-        4% 50%, 2.5% 25%, 1% 60%, 0% 20%
-      );
-      filter: drop-shadow(0 -5px 6px rgba(0, 0, 0, 0.35));
+      border-radius: 22px 22px 0 0;
+      box-shadow:
+        0 -6px 18px rgba(0, 0, 0, 0.22),
+        inset 0 2px 0 rgba(255, 255, 255, 0.85);
       z-index: 20;
     }
 
@@ -2130,6 +2120,100 @@
       oscPlunk.stop(plunkStart + 0.19);
     }
 
+    // Synthesize realistic ASMR tape / paper sticker peel & stick sound
+    function playStickerTapePeelSound(isStickDown = false) {
+      const ctx = getAudioCtx();
+      if (!ctx || ctx.state !== 'running') return;
+      const now = ctx.currentTime;
+      const dur = isStickDown ? 0.14 : 0.19;
+      const sampleRate = ctx.sampleRate;
+      const len = Math.floor(sampleRate * dur);
+      const buf = ctx.createBuffer(1, len, sampleRate);
+      const data = buf.getChannelData(0);
+
+      // Build micro-adhesive crackle + paper friction texture (like tape peeling off wax paper)
+      let smooth = 0;
+      for (let i = 0; i < len; i++) {
+        const t = i / len;
+        const env = Math.sin(Math.PI * Math.pow(t, isStickDown ? 0.65 : 0.8));
+        // Sticky glue fiber micro-ticks + crisp paper noise
+        const crackleProb = isStickDown ? 0.08 : 0.12;
+        const pop = Math.random() < crackleProb ? (Math.random() * 2 - 1) * 1.0 : 0;
+        const white = (Math.random() * 2 - 1) * 0.28;
+        smooth = smooth * 0.55 + (pop + white) * 0.45;
+        data[i] = smooth * env;
+      }
+
+      const src = ctx.createBufferSource();
+      src.buffer = buf;
+
+      // Sweeping resonant bandpass filter mimics the changing angle of peeling tape
+      const bp = ctx.createBiquadFilter();
+      bp.type = 'bandpass';
+      bp.Q.setValueAtTime(2.6, now);
+      if (isStickDown) {
+        bp.frequency.setValueAtTime(3400, now);
+        bp.frequency.exponentialRampToValueAtTime(1150, now + dur);
+      } else {
+        bp.frequency.setValueAtTime(1150, now);
+        bp.frequency.exponentialRampToValueAtTime(3800, now + dur);
+      }
+
+      const gain = ctx.createGain();
+      gain.gain.setValueAtTime(isStickDown ? 0.18 : 0.22, now);
+      gain.gain.exponentialRampToValueAtTime(0.002, now + dur);
+
+      src.connect(bp);
+      bp.connect(gain);
+      gain.connect(ctx.destination);
+      src.start(now);
+      src.stop(now + dur + 0.01);
+
+      // When sticking a sticker down, add a soft tactile paper-pat thud at the end
+      if (isStickDown) {
+        const pat = ctx.createOscillator();
+        const patGain = ctx.createGain();
+        pat.type = 'triangle';
+        pat.frequency.setValueAtTime(185, now + 0.03);
+        pat.frequency.exponentialRampToValueAtTime(75, now + 0.095);
+        patGain.gain.setValueAtTime(0.001, now + 0.03);
+        patGain.gain.linearRampToValueAtTime(0.045, now + 0.042);
+        patGain.gain.exponentialRampToValueAtTime(0.001, now + 0.10);
+        pat.connect(patGain);
+        patGain.connect(ctx.destination);
+        pat.start(now + 0.03);
+        pat.stop(now + 0.105);
+      }
+    }
+
+    function getHoveredTrashDropzone(clientX, clientY, stickerEl) {
+      const zones = document.querySelectorAll('.sb-trash-dropzone');
+      const sRect = stickerEl ? stickerEl.getBoundingClientRect() : null;
+      for (const z of zones) {
+        const stage = z.closest('.sticker-book-stage');
+        if (stage && !stage.classList.contains('is-open')) continue;
+        const r = z.getBoundingClientRect();
+        if (r.width <= 0 || r.height <= 0) continue;
+        const pad = 22;
+        const pointerHit =
+          clientX >= r.left - pad &&
+          clientX <= r.right + pad &&
+          clientY >= r.top - pad &&
+          clientY <= r.bottom + pad;
+        const boxOverlap = sRect
+          ? !(sRect.right < r.left - 8 || sRect.left > r.right + 8 || sRect.bottom < r.top - 8 || sRect.top > r.bottom + 8)
+          : false;
+        if (pointerHit || boxOverlap) return z;
+      }
+      return null;
+    }
+
+    function clearTrashHoverState() {
+      document.querySelectorAll('.sb-trash-dropzone.is-trash-hovered').forEach((z) => {
+        z.classList.remove('is-trash-hovered');
+      });
+    }
+
     function deleteStickerIntoTrash(el, trashBtn) {
       removeStickerFromAllBookPages(el);
       const tRect = trashBtn.getBoundingClientRect();
@@ -2261,7 +2345,7 @@
             el.style.zIndex = topStickerZ;
             stickersLayer.appendChild(el);
           }
-          playSparkleNote(2637.02, 0.03, 0.22);
+          playStickerTapePeelSound(true);
         } else if (wasTap && el.id === 'drag-gilbert') {
           openGilbertModal();
         }
@@ -2282,7 +2366,7 @@
         dragH = rect.height;
         topStickerZ += 1;
         el.style.zIndex = topStickerZ;
-        playSparkleTwinkle();
+        playStickerTapePeelSound(false);
 
         window.addEventListener('pointermove', onWindowMove);
         window.addEventListener('pointerup', onWindowUp);
@@ -2482,7 +2566,7 @@
 
       // Double-click any added sticker to peel it back off
       wrapper.addEventListener('dblclick', () => {
-        playSparkleNote(1318.51, 0.03, 0.18);
+        playStickerTapePeelSound(false);
         removeStickerFromAllBookPages(wrapper);
         wrapper.remove();
       });
@@ -2496,7 +2580,7 @@
           { transform: 'scale(1.32) rotate(-6deg)', opacity: 0.75 },
           { transform: 'scale(1) rotate(0deg)', opacity: 1 }
         ], { duration: 260, easing: 'cubic-bezier(0.16, 1, 0.3, 1)' });
-        playSparkleTwinkle();
+        playStickerTapePeelSound(true);
         return;
       }
 
@@ -2523,11 +2607,11 @@
         { transform: 'scale(1) rotate(0deg)', opacity: 1 }
       ], { duration: 260, easing: 'cubic-bezier(0.16, 1, 0.3, 1)' });
 
-      playSparkleTwinkle();
+      playStickerTapePeelSound(true);
     }
 
     function peelStickerFromBook(startEvt, stickerData, slotEl) {
-      playSparkleTwinkle();
+      playStickerTapePeelSound(false);
       const heroCanvas = document.querySelector('header.hero-blue-canvas');
       const heroRect = heroCanvas.getBoundingClientRect();
       const floatW = Math.max(72, Math.min(210, (stickerData.widthPct / 100) * heroRect.width));
