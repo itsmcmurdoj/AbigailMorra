@@ -683,6 +683,19 @@
       box-shadow: 0 -3px 10px rgba(0, 0, 0, 0.15);
     }
 
+    .sb-trash-dropzone {
+      transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .sb-trash-dropzone.is-trash-hovered {
+      background: #ef4444 !important;
+      color: #ffffff !important;
+      border-color: #fde047 !important;
+      transform: translateY(-4px) scale(1.24) rotate(-8deg) !important;
+      box-shadow: 0 0 18px rgba(239, 68, 68, 0.75);
+      z-index: 80;
+    }
+
     /* -------------------------------------------------------------
        CORNER DRAG-TO-RESIZE HANDLE & 3D PHOTOGRAPHY FLIP-BOOK
        ------------------------------------------------------------- */
@@ -1081,7 +1094,8 @@
             <button type="button" onclick="switchStickerSpread(2)" id="sb-tab-2" class="sb-tab-btn" title="Spread 3: Garden Bugs & Vinyl">🦋 bugs</button>
           </div>
           <div class="flex items-center gap-1">
-            <button type="button" onclick="clearExtraHeroStickers()" class="sb-tab-btn" title="Clear added stickers">↺</button>
+            <button type="button" id="sb-trash-tab" class="sb-tab-btn sb-trash-dropzone" title="Drag any sticker here to delete it!">🗑️</button>
+            <button type="button" onclick="clearExtraHeroStickers()" class="sb-tab-btn" title="Reset / Clear extra stickers">↺</button>
             <button type="button" onclick="toggleStickerBook(false)" class="sb-tab-btn" title="Close Sticker Book">✕</button>
           </div>
         </div>
@@ -1127,6 +1141,7 @@
             <span id="pb-page-indicator" class="font-cute text-white text-base sm:text-lg font-bold px-2">1–2 / 34</span>
           </div>
           <div class="flex items-center gap-1.5">
+            <button type="button" id="pb-trash-tab" class="sb-tab-btn sb-trash-dropzone" title="Drag any sticker here to delete it!">🗑️</button>
             <button type="button" id="pb-top-prev" onclick="stepPhotoBookSpread(-1)" class="sb-tab-btn" title="Previous Pages (or swipe right)">‹ prev</button>
             <button type="button" id="pb-top-next" onclick="stepPhotoBookSpread(1)" class="sb-tab-btn" title="Next Pages (or swipe left)">next ›</button>
             <button type="button" onclick="togglePhotoBookMaximize()" class="sb-tab-btn" title="Toggle Big / Cozy Size">⤢</button>
@@ -2051,6 +2066,106 @@
       return true;
     }
 
+    function getHoveredTrashDropzone(clientX, clientY, stickerEl) {
+      const zones = document.querySelectorAll('.sb-trash-dropzone');
+      const sRect = stickerEl ? stickerEl.getBoundingClientRect() : null;
+      for (const z of zones) {
+        const stage = z.closest('.sticker-book-stage');
+        if (stage && !stage.classList.contains('is-open')) continue;
+        const r = z.getBoundingClientRect();
+        if (r.width <= 0 || r.height <= 0) continue;
+        const pad = 22;
+        const pointerHit =
+          clientX >= r.left - pad &&
+          clientX <= r.right + pad &&
+          clientY >= r.top - pad &&
+          clientY <= r.bottom + pad;
+        const boxOverlap = sRect
+          ? !(sRect.right < r.left - 8 || sRect.left > r.right + 8 || sRect.bottom < r.top - 8 || sRect.top > r.bottom + 8)
+          : false;
+        if (pointerHit || boxOverlap) return z;
+      }
+      return null;
+    }
+
+    function clearTrashHoverState() {
+      document.querySelectorAll('.sb-trash-dropzone.is-trash-hovered').forEach((z) => {
+        z.classList.remove('is-trash-hovered');
+      });
+    }
+
+    function playKerplunkSound() {
+      const ctx = getAudioCtx();
+      if (!ctx || ctx.state !== 'running') return;
+      const now = ctx.currentTime;
+
+      // 1. "Ker-" (quick descending drop whistle/thud)
+      const oscDrop = ctx.createOscillator();
+      const gainDrop = ctx.createGain();
+      oscDrop.type = 'triangle';
+      oscDrop.frequency.setValueAtTime(540, now);
+      oscDrop.frequency.exponentialRampToValueAtTime(135, now + 0.085);
+      gainDrop.gain.setValueAtTime(0.001, now);
+      gainDrop.gain.linearRampToValueAtTime(0.065, now + 0.012);
+      gainDrop.gain.exponentialRampToValueAtTime(0.001, now + 0.09);
+      oscDrop.connect(gainDrop);
+      gainDrop.connect(ctx.destination);
+      oscDrop.start(now);
+      oscDrop.stop(now + 0.095);
+
+      // 2. "-PLUNK!" (bouncy hollow cartoon plunk)
+      const plunkStart = now + 0.075;
+      const oscPlunk = ctx.createOscillator();
+      const gainPlunk = ctx.createGain();
+      oscPlunk.type = 'sine';
+      oscPlunk.frequency.setValueAtTime(150, plunkStart);
+      oscPlunk.frequency.exponentialRampToValueAtTime(380, plunkStart + 0.055);
+      oscPlunk.frequency.exponentialRampToValueAtTime(210, plunkStart + 0.17);
+      gainPlunk.gain.setValueAtTime(0.001, plunkStart);
+      gainPlunk.gain.linearRampToValueAtTime(0.085, plunkStart + 0.014);
+      gainPlunk.gain.exponentialRampToValueAtTime(0.0008, plunkStart + 0.18);
+      oscPlunk.connect(gainPlunk);
+      gainPlunk.connect(ctx.destination);
+      oscPlunk.start(plunkStart);
+      oscPlunk.stop(plunkStart + 0.19);
+    }
+
+    function deleteStickerIntoTrash(el, trashBtn) {
+      removeStickerFromAllBookPages(el);
+      const tRect = trashBtn.getBoundingClientRect();
+      const tx = tRect.left + tRect.width * 0.5;
+      const ty = tRect.top + tRect.height * 0.5;
+      spawnSparkleParticle(tx, ty);
+      spawnSparkleParticle(tx - 8, ty - 6);
+      playKerplunkSound();
+
+      // Shake the trash tab when the sticker goes in!
+      trashBtn.animate([
+        { transform: 'translateY(0) rotate(0deg) scale(1)' },
+        { transform: 'translateY(3px) rotate(-15deg) scale(1.22)' },
+        { transform: 'translateY(-3px) rotate(14deg) scale(1.15)' },
+        { transform: 'translateY(1px) rotate(-10deg) scale(1.08)' },
+        { transform: 'translateY(-1px) rotate(7deg) scale(1.03)' },
+        { transform: 'translateY(0) rotate(0deg) scale(1)' }
+      ], { duration: 360, easing: 'cubic-bezier(0.36, 0.07, 0.19, 0.97)' });
+
+      const anim = el.animate([
+        { transform: 'scale(0.85) rotate(-10deg)', opacity: 0.9 },
+        { transform: 'scale(0.05) rotate(-35deg)', opacity: 0 }
+      ], { duration: 180, easing: 'cubic-bezier(0.4, 0, 1, 1)' });
+
+      anim.onfinish = () => {
+        if (el.classList.contains('extra-peeled-sticker')) {
+          el.remove();
+        } else {
+          // Original header sticker: hide completely (restorable with ↺ reset button)
+          el.style.display = 'none';
+          const stickersLayer = document.getElementById('hero-stickers-layer');
+          if (stickersLayer) stickersLayer.appendChild(el);
+        }
+      };
+    }
+
     function makeDraggable(el) {
       if (!el.dataset.heroWidth) {
         el.dataset.heroWidth = el.style.width || '10%';
@@ -2082,6 +2197,17 @@
           el.style.left = `${initScreenL + dx}px`;
           el.style.top = `${initScreenT + dy}px`;
         }
+
+        if (isLiftedToBody) {
+          clearTrashHoverState();
+          const trashZone = getHoveredTrashDropzone(e.clientX, e.clientY, el);
+          if (trashZone) {
+            trashZone.classList.add('is-trash-hovered');
+            el.style.opacity = '0.68';
+          } else {
+            el.style.opacity = '1';
+          }
+        }
       }
 
       function onWindowUp(e) {
@@ -2096,6 +2222,16 @@
 
         if (isLiftedToBody) {
           isLiftedToBody = false;
+          el.style.opacity = '1';
+          const trashZone = getHoveredTrashDropzone(e.clientX, e.clientY, el);
+          clearTrashHoverState();
+
+          // 0. Check if dropped into the cute 🗑️ trash tab!
+          if (trashZone) {
+            deleteStickerIntoTrash(el, trashZone);
+            return;
+          }
+
           const dropRect = el.getBoundingClientRect();
           const cx = dropRect.left + dropRect.width * 0.5;
           const cy = dropRect.top + dropRect.height * 0.5;
@@ -2455,6 +2591,9 @@
       document.querySelectorAll('.extra-peeled-sticker').forEach((el) => {
         removeStickerFromAllBookPages(el);
         el.remove();
+      });
+      document.querySelectorAll('.drag-item').forEach((el) => {
+        if (el.style.display === 'none') el.style.display = '';
       });
       playSparkleNote(1760, 0.03, 0.2);
     }
