@@ -13,15 +13,23 @@ import hashlib
 import subprocess
 from PIL import Image, ImageOps
 
-DRIVE_ROOT = os.path.expanduser(
-    "~/Library/CloudStorage/GoogleDrive-mcmurdo.jackson@gmail.com/My Drive/jackson is helping me yayyyy"
+DRIVE_ROOT = (
+    r"G:\My Drive\jackson is helping me yayyyy"
+    if os.path.exists(r"G:\My Drive\jackson is helping me yayyyy")
+    else os.path.expanduser(
+        "~/Library/CloudStorage/GoogleDrive-mcmurdo.jackson@gmail.com/My Drive/jackson is helping me yayyyy"
+    )
 )
 PROJECT_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
 MANIFEST_FILE = os.path.join(PROJECT_ROOT, ".drive_sync_manifest.json")
 
 ASS1_DRIVE = os.path.join(DRIVE_ROOT, "photos on gall/ass 1")
 ASS1_LOCAL = os.path.join(PROJECT_ROOT, "photos/ass1")
-LITTLE_GUYS_DRIVE = os.path.join(DRIVE_ROOT, "little guys?")
+LITTLE_GUYS_DRIVE = (
+    os.path.join(DRIVE_ROOT, "little guys")
+    if os.path.exists(os.path.join(DRIVE_ROOT, "little guys"))
+    else os.path.join(DRIVE_ROOT, "little guys?")
+)
 STICKERS_LOCAL = os.path.join(PROJECT_ROOT, "stickers")
 
 def load_manifest():

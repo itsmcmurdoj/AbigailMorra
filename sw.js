@@ -1,4 +1,4 @@
-const CACHE_NAME = 'abigail-portfolio-v1';
+const CACHE_NAME = 'abigail-portfolio-v2';
 const PRECACHE_ASSETS = [
   './',
   './index.html',
@@ -8,12 +8,18 @@ const PRECACHE_ASSETS = [
   './apple-touch-icon.png',
   './stickers/gilbert_icon_tight.png',
   './stickers/gilbert_sticker.png',
-  './stickers/camera_sticker.png',
-  './stickers/ladybug_sticker.png',
-  './stickers/hand_eyes_sticker.png',
-  './stickers/stars_sticker.png',
-  './stickers/vinyl_sticker.png',
-  './stickers/abigail.jpg'
+  './stickers/ladybug_cursor_48.png',
+  './stickers/canva_cake.png',
+  './stickers/canva_gecko.png',
+  './stickers/canva_star_left.png',
+  './stickers/canva_shoes.png',
+  './stickers/canva_hand_eyes.png',
+  './stickers/canva_star.png',
+  './stickers/canva_camera.png',
+  './stickers/canva_match.png',
+  './stickers/canva_abi.png',
+  './stickers/canva_gilbert_full.png',
+  './stickers/canva_polaroid_couch.png'
 ];
 
 self.addEventListener('install', (event) => {

@@ -32,9 +32,9 @@
 
   <style>
     :root {
-      --hero-blue-deep: #0f1e8a;
-      --hero-blue-mid: #162bc5;
-      --hero-blue-bright: #223df0;
+      --hero-blue-deep: #140096;
+      --hero-blue-mid: #1800AD;
+      --hero-blue-bright: #1800AD;
       
       --newsprint-bg: #f7f3e8;
       --newsprint-cream: #faf7f0;
@@ -70,22 +70,80 @@
       cursor: url("stickers/ladybug_cursor.png") 5 2, pointer !important;
     }
 
-    /* -------------------------------------------------------------
-       BLUE HERO CANVAS
-       ------------------------------------------------------------- */
-    .hero-blue-canvas {
-      background: radial-gradient(circle at 50% 40%, var(--hero-blue-bright) 0%, var(--hero-blue-mid) 50%, var(--hero-blue-deep) 100%);
-      position: relative;
+    @media (pointer: fine) {
+      html.custom-ladybug-active,
+      html.custom-ladybug-active body,
+      html.custom-ladybug-active *,
+      html.custom-ladybug-active *::before,
+      html.custom-ladybug-active *::after {
+        cursor: none !important;
+      }
     }
 
-    .hero-blue-canvas::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background-image: radial-gradient(rgba(255, 255, 255, 0.1) 1px, transparent 1px);
-      background-size: 20px 20px;
+    #ladybug-cursor-follower {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 34px;
+      height: 34px;
       pointer-events: none;
-      opacity: 0.6;
+      z-index: 2147483647;
+      will-change: transform;
+      display: none;
+      filter: drop-shadow(0 3px 5px rgba(0, 0, 0, 0.35));
+    }
+
+    @media (pointer: fine) {
+      html.custom-ladybug-active #ladybug-cursor-follower {
+        display: block;
+      }
+    }
+
+    #ladybug-cursor-img {
+      width: 100%;
+      height: 100%;
+      display: block;
+      transform-origin: 5px 2px;
+      transition: transform 0.06s linear;
+    }
+
+    .sparkle-particle {
+      position: fixed;
+      pointer-events: none;
+      z-index: 2147483646;
+      font-size: 11px;
+      line-height: 1;
+      color: #fff6b3;
+      text-shadow: 0 0 6px #ffffff, 0 0 10px #ffd700;
+      user-select: none;
+      animation: sparkleFloat 0.55s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+
+    @keyframes sparkleFloat {
+      0% {
+        opacity: 0.95;
+        transform: translate(-50%, -50%) scale(0.5) rotate(0deg);
+      }
+      50% {
+        opacity: 1;
+        transform: translate(-50%, -65%) scale(1.1) rotate(25deg);
+      }
+      100% {
+        opacity: 0;
+        transform: translate(-50%, -100%) scale(0.2) rotate(55deg);
+      }
+    }
+
+    /* -------------------------------------------------------------
+       BLUE HERO CANVAS (EXACT CANVA #1800AD 16:9 DESIGN)
+       ------------------------------------------------------------- */
+    .hero-blue-canvas {
+      background-color: #1800AD;
+      position: relative;
+      aspect-ratio: 16 / 9;
+      width: 100%;
+      min-height: 360px;
+      max-height: 92vh;
     }
 
     /* Deckle Torn Paper Bottom Transition */
@@ -419,107 +477,111 @@
 </head>
 <body class="selection:bg-stone-900 selection:text-stone-100">
 
-  <!-- =============================================================
-       1. BLUE HERO: MOVABLE STICKERS, GILBERT, CAMERA, STARS
-       ============================================================= -->
-  <header class="hero-blue-canvas min-h-[520px] sm:min-h-[580px] md:min-h-[640px] w-full pt-10 pb-20 px-4 relative flex flex-col justify-between overflow-hidden">
-    
-    <!-- TOP STATUS BAR / WEB APP LOGO -->
-    <div class="max-w-6xl mx-auto w-full flex items-center justify-between text-xs font-mono-exif text-blue-200/90 tracking-wider relative z-10 px-2">
-      <div class="flex items-center space-x-2 sm:space-x-3">
-        <!-- Gilbert Official Web App Logo Button -->
-        <button onclick="openGilbertModal()" class="flex items-center space-x-2 bg-blue-950/80 hover:bg-blue-900 text-white pl-1.5 pr-3 py-1 rounded-full border border-blue-300/40 shadow-md transition-all hover:scale-105 group" title="Gilbert the Cat — Official Web App Logo & Studio Mascot 🐾 (Tap to meet Gilbert)">
-          <img src="stickers/gilbert_icon_tight.png" alt="Gilbert Web App Logo" class="w-6 h-6 rounded-full border border-white/90 object-cover shadow-inner group-hover:rotate-6 transition-transform">
-          <span class="font-bold tracking-wider text-[11px] flex items-center gap-1.5">
-            GILBERT <span class="text-blue-300 text-[10px] font-normal tracking-normal hidden xs:inline">• MASCOT</span>
-          </span>
-        </button>
-        <span class="text-blue-300/50 hidden sm:inline">•</span>
-        <span class="font-bold text-white tracking-widest hidden sm:inline">TORONTO METROPOLITAN UNIVERSITY</span>
-      </div>
-      <div>
-        <span class="bg-blue-900/60 text-blue-100 px-2.5 py-0.5 rounded border border-blue-400/30 text-[11px]">
-          PHOTOJOURNALISM • VISA
-        </span>
-      </div>
-    </div>
+  <!-- WIGGLING LADYBUG PRECISION CURSOR FOLLOWER -->
+  <div id="ladybug-cursor-follower" aria-hidden="true">
+    <img id="ladybug-cursor-img" src="stickers/ladybug_cursor_48.png" alt="">
+  </div>
 
-    <!-- CENTER ARTIST NAME (CLEAR BREATHING ROOM) -->
-    <div class="max-w-2xl mx-auto text-center relative z-10 my-auto py-6 select-none pointer-events-none">
-      <h1 class="font-headline text-5xl sm:text-7xl md:text-8xl font-black text-white tracking-tight leading-none mb-3 drop-shadow-md">
-        Abigail Morra
+  <!-- =============================================================
+       1. BLUE HERO: ABIGAIL'S CANVA COLLAGE DESIGN (INTERACTIVE & MOVEABLE)
+       ============================================================= -->
+  <header class="hero-blue-canvas relative flex items-center justify-center overflow-hidden select-none">
+
+    <!-- CENTER ARTIST NAME (MATCHING CANVA 2-LINE EDITORIAL SERIF) -->
+    <div class="relative z-15 text-center pointer-events-none select-none px-4" style="margin-top: 2%;">
+      <h1 class="text-white font-normal tracking-normal leading-[0.94] drop-shadow-sm"
+          style="font-family: 'EB Garamond', 'Newsreader', Georgia, serif; font-size: clamp(3.2rem, 8.8vw, 10.5rem);">
+        Abigail<br>Morra
       </h1>
-      <p class="text-xs sm:text-sm font-caps text-blue-200 tracking-[0.3em] uppercase">
-        Photojournalism & 35mm Film
-      </p>
     </div>
 
     <!-- -----------------------------------------------------------
-         DRAGGABLE STICKERS (OUTER PERIMETER — ZERO TITLE OVERLAP)
+         INTERACTIVE MOVEABLE CANVA STICKERS (EXACT 1920x1080 POSITIONS)
          ----------------------------------------------------------- -->
     <div id="hero-stickers-layer" class="absolute inset-0 pointer-events-none z-20">
 
-      <!-- 1. GILBERT THE CAT (TAP TO MEET GILBERT!) -->
-      <div id="drag-gilbert" class="drag-item pointer-events-auto cursor-pointer" 
-           style="top: 40px; right: 5%; width: 130px; --current-rot: 6deg;" 
-           title="Tap to meet Gilbert! 🐾" 
-           onclick="openGilbertModal()">
-        <div class="polaroid-frame transform hover:scale-105 transition-transform">
-          <img src="stickers/gilbert_sticker.png" alt="Gilbert the Cat" class="w-full object-cover">
-          <div class="mt-1 text-center font-script text-base text-stone-900 leading-tight">
-            Gilbert 🐾
-          </div>
-          <div class="text-[9px] font-mono-exif text-stone-500 text-center tracking-wider">
-            [TAP FOR INFO]
-          </div>
-        </div>
+      <!-- 1. BIRTHDAY CAKE SLICE WITH CANDLE -->
+      <div class="drag-item pointer-events-auto"
+           style="left: 22.57%; top: 12.65%; width: 12.50%; z-index: 21;"
+           title="Drag me! 🎂">
+        <img src="stickers/canva_cake.png" alt="Birthday Cake Sticker" class="w-full h-auto block drop-shadow-lg pointer-events-none">
       </div>
 
-      <!-- 2. VINTAGE CANON CAMERA -->
-      <div id="drag-camera" class="drag-item pointer-events-auto hidden sm:block" 
-           style="top: 60px; left: 5%; width: 135px; --current-rot: -8deg;" 
-           title="35mm Camera">
-        <img src="stickers/camera_sticker.png" alt="Canon Camera" class="w-full drop-shadow-2xl">
+      <!-- 2. TOP-CENTER SKETCHED BLACK STAR -->
+      <div class="drag-item pointer-events-auto"
+           style="left: 41.60%; top: 12.78%; width: 8.85%; z-index: 21;"
+           title="Drag me! ★">
+        <img src="stickers/canva_star.png" alt="Star Sticker" class="w-full h-auto block drop-shadow-md pointer-events-none">
       </div>
 
-      <!-- 3. DOODLE STARS -->
-      <div id="drag-stars" class="drag-item pointer-events-auto hidden md:block" 
-           style="top: 140px; left: 20%; width: 75px; --current-rot: 4deg;" 
-           title="Stars">
-        <img src="stickers/stars_sticker.png" alt="Stars Doodle" class="w-full drop-shadow-md">
+      <!-- 3. VINTAGE RANGEFINDER 35MM CAMERA -->
+      <div class="drag-item pointer-events-auto"
+           style="left: 57.24%; top: 16.39%; width: 21.98%; z-index: 14;"
+           title="Drag me! 📷">
+        <img src="stickers/canva_camera.png" alt="35mm Camera Sticker" class="w-full h-auto block drop-shadow-xl pointer-events-none">
       </div>
 
-      <!-- 4. ABIGAIL'S LADYBUG DRAWING -->
-      <div id="drag-ladybug" class="drag-item pointer-events-auto" 
-           style="bottom: 70px; left: 7%; width: 68px; --current-rot: 14deg;" 
-           title="Ladybug doodle">
-        <img src="stickers/ladybug_sticker.png" alt="Ladybug Sticker" class="w-full drop-shadow-xl">
+      <!-- 4. LIT MATCHSTICK -->
+      <div class="drag-item pointer-events-auto"
+           style="left: 76.01%; top: 5.86%; width: 5.10%; z-index: 22;"
+           title="Drag me! 🔥">
+        <img src="stickers/canva_match.png" alt="Lit Match Sticker" class="w-full h-auto block drop-shadow-md pointer-events-none">
       </div>
 
-      <!-- 5. ABIGAIL'S PEEKING HAND EYES -->
-      <div id="drag-hand" class="drag-item pointer-events-auto" 
-           style="bottom: 50px; right: 20%; width: 90px; --current-rot: -10deg;" 
-           title="Hand framer">
-        <img src="stickers/hand_eyes_sticker.png" alt="Hand Eyes Sticker" class="w-full drop-shadow-xl">
+      <!-- 5. RANSOM CUTOUT LETTERS "ABi" -->
+      <div class="drag-item pointer-events-auto"
+           style="left: 81.74%; top: 11.60%; width: 8.75%; z-index: 22;"
+           title="Drag me! ✨">
+        <img src="stickers/canva_abi.png" alt="ABi Cutout Letters" class="w-full h-auto block drop-shadow-md pointer-events-none">
       </div>
 
-      <!-- 6. 35MM SLIDE MOUNT (MOVED TO CORNER SO NO OVERLAP) -->
-      <div id="drag-portrait" class="drag-item pointer-events-auto hidden lg:block" 
-           style="bottom: 70px; right: 5%; width: 110px; --current-rot: 10deg;" 
-           title="Abigail Morra">
-        <div class="slide-mount">
-          <div class="bg-black aspect-square overflow-hidden shadow-inner border border-stone-400">
-            <img src="stickers/abigail.jpg" alt="Abigail Morra" class="w-full h-full object-cover">
-          </div>
-          <span class="block text-[8px] font-mono-exif text-stone-600 text-center mt-1">35MM SLIDE</span>
-        </div>
+      <!-- 6. GILBERT THE CAT FULL-BODY CUTOUT (TAP TO MEET GILBERT, OR DRAG!) -->
+      <div id="drag-gilbert" class="drag-item pointer-events-auto"
+           style="left: 78.16%; top: 22.41%; width: 18.23%; z-index: 20;"
+           title="Gilbert the Cat 🐾 (Drag to move, or tap to meet Gilbert!)">
+        <img src="stickers/canva_gilbert_full.png" alt="Gilbert the Cat" class="w-full h-auto block drop-shadow-2xl pointer-events-none">
       </div>
 
-      <!-- 7. VINYL RECORD STICKER -->
-      <div id="drag-vinyl" class="drag-item pointer-events-auto hidden xl:block" 
-           style="bottom: 40px; left: 23%; width: 110px; --current-rot: -18deg;" 
-           title="Vinyl Record">
-        <img src="stickers/vinyl_sticker.png" alt="Vinyl Sticker" class="w-full drop-shadow-2xl">
+      <!-- 7. POLAROID PHOTO WITH RED HEART -->
+      <div class="drag-item pointer-events-auto"
+           style="left: 66.76%; top: 38.65%; width: 16.15%; z-index: 23;"
+           title="Drag me! ❤️">
+        <img src="stickers/canva_polaroid_couch.png" alt="Polaroid Photo with Red Heart" class="w-full h-auto block drop-shadow-2xl pointer-events-none">
+      </div>
+
+      <!-- 8. BOTTOM-RIGHT SKETCHED BLACK STAR -->
+      <div class="drag-item pointer-events-auto"
+           style="left: 82.80%; top: 69.50%; width: 8.85%; z-index: 24;"
+           title="Drag me! ★">
+        <img src="stickers/canva_star.png" alt="Star Sticker" class="w-full h-auto block drop-shadow-md pointer-events-none">
+      </div>
+
+      <!-- 9. GREEN & ORANGE GECKO / LIZARD -->
+      <div class="drag-item pointer-events-auto"
+           style="left: 19.34%; top: 46.23%; width: 14.69%; z-index: 21;"
+           title="Drag me! 🦎">
+        <img src="stickers/canva_gecko.png" alt="Gecko Sticker" class="w-full h-auto block drop-shadow-lg pointer-events-none">
+      </div>
+
+      <!-- 10. LEFT SKETCHED BLACK STAR -->
+      <div class="drag-item pointer-events-auto"
+           style="left: 2.85%; top: 45.31%; width: 11.32%; z-index: 21;"
+           title="Drag me! ★">
+        <img src="stickers/canva_star_left.png" alt="Star Sticker" class="w-full h-auto block drop-shadow-md pointer-events-none">
+      </div>
+
+      <!-- 11. STAR SOCKS & MARY JANE SHOES -->
+      <div class="drag-item pointer-events-auto"
+           style="left: 0%; top: 61.05%; width: 22.47%; z-index: 22;"
+           title="Drag me! 👞">
+        <img src="stickers/canva_shoes.png" alt="Star Socks and Mary Jane Shoes Sticker" class="w-full h-auto block drop-shadow-xl pointer-events-none">
+      </div>
+
+      <!-- 12. PEEKING HAND EYES FRAMER -->
+      <div class="drag-item pointer-events-auto"
+           style="left: 22.95%; top: 72.84%; width: 6.74%; z-index: 23;"
+           title="Drag me! 👀">
+        <img src="stickers/canva_hand_eyes.png" alt="Peeking Hand Eyes Sticker" class="w-full h-auto block drop-shadow-lg pointer-events-none">
       </div>
 
     </div>
@@ -805,7 +867,157 @@
       }
     });
 
-    // DRAGGABLE HERO STICKERS
+    // =============================================================
+    // MAGICAL SPARKLE SOUND SYNTHESIZER (WEB AUDIO API)
+    // =============================================================
+    let sparkleAudioCtx = null;
+    let lastSparkleTime = 0;
+    const SPARKLE_NOTES = [1318.51, 1567.98, 1760.00, 1975.53, 2093.00, 2349.32, 2637.02, 3135.96, 3520.00];
+
+    function getAudioCtx() {
+      if (!sparkleAudioCtx) {
+        const AudioContextClass = window.AudioContext || window.webkitAudioContext;
+        if (AudioContextClass) {
+          sparkleAudioCtx = new AudioContextClass();
+        }
+      }
+      if (sparkleAudioCtx && sparkleAudioCtx.state === 'suspended') {
+        sparkleAudioCtx.resume().catch(() => {});
+      }
+      return sparkleAudioCtx;
+    }
+
+    // Unlock audio on first user interaction anywhere
+    ['pointerdown', 'mousedown', 'click', 'touchstart', 'keydown'].forEach((evt) => {
+      window.addEventListener(evt, () => { getAudioCtx(); }, { passive: true });
+    });
+
+    function playSparkleNote(freqOverride, gainLevel = 0.028, duration = 0.19) {
+      const ctx = getAudioCtx();
+      if (!ctx || ctx.state !== 'running') return;
+
+      const now = ctx.currentTime;
+      const freq = freqOverride || SPARKLE_NOTES[Math.floor(Math.random() * SPARKLE_NOTES.length)];
+
+      // Primary crystalline sine bell
+      const osc1 = ctx.createOscillator();
+      const osc2 = ctx.createOscillator();
+      const gain = ctx.createGain();
+
+      osc1.type = 'sine';
+      osc1.frequency.setValueAtTime(freq, now);
+      osc1.frequency.exponentialRampToValueAtTime(freq * 1.015, now + duration);
+
+      // Harmonic shimmer overtone
+      osc2.type = 'triangle';
+      osc2.frequency.setValueAtTime(freq * 2, now);
+
+      const osc2Gain = ctx.createGain();
+      osc2Gain.gain.setValueAtTime(0.22, now);
+
+      gain.gain.setValueAtTime(0.0001, now);
+      gain.gain.linearRampToValueAtTime(gainLevel, now + 0.008);
+      gain.gain.exponentialRampToValueAtTime(0.0001, now + duration);
+
+      osc1.connect(gain);
+      osc2.connect(osc2Gain);
+      osc2Gain.connect(gain);
+      gain.connect(ctx.destination);
+
+      osc1.start(now);
+      osc2.start(now);
+      osc1.stop(now + duration + 0.02);
+      osc2.stop(now + duration + 0.02);
+    }
+
+    function playSparkleTwinkle() {
+      const baseIdx = Math.floor(Math.random() * (SPARKLE_NOTES.length - 3));
+      playSparkleNote(SPARKLE_NOTES[baseIdx], 0.032, 0.18);
+      setTimeout(() => playSparkleNote(SPARKLE_NOTES[baseIdx + 1], 0.028, 0.20), 55);
+      setTimeout(() => playSparkleNote(SPARKLE_NOTES[baseIdx + 2], 0.035, 0.24), 110);
+    }
+
+    // =============================================================
+    // WIGGLING LADYBUG CURSOR + SPARKLE TRAIL ENGINE
+    // =============================================================
+    const cursorFollower = document.getElementById('ladybug-cursor-follower');
+    const cursorImg = document.getElementById('ladybug-cursor-img');
+    let lastMouseX = -100;
+    let lastMouseY = -100;
+    let totalDistMoved = 0;
+    let wiggleResetTimer = null;
+    let isPointerPressed = false;
+    let lastParticleTime = 0;
+
+    function spawnSparkleParticle(x, y) {
+      const p = document.createElement('span');
+      p.className = 'sparkle-particle';
+      p.textContent = Math.random() > 0.4 ? '✦' : '✧';
+      const offsetX = (Math.random() - 0.5) * 18;
+      const offsetY = (Math.random() - 0.5) * 18;
+      p.style.left = `${x + offsetX}px`;
+      p.style.top = `${y + offsetY}px`;
+      document.body.appendChild(p);
+      setTimeout(() => p.remove(), 560);
+    }
+
+    window.addEventListener('pointermove', (e) => {
+      if (e.pointerType === 'touch') return;
+      document.documentElement.classList.add('custom-ladybug-active');
+
+      const x = e.clientX;
+      const y = e.clientY;
+      cursorFollower.style.transform = `translate3d(${x - 5}px, ${y - 2}px, 0)`;
+
+      const dx = x - lastMouseX;
+      const dy = y - lastMouseY;
+      const stepDist = Math.hypot(dx, dy);
+      lastMouseX = x;
+      lastMouseY = y;
+
+      if (stepDist > 0.5 && stepDist < 300) {
+        totalDistMoved += stepDist;
+        // Oscillating scuttle wiggle based on distance + speed
+        const maxWiggle = Math.min(20, 5 + stepDist * 0.65);
+        const wiggleDeg = Math.sin(totalDistMoved * 0.32) * maxWiggle;
+        const scaleVal = isPointerPressed ? 0.9 : 1.0;
+        cursorImg.style.transform = `rotate(${wiggleDeg.toFixed(1)}deg) scale(${scaleVal})`;
+
+        clearTimeout(wiggleResetTimer);
+        wiggleResetTimer = setTimeout(() => {
+          cursorImg.style.transform = `rotate(0deg) scale(${isPointerPressed ? 0.9 : 1.0})`;
+        }, 90);
+
+        // Trigger delicate sparkle sound & tiny star particle while moving
+        const now = performance.now();
+        if (stepDist > 3.5 && now - lastSparkleTime > 95) {
+          lastSparkleTime = now;
+          playSparkleNote();
+        }
+        if (stepDist > 6 && now - lastParticleTime > 85) {
+          lastParticleTime = now;
+          spawnSparkleParticle(x, y);
+        }
+      }
+    }, { passive: true });
+
+    window.addEventListener('pointerdown', (e) => {
+      if (e.pointerType === 'touch') return;
+      isPointerPressed = true;
+      cursorImg.style.transform = 'rotate(-12deg) scale(0.88)';
+      spawnSparkleParticle(e.clientX, e.clientY);
+    }, { passive: true });
+
+    window.addEventListener('pointerup', () => {
+      isPointerPressed = false;
+      cursorImg.style.transform = 'rotate(0deg) scale(1)';
+    }, { passive: true });
+
+    // =============================================================
+    // DRAGGABLE INTERACTIVE HERO STICKERS
+    // =============================================================
+    let topStickerZ = 30;
+
     function makeDraggable(el) {
       let isDragging = false;
       let startX, startY, initL, initT;
@@ -820,26 +1032,45 @@
         const pRect = el.parentElement.getBoundingClientRect();
         initL = rect.left - pRect.left;
         initT = rect.top - pRect.top;
+        topStickerZ += 1;
+        el.style.zIndex = topStickerZ;
         el.setPointerCapture(e.pointerId);
+        playSparkleTwinkle();
       });
 
       el.addEventListener('pointermove', (e) => {
         if (!isDragging) return;
         const dx = e.clientX - startX;
         const dy = e.clientY - startY;
-        moved += Math.abs(dx) + Math.abs(dy);
-        if (moved > 6) el.classList.add('is-dragging');
-        el.style.left = `${initL + dx}px`;
-        el.style.top = `${initT + dy}px`;
+        moved = Math.hypot(dx, dy);
+        if (moved > 5) el.classList.add('is-dragging');
+        const pRect = el.parentElement.getBoundingClientRect();
+        if (pRect.width > 0 && pRect.height > 0) {
+          const newLeftPct = ((initL + dx) / pRect.width) * 100;
+          const newTopPct = ((initT + dy) / pRect.height) * 100;
+          el.style.left = `${newLeftPct.toFixed(2)}%`;
+          el.style.top = `${newTopPct.toFixed(2)}%`;
+        } else {
+          el.style.left = `${initL + dx}px`;
+          el.style.top = `${initT + dy}px`;
+        }
         el.style.right = 'auto';
         el.style.bottom = 'auto';
       });
 
-      const stop = () => {
+      const stop = (e) => {
         if (!isDragging) return;
         isDragging = false;
+        const wasTap = moved < 6;
         setTimeout(() => el.classList.remove('is-dragging'), 50);
-        try { el.releasePointerCapture(e.pointerId); } catch(err){}
+        if (e && e.pointerId !== undefined) {
+          try { el.releasePointerCapture(e.pointerId); } catch(err){}
+        }
+        if (moved >= 6) {
+          playSparkleNote(2637.02, 0.03, 0.22);
+        } else if (wasTap && el.id === 'drag-gilbert') {
+          openGilbertModal();
+        }
       };
 
       el.addEventListener('pointerup', stop);
