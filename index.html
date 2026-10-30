@@ -444,6 +444,13 @@
       transform: translate3d(0, 0, 0) scale(1) rotateX(0deg);
     }
 
+    .sticker-book-stage.is-shifted-left {
+      right: auto;
+      left: 16px;
+      z-index: 9200;
+      transform-origin: bottom left;
+    }
+
     .sticker-book-3d-wrapper {
       position: relative;
       transform-style: preserve-3d;
@@ -648,19 +655,20 @@
     /* Page tab buttons on top edge of Sticker Book */
     .sb-tab-btn {
       font-family: 'Gaegu', 'Fredoka', 'Covered By Your Grace', cursive;
-      font-size: 1.05rem;
+      font-size: 0.98rem;
       font-weight: 700;
-      height: 32px;
-      padding: 0 11px;
+      height: 31px;
+      padding: 0 9px;
       border-radius: 10px 10px 0 0;
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      gap: 4px;
+      gap: 3px;
       background: rgba(255, 255, 255, 0.16);
       color: #ffffff;
       border: 1px solid rgba(255, 255, 255, 0.28);
       border-bottom: none;
+      white-space: nowrap;
       transition: all 0.2s ease;
     }
 
@@ -1065,13 +1073,14 @@
 
         <!-- Top Page Tabs & Controls (Cute Handwritten Font) -->
         <div class="flex items-center justify-between pl-14 sm:pl-24 pr-1.5 pb-1.5 select-none">
-          <div class="flex items-center gap-1.5">
+          <div class="flex items-center gap-1">
             <button type="button" onclick="switchStickerSpread('all')" id="sb-tab-all" class="sb-tab-btn is-active" title="All Stickers (Scrollable!)">✦ all</button>
+            <button type="button" onclick="switchStickerSpread(3)" id="sb-tab-3" class="sb-tab-btn" title="Spread 4: Clear Face Stickers">😊 faces</button>
             <button type="button" onclick="switchStickerSpread(0)" id="sb-tab-0" class="sb-tab-btn" title="Spread 1: Cats & Friends">🐾 pals</button>
             <button type="button" onclick="switchStickerSpread(1)" id="sb-tab-1" class="sb-tab-btn" title="Spread 2: Magic & Doodles">✨ magic</button>
             <button type="button" onclick="switchStickerSpread(2)" id="sb-tab-2" class="sb-tab-btn" title="Spread 3: Garden Bugs & Vinyl">🦋 bugs</button>
           </div>
-          <div class="flex items-center gap-1.5">
+          <div class="flex items-center gap-1">
             <button type="button" onclick="clearExtraHeroStickers()" class="sb-tab-btn" title="Clear added stickers">↺</button>
             <button type="button" onclick="toggleStickerBook(false)" class="sb-tab-btn" title="Close Sticker Book">✕</button>
           </div>
@@ -1471,11 +1480,9 @@
 
         item.addEventListener('click', () => {
           if (b.isStickerBook) {
-            if (isPhotoBookOpen) closePhotoBook(true);
             toggleStickerBook();
             return;
           }
-          if (isStickerBookOpen) toggleStickerBook(false);
           if (isPhotoBookOpen && currentBookId === b.id) {
             closePhotoBook();
           } else {
@@ -1485,6 +1492,16 @@
 
         shelf.appendChild(item);
       });
+    }
+
+    function syncBookStagePositions() {
+      const sbStage = document.getElementById('sticker-book-stage');
+      if (!sbStage) return;
+      if (isStickerBookOpen && isPhotoBookOpen) {
+        sbStage.classList.add('is-shifted-left');
+      } else {
+        sbStage.classList.remove('is-shifted-left');
+      }
     }
 
     function renderMasonry() {
@@ -1525,6 +1542,7 @@
       flap.style.animation = '';
       stage.classList.add('is-open');
       stage.setAttribute('aria-hidden', 'false');
+      syncBookStagePositions();
       playSparkleTwinkle();
       renderBooks();
     }
@@ -1534,6 +1552,7 @@
       isPhotoBookOpen = false;
       stage.classList.remove('is-open');
       stage.setAttribute('aria-hidden', 'true');
+      syncBookStagePositions();
       if (!silent) playSparkleNote(1567.98, 0.025, 0.16);
       renderBooks();
     }
@@ -1545,6 +1564,29 @@
       currentPhotoSpreadIdx = nextIdx;
       renderPhotoBookSpread(delta > 0 ? 'next' : 'prev');
       playSparkleNote(delta > 0 ? 2093.0 : 1760.0, 0.028, 0.18);
+    }
+
+    const BOOK_PAGE_STICKERS = {};
+
+    function removeStickerFromAllBookPages(el) {
+      Object.keys(BOOK_PAGE_STICKERS).forEach((key) => {
+        const list = BOOK_PAGE_STICKERS[key];
+        if (Array.isArray(list)) {
+          const idx = list.indexOf(el);
+          if (idx !== -1) list.splice(idx, 1);
+        }
+      });
+    }
+
+    function attachSavedBookPageStickers(leftPage, rightPage) {
+      const leftKey = `${currentBookId}__${currentPhotoSpreadIdx}__left`;
+      const rightKey = `${currentBookId}__${currentPhotoSpreadIdx}__right`;
+      if (BOOK_PAGE_STICKERS[leftKey]) {
+        BOOK_PAGE_STICKERS[leftKey].forEach((st) => leftPage.appendChild(st));
+      }
+      if (BOOK_PAGE_STICKERS[rightKey]) {
+        BOOK_PAGE_STICKERS[rightKey].forEach((st) => rightPage.appendChild(st));
+      }
     }
 
     function renderPhotoBookSpread(animDir) {
@@ -1579,6 +1621,7 @@
             <p class="font-cute text-base text-stone-500">scans coming soon!</p>
           </div>
         `;
+        attachSavedBookPageStickers(leftPage, rightPage);
         return;
       }
 
@@ -1613,6 +1656,8 @@
         `;
         rightPage.appendChild(endDiv);
       }
+
+      attachSavedBookPageStickers(leftPage, rightPage);
 
       if (animDir) {
         spreadEl.classList.remove('flip-anim-next', 'flip-anim-prev');
@@ -1650,7 +1695,7 @@
       let clickedImgIdx = null;
 
       spreadEl.addEventListener('pointerdown', (e) => {
-        if (e.target.closest('button')) return;
+        if (e.target.closest('button') || e.target.closest('.drag-item')) return;
         isSwiping = true;
         startX = e.clientX;
         startY = e.clientY;
@@ -1954,73 +1999,165 @@
     }, { passive: true });
 
     // =============================================================
-    // DRAGGABLE INTERACTIVE HERO STICKERS
+    // DRAGGABLE INTERACTIVE HERO & BOOK PAGE STICKERS
     // =============================================================
     let topStickerZ = 30;
 
+    function tryAttachStickerToOpenPhotoPage(el, cx, cy, dropW, dropH) {
+      if (!isPhotoBookOpen) return false;
+      const leftPage = document.getElementById('photo-page-left');
+      const rightPage = document.getElementById('photo-page-right');
+      if (!leftPage || !rightPage) return false;
+
+      const lRect = leftPage.getBoundingClientRect();
+      const rRect = rightPage.getBoundingClientRect();
+      const unionLeft = lRect.left - 18;
+      const unionRight = rRect.right + 18;
+      const unionTop = Math.min(lRect.top, rRect.top) - 18;
+      const unionBottom = Math.max(lRect.bottom, rRect.bottom) + 18;
+
+      if (cx < unionLeft || cx > unionRight || cy < unionTop || cy > unionBottom) {
+        return false;
+      }
+
+      const isRightSide = cx >= lRect.right;
+      const targetPage = isRightSide ? rightPage : leftPage;
+      const side = isRightSide ? 'right' : 'left';
+      const pRect = targetPage.getBoundingClientRect();
+      if (pRect.width <= 0 || pRect.height <= 0) return false;
+
+      const wPct = Math.max(8, Math.min(52, (dropW / pRect.width) * 100));
+      const actualWPx = (wPct / 100) * pRect.width;
+      const actualHPx = dropH || actualWPx;
+      const rawLeftPct = ((cx - pRect.left - actualWPx * 0.5) / pRect.width) * 100;
+      const rawTopPct = ((cy - pRect.top - actualHPx * 0.5) / pRect.height) * 100;
+      const lPct = Math.max(-6, Math.min(92, rawLeftPct));
+      const tPct = Math.max(-6, Math.min(90, rawTopPct));
+
+      removeStickerFromAllBookPages(el);
+      topStickerZ += 1;
+      el.style.position = 'absolute';
+      el.style.width = `${wPct.toFixed(2)}%`;
+      el.style.left = `${lPct.toFixed(2)}%`;
+      el.style.top = `${tPct.toFixed(2)}%`;
+      el.style.right = 'auto';
+      el.style.bottom = 'auto';
+      el.style.zIndex = topStickerZ;
+      targetPage.appendChild(el);
+
+      const pageKey = `${currentBookId}__${currentPhotoSpreadIdx}__${side}`;
+      if (!BOOK_PAGE_STICKERS[pageKey]) BOOK_PAGE_STICKERS[pageKey] = [];
+      BOOK_PAGE_STICKERS[pageKey].push(el);
+      return true;
+    }
+
     function makeDraggable(el) {
+      if (!el.dataset.heroWidth) {
+        el.dataset.heroWidth = el.style.width || '10%';
+      }
       let isDragging = false;
-      let startX, startY, initL, initT;
+      let isLiftedToBody = false;
+      let startX = 0, startY = 0, initScreenL = 0, initScreenT = 0, dragW = 0, dragH = 0;
       let moved = 0;
 
-      el.addEventListener('pointerdown', (e) => {
-        isDragging = true;
-        moved = 0;
-        startX = e.clientX;
-        startY = e.clientY;
-        const rect = el.getBoundingClientRect();
-        const pRect = el.parentElement.getBoundingClientRect();
-        initL = rect.left - pRect.left;
-        initT = rect.top - pRect.top;
-        topStickerZ += 1;
-        el.style.zIndex = topStickerZ;
-        el.setPointerCapture(e.pointerId);
-        playSparkleTwinkle();
-      });
-
-      el.addEventListener('pointermove', (e) => {
+      function onWindowMove(e) {
         if (!isDragging) return;
         const dx = e.clientX - startX;
         const dy = e.clientY - startY;
         moved = Math.hypot(dx, dy);
-        if (moved > 5) el.classList.add('is-dragging');
-        const pRect = el.parentElement.getBoundingClientRect();
-        if (pRect.width > 0 && pRect.height > 0) {
-          const newLeftPct = ((initL + dx) / pRect.width) * 100;
-          const newTopPct = ((initT + dy) / pRect.height) * 100;
-          el.style.left = `${newLeftPct.toFixed(2)}%`;
-          el.style.top = `${newTopPct.toFixed(2)}%`;
-        } else {
-          el.style.left = `${initL + dx}px`;
-          el.style.top = `${initT + dy}px`;
-        }
-        el.style.right = 'auto';
-        el.style.bottom = 'auto';
-      });
 
-      const stop = (e) => {
+        if (moved > 3 && !isLiftedToBody) {
+          isLiftedToBody = true;
+          el.classList.add('is-dragging');
+          removeStickerFromAllBookPages(el);
+          el.style.position = 'fixed';
+          el.style.width = `${dragW}px`;
+          el.style.left = `${initScreenL + dx}px`;
+          el.style.top = `${initScreenT + dy}px`;
+          el.style.right = 'auto';
+          el.style.bottom = 'auto';
+          el.style.zIndex = 9500;
+          document.body.appendChild(el);
+        } else if (isLiftedToBody) {
+          el.style.left = `${initScreenL + dx}px`;
+          el.style.top = `${initScreenT + dy}px`;
+        }
+      }
+
+      function onWindowUp(e) {
         if (!isDragging) return;
         isDragging = false;
+        window.removeEventListener('pointermove', onWindowMove);
+        window.removeEventListener('pointerup', onWindowUp);
+        window.removeEventListener('pointercancel', onWindowUp);
+
         const wasTap = moved < 6;
         setTimeout(() => el.classList.remove('is-dragging'), 50);
-        if (e && e.pointerId !== undefined) {
-          try { el.releasePointerCapture(e.pointerId); } catch(err){}
-        }
-        if (moved >= 6) {
+
+        if (isLiftedToBody) {
+          isLiftedToBody = false;
+          const dropRect = el.getBoundingClientRect();
+          const cx = dropRect.left + dropRect.width * 0.5;
+          const cy = dropRect.top + dropRect.height * 0.5;
+
+          // 1. Check if dropped onto an open Photo Book page!
+          const stuckToBook = tryAttachStickerToOpenPhotoPage(el, cx, cy, dropRect.width, dropRect.height);
+
+          // 2. Otherwise, attach back onto the Blue Header Canvas!
+          if (!stuckToBook) {
+            const heroCanvas = document.querySelector('header.hero-blue-canvas');
+            const stickersLayer = document.getElementById('hero-stickers-layer');
+            const hRect = heroCanvas.getBoundingClientRect();
+            const restoredWidth = el.dataset.heroWidth || '10%';
+            el.style.width = restoredWidth;
+            const heroWPx = ((parseFloat(restoredWidth) || 10) / 100) * hRect.width;
+            const rawLeftPct = ((cx - hRect.left - heroWPx * 0.5) / hRect.width) * 100;
+            const rawTopPct = ((cy - hRect.top - dropRect.height * 0.5) / hRect.height) * 100;
+            const leftPct = Math.max(-2, Math.min(93, rawLeftPct));
+            const topPct = Math.max(1, Math.min(85, rawTopPct));
+
+            topStickerZ += 1;
+            el.style.position = 'absolute';
+            el.style.left = `${leftPct.toFixed(2)}%`;
+            el.style.top = `${topPct.toFixed(2)}%`;
+            el.style.right = 'auto';
+            el.style.bottom = 'auto';
+            el.style.zIndex = topStickerZ;
+            stickersLayer.appendChild(el);
+          }
           playSparkleNote(2637.02, 0.03, 0.22);
         } else if (wasTap && el.id === 'drag-gilbert') {
           openGilbertModal();
         }
-      };
+      }
 
-      el.addEventListener('pointerup', stop);
-      el.addEventListener('pointercancel', stop);
+      el.addEventListener('pointerdown', (e) => {
+        if (e.button !== undefined && e.button !== 0) return;
+        e.stopPropagation();
+        isDragging = true;
+        isLiftedToBody = false;
+        moved = 0;
+        startX = e.clientX;
+        startY = e.clientY;
+        const rect = el.getBoundingClientRect();
+        initScreenL = rect.left;
+        initScreenT = rect.top;
+        dragW = rect.width;
+        dragH = rect.height;
+        topStickerZ += 1;
+        el.style.zIndex = topStickerZ;
+        playSparkleTwinkle();
+
+        window.addEventListener('pointermove', onWindowMove);
+        window.addEventListener('pointerup', onWindowUp);
+        window.addEventListener('pointercancel', onWindowUp);
+      });
     }
 
     document.querySelectorAll('.drag-item').forEach(makeDraggable);
 
     // =============================================================
-    // 3D ANIMATED STICKER BOOK ENGINE (PEEL & DRAG TO BLUE CANVAS)
+    // 3D ANIMATED STICKER BOOK ENGINE (PEEL & DRAG TO BLUE CANVAS OR OPEN PHOTO BOOK)
     // =============================================================
     const STICKER_BOOK_SPREADS = [
       // SPREAD 0: CATS, PUP & LITTLE GUYS (12 STICKERS: 6 LEFT, 6 RIGHT)
@@ -2079,6 +2216,25 @@
           { src: 'stickers/sb_orchid.png', widthPct: 9.5, rot: -4, label: 'Green Orchid Stem 🌿' },
           { src: 'stickers/canva_gecko.png', widthPct: 12.5, rot: 4, label: 'Green & Orange Gecko 🦎' }
         ]
+      },
+      // SPREAD 3: CLEAR FACE STICKERS (12 STICKERS: 6 LEFT, 6 RIGHT)
+      {
+        left: [
+          { src: 'stickers/sb_face_wink.png', widthPct: 9.5, rot: -4, label: 'Sunny Balcony Wink 😉' },
+          { src: 'stickers/sb_face_laugh.png', widthPct: 9.5, rot: 5, label: 'Big Laugh Cutout 😄' },
+          { src: 'stickers/sb_face_portrait.png', widthPct: 9.5, rot: -3, label: '35mm Portrait Face ✨' },
+          { src: 'stickers/sb_face_bday_1.png', widthPct: 9.0, rot: 4, label: 'Birthday Smile 1 🎂' },
+          { src: 'stickers/sb_face_bday_2.png', widthPct: 9.0, rot: -5, label: 'Birthday Smile 2 🎉' },
+          { src: 'stickers/sb_face_bday_3.png', widthPct: 9.0, rot: 3, label: 'Birthday Smile 3 🥳' }
+        ],
+        right: [
+          { src: 'stickers/sb_face_couch_1.png', widthPct: 9.0, rot: 4, label: 'Sunnies Smile 1 😎' },
+          { src: 'stickers/sb_face_couch_2.png', widthPct: 9.0, rot: -4, label: 'Sunnies Smile 2 😎' },
+          { src: 'stickers/sb_face_hug_1.png', widthPct: 9.0, rot: 5, label: 'Couch Hug Smile 1 💛' },
+          { src: 'stickers/sb_face_hug_2.png', widthPct: 9.0, rot: -3, label: 'Couch Hug Smile 2 💛' },
+          { src: 'stickers/sb_face_wine.png', widthPct: 9.0, rot: 4, label: 'Golden Hour Sip 🥂' },
+          { src: 'stickers/sb_face_gilbert_closeup.png', widthPct: 9.5, rot: -4, label: 'Gilbert Face Closeup 🐾' }
+        ]
       }
     ];
 
@@ -2110,12 +2266,13 @@
         if (launcher) launcher.style.opacity = '1';
         playSparkleNote(1567.98, 0.025, 0.16);
       }
+      syncBookStagePositions();
       renderBooks();
     }
 
     function switchStickerSpread(spreadIdx) {
       activeStickerSpread = spreadIdx;
-      ['all', 0, 1, 2].forEach((i) => {
+      ['all', 0, 1, 2, 3].forEach((i) => {
         const btn = document.getElementById(`sb-tab-${i}`);
         if (btn) btn.classList.toggle('is-active', i === spreadIdx);
       });
@@ -2132,9 +2289,13 @@
       rightPage.innerHTML = '';
 
       if (spreadIdx === 'all') {
-        STICKER_BOOK_SPREADS.forEach((sp) => {
-          sp.left.forEach((st) => leftPage.appendChild(createStickerBookSlot(st)));
-          sp.right.forEach((st) => rightPage.appendChild(createStickerBookSlot(st)));
+        // Put Face Stickers & Pals right at the top when viewing 'All', followed by Magic & Bugs!
+        [3, 0, 1, 2].forEach((idx) => {
+          const sp = STICKER_BOOK_SPREADS[idx];
+          if (sp) {
+            sp.left.forEach((st) => leftPage.appendChild(createStickerBookSlot(st)));
+            sp.right.forEach((st) => rightPage.appendChild(createStickerBookSlot(st)));
+          }
         });
       } else {
         const spread = STICKER_BOOK_SPREADS[spreadIdx] || STICKER_BOOK_SPREADS[0];
@@ -2148,14 +2309,14 @@
       slot.className = 'sb-sticker-slot';
       slot.style.setProperty('--sb-rot', `${stickerData.rot || 0}deg`);
       slot.style.transform = `rotate(${stickerData.rot || 0}deg)`;
-      slot.title = `${stickerData.label} — Drag onto the blue header (or tap to stick!)`;
+      slot.title = `${stickerData.label} — Drag onto the blue header or open photo book!`;
 
       const img = document.createElement('img');
       img.src = stickerData.src;
       img.alt = stickerData.label || 'Sticker';
       slot.appendChild(img);
 
-      // Peel & drag from Sticker Book onto the Blue Header Canvas
+      // Peel & drag from Sticker Book onto the Blue Header Canvas or Open Photo Book
       slot.addEventListener('pointerdown', (e) => {
         if (e.button !== undefined && e.button !== 0) return;
         peelStickerFromBook(e, stickerData, slot);
@@ -2169,8 +2330,42 @@
       const stickersLayer = document.getElementById('hero-stickers-layer');
       const rect = heroCanvas.getBoundingClientRect();
 
+      topStickerZ += 1;
+      const wrapper = document.createElement('div');
+      wrapper.className = 'drag-item extra-peeled-sticker pointer-events-auto';
+      wrapper.style.width = `${stickerData.widthPct}%`;
+      wrapper.dataset.heroWidth = `${stickerData.widthPct}%`;
+      wrapper.style.zIndex = topStickerZ;
+      wrapper.title = `${stickerData.label} (Drag to move • Double-click to remove)`;
+
+      const img = document.createElement('img');
+      img.src = stickerData.src;
+      img.alt = stickerData.label || 'Sticker';
+      img.className = 'w-full h-auto block drop-shadow-xl pointer-events-none';
+      wrapper.appendChild(img);
+
+      // Double-click any added sticker to peel it back off
+      wrapper.addEventListener('dblclick', () => {
+        playSparkleNote(1318.51, 0.03, 0.18);
+        removeStickerFromAllBookPages(wrapper);
+        wrapper.remove();
+      });
+
+      makeDraggable(wrapper);
+
+      // Check if dropped onto an open Photo Book page first!
+      const approxWPx = Math.max(72, Math.min(180, (stickerData.widthPct / 100) * rect.width));
+      if (clientX !== undefined && clientY !== undefined && tryAttachStickerToOpenPhotoPage(wrapper, clientX, clientY, approxWPx, approxWPx)) {
+        wrapper.animate([
+          { transform: 'scale(1.32) rotate(-6deg)', opacity: 0.75 },
+          { transform: 'scale(1) rotate(0deg)', opacity: 1 }
+        ], { duration: 260, easing: 'cubic-bezier(0.16, 1, 0.3, 1)' });
+        playSparkleTwinkle();
+        return;
+      }
+
       let leftPct, topPct;
-      if (clientX !== undefined && clientY !== undefined && clientY <= rect.bottom + 90) {
+      if (clientX !== undefined && clientY !== undefined) {
         const wPx = (stickerData.widthPct / 100) * rect.width;
         const rawLeft = ((clientX - rect.left - wPx * 0.5) / rect.width) * 100;
         const rawTop = ((clientY - rect.top - wPx * 0.5) / rect.height) * 100;
@@ -2182,20 +2377,9 @@
         topPct = 10 + Math.random() * 62;
       }
 
-      topStickerZ += 1;
-      const wrapper = document.createElement('div');
-      wrapper.className = 'drag-item extra-peeled-sticker pointer-events-auto';
       wrapper.style.left = `${leftPct.toFixed(2)}%`;
       wrapper.style.top = `${topPct.toFixed(2)}%`;
-      wrapper.style.width = `${stickerData.widthPct}%`;
-      wrapper.style.zIndex = topStickerZ;
-      wrapper.title = `${stickerData.label} (Drag to move • Double-click to remove)`;
-
-      const img = document.createElement('img');
-      img.src = stickerData.src;
-      img.alt = stickerData.label || 'Sticker';
-      img.className = 'w-full h-auto block drop-shadow-xl pointer-events-none';
-      wrapper.appendChild(img);
+      stickersLayer.appendChild(wrapper);
 
       // Pop-in animation
       wrapper.animate([
@@ -2203,14 +2387,6 @@
         { transform: 'scale(1) rotate(0deg)', opacity: 1 }
       ], { duration: 260, easing: 'cubic-bezier(0.16, 1, 0.3, 1)' });
 
-      // Double-click any added sticker to peel it back off
-      wrapper.addEventListener('dblclick', () => {
-        playSparkleNote(1318.51, 0.03, 0.18);
-        wrapper.remove();
-      });
-
-      makeDraggable(wrapper);
-      stickersLayer.appendChild(wrapper);
       playSparkleTwinkle();
     }
 
@@ -2265,9 +2441,8 @@
           // Tapped in book -> stick onto blue canvas!
           placeStickerOnHeroCanvas(stickerData);
         } else if (droppedOutsideBook || e.clientY <= updatedHeroRect.bottom + 90) {
-          // Dropped anywhere outside the bottom-right Sticker Book -> stick at drop spot on blue canvas!
-          const targetY = Math.min(e.clientY, updatedHeroRect.bottom - 50);
-          placeStickerOnHeroCanvas(stickerData, e.clientX, targetY);
+          // Dropped outside the Sticker Book (onto an open Photo Book page or onto the blue header)!
+          placeStickerOnHeroCanvas(stickerData, e.clientX, e.clientY);
         }
       }
 
@@ -2277,7 +2452,10 @@
     }
 
     function clearExtraHeroStickers() {
-      document.querySelectorAll('.extra-peeled-sticker').forEach((el) => el.remove());
+      document.querySelectorAll('.extra-peeled-sticker').forEach((el) => {
+        removeStickerFromAllBookPages(el);
+        el.remove();
+      });
       playSparkleNote(1760, 0.03, 0.2);
     }
 
