@@ -54,7 +54,7 @@
     }
 
     body {
-      background-color: var(--desk-dark);
+      background-color: #faf8f5;
       color: var(--ink-charcoal);
       font-family: 'Newsreader', Georgia, serif;
       overflow-x: hidden;
@@ -205,29 +205,201 @@
       font-family: 'Covered By Your Grace', cursive;
     }
 
-    .double-rule-thick {
-      border-top: 3px solid var(--ink-black);
-      border-bottom: 1px solid var(--ink-black);
-      height: 6px;
+    /* -------------------------------------------------------------
+       COFFEE TABLE BOOKS & SHELF
+       ------------------------------------------------------------- */
+    .book-shelf {
+      display: flex;
+      align-items: flex-end;
+      gap: 1.25rem;
+      overflow-x: auto;
+      padding: 1.5rem 1rem 2.25rem 1rem;
+      scrollbar-width: thin;
+      perspective: 1200px;
     }
 
-    .double-rule-thin {
-      border-top: 1px solid var(--ink-black);
-      border-bottom: 1px solid var(--ink-black);
-      height: 4px;
+    @media (min-width: 768px) {
+      .book-shelf {
+        gap: 1.75rem;
+        justify-content: center;
+      }
     }
 
-    /* Filmstrip Thumbnails */
-    .thumb-btn {
-      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
-      opacity: 0.6;
+    .book-item {
+      flex-shrink: 0;
+      cursor: pointer;
+      position: relative;
+      transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+      user-select: none;
     }
 
-    .thumb-btn:hover, .thumb-btn.is-active {
-      opacity: 1;
-      transform: translateY(-2px);
-      border-color: #141311 !important;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    .book-hardcover {
+      width: 130px;
+      height: 180px;
+      position: relative;
+      background: #1c1a17;
+      border-radius: 2px 8px 8px 2px;
+      box-shadow: 
+        -4px 0 6px rgba(0,0,0,0.3),
+        6px 14px 26px -4px rgba(0,0,0,0.35),
+        0 2px 4px rgba(0,0,0,0.2);
+      transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+      overflow: hidden;
+      padding: 8px 8px 8px 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    @media (min-width: 640px) {
+      .book-hardcover {
+        width: 160px;
+        height: 220px;
+        padding: 10px 10px 10px 20px;
+      }
+    }
+
+    /* Realistic book spine crease */
+    .book-hardcover::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      width: 16px;
+      background: linear-gradient(to right, 
+        rgba(0, 0, 0, 0.55) 0%, 
+        rgba(255, 255, 255, 0.22) 28%, 
+        rgba(0, 0, 0, 0.3) 65%, 
+        rgba(0, 0, 0, 0.65) 100%);
+      z-index: 10;
+      pointer-events: none;
+    }
+
+    /* Page edges */
+    .book-hardcover::after {
+      content: '';
+      position: absolute;
+      top: 4px;
+      bottom: 4px;
+      right: 1px;
+      width: 4px;
+      background: repeating-linear-gradient(to bottom, #f5f2eb, #dfd8cb 2px, #f5f2eb 4px);
+      box-shadow: -1px 0 2px rgba(0,0,0,0.25);
+      z-index: 9;
+    }
+
+    .book-item:hover .book-hardcover {
+      transform: translateY(-10px) rotateY(-5deg) scale(1.04);
+      box-shadow: 
+        -6px 0 10px rgba(0,0,0,0.35),
+        14px 28px 40px -6px rgba(0,0,0,0.45);
+    }
+
+    .book-item.is-active .book-hardcover {
+      transform: translateY(-8px) scale(1.03);
+      box-shadow: 
+        0 0 0 2.5px #162bc5,
+        0 0 24px rgba(22, 43, 197, 0.35),
+        8px 20px 32px -4px rgba(0,0,0,0.4);
+    }
+
+    /* Active ribbon bookmark indicator */
+    .book-item.is-active::after {
+      content: '';
+      position: absolute;
+      bottom: -8px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 12px;
+      height: 12px;
+      background-color: #162bc5;
+      clip-path: polygon(50% 0%, 100% 100%, 0% 100%);
+    }
+
+    .book-inner-photo {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 1px;
+      box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+    }
+
+    /* -------------------------------------------------------------
+       MULTI-COLUMN MASONRY PHOTO WALL (ZERO WORDS)
+       ------------------------------------------------------------- */
+    .masonry-gallery {
+      column-count: 2;
+      column-gap: 12px;
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 0 12px 64px 12px;
+    }
+
+    @media (min-width: 640px) {
+      .masonry-gallery {
+        column-count: 2;
+        column-gap: 16px;
+        padding: 0 20px 80px 20px;
+      }
+    }
+
+    @media (min-width: 768px) {
+      .masonry-gallery {
+        column-count: 3;
+        column-gap: 20px;
+        padding: 0 28px 96px 28px;
+      }
+    }
+
+    @media (min-width: 1280px) {
+      .masonry-gallery {
+        column-count: 4;
+        column-gap: 24px;
+        padding: 0 36px 120px 36px;
+      }
+    }
+
+    .masonry-photo-item {
+      break-inside: avoid;
+      margin-bottom: 12px;
+      position: relative;
+      cursor: zoom-in;
+      background-color: #ece8de;
+      overflow: hidden;
+      border-radius: 2px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+      transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s ease;
+    }
+
+    @media (min-width: 640px) {
+      .masonry-photo-item {
+        margin-bottom: 16px;
+      }
+    }
+
+    @media (min-width: 768px) {
+      .masonry-photo-item {
+        margin-bottom: 20px;
+      }
+    }
+
+    @media (min-width: 1280px) {
+      .masonry-photo-item {
+        margin-bottom: 24px;
+      }
+    }
+
+    .masonry-photo-item:hover {
+      transform: translateY(-4px) scale(1.015);
+      box-shadow: 0 16px 32px -8px rgba(0, 0, 0, 0.22);
+    }
+
+    .masonry-photo-item img {
+      width: 100%;
+      height: auto;
+      display: block;
+      transition: opacity 0.3s ease;
     }
 
     /* Dialog element specificity fix */
@@ -348,230 +520,24 @@
   </header>
 
   <!-- =============================================================
-       2. NEWSPAPER BROADSHEET SCAN: THE PHOTOS SPEAK FOR THEMSELVES
+       2. COFFEE TABLE BOOKS SHELF & MULTI-COLUMN MASONRY GALLERY
+       (ZERO WORDS PAST BLUE HEADER • PURE PHOTOGRAPHY CONTENT)
        ============================================================= -->
-  <main class="max-w-[1240px] mx-auto broadsheet-paper newsprint-texture p-4 sm:p-8 md:p-10 lg:p-12 border border-stone-300 relative shadow-2xl">
-
-    <!-- PRINTER MARGIN CALIBRATION STRIPS -->
-    <div class="hidden xl:flex flex-col items-center justify-between absolute -left-7 top-16 bottom-16 w-5 text-[9px] font-mono-exif text-stone-500 select-none pointer-events-none">
-      <div class="space-y-1.5 flex flex-col items-center">
-        <div class="w-3 h-3 rounded-full border border-stone-600 flex items-center justify-center text-[7px]">⌖</div>
-        <div class="w-2.5 h-2.5 rounded-full" style="background-color: var(--cyan-dot);"></div>
-        <div class="w-2.5 h-2.5 rounded-full" style="background-color: var(--magenta-dot);"></div>
-        <div class="w-2.5 h-2.5 rounded-full" style="background-color: var(--yellow-dot);"></div>
-        <div class="w-2.5 h-2.5 rounded-full" style="background-color: var(--key-dot);"></div>
-      </div>
-      <div class="transform -rotate-90 whitespace-nowrap tracking-widest text-stone-400 text-[8px]">
-        TMU ARCHIVE • VISA • SCAN 01
-      </div>
-      <div class="w-3 h-3 rounded-full border border-stone-600 flex items-center justify-center text-[7px]">⌖</div>
-    </div>
-
-    <div class="hidden xl:flex flex-col items-center justify-between absolute -right-7 top-16 bottom-16 w-5 text-[9px] font-mono-exif text-stone-500 select-none pointer-events-none">
-      <div class="w-3 h-3 rounded-full border border-stone-600 flex items-center justify-center text-[7px]">⌖</div>
-      <div class="transform rotate-90 whitespace-nowrap tracking-widest text-stone-400 text-[8px]">
-        BROADSHEET FOLIO • ARCHIVAL SCAN
-      </div>
-      <div class="space-y-1.5 flex flex-col items-center">
-        <div class="w-2.5 h-2.5 rounded-full" style="background-color: var(--key-dot);"></div>
-        <div class="w-2.5 h-2.5 rounded-full" style="background-color: var(--yellow-dot);"></div>
-        <div class="w-2.5 h-2.5 rounded-full" style="background-color: var(--magenta-dot);"></div>
-        <div class="w-2.5 h-2.5 rounded-full" style="background-color: var(--cyan-dot);"></div>
-        <div class="w-3 h-3 rounded-full border border-stone-600 flex items-center justify-center text-[7px]">⌖</div>
-      </div>
-    </div>
-
-    <!-- FOLIO HEADER -->
-    <section class="border-b border-stone-900 pb-2 mb-3">
-      <div class="flex flex-wrap items-baseline justify-between text-xs font-caps tracking-widest text-stone-900 border-b border-stone-300 pb-1.5">
-        <div class="font-bold flex items-center space-x-2">
-          <span>E8</span>
-          <span class="text-stone-400">•</span>
-          <span>TMU PHOTOJOURNALISM</span>
-        </div>
-        <div class="font-bold tracking-[0.2em] uppercase text-stone-950 flex items-center justify-center gap-2">
-          <img src="stickers/gilbert_icon_tight.png" alt="Gilbert Logo" class="w-5 h-5 rounded-full border border-stone-800 object-cover grayscale contrast-125 hover:grayscale-0 hover:scale-110 transition-all cursor-pointer" onclick="openGilbertModal()" title="Studio Gilbert 🐾 (Tap to meet Gilbert)">
-          <span>The Abigail Post • Section E: Photography</span>
-        </div>
-        <div class="font-bold flex items-center space-x-2">
-          <span>PORTFOLIO BROADSHEET</span>
-          <span class="text-stone-400">•</span>
-          <span>E9</span>
-        </div>
-      </div>
-
-      <div class="double-rule-thick my-2"></div>
-      <div class="text-center py-0.5">
-        <h2 class="text-xs font-caps font-bold tracking-[0.55em] text-stone-950 uppercase inline-block">
-          — P H O T O G R A P H Y —
-        </h2>
-      </div>
-      <div class="double-rule-thin mt-1.5"></div>
-    </section>
-
-    <!-- =============================================================
-         PROJECT BLOCK 1: ASSIGNMENT 01 — URBAN OBSERVATIONS
-         (ONE SOLID BLOCK • PURE PHOTOGRAPHY • NO EXTRA WORDS)
-         ============================================================= -->
-    <section id="project-urban" class="py-6 border-b-2 border-stone-900">
-      
-      <!-- SIMPLE CLEAN TITLE (NO WORDY ESSAYS) -->
-      <div class="flex flex-wrap items-baseline justify-between mb-4">
-        <div>
-          <span class="text-xs font-mono-exif text-stone-500 font-bold block mb-0.5">ASSIGNMENT 01</span>
-          <h3 class="font-headline text-3xl sm:text-4xl font-black text-stone-950 tracking-tight">
-            Urban Observations
-          </h3>
-        </div>
-        <div class="font-mono-exif text-xs text-stone-600 mt-1 sm:mt-0">
-          <span id="ass1-plate-tag">01 / 21</span>
-        </div>
-      </div>
-
-      <!-- INTERACTIVE PHOTO STAGE -->
-      <div class="bg-white border border-stone-300 p-3 sm:p-5 shadow-sm">
-        
-        <!-- TOP CONTROLS -->
-        <div class="flex items-center justify-between border-b border-stone-200 pb-2 mb-3 font-mono-exif text-xs">
-          <div class="flex items-center space-x-2 text-stone-800">
-            <span class="font-bold" id="ass1-plate-loc">Dundas Station</span>
-            <span class="text-stone-400">•</span>
-            <span class="text-stone-500" id="ass1-caption-exif">1/125s • f/4.0</span>
-          </div>
-
-          <div class="flex items-center space-x-1.5">
-            <button id="ass1-prev-btn" class="px-3 py-1 border border-stone-900 bg-[#f7f3e8] hover:bg-stone-900 hover:text-white transition-colors font-bold text-xs">
-              ‹ PREV
-            </button>
-            <button id="ass1-next-btn" class="px-3 py-1 border border-stone-900 bg-[#f7f3e8] hover:bg-stone-900 hover:text-white transition-colors font-bold text-xs">
-              NEXT ›
-            </button>
-            <button onclick="openCurrentAss1Lightbox()" class="ml-1 px-2.5 py-1 border border-stone-400 bg-stone-100 hover:border-stone-900 text-stone-800 text-xs hidden sm:inline" title="Full screen">
-              ⛶
-            </button>
-          </div>
-        </div>
-
-        <!-- MAIN FOCAL PHOTOGRAPH -->
-        <div class="relative bg-stone-100/40 border border-stone-200 aspect-[16/10] sm:aspect-[16/9] md:aspect-[21/11] flex items-center justify-center overflow-hidden cursor-pointer group" onclick="openCurrentAss1Lightbox()">
-          <img id="ass1-main-img" src="photos/ass1/img_0007.jpg" alt="Urban Observation" class="max-h-full max-w-full object-contain transition-transform duration-300 group-hover:scale-[1.015]">
-          <div class="absolute bottom-3 right-3 bg-stone-950/80 text-white text-[10px] font-mono-exif px-2 py-0.5 tracking-wider opacity-0 group-hover:opacity-100 transition-opacity">
-            ENLARGE ⛶
-          </div>
-        </div>
-
-        <!-- SLEEK FILMSTRIP (ALL 21 PHOTOS CLICKABLE) -->
-        <div class="mt-4 pt-3 border-t border-stone-200">
-          <div id="ass1-filmstrip" class="flex items-center space-x-2 overflow-x-auto pb-1 scrollbar-thin">
-            <!-- Dynamically populated via JS -->
-          </div>
-        </div>
-
+  <main class="w-full relative">
+    
+    <!-- COFFEE TABLE BOOKS SHELF (ZERO WORDS, PURE ART MONOGRAPHS) -->
+    <section class="max-w-[1400px] mx-auto pt-6 pb-2 px-3 sm:px-6 md:px-8">
+      <div id="books-shelf" class="book-shelf">
+        <!-- Dynamically populated books -->
       </div>
     </section>
 
-    <!-- HORIZONTAL PAPER CREASE -->
-    <div class="broadsheet-crease-h" aria-hidden="true"></div>
-
-    <!-- =============================================================
-         PROJECT BLOCK 2: ASSIGNMENT 02 — THE AUTUMN SERIES
-         (ONE SOLID BLOCK • PURE PHOTOGRAPHY • NO EXTRA WORDS)
-         ============================================================= -->
-    <section id="project-autumn" class="py-6 border-b-2 border-stone-900">
-      
-      <!-- SIMPLE CLEAN TITLE -->
-      <div class="flex flex-wrap items-baseline justify-between mb-4">
-        <div>
-          <span class="text-xs font-mono-exif text-stone-500 font-bold block mb-0.5">ASSIGNMENT 02</span>
-          <h3 class="font-headline text-3xl sm:text-4xl font-black text-stone-950 tracking-tight">
-            Autumn Series
-          </h3>
-        </div>
-        <div class="font-mono-exif text-xs text-stone-600 mt-1 sm:mt-0">
-          <span id="autumn-plate-tag">01 / 13</span>
-        </div>
-      </div>
-
-      <!-- INTERACTIVE PHOTO STAGE -->
-      <div class="bg-white border border-stone-300 p-3 sm:p-5 shadow-sm">
-        
-        <!-- TOP CONTROLS -->
-        <div class="flex items-center justify-between border-b border-stone-200 pb-2 mb-3 font-mono-exif text-xs">
-          <div class="flex items-center space-x-2 text-stone-800">
-            <span class="font-bold" id="autumn-plate-loc">Porch Threshold</span>
-            <span class="text-stone-400">•</span>
-            <span class="text-stone-500">35mm Film</span>
-          </div>
-
-          <div class="flex items-center space-x-1.5">
-            <button id="autumn-prev-btn" class="px-3 py-1 border border-stone-900 bg-[#f7f3e8] hover:bg-stone-900 hover:text-white transition-colors font-bold text-xs">
-              ‹ PREV
-            </button>
-            <button id="autumn-next-btn" class="px-3 py-1 border border-stone-900 bg-[#f7f3e8] hover:bg-stone-900 hover:text-white transition-colors font-bold text-xs">
-              NEXT ›
-            </button>
-            <button onclick="openCurrentAutumnLightbox()" class="ml-1 px-2.5 py-1 border border-stone-400 bg-stone-100 hover:border-stone-900 text-stone-800 text-xs hidden sm:inline" title="Full screen">
-              ⛶
-            </button>
-          </div>
-        </div>
-
-        <!-- MAIN FOCAL PHOTOGRAPH -->
-        <div class="relative bg-stone-100/40 border border-stone-200 aspect-[16/10] sm:aspect-[16/9] md:aspect-[21/11] flex items-center justify-center overflow-hidden cursor-pointer group" onclick="openCurrentAutumnLightbox()">
-          <img id="autumn-main-img" src="photos/autumn/MOR_FIVE_1.jpg" alt="Autumn Series" class="max-h-full max-w-full object-contain transition-transform duration-300 group-hover:scale-[1.015]">
-          <div class="absolute bottom-3 right-3 bg-stone-950/80 text-white text-[10px] font-mono-exif px-2 py-0.5 tracking-wider opacity-0 group-hover:opacity-100 transition-opacity">
-            ENLARGE ⛶
-          </div>
-        </div>
-
-        <!-- SLEEK FILMSTRIP (ALL 13 PHOTOS CLICKABLE) -->
-        <div class="mt-4 pt-3 border-t border-stone-200">
-          <div id="autumn-filmstrip" class="flex items-center space-x-2 overflow-x-auto pb-1 scrollbar-thin">
-            <!-- Dynamically populated via JS -->
-          </div>
-        </div>
-
+    <!-- MULTI-COLUMN MASONRY PHOTO WALL (ZERO WORDS, NATURAL HEIGHTS) -->
+    <section class="w-full">
+      <div id="masonry-gallery" class="masonry-gallery">
+        <!-- Dynamically populated photos with break-inside: avoid -->
       </div>
     </section>
-
-    <!-- =============================================================
-         3. MINIMAL COLOPHON: EXCLUSIVELY ABIGAIL & GILBERT
-         ============================================================= -->
-    <footer class="pt-8 pb-4">
-      <div class="border border-stone-900 p-6 bg-[#faf7ed] flex flex-col sm:flex-row items-center justify-between gap-6 text-center sm:text-left">
-        
-        <!-- ABIGAIL CREDIT -->
-        <div>
-          <h4 class="font-headline font-bold text-xl text-stone-950">Abigail Morra</h4>
-          <p class="text-xs font-mono-exif text-stone-600 mt-0.5">
-            Toronto Metropolitan University • School of Image Arts • VISA
-          </p>
-          <a href="mailto:abigail.morra@torontomu.ca" class="text-xs font-mono-exif text-stone-900 underline hover:text-red-800 mt-1 inline-block">
-            abigail.morra@torontomu.ca
-          </a>
-        </div>
-
-        <!-- GILBERT CREDIT ICON (TAP TO OPEN BLURB) -->
-        <div class="flex items-center space-x-3 cursor-pointer group p-2 rounded hover:bg-stone-200/50 transition-colors" onclick="openGilbertModal()">
-          <div class="w-12 h-14 bg-white p-1 border border-stone-300 shadow-sm rotate-2 group-hover:scale-105 transition-transform">
-            <img src="stickers/gilbert_sticker.png" alt="Gilbert" class="w-full h-full object-cover">
-          </div>
-          <div class="text-left">
-            <div class="font-headline font-bold text-sm text-stone-950 flex items-center space-x-1">
-              <span>Gilbert</span>
-              <span class="text-xs">🐾</span>
-            </div>
-            <p class="text-[10px] font-mono-exif text-stone-500">Studio Assistant & Friend</p>
-            <span class="text-[9px] font-mono-exif text-amber-800 underline">[tap for blurb]</span>
-          </div>
-        </div>
-
-      </div>
-
-      <div class="mt-4 text-center font-mono-exif text-[10px] text-stone-500">
-        © 2026 ABIGAIL MORRA • ARCHIVAL BROADSHEET SCAN
-      </div>
-    </footer>
 
   </main>
 
@@ -604,157 +570,214 @@
   </dialog>
 
   <!-- =============================================================
-       5. ARCHIVAL FULL-SCREEN LIGHTBOX
+       3. ARCHIVAL FULL-SCREEN LIGHTBOX (INFORMATION REVEALED ON CLICK)
        ============================================================= -->
-  <dialog id="photo-lightbox" class="fixed inset-0 z-50 w-full h-full bg-stone-950/95 backdrop-blur-md flex items-center justify-center p-4 sm:p-6">
-    <div class="max-w-5xl w-full bg-[#f7f3e8] border border-stone-900 p-4 shadow-2xl relative flex flex-col max-h-[92vh]">
+  <dialog id="photo-lightbox" class="fixed inset-0 z-50 w-full h-full bg-stone-950/95 backdrop-blur-md flex items-center justify-center p-3 sm:p-6">
+    <div class="max-w-6xl w-full bg-[#faf7f0] border border-stone-800 p-3 sm:p-5 shadow-2xl relative flex flex-col max-h-[94vh]">
       
       <!-- TOP BAR -->
       <div class="flex items-center justify-between border-b border-stone-300 pb-2 mb-2 font-mono-exif text-xs">
-        <span id="modal-counter" class="font-bold text-stone-900">01 / 21</span>
-        <button onclick="closeLightbox()" class="px-2.5 py-0.5 bg-stone-900 text-white font-bold hover:bg-stone-700">
+        <span id="modal-counter" class="font-bold text-stone-900">01 / 34</span>
+        <button onclick="closeLightbox()" class="px-3 py-1 bg-stone-900 text-white font-bold hover:bg-stone-700 transition-colors">
           ✕ CLOSE [ESC]
         </button>
       </div>
 
       <!-- MAIN IMAGE -->
       <div class="flex-1 overflow-hidden relative flex items-center justify-center min-h-[50vh] bg-stone-900/5 p-2">
-        <img id="modal-main-img" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg'/%3E" alt="Enlarged Plate" class="max-h-[72vh] max-w-full object-contain">
+        <img id="modal-main-img" src="" alt="Enlarged Photograph" class="max-h-[74vh] max-w-full object-contain">
 
-        <button id="modal-prev-btn" class="absolute left-3 top-1/2 -translate-y-1/2 px-3 py-2 bg-stone-900/80 text-white hover:bg-stone-900 font-mono-exif text-sm">
+        <button id="modal-prev-btn" class="absolute left-3 top-1/2 -translate-y-1/2 px-3.5 py-2 bg-stone-900/80 text-white hover:bg-stone-900 font-mono-exif text-sm">
           ‹ PREV
         </button>
-        <button id="modal-next-btn" class="absolute right-3 top-1/2 -translate-y-1/2 px-3 py-2 bg-stone-900/80 text-white hover:bg-stone-900 font-mono-exif text-sm">
+        <button id="modal-next-btn" class="absolute right-3 top-1/2 -translate-y-1/2 px-3.5 py-2 bg-stone-900/80 text-white hover:bg-stone-900 font-mono-exif text-sm">
           NEXT ›
         </button>
       </div>
 
-      <!-- CAPTION -->
-      <div class="mt-2 pt-2 border-t border-stone-300 flex justify-between items-baseline font-mono-exif text-xs text-stone-600">
-        <span id="modal-plate-title">Dundas Station</span>
-        <span>ABIGAIL MORRA • TMU</span>
+      <!-- CAPTION / INFORMATION (ONLY IN LIGHTBOX) -->
+      <div class="mt-2 pt-2 border-t border-stone-300 flex justify-between items-baseline font-mono-exif text-xs text-stone-700">
+        <div>
+          <span id="modal-plate-title" class="font-bold text-stone-900">Dundas Station</span>
+          <span class="text-stone-400 mx-1.5">•</span>
+          <span id="modal-plate-info" class="text-stone-600">35mm Film</span>
+        </div>
+        <span class="text-[11px] text-stone-500">ABIGAIL MORRA</span>
       </div>
 
     </div>
   </dialog>
 
+  <!-- UPCOMING BOOK MODAL -->
+  <dialog id="upcoming-modal" class="fixed inset-0 z-50 w-full h-full bg-stone-950/70 backdrop-blur-sm flex items-center justify-center p-4">
+    <div class="max-w-sm w-full bg-[#faf7f0] border-2 border-stone-900 p-6 shadow-2xl relative text-center">
+      <button onclick="document.getElementById('upcoming-modal').close()" class="absolute top-3 right-3 text-stone-500 hover:text-stone-900 font-mono-exif text-xs px-2.5 py-1 border border-stone-400 bg-white">
+        ✕
+      </button>
+      <div class="w-14 h-20 mx-auto mb-3 bg-[#1e2738] rounded-sm shadow-md flex items-center justify-center text-white/50 text-xs font-mono-exif border border-stone-600">
+        35MM
+      </div>
+      <p class="font-headline font-bold text-xl text-stone-950" id="upcoming-modal-title">Upcoming Series</p>
+      <p class="text-xs font-editorial italic text-stone-600 mt-1">In production • Scans coming soon</p>
+    </div>
+  </dialog>
+
   <!-- =============================================================
-       6. CLIENT JAVASCRIPT
+       4. CLIENT JAVASCRIPT
        ============================================================= -->
   <script>
-    // ASSIGNMENT 1 (21 PHOTOS)
-    const ASS1_PHOTOS = [
-      { src: 'photos/ass1/img_0007.jpg', loc: 'Dundas Station', exif: '1/125s • f/4.0' },
-      { src: 'photos/ass1/img_0023.jpg', loc: 'Queen West Window', exif: '1/250s • f/2.8' },
-      { src: 'photos/ass1/img_0027.jpg', loc: 'Queen East Corridor', exif: '1/200s • f/3.5' },
-      { src: 'photos/ass1/img_0046.jpg', loc: '504 King Streetcar', exif: '1/250s • f/2.0' },
-      { src: 'photos/ass1/img_0052.jpg', loc: 'Catenary Wire Intersect', exif: '1/500s • f/4.0' },
-      { src: 'photos/ass1/img_0053.jpg', loc: 'Railway Underpass', exif: '1/320s • f/5.6' },
-      { src: 'photos/ass1/img_0062.jpg', loc: 'Transit Shelter', exif: '1/160s • f/2.8' },
-      { src: 'photos/ass1/img_0095.jpg', loc: 'Yonge Marquee Reflection', exif: '1/250s • f/4.0' },
-      { src: 'photos/ass1/img_0103.jpg', loc: 'King & Spadina Rails', exif: '1/500s • f/5.6' },
-      { src: 'photos/ass1/img_0108.jpg', loc: 'Dundas Station Concourse', exif: '1/200s • f/2.8' },
-      { src: 'photos/ass1/img_0118.jpg', loc: 'Evening Reflection', exif: '1/60s • f/2.8' },
-      { src: 'photos/ass1/img_0119.jpg', loc: 'Broadview Loop Curve', exif: '1/125s • f/4.0' },
-      { src: 'photos/ass1/img_0124.jpg', loc: 'Cast Iron Pole & Rivets', exif: '1/250s • f/5.6' },
-      { src: 'photos/ass1/img_0143.jpg', loc: 'Queen West Twilight', exif: '1/80s • f/2.8' },
-      { src: 'photos/ass1/img_0146.jpg', loc: 'Spadina Median Island', exif: '1/160s • f/4.0' },
-      { src: 'photos/ass1/img_0163.jpg', loc: 'Underpass Silhouette', exif: '1/200s • f/2.8' },
-      { src: 'photos/ass1/img_0164.jpg', loc: 'Subway Stairwell', exif: '1/250s • f/3.5' },
-      { src: 'photos/ass1/img_0178.jpg', loc: 'Streetcar Pantograph', exif: '1/125s • f/4.0' },
-      { src: 'photos/ass1/img_0212.jpg', loc: 'Yonge Façade Grid', exif: '1/400s • f/5.6' },
-      { src: 'photos/ass1/img_0239.jpg', loc: 'Street Asphalt Crease', exif: '1/320s • f/4.0' },
-      { src: 'photos/ass1/img_0258.jpg', loc: 'Broadview Terminal', exif: '1/100s • f/2.8' }
+    // ALL MASTER PHOTOGRAPHS
+    const ALL_PHOTOS = [
+      // ASSIGNMENT 01 (21 URBAN OBSERVATIONS)
+      { src: 'photos/ass1/img_0007.jpg', title: 'Dundas Station', info: '1/125s • f/4.0 • 35mm Film', book: 'ass1' },
+      { src: 'photos/ass1/img_0023.jpg', title: 'Queen West Window', info: '1/250s • f/2.8 • 35mm Film', book: 'ass1' },
+      { src: 'photos/ass1/img_0027.jpg', title: 'Queen East Corridor', info: '1/200s • f/3.5 • 35mm Film', book: 'ass1' },
+      { src: 'photos/ass1/img_0046.jpg', title: '504 King Streetcar', info: '1/250s • f/2.0 • 35mm Film', book: 'ass1' },
+      { src: 'photos/ass1/img_0052.jpg', title: 'Catenary Wire Intersect', info: '1/500s • f/4.0 • 35mm Film', book: 'ass1' },
+      { src: 'photos/ass1/img_0053.jpg', title: 'Railway Underpass', info: '1/320s • f/5.6 • 35mm Film', book: 'ass1' },
+      { src: 'photos/ass1/img_0062.jpg', title: 'Transit Shelter', info: '1/160s • f/2.8 • 35mm Film', book: 'ass1' },
+      { src: 'photos/ass1/img_0095.jpg', title: 'Yonge Marquee Reflection', info: '1/250s • f/4.0 • 35mm Film', book: 'ass1' },
+      { src: 'photos/ass1/img_0103.jpg', title: 'King & Spadina Rails', info: '1/500s • f/5.6 • 35mm Film', book: 'ass1' },
+      { src: 'photos/ass1/img_0108.jpg', title: 'Dundas Station Concourse', info: '1/200s • f/2.8 • 35mm Film', book: 'ass1' },
+      { src: 'photos/ass1/img_0118.jpg', title: 'Evening Reflection', info: '1/60s • f/2.8 • 35mm Film', book: 'ass1' },
+      { src: 'photos/ass1/img_0119.jpg', title: 'Broadview Loop Curve', info: '1/125s • f/4.0 • 35mm Film', book: 'ass1' },
+      { src: 'photos/ass1/img_0124.jpg', title: 'Cast Iron Pole & Rivets', info: '1/250s • f/5.6 • 35mm Film', book: 'ass1' },
+      { src: 'photos/ass1/img_0143.jpg', title: 'Queen West Twilight', info: '1/80s • f/2.8 • 35mm Film', book: 'ass1' },
+      { src: 'photos/ass1/img_0146.jpg', title: 'Spadina Median Island', info: '1/160s • f/4.0 • 35mm Film', book: 'ass1' },
+      { src: 'photos/ass1/img_0163.jpg', title: 'Underpass Silhouette', info: '1/200s • f/2.8 • 35mm Film', book: 'ass1' },
+      { src: 'photos/ass1/img_0164.jpg', title: 'Subway Stairwell', info: '1/250s • f/3.5 • 35mm Film', book: 'ass1' },
+      { src: 'photos/ass1/img_0178.jpg', title: 'Streetcar Pantograph', info: '1/125s • f/4.0 • 35mm Film', book: 'ass1' },
+      { src: 'photos/ass1/img_0212.jpg', title: 'Yonge Façade Grid', info: '1/400s • f/5.6 • 35mm Film', book: 'ass1' },
+      { src: 'photos/ass1/img_0239.jpg', title: 'Street Asphalt Crease', info: '1/320s • f/4.0 • 35mm Film', book: 'ass1' },
+      { src: 'photos/ass1/img_0258.jpg', title: 'Broadview Terminal', info: '1/100s • f/2.8 • 35mm Film', book: 'ass1' },
+
+      // ASSIGNMENT 02 (13 AUTUMN SERIES / GENERAL SPOT NEWS)
+      { src: 'photos/autumn/MOR_FIVE_1.jpg', title: 'Porch Threshold', info: 'Autumn Series • 35mm Film', book: 'autumn' },
+      { src: 'photos/autumn/MOR_FIVE_2.jpg', title: 'Frost Gourd', info: 'Autumn Series • 35mm Film', book: 'autumn' },
+      { src: 'photos/autumn/MOR_FIVE_3.jpg', title: 'Garden Fence Line', info: 'Autumn Series • 35mm Film', book: 'autumn' },
+      { src: 'photos/autumn/MOR_FIVE_4.jpg', title: 'Lawn Salvage', info: 'Autumn Series • 35mm Film', book: 'autumn' },
+      { src: 'photos/autumn/MOR_FIVE_5.jpg', title: 'Laneway Leaves', info: 'Autumn Series • 35mm Film', book: 'autumn' },
+      { src: 'photos/autumn/MOR_FIVE_6.jpg', title: 'Porch Steps', info: 'Autumn Series • 35mm Film', book: 'autumn' },
+      { src: 'photos/autumn/MOR_FIVE_7.jpg', title: 'Maple Canopy', info: 'Autumn Series • 35mm Film', book: 'autumn' },
+      { src: 'photos/autumn/MOR_FIVE_8.jpg', title: 'Weathered Siding', info: 'Autumn Series • 35mm Film', book: 'autumn' },
+      { src: 'photos/autumn/MOR_FIVE_9.jpg', title: 'Sidewalk Curb', info: 'Autumn Series • 35mm Film', book: 'autumn' },
+      { src: 'photos/autumn/MOR_FIVE_10.jpg', title: 'Overgrowth Pruning', info: 'Autumn Series • 35mm Film', book: 'autumn' },
+      { src: 'photos/autumn/MOR_FIVE_11.jpg', title: 'Victorian Exterior', info: 'Autumn Series • 35mm Film', book: 'autumn' },
+      { src: 'photos/autumn/MOR_FIVE_12.jpg', title: 'Autumn Street', info: 'Autumn Series • 35mm Film', book: 'autumn' },
+      { src: 'photos/autumn/MOR_FIVE_13.jpg', title: 'Curbside Leaves', info: 'Autumn Series • 35mm Film', book: 'autumn' }
     ];
 
-    // ASSIGNMENT 2 (13 AUTUMN PHOTOS)
-    const AUTUMN_PHOTOS = [
-      { src: 'photos/autumn/MOR_FIVE_1.jpg', loc: 'Porch Threshold' },
-      { src: 'photos/autumn/MOR_FIVE_2.jpg', loc: 'Frost Gourd' },
-      { src: 'photos/autumn/MOR_FIVE_3.jpg', loc: 'Garden Fence Line' },
-      { src: 'photos/autumn/MOR_FIVE_4.jpg', loc: 'Lawn Salvage' },
-      { src: 'photos/autumn/MOR_FIVE_5.jpg', loc: 'Laneway Leaves' },
-      { src: 'photos/autumn/MOR_FIVE_6.jpg', loc: 'Porch Steps' },
-      { src: 'photos/autumn/MOR_FIVE_7.jpg', loc: 'Maple Canopy' },
-      { src: 'photos/autumn/MOR_FIVE_8.jpg', loc: 'Weathered Siding' },
-      { src: 'photos/autumn/MOR_FIVE_9.jpg', loc: 'Sidewalk Curb' },
-      { src: 'photos/autumn/MOR_FIVE_10.jpg', loc: 'Window Frame' },
-      { src: 'photos/autumn/MOR_FIVE_11.jpg', loc: 'Porch Light' },
-      { src: 'photos/autumn/MOR_FIVE_12.jpg', loc: 'Garden Hose Frost' },
-      { src: 'photos/autumn/MOR_FIVE_13.jpg', loc: 'Yard Display' }
+    // COFFEE TABLE BOOKS CATALOG
+    const BOOKS = [
+      { id: 'all', cover: 'photos/ass1/img_0103.jpg', isUpcoming: false },
+      { id: 'ass1', cover: 'photos/ass1/img_0023.jpg', isUpcoming: false },
+      { id: 'autumn', cover: 'photos/autumn/MOR_FIVE_1.jpg', isUpcoming: false },
+      { id: 'sports', bg: 'linear-gradient(145deg, #101c2e, #1e3352)', title: 'Sports Photos', isUpcoming: true },
+      { id: 'photo_essay', bg: 'linear-gradient(145deg, #10261b, #1d4530)', title: 'Photo Essay', isUpcoming: true },
+      { id: 'live_events', bg: 'linear-gradient(145deg, #3d1c14, #612c1f)', title: 'Live Events', isUpcoming: true },
+      { id: 'environment', bg: 'linear-gradient(145deg, #1f2329, #343a42)', title: 'Environment', isUpcoming: true },
+      { id: 'features', bg: 'linear-gradient(145deg, #2d1324, #4a1f3c)', title: 'Features', isUpcoming: true }
     ];
 
-    // ASSIGNMENT 1 LOGIC
-    let ass1Idx = 0;
-    function showAss1(idx) {
-      if (idx < 0) idx = ASS1_PHOTOS.length - 1;
-      if (idx >= ASS1_PHOTOS.length) idx = 0;
-      ass1Idx = idx;
+    let currentBookId = 'all';
+    let currentGalleryPhotos = ALL_PHOTOS;
 
-      const p = ASS1_PHOTOS[idx];
-      document.getElementById('ass1-main-img').src = p.src;
-      document.getElementById('ass1-plate-tag').textContent = `${String(idx + 1).padStart(2, '0')} / ${ASS1_PHOTOS.length}`;
-      document.getElementById('ass1-plate-loc').textContent = p.loc;
-      document.getElementById('ass1-caption-exif').textContent = p.exif;
+    // RENDER COFFEE TABLE BOOKS
+    function renderBooks() {
+      const shelf = document.getElementById('books-shelf');
+      shelf.innerHTML = '';
 
-      document.querySelectorAll('#ass1-filmstrip .thumb-btn').forEach((b, i) => {
-        if (i === idx) {
-          b.classList.add('is-active', 'border-stone-900');
-          b.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+      BOOKS.forEach((b) => {
+        const item = document.createElement('div');
+        item.className = `book-item ${b.id === currentBookId ? 'is-active' : ''}`;
+        
+        const hardcover = document.createElement('div');
+        hardcover.className = 'book-hardcover';
+
+        if (!b.isUpcoming && b.cover) {
+          hardcover.innerHTML = `<img src="${b.cover}" alt="Book Cover" class="book-inner-photo">`;
         } else {
-          b.classList.remove('is-active', 'border-stone-900');
+          hardcover.style.background = b.bg || '#1a1815';
+          hardcover.innerHTML = `
+            <div class="w-full h-full flex flex-col items-center justify-center border border-white/10 p-2 text-center select-none">
+              <span class="text-white/40 text-lg">✦</span>
+              <span class="text-white/30 text-[9px] font-mono-exif tracking-widest mt-2 block">35MM</span>
+            </div>
+          `;
         }
+
+        item.appendChild(hardcover);
+
+        item.addEventListener('click', () => {
+          if (b.isUpcoming) {
+            document.getElementById('upcoming-modal-title').textContent = b.title || 'Upcoming Series';
+            document.getElementById('upcoming-modal').showModal();
+            return;
+          }
+          currentBookId = b.id;
+          renderBooks();
+          renderMasonry();
+        });
+
+        shelf.appendChild(item);
       });
     }
 
-    document.getElementById('ass1-prev-btn').addEventListener('click', () => showAss1(ass1Idx - 1));
-    document.getElementById('ass1-next-btn').addEventListener('click', () => showAss1(ass1Idx + 1));
+    // RENDER MASONRY GALLERY (ZERO WORDS, PURE PHOTOGRAPHY, NATURAL HEIGHTS)
+    function renderMasonry() {
+      const gallery = document.getElementById('masonry-gallery');
+      gallery.innerHTML = '';
 
-    const ass1Filmstrip = document.getElementById('ass1-filmstrip');
-    ASS1_PHOTOS.forEach((p, i) => {
-      const btn = document.createElement('button');
-      btn.className = 'thumb-btn flex-shrink-0 w-14 h-10 border border-stone-300 bg-stone-100 overflow-hidden';
-      btn.innerHTML = `<img src="${p.src}" alt="${p.loc}" class="w-full h-full object-cover">`;
-      btn.addEventListener('click', () => showAss1(i));
-      ass1Filmstrip.appendChild(btn);
-    });
+      if (currentBookId === 'all') {
+        currentGalleryPhotos = ALL_PHOTOS;
+      } else {
+        currentGalleryPhotos = ALL_PHOTOS.filter(p => p.book === currentBookId);
+      }
 
-    // ASSIGNMENT 2 LOGIC
-    let autumnIdx = 0;
-    function showAutumn(idx) {
-      if (idx < 0) idx = AUTUMN_PHOTOS.length - 1;
-      if (idx >= AUTUMN_PHOTOS.length) idx = 0;
-      autumnIdx = idx;
-
-      const p = AUTUMN_PHOTOS[idx];
-      document.getElementById('autumn-main-img').src = p.src;
-      document.getElementById('autumn-plate-tag').textContent = `${String(idx + 1).padStart(2, '0')} / ${AUTUMN_PHOTOS.length}`;
-      document.getElementById('autumn-plate-loc').textContent = p.loc;
-
-      document.querySelectorAll('#autumn-filmstrip .thumb-btn').forEach((b, i) => {
-        if (i === idx) {
-          b.classList.add('is-active', 'border-stone-900');
-          b.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
-        } else {
-          b.classList.remove('is-active', 'border-stone-900');
-        }
+      currentGalleryPhotos.forEach((photo, idx) => {
+        const card = document.createElement('div');
+        card.className = 'masonry-photo-item';
+        card.innerHTML = `<img src="${photo.src}" alt="Abigail Morra Photography" loading="lazy">`;
+        card.addEventListener('click', () => openLightbox(idx));
+        gallery.appendChild(card);
       });
     }
 
-    document.getElementById('autumn-prev-btn').addEventListener('click', () => showAutumn(autumnIdx - 1));
-    document.getElementById('autumn-next-btn').addEventListener('click', () => showAutumn(autumnIdx + 1));
+    // LIGHTBOX LOGIC
+    const lightbox = document.getElementById('photo-lightbox');
+    const modalImg = document.getElementById('modal-main-img');
+    const modalTitle = document.getElementById('modal-plate-title');
+    const modalInfo = document.getElementById('modal-plate-info');
+    const modalCounter = document.getElementById('modal-counter');
+    let activeLightboxIdx = 0;
 
-    const autumnFilmstrip = document.getElementById('autumn-filmstrip');
-    AUTUMN_PHOTOS.forEach((p, i) => {
-      const btn = document.createElement('button');
-      btn.className = 'thumb-btn flex-shrink-0 w-14 h-10 border border-stone-300 bg-stone-100 overflow-hidden';
-      btn.innerHTML = `<img src="${p.src}" alt="${p.loc}" class="w-full h-full object-cover">`;
-      btn.addEventListener('click', () => showAutumn(i));
-      autumnFilmstrip.appendChild(btn);
+    function openLightbox(idx) {
+      activeLightboxIdx = idx;
+      const photo = currentGalleryPhotos[idx];
+      modalImg.src = photo.src;
+      modalTitle.textContent = photo.title || 'Photograph';
+      modalInfo.textContent = photo.info || '35mm Film';
+      modalCounter.textContent = `${String(idx + 1).padStart(2, '0')} / ${String(currentGalleryPhotos.length).padStart(2, '0')}`;
+      lightbox.showModal();
+    }
+
+    function closeLightbox() {
+      lightbox.close();
+    }
+
+    lightbox.addEventListener('click', (e) => {
+      if (e.target === lightbox) closeLightbox();
     });
 
-    showAss1(0);
-    showAutumn(0);
+    document.getElementById('modal-prev-btn').addEventListener('click', () => {
+      activeLightboxIdx = (activeLightboxIdx - 1 + currentGalleryPhotos.length) % currentGalleryPhotos.length;
+      openLightbox(activeLightboxIdx);
+    });
+
+    document.getElementById('modal-next-btn').addEventListener('click', () => {
+      activeLightboxIdx = (activeLightboxIdx + 1) % currentGalleryPhotos.length;
+      openLightbox(activeLightboxIdx);
+    });
 
     // GILBERT MODAL
     const gilbertModal = document.getElementById('gilbert-modal');
@@ -762,39 +785,7 @@
     function closeGilbertModal() { gilbertModal.close(); }
     gilbertModal.addEventListener('click', (e) => { if (e.target === gilbertModal) closeGilbertModal(); });
 
-    // LIGHTBOX
-    const lightbox = document.getElementById('photo-lightbox');
-    const modalImg = document.getElementById('modal-main-img');
-    const modalTitle = document.getElementById('modal-plate-title');
-    const modalCounter = document.getElementById('modal-counter');
-    let activeCatalog = ASS1_PHOTOS;
-    let activeIdx = 0;
-
-    function openLightbox(catalog, idx) {
-      activeCatalog = catalog;
-      activeIdx = idx;
-      const p = catalog[idx];
-      modalImg.src = p.src;
-      modalTitle.textContent = p.loc;
-      modalCounter.textContent = `${String(idx + 1).padStart(2, '0')} / ${catalog.length}`;
-      lightbox.showModal();
-    }
-
-    function openCurrentAss1Lightbox() { openLightbox(ASS1_PHOTOS, ass1Idx); }
-    function openCurrentAutumnLightbox() { openLightbox(AUTUMN_PHOTOS, autumnIdx); }
-    function closeLightbox() { lightbox.close(); }
-    lightbox.addEventListener('click', (e) => { if (e.target === lightbox) closeLightbox(); });
-
-    document.getElementById('modal-prev-btn').addEventListener('click', () => {
-      activeIdx = (activeIdx - 1 + activeCatalog.length) % activeCatalog.length;
-      openLightbox(activeCatalog, activeIdx);
-    });
-
-    document.getElementById('modal-next-btn').addEventListener('click', () => {
-      activeIdx = (activeIdx + 1) % activeCatalog.length;
-      openLightbox(activeCatalog, activeIdx);
-    });
-
+    // KEYBOARD NAVIGATION
     window.addEventListener('keydown', (e) => {
       if (lightbox.open) {
         if (e.key === 'Escape') closeLightbox();
@@ -802,13 +793,10 @@
         if (e.key === 'ArrowRight') document.getElementById('modal-next-btn').click();
       } else if (gilbertModal.open) {
         if (e.key === 'Escape') closeGilbertModal();
-      } else {
-        if (e.key === 'ArrowLeft') showAss1(ass1Idx - 1);
-        if (e.key === 'ArrowRight') showAss1(ass1Idx + 1);
       }
     });
 
-    // DRAGGABLE STICKERS
+    // DRAGGABLE HERO STICKERS
     function makeDraggable(el) {
       let isDragging = false;
       let startX, startY, initL, initT;
@@ -850,6 +838,10 @@
     }
 
     document.querySelectorAll('.drag-item').forEach(makeDraggable);
+
+    // INITIALIZE SHELF & MASONRY GALLERY
+    renderBooks();
+    renderMasonry();
 
     // Progressive Web App Service Worker Registration
     if ('serviceWorker' in navigator) {
