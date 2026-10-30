@@ -28,7 +28,7 @@
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;900&family=Covered+By+Your+Grace&family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&family=Playfair+Display:ital,wght@0,600;0,700;0,900;1,400&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;900&family=Covered+By+Your+Grace&family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Fredoka:wght@500;600;700&family=Gaegu:wght@400;700&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&family=Playfair+Display:ital,wght@0,600;0,700;0,900;1,400&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
 
   <style>
     :root {
@@ -272,6 +272,11 @@
       font-family: 'Covered By Your Grace', cursive;
     }
 
+    .font-cute {
+      font-family: 'Gaegu', 'Fredoka', 'Covered By Your Grace', cursive;
+      letter-spacing: 0.01em;
+    }
+
     /* -------------------------------------------------------------
        COFFEE TABLE BOOKS & SHELF
        ------------------------------------------------------------- */
@@ -410,15 +415,17 @@
 
     .sticker-book-stage {
       position: fixed;
-      bottom: 14px;
-      left: 50%;
-      width: min(96vw, 860px);
+      bottom: 16px;
+      right: 16px;
+      left: auto;
+      width: min(94vw, 650px);
       z-index: 9000;
       perspective: 1800px;
       overflow: visible;
       opacity: 0;
       pointer-events: none;
-      transform: translate3d(-50%, 40px, 0) scale(0.9) rotateX(18deg);
+      transform: translate3d(24px, 36px, 0) scale(0.9) rotateX(14deg);
+      transform-origin: bottom right;
       transition:
         opacity 0.38s ease,
         transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
@@ -427,18 +434,18 @@
     .sticker-book-stage.is-open {
       opacity: 1;
       pointer-events: auto;
-      transform: translate3d(-50%, 0, 0) scale(1) rotateX(0deg);
+      transform: translate3d(0, 0, 0) scale(1) rotateX(0deg);
     }
 
     .sticker-book-3d-wrapper {
       position: relative;
       transform-style: preserve-3d;
-      border-radius: 14px;
+      border-radius: 16px;
       background: #1800ad;
       padding: 8px 10px 10px 10px;
       box-shadow:
         0 28px 65px -8px rgba(0, 0, 0, 0.65),
-        0 0 0 2px #facc15,
+        0 0 0 2.5px #fde047,
         inset 0 1px 0 rgba(255, 255, 255, 0.3);
       border: 2px solid #0f0070;
     }
@@ -488,17 +495,37 @@
       grid-template-columns: 1fr 1fr;
       gap: 0;
       position: relative;
-      background: #e6e0d2;
+      background: #fdfbf7;
+      border-radius: 10px;
+      max-height: min(44vh, 330px);
+      overflow-y: auto;
+      overflow-x: hidden;
+      scroll-behavior: smooth;
+      scrollbar-width: thin;
+      scrollbar-color: #1800ad #f1ece1;
+    }
+
+    .sticker-book-spread::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    .sticker-book-spread::-webkit-scrollbar-track {
+      background: #f1ece1;
       border-radius: 8px;
-      overflow: hidden;
+    }
+
+    .sticker-book-spread::-webkit-scrollbar-thumb {
+      background: #1800ad;
+      border-radius: 8px;
+      border: 2px solid #f1ece1;
     }
 
     /* Glossy silicone wax release paper pages */
     .sticker-wax-page {
       position: relative;
-      min-height: 170px;
-      max-height: 30vh;
-      padding: 10px 12px;
+      min-height: 240px;
+      height: auto;
+      padding: 16px 12px 26px 12px;
       background-color: #fdfbf7;
       background-image:
         radial-gradient(#cbd5e1 1px, transparent 1px),
@@ -506,17 +533,20 @@
       background-size: 16px 16px, 100% 100%;
       display: grid;
       grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 8px;
+      grid-auto-rows: minmax(76px, auto);
+      gap: 12px 8px;
+      align-content: start;
       align-items: center;
       justify-items: center;
     }
 
     @media (min-width: 640px) {
       .sticker-wax-page {
-        min-height: 195px;
-        padding: 14px 18px;
+        min-height: 260px;
+        padding: 18px 18px 30px 18px;
         grid-template-columns: repeat(3, minmax(0, 1fr));
-        gap: 12px;
+        grid-auto-rows: minmax(86px, auto);
+        gap: 16px 12px;
       }
     }
 
@@ -564,21 +594,21 @@
     .sb-sticker-slot {
       position: relative;
       width: 100%;
-      max-width: 112px;
-      aspect-ratio: 1 / 1;
+      max-width: 92px;
+      height: 82px;
       display: flex;
       align-items: center;
       justify-content: center;
       padding: 6px;
       cursor: url("stickers/ladybug_cursor.png") 5 2, grab;
       user-select: none;
-      touch-action: none;
+      touch-action: pan-y;
       transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1), filter 0.28s ease;
       filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.16));
     }
 
     .sb-sticker-slot:hover {
-      transform: translateY(-6px) scale(1.13) rotate(var(--sb-rot, -3deg)) !important;
+      transform: translateY(-5px) scale(1.13) rotate(var(--sb-rot, -3deg)) !important;
       filter: drop-shadow(0 14px 18px rgba(24, 0, 173, 0.28));
       z-index: 15;
     }
@@ -610,15 +640,19 @@
 
     /* Page tab buttons on top edge of Sticker Book */
     .sb-tab-btn {
-      width: 34px;
-      height: 30px;
-      border-radius: 8px 8px 0 0;
+      font-family: 'Gaegu', 'Fredoka', 'Covered By Your Grace', cursive;
+      font-size: 1.05rem;
+      font-weight: 700;
+      height: 32px;
+      padding: 0 11px;
+      border-radius: 10px 10px 0 0;
       display: inline-flex;
       align-items: center;
       justify-content: center;
+      gap: 4px;
       background: rgba(255, 255, 255, 0.16);
       color: #ffffff;
-      border: 1px solid rgba(255, 255, 255, 0.25);
+      border: 1px solid rgba(255, 255, 255, 0.28);
       border-bottom: none;
       transition: all 0.2s ease;
     }
@@ -829,14 +863,14 @@
 
     </div>
 
-    <!-- QUICK-OPEN 3D MINI STICKER BOOK BADGE ON THE BLUE HEADER -->
+    <!-- QUICK-OPEN 3D MINI STICKER BOOK BADGE ON THE BLUE HEADER (BOTTOM RIGHT) -->
     <button id="hero-sticker-book-launcher"
             type="button"
             onclick="toggleStickerBook()"
-            class="absolute bottom-7 left-1/2 -translate-x-1/2 z-30 flex items-center gap-2.5 px-4 py-2 rounded-full bg-[#faf7f0] border-2 border-[#1800ad] shadow-2xl hover:scale-105 active:scale-95 transition-transform"
+            class="absolute bottom-6 right-5 sm:right-8 z-30 flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#faf7f0] border-2 border-[#fde047] shadow-2xl hover:scale-105 active:scale-95 transition-transform"
             title="Click to open your Sticker Book!">
       <img src="stickers/sb_wizard_cat.png" alt="" class="w-7 h-7 object-contain -my-1">
-      <span class="font-mono-exif text-xs sm:text-sm font-bold tracking-wider text-[#1800ad] uppercase">★ Sticker Book</span>
+      <span class="font-cute text-lg sm:text-xl font-bold text-[#1800ad] leading-none pt-0.5">★ sticker book!</span>
       <img src="stickers/sb_clay_star.png" alt="" class="w-5 h-5 object-contain">
     </button>
 
@@ -850,28 +884,29 @@
        ============================================================= -->
   <main class="w-full relative">
 
-    <!-- 3D ANIMATED STICKER BOOK (OPENS ON PAGE • PEEL & DRAG TO BLUE HEADER) -->
+    <!-- 3D ANIMATED STICKER BOOK (OPENS AT BOTTOM-RIGHT • SCROLLABLE & PEELABLE) -->
     <div id="sticker-book-stage" class="sticker-book-stage" aria-hidden="true">
       <div class="sticker-book-3d-wrapper">
         
         <!-- 3D Swinging Cover Flap on Open -->
         <div id="sticker-book-cover-flap" class="sticker-book-cover-flap"></div>
 
-        <!-- Top Page Tabs & Controls (Pure Icons) -->
-        <div class="flex items-center justify-between px-2 pb-1.5 select-none">
-          <div class="flex items-center gap-1.5">
-            <button type="button" onclick="switchStickerSpread(0)" id="sb-tab-0" class="sb-tab-btn is-active" title="Spread 1: Cats & Friends">🐾</button>
-            <button type="button" onclick="switchStickerSpread(1)" id="sb-tab-1" class="sb-tab-btn" title="Spread 2: Magic & Doodles">✨</button>
-            <button type="button" onclick="switchStickerSpread(2)" id="sb-tab-2" class="sb-tab-btn" title="Spread 3: Garden Bugs & Vinyl">🦋</button>
+        <!-- Top Page Tabs & Controls (Cute Handwritten Font) -->
+        <div class="flex items-center justify-between px-1.5 pb-1.5 select-none">
+          <div class="flex items-center gap-1 overflow-x-auto">
+            <button type="button" onclick="switchStickerSpread('all')" id="sb-tab-all" class="sb-tab-btn is-active" title="All Stickers (Scrollable!)">✦ all</button>
+            <button type="button" onclick="switchStickerSpread(0)" id="sb-tab-0" class="sb-tab-btn" title="Spread 1: Cats & Friends">🐾 pals</button>
+            <button type="button" onclick="switchStickerSpread(1)" id="sb-tab-1" class="sb-tab-btn" title="Spread 2: Magic & Doodles">✨ magic</button>
+            <button type="button" onclick="switchStickerSpread(2)" id="sb-tab-2" class="sb-tab-btn" title="Spread 3: Garden Bugs & Vinyl">🦋 bugs</button>
           </div>
-          <div class="flex items-center gap-1.5">
+          <div class="flex items-center gap-1">
             <button type="button" onclick="clearExtraHeroStickers()" class="sb-tab-btn" title="Clear added stickers">↺</button>
             <button type="button" onclick="toggleStickerBook(false)" class="sb-tab-btn" title="Close Sticker Book">✕</button>
           </div>
         </div>
 
-        <!-- Open Two-Page Wax Release Sticker Spread -->
-        <div class="sticker-book-spread">
+        <!-- Open Two-Page Scrollable Wax Release Sticker Spread -->
+        <div id="sticker-book-scroll" class="sticker-book-spread">
           <div id="sticker-page-left" class="sticker-wax-page page-left"></div>
           
           <!-- Center Spiral Rings -->
@@ -1074,7 +1109,7 @@
                 <img src="stickers/sb_miffy_book.png" alt="" class="w-7 h-7 object-contain rotate-[12deg] drop-shadow">
               </div>
               <img src="stickers/sb_wizard_cat.png" alt="" class="w-14 h-16 sm:w-16 sm:h-20 object-contain relative z-10 drop-shadow-lg -my-1">
-              <span class="relative z-20 bg-[#faf7f0] text-[#1800ad] font-mono-exif font-bold text-[9px] sm:text-[10px] tracking-wider uppercase px-1.5 py-0.5 rounded shadow">★ STICKERS</span>
+              <span class="relative z-20 bg-[#faf7f0] text-[#1800ad] font-cute font-bold text-sm sm:text-base leading-none px-2 py-0.5 rounded-full shadow">★ stickers!</span>
             </div>
           `;
         } else if (!b.isUpcoming && b.cover) {
@@ -1458,7 +1493,7 @@
       }
     ];
 
-    let activeStickerSpread = 0;
+    let activeStickerSpread = 'all';
 
     function toggleStickerBook(forceState) {
       const stage = document.getElementById('sticker-book-stage');
@@ -1491,23 +1526,32 @@
 
     function switchStickerSpread(spreadIdx) {
       activeStickerSpread = spreadIdx;
-      [0, 1, 2].forEach((i) => {
+      ['all', 0, 1, 2].forEach((i) => {
         const btn = document.getElementById(`sb-tab-${i}`);
         if (btn) btn.classList.toggle('is-active', i === spreadIdx);
       });
       renderStickerBookSpread(spreadIdx);
+      const scrollBox = document.getElementById('sticker-book-scroll');
+      if (scrollBox) scrollBox.scrollTop = 0;
       playSparkleTwinkle();
     }
 
     function renderStickerBookSpread(spreadIdx) {
-      const spread = STICKER_BOOK_SPREADS[spreadIdx] || STICKER_BOOK_SPREADS[0];
       const leftPage = document.getElementById('sticker-page-left');
       const rightPage = document.getElementById('sticker-page-right');
       leftPage.innerHTML = '';
       rightPage.innerHTML = '';
 
-      spread.left.forEach((st) => leftPage.appendChild(createStickerBookSlot(st)));
-      spread.right.forEach((st) => rightPage.appendChild(createStickerBookSlot(st)));
+      if (spreadIdx === 'all') {
+        STICKER_BOOK_SPREADS.forEach((sp) => {
+          sp.left.forEach((st) => leftPage.appendChild(createStickerBookSlot(st)));
+          sp.right.forEach((st) => rightPage.appendChild(createStickerBookSlot(st)));
+        });
+      } else {
+        const spread = STICKER_BOOK_SPREADS[spreadIdx] || STICKER_BOOK_SPREADS[0];
+        spread.left.forEach((st) => leftPage.appendChild(createStickerBookSlot(st)));
+        spread.right.forEach((st) => rightPage.appendChild(createStickerBookSlot(st)));
+      }
     }
 
     function createStickerBookSlot(stickerData) {
@@ -1515,7 +1559,7 @@
       slot.className = 'sb-sticker-slot';
       slot.style.setProperty('--sb-rot', `${stickerData.rot || 0}deg`);
       slot.style.transform = `rotate(${stickerData.rot || 0}deg)`;
-      slot.title = `${stickerData.label} — Drag up onto the blue header (or tap to stick!)`;
+      slot.title = `${stickerData.label} — Drag onto the blue header (or tap to stick!)`;
 
       const img = document.createElement('img');
       img.src = stickerData.src;
@@ -1524,7 +1568,7 @@
 
       // Peel & drag from Sticker Book onto the Blue Header Canvas
       slot.addEventListener('pointerdown', (e) => {
-        e.preventDefault();
+        if (e.button !== undefined && e.button !== 0) return;
         peelStickerFromBook(e, stickerData, slot);
       });
 
@@ -1621,18 +1665,20 @@
         slotEl.style.opacity = '1';
 
         const updatedHeroRect = heroCanvas.getBoundingClientRect();
+        const bookRect = document.getElementById('sticker-book-stage').getBoundingClientRect();
+        const droppedOutsideBook =
+          e.clientX < bookRect.left + 20 ||
+          e.clientY < bookRect.top + 20 ||
+          e.clientX > bookRect.right ||
+          e.clientY > bookRect.bottom;
+
         if (movedDist < 8) {
-          // Tapped in book -> stick onto blue canvas & scroll gently if needed
+          // Tapped in book -> stick onto blue canvas!
           placeStickerOnHeroCanvas(stickerData);
-        } else if (e.clientY <= updatedHeroRect.bottom + 90) {
-          // Dropped on or near the blue header canvas
-          placeStickerOnHeroCanvas(stickerData, e.clientX, e.clientY);
-        } else {
-          // Dropped outside book but below header -> still stick onto lower edge of blue canvas!
-          const bookRect = document.getElementById('sticker-book-stage').getBoundingClientRect();
-          if (e.clientY < bookRect.top + 30) {
-            placeStickerOnHeroCanvas(stickerData, e.clientX, updatedHeroRect.bottom - 50);
-          }
+        } else if (droppedOutsideBook || e.clientY <= updatedHeroRect.bottom + 90) {
+          // Dropped anywhere outside the bottom-right Sticker Book -> stick at drop spot on blue canvas!
+          const targetY = Math.min(e.clientY, updatedHeroRect.bottom - 50);
+          placeStickerOnHeroCanvas(stickerData, e.clientX, targetY);
         }
       }
 
