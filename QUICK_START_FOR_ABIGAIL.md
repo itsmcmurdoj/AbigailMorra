@@ -8,13 +8,26 @@ This folder contains everything for your personal **Photojournalism Portfolio We
 
 ---
 
+## 📥 Step 0: Download & Install Antigravity on Windows (First Time Only)
+
+If Abigail does not have Antigravity installed yet on her PC:
+1. **Download Antigravity IDE for Windows**:
+   - Official Portal: **[https://antigravity.google/download](https://antigravity.google/download)**
+   - Direct Installer Link (.exe): **[Antigravity IDE Windows Installer](https://edgedl.me.gvt1.com/edgedl/release2/j0qc3/antigravity/stable/2.6.0-5526304964083712/windows-x64/Antigravity%20IDE.exe)**
+   - Run the downloaded `.exe` file to complete installation and sign in with Google.
+2. **Install Git for Windows** (needed for GitHub pushes):
+   - Download: **[https://git-scm.com/download/win](https://git-scm.com/download/win)**
+   - Run the installer with default options (Next ➔ Next ➔ Finish).
+
+---
+
 ## 🚀 How to Open & Work in Antigravity (Windows)
 
 1. **Unzip the Folder**:
    - Right-click `AbigailMorra.zip` on your Desktop and select **Extract All...**
    - Place the extracted `AbigailMorra` folder directly on your Desktop.
 
-2. **Open Antigravity**:
+2. **Open in Antigravity**:
    - Open the **Antigravity IDE** on your Windows computer.
    - Click **File** ➔ **Open Folder...** (or press `Ctrl + O`).
    - Select the `AbigailMorra` folder from your Desktop.
