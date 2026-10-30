@@ -1078,10 +1078,10 @@
         <div class="flex items-center justify-between pl-14 sm:pl-24 pr-1.5 pb-1.5 select-none">
           <div class="flex items-center gap-1">
             <button type="button" onclick="switchStickerSpread('all')" id="sb-tab-all" class="sb-tab-btn is-active" title="All Stickers (Scrollable!)">✦ all</button>
-            <button type="button" onclick="switchStickerSpread(3)" id="sb-tab-3" class="sb-tab-btn" title="Spread 4: Clear Face Stickers">😊 faces</button>
             <button type="button" onclick="switchStickerSpread(0)" id="sb-tab-0" class="sb-tab-btn" title="Spread 1: Cats & Friends">🐾 pals</button>
             <button type="button" onclick="switchStickerSpread(1)" id="sb-tab-1" class="sb-tab-btn" title="Spread 2: Magic & Doodles">✨ magic</button>
             <button type="button" onclick="switchStickerSpread(2)" id="sb-tab-2" class="sb-tab-btn" title="Spread 3: Garden Bugs & Vinyl">🦋 bugs</button>
+            <button type="button" onclick="switchStickerSpread(3)" id="sb-tab-3" class="sb-tab-btn" title="Spread 4: Clear Face Stickers">😊 faces</button>
           </div>
           <div class="flex items-center gap-1">
             <button type="button" id="sb-trash-tab" class="sb-tab-btn sb-trash-dropzone" title="Drag any sticker here to delete it!">🗑️</button>
@@ -2509,8 +2509,7 @@
       rightPage.innerHTML = '';
 
       if (spreadIdx === 'all') {
-        // Put Face Stickers & Pals right at the top when viewing 'All', followed by Magic & Bugs!
-        [3, 0, 1, 2].forEach((idx) => {
+        [0, 1, 2, 3].forEach((idx) => {
           const sp = STICKER_BOOK_SPREADS[idx];
           if (sp) {
             sp.left.forEach((st) => leftPage.appendChild(createStickerBookSlot(st)));
