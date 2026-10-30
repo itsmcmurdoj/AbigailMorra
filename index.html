@@ -393,6 +393,259 @@
     }
 
     /* -------------------------------------------------------------
+       3D ANIMATED STICKER BOOK (OPENS ON PAGE & PEELS TO BLUE HERO)
+       ------------------------------------------------------------- */
+    .sticker-book-shelf-cover {
+      background: linear-gradient(145deg, #1800ad 0%, #2c14cc 55%, #120082 100%) !important;
+      border: 1.5px solid rgba(255, 224, 102, 0.45);
+    }
+
+    .book-item.is-sticker-book-open .book-hardcover {
+      transform: translateY(-10px) rotateY(-14deg) scale(1.05);
+      box-shadow:
+        0 0 0 2.5px #facc15,
+        0 0 28px rgba(250, 204, 21, 0.45),
+        10px 22px 34px -4px rgba(0, 0, 0, 0.45);
+    }
+
+    .sticker-book-stage {
+      max-width: 1060px;
+      margin: 0 auto;
+      padding: 0 12px;
+      perspective: 1800px;
+      overflow: visible;
+      max-height: 0;
+      opacity: 0;
+      pointer-events: none;
+      transform: translateY(-18px) scale(0.95);
+      transition:
+        max-height 0.65s cubic-bezier(0.16, 1, 0.3, 1),
+        opacity 0.45s ease,
+        transform 0.55s cubic-bezier(0.16, 1, 0.3, 1),
+        margin 0.5s ease;
+    }
+
+    .sticker-book-stage.is-open {
+      max-height: 900px;
+      opacity: 1;
+      pointer-events: auto;
+      transform: translateY(0) scale(1);
+      margin-top: 1.25rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .sticker-book-3d-wrapper {
+      position: relative;
+      transform-style: preserve-3d;
+      border-radius: 14px;
+      background: #1800ad;
+      padding: 10px;
+      box-shadow:
+        0 28px 60px -12px rgba(15, 10, 40, 0.45),
+        0 8px 20px -4px rgba(24, 0, 173, 0.3),
+        inset 0 1px 0 rgba(255, 255, 255, 0.25);
+      border: 2px solid #0f0070;
+    }
+
+    @media (min-width: 640px) {
+      .sticker-book-3d-wrapper {
+        padding: 14px;
+      }
+    }
+
+    /* 3D Opening Front Cover Flap Animation */
+    .sticker-book-cover-flap {
+      position: absolute;
+      inset: 0;
+      width: 50%;
+      background: linear-gradient(135deg, #1800ad, #0f0066);
+      border-radius: 12px 0 0 12px;
+      transform-origin: left center;
+      z-index: 40;
+      pointer-events: none;
+      backface-visibility: hidden;
+      box-shadow: 10px 0 30px rgba(0, 0, 0, 0.4);
+      transform: rotateY(0deg);
+      opacity: 0;
+    }
+
+    .sticker-book-stage.is-open .sticker-book-cover-flap {
+      animation: swingBookOpen 0.75s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+    }
+
+    @keyframes swingBookOpen {
+      0% {
+        transform: rotateY(175deg);
+        opacity: 0.95;
+      }
+      65% {
+        opacity: 0.85;
+      }
+      100% {
+        transform: rotateY(0deg);
+        opacity: 0;
+      }
+    }
+
+    .sticker-book-spread {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 10px;
+      position: relative;
+      background: #e6e0d2;
+      border-radius: 8px;
+      overflow: hidden;
+    }
+
+    @media (min-width: 768px) {
+      .sticker-book-spread {
+        grid-template-columns: 1fr 1fr;
+        gap: 0;
+      }
+    }
+
+    /* Glossy silicone wax release paper pages */
+    .sticker-wax-page {
+      position: relative;
+      min-height: 250px;
+      padding: 18px 16px;
+      background-color: #fdfbf7;
+      background-image:
+        radial-gradient(#cbd5e1 1px, transparent 1px),
+        linear-gradient(135deg, rgba(255,255,255,0.9) 0%, rgba(244,240,230,0.5) 50%, rgba(255,255,255,0.95) 100%);
+      background-size: 18px 18px, 100% 100%;
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+      align-items: center;
+      justify-items: center;
+    }
+
+    @media (min-width: 640px) {
+      .sticker-wax-page {
+        min-height: 280px;
+        padding: 22px 24px;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 16px;
+      }
+    }
+
+    .sticker-wax-page.page-left {
+      box-shadow: inset -18px 0 28px -12px rgba(0, 0, 0, 0.14);
+      border-right: 1px solid #d6d0c2;
+    }
+
+    .sticker-wax-page.page-right {
+      box-shadow: inset 18px 0 28px -12px rgba(0, 0, 0, 0.14);
+      border-left: 1px solid #d6d0c2;
+    }
+
+    /* Center spiral wire binding rings on desktop */
+    .sticker-book-spiral {
+      display: none;
+    }
+
+    @media (min-width: 768px) {
+      .sticker-book-spiral {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-evenly;
+        align-items: center;
+        position: absolute;
+        top: 8px;
+        bottom: 8px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 26px;
+        z-index: 25;
+        pointer-events: none;
+      }
+
+      .spiral-ring {
+        width: 24px;
+        height: 8px;
+        border-radius: 999px;
+        background: linear-gradient(to right, #57534e, #e7e5e4 45%, #292524);
+        box-shadow: 0 2px 3px rgba(0, 0, 0, 0.35);
+      }
+    }
+
+    /* Individual peelable sticker slot inside the book */
+    .sb-sticker-slot {
+      position: relative;
+      width: 100%;
+      max-width: 112px;
+      aspect-ratio: 1 / 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 6px;
+      cursor: url("stickers/ladybug_cursor.png") 5 2, grab;
+      user-select: none;
+      touch-action: none;
+      transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1), filter 0.28s ease;
+      filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.16));
+    }
+
+    .sb-sticker-slot:hover {
+      transform: translateY(-6px) scale(1.13) rotate(var(--sb-rot, -3deg)) !important;
+      filter: drop-shadow(0 14px 18px rgba(24, 0, 173, 0.28));
+      z-index: 15;
+    }
+
+    .sb-sticker-slot:active {
+      transform: scale(0.95);
+    }
+
+    .sb-sticker-slot img {
+      max-width: 100%;
+      max-height: 100%;
+      width: auto;
+      height: auto;
+      object-fit: contain;
+      pointer-events: none;
+      user-select: none;
+      -webkit-user-drag: none;
+    }
+
+    /* Floating sticker while peeling from Sticker Book to Blue Header */
+    .floating-peel-sticker {
+      position: fixed;
+      z-index: 9998;
+      pointer-events: none;
+      transform: translate(-50%, -50%) scale(1.12) rotate(-5deg);
+      filter: drop-shadow(0 22px 28px rgba(0, 0, 0, 0.45));
+      transition: transform 0.1s ease-out;
+    }
+
+    /* Page tab buttons on top edge of Sticker Book */
+    .sb-tab-btn {
+      width: 34px;
+      height: 30px;
+      border-radius: 8px 8px 0 0;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(255, 255, 255, 0.16);
+      color: #ffffff;
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      border-bottom: none;
+      transition: all 0.2s ease;
+    }
+
+    .sb-tab-btn:hover {
+      background: rgba(255, 255, 255, 0.28);
+      transform: translateY(-2px);
+    }
+
+    .sb-tab-btn.is-active {
+      background: #fdfbf7;
+      color: #1800ad;
+      box-shadow: 0 -3px 10px rgba(0, 0, 0, 0.15);
+      transform: translateY(2px);
+    }
+
+    /* -------------------------------------------------------------
        MULTI-COLUMN MASONRY PHOTO WALL (ZERO WORDS)
        ------------------------------------------------------------- */
     .masonry-gallery {
@@ -595,6 +848,47 @@
        (ZERO WORDS PAST BLUE HEADER • PURE PHOTOGRAPHY CONTENT)
        ============================================================= -->
   <main class="w-full relative">
+
+    <!-- 3D ANIMATED STICKER BOOK (OPENS ON PAGE • PEEL & DRAG TO BLUE HEADER) -->
+    <div id="sticker-book-stage" class="sticker-book-stage" aria-hidden="true">
+      <div class="sticker-book-3d-wrapper">
+        
+        <!-- 3D Swinging Cover Flap on Open -->
+        <div id="sticker-book-cover-flap" class="sticker-book-cover-flap"></div>
+
+        <!-- Top Page Tabs & Controls (Pure Icons) -->
+        <div class="flex items-center justify-between px-2 pb-1.5 select-none">
+          <div class="flex items-center gap-1.5">
+            <button type="button" onclick="switchStickerSpread(0)" id="sb-tab-0" class="sb-tab-btn is-active" title="Spread 1: Cats & Friends">🐾</button>
+            <button type="button" onclick="switchStickerSpread(1)" id="sb-tab-1" class="sb-tab-btn" title="Spread 2: Magic & Doodles">✨</button>
+            <button type="button" onclick="switchStickerSpread(2)" id="sb-tab-2" class="sb-tab-btn" title="Spread 3: Garden Bugs & Vinyl">🦋</button>
+          </div>
+          <div class="flex items-center gap-1.5">
+            <button type="button" onclick="clearExtraHeroStickers()" class="sb-tab-btn" title="Clear added stickers">↺</button>
+            <button type="button" onclick="toggleStickerBook(false)" class="sb-tab-btn" title="Close Sticker Book">✕</button>
+          </div>
+        </div>
+
+        <!-- Open Two-Page Wax Release Sticker Spread -->
+        <div class="sticker-book-spread">
+          <div id="sticker-page-left" class="sticker-wax-page page-left"></div>
+          
+          <!-- Center Spiral Rings -->
+          <div class="sticker-book-spiral" aria-hidden="true">
+            <span class="spiral-ring"></span>
+            <span class="spiral-ring"></span>
+            <span class="spiral-ring"></span>
+            <span class="spiral-ring"></span>
+            <span class="spiral-ring"></span>
+            <span class="spiral-ring"></span>
+            <span class="spiral-ring"></span>
+          </div>
+
+          <div id="sticker-page-right" class="sticker-wax-page page-right"></div>
+        </div>
+
+      </div>
+    </div>
     
     <!-- COFFEE TABLE BOOKS SHELF (ZERO WORDS, PURE ART MONOGRAPHS) -->
     <section class="max-w-[1400px] mx-auto pt-6 pb-2 px-3 sm:px-6 md:px-8">
@@ -740,6 +1034,7 @@
 
     // COFFEE TABLE BOOKS CATALOG
     const BOOKS = [
+      { id: 'sticker_book', isStickerBook: true, isUpcoming: false },
       { id: 'all', cover: 'photos/ass1/img_0103.jpg', isUpcoming: false },
       { id: 'ass1', cover: 'photos/ass1/img_0023.jpg', isUpcoming: false },
       { id: 'autumn', cover: 'photos/autumn/MOR_FIVE_1.jpg', isUpcoming: false },
@@ -752,6 +1047,7 @@
 
     let currentBookId = 'all';
     let currentGalleryPhotos = ALL_PHOTOS;
+    let isStickerBookOpen = false;
 
     // RENDER COFFEE TABLE BOOKS
     function renderBooks() {
@@ -760,12 +1056,26 @@
 
       BOOKS.forEach((b) => {
         const item = document.createElement('div');
-        item.className = `book-item ${b.id === currentBookId ? 'is-active' : ''}`;
+        const activeClass = b.isStickerBook
+          ? (isStickerBookOpen ? 'is-sticker-book-open' : '')
+          : (b.id === currentBookId ? 'is-active' : '');
+        item.className = `book-item ${activeClass}`;
         
         const hardcover = document.createElement('div');
-        hardcover.className = 'book-hardcover';
+        hardcover.className = `book-hardcover ${b.isStickerBook ? 'sticker-book-shelf-cover' : ''}`;
 
-        if (!b.isUpcoming && b.cover) {
+        if (b.isStickerBook) {
+          hardcover.title = 'Open Sticker Book ★ Pull stickers onto the blue header!';
+          hardcover.innerHTML = `
+            <div class="w-full h-full relative flex items-center justify-center overflow-hidden rounded-sm border border-yellow-300/35 bg-[#1800ad]/90 p-1.5 select-none">
+              <img src="stickers/sb_clay_star.png" alt="" class="w-9 h-9 object-contain absolute top-1.5 left-1.5 rotate-[-14deg] drop-shadow">
+              <img src="stickers/sb_miffy_book.png" alt="" class="w-9 h-9 object-contain absolute top-1.5 right-1.5 rotate-[12deg] drop-shadow">
+              <img src="stickers/sb_wizard_cat.png" alt="" class="w-16 h-20 sm:w-20 sm:h-24 object-contain relative z-10 drop-shadow-lg">
+              <img src="stickers/sb_star_ladybug.png" alt="" class="w-8 h-8 object-contain absolute bottom-1.5 left-2 rotate-[10deg] drop-shadow">
+              <img src="stickers/sb_pink_butterfly.png" alt="" class="w-9 h-9 object-contain absolute bottom-1.5 right-1.5 rotate-[-12deg] drop-shadow">
+            </div>
+          `;
+        } else if (!b.isUpcoming && b.cover) {
           hardcover.innerHTML = `<img src="${b.cover}" alt="Book Cover" class="book-inner-photo">`;
         } else {
           hardcover.style.background = b.bg || '#1a1815';
@@ -780,6 +1090,10 @@
         item.appendChild(hardcover);
 
         item.addEventListener('click', () => {
+          if (b.isStickerBook) {
+            toggleStickerBook();
+            return;
+          }
           if (b.isUpcoming) {
             document.getElementById('upcoming-modal-title').textContent = b.title || 'Upcoming Series';
             document.getElementById('upcoming-modal').showModal();
@@ -1078,6 +1392,250 @@
     }
 
     document.querySelectorAll('.drag-item').forEach(makeDraggable);
+
+    // =============================================================
+    // 3D ANIMATED STICKER BOOK ENGINE (PEEL & DRAG TO BLUE CANVAS)
+    // =============================================================
+    const STICKER_BOOK_SPREADS = [
+      // SPREAD 0: CATS, PUP & LITTLE GUYS (12 STICKERS: 6 LEFT, 6 RIGHT)
+      {
+        left: [
+          { src: 'stickers/sb_wizard_cat.png', widthPct: 11.5, rot: -4, label: 'Wizard Cat 🪄' },
+          { src: 'stickers/sb_miffy_book.png', widthPct: 9.0, rot: 5, label: 'Reading Bunny 📖' },
+          { src: 'stickers/sb_three_kittens.png', widthPct: 8.5, rot: -3, label: 'Three Pink Kittens 🐱' },
+          { src: 'stickers/sb_dancing_cats.png', widthPct: 15.5, rot: 3, label: 'Circle of Dancing Cats 🐈' },
+          { src: 'stickers/sb_black_cat.png', widthPct: 9.0, rot: -5, label: 'Cool Black Cat 🐾' },
+          { src: 'stickers/gilbert_head_sticker.png', widthPct: 9.5, rot: 4, label: 'Gilbert Cutout 🐾' }
+        ],
+        right: [
+          { src: 'stickers/sb_bunny.png', widthPct: 8.0, rot: 4, label: 'Bunny in Blue Dress 🐰' },
+          { src: 'stickers/sb_dachshund.png', widthPct: 13.5, rot: -3, label: 'Dachshund Pup 🐶' },
+          { src: 'stickers/sb_mouse.png', widthPct: 10.5, rot: 5, label: 'Heart Sweater Mouse 🐭' },
+          { src: 'stickers/sb_blue_bird.png', widthPct: 11.0, rot: -4, label: 'Blue Floral Bird 🐦' },
+          { src: 'stickers/sb_clay_star.png', widthPct: 8.5, rot: 6, label: 'Happy Clay Star ⭐' },
+          { src: 'stickers/sb_bead_a.png', widthPct: 7.5, rot: -5, label: 'Letter A Bead 🅰️' }
+        ]
+      },
+      // SPREAD 1: MAGIC, STARS & DOODLES (12 STICKERS: 6 LEFT, 6 RIGHT)
+      {
+        left: [
+          { src: 'stickers/sb_twin_stars.png', widthPct: 13.0, rot: -3, label: 'Twin Smiling Stars ✨' },
+          { src: 'stickers/sb_moon.png', widthPct: 8.5, rot: 6, label: 'Crescent Moon 🌙' },
+          { src: 'stickers/sb_party_hat.png', widthPct: 9.0, rot: -6, label: 'Polka-Dot Party Hat 🎉' },
+          { src: 'stickers/sb_star_boots.png', widthPct: 9.5, rot: 4, label: 'Star in Boots ⭐' },
+          { src: 'stickers/sb_yellow_starburst.png', widthPct: 9.0, rot: -5, label: 'Yellow Sunburst ☀️' },
+          { src: 'stickers/sb_pink_starburst.png', widthPct: 10.0, rot: 5, label: 'Pink Starburst 💥' }
+        ],
+        right: [
+          { src: 'stickers/sb_stitched_star.png', widthPct: 9.5, rot: 5, label: 'Stitched Felt Star ★' },
+          { src: 'stickers/sb_pink_button.png', widthPct: 7.2, rot: -6, label: 'Pink Polka Button 🩷' },
+          { src: 'stickers/sb_apple.png', widthPct: 8.0, rot: 4, label: 'Half Apple 🍎' },
+          { src: 'stickers/vinyl_sticker.png', widthPct: 11.0, rot: -4, label: '45 RPM Vinyl Record 💿' },
+          { src: 'stickers/canva_cake.png', widthPct: 11.0, rot: 3, label: 'Birthday Cake Slice 🎂' },
+          { src: 'stickers/canva_match.png', widthPct: 4.8, rot: -5, label: 'Lit Matchstick 🔥' }
+        ]
+      },
+      // SPREAD 2: GARDEN BUGS, BUTTERFLIES & BOTANICALS (12 STICKERS: 6 LEFT, 6 RIGHT)
+      {
+        left: [
+          { src: 'stickers/sb_star_ladybug.png', widthPct: 8.5, rot: -5, label: 'Star-Spotted Ladybug 🐞' },
+          { src: 'stickers/ladybug_sticker.png', widthPct: 8.5, rot: 4, label: 'Hand-Drawn Ladybug 🐞' },
+          { src: 'stickers/sb_bumblebee.png', widthPct: 10.5, rot: -4, label: 'Fuzzy Bumblebee 🐝' },
+          { src: 'stickers/sb_monarch.png', widthPct: 9.5, rot: 5, label: 'Monarch Butterfly 🦋' },
+          { src: 'stickers/sb_pink_butterfly.png', widthPct: 9.5, rot: -4, label: 'Pink Butterfly 🦋' },
+          { src: 'stickers/sb_dragonfly.png', widthPct: 10.0, rot: 6, label: 'Iridescent Dragonfly ✨' }
+        ],
+        right: [
+          { src: 'stickers/sb_caterpillar.png', widthPct: 9.0, rot: -3, label: 'Green Caterpillar 🐛' },
+          { src: 'stickers/sb_pink_slug.png', widthPct: 8.0, rot: 5, label: 'Pink Garden Slug 🐌' },
+          { src: 'stickers/sb_blue_beetle.png', widthPct: 8.5, rot: -5, label: 'Blue Stag Beetle 🪲' },
+          { src: 'stickers/sb_poppy_flower.png', widthPct: 11.0, rot: 4, label: 'Coral Poppy Flower 🌸' },
+          { src: 'stickers/sb_orchid.png', widthPct: 9.5, rot: -4, label: 'Green Orchid Stem 🌿' },
+          { src: 'stickers/canva_gecko.png', widthPct: 12.5, rot: 4, label: 'Green & Orange Gecko 🦎' }
+        ]
+      }
+    ];
+
+    let activeStickerSpread = 0;
+
+    function toggleStickerBook(forceState) {
+      const stage = document.getElementById('sticker-book-stage');
+      const flap = document.getElementById('sticker-book-cover-flap');
+      isStickerBookOpen = typeof forceState === 'boolean' ? forceState : !isStickerBookOpen;
+
+      if (isStickerBookOpen) {
+        renderStickerBookSpread(activeStickerSpread);
+        // Re-trigger 3D cover swing animation
+        flap.style.animation = 'none';
+        void flap.offsetWidth;
+        flap.style.animation = '';
+        stage.classList.add('is-open');
+        stage.setAttribute('aria-hidden', 'false');
+        playSparkleTwinkle();
+      } else {
+        stage.classList.remove('is-open');
+        stage.setAttribute('aria-hidden', 'true');
+        playSparkleNote(1567.98, 0.025, 0.16);
+      }
+      renderBooks();
+    }
+
+    function switchStickerSpread(spreadIdx) {
+      activeStickerSpread = spreadIdx;
+      [0, 1, 2].forEach((i) => {
+        const btn = document.getElementById(`sb-tab-${i}`);
+        if (btn) btn.classList.toggle('is-active', i === spreadIdx);
+      });
+      renderStickerBookSpread(spreadIdx);
+      playSparkleTwinkle();
+    }
+
+    function renderStickerBookSpread(spreadIdx) {
+      const spread = STICKER_BOOK_SPREADS[spreadIdx] || STICKER_BOOK_SPREADS[0];
+      const leftPage = document.getElementById('sticker-page-left');
+      const rightPage = document.getElementById('sticker-page-right');
+      leftPage.innerHTML = '';
+      rightPage.innerHTML = '';
+
+      spread.left.forEach((st) => leftPage.appendChild(createStickerBookSlot(st)));
+      spread.right.forEach((st) => rightPage.appendChild(createStickerBookSlot(st)));
+    }
+
+    function createStickerBookSlot(stickerData) {
+      const slot = document.createElement('div');
+      slot.className = 'sb-sticker-slot';
+      slot.style.setProperty('--sb-rot', `${stickerData.rot || 0}deg`);
+      slot.style.transform = `rotate(${stickerData.rot || 0}deg)`;
+      slot.title = `${stickerData.label} — Drag up onto the blue header (or tap to stick!)`;
+
+      const img = document.createElement('img');
+      img.src = stickerData.src;
+      img.alt = stickerData.label || 'Sticker';
+      slot.appendChild(img);
+
+      // Peel & drag from Sticker Book onto the Blue Header Canvas
+      slot.addEventListener('pointerdown', (e) => {
+        e.preventDefault();
+        peelStickerFromBook(e, stickerData, slot);
+      });
+
+      return slot;
+    }
+
+    function placeStickerOnHeroCanvas(stickerData, clientX, clientY) {
+      const heroCanvas = document.querySelector('header.hero-blue-canvas');
+      const stickersLayer = document.getElementById('hero-stickers-layer');
+      const rect = heroCanvas.getBoundingClientRect();
+
+      let leftPct, topPct;
+      if (clientX !== undefined && clientY !== undefined && clientY <= rect.bottom + 90) {
+        const wPx = (stickerData.widthPct / 100) * rect.width;
+        const rawLeft = ((clientX - rect.left - wPx * 0.5) / rect.width) * 100;
+        const rawTop = ((clientY - rect.top - wPx * 0.5) / rect.height) * 100;
+        leftPct = Math.max(1, Math.min(92 - stickerData.widthPct * 0.5, rawLeft));
+        topPct = Math.max(3, Math.min(82, rawTop));
+      } else {
+        // Pick a lovely open spot on the blue canvas if tapped directly
+        leftPct = 8 + Math.random() * 74;
+        topPct = 10 + Math.random() * 62;
+      }
+
+      topStickerZ += 1;
+      const wrapper = document.createElement('div');
+      wrapper.className = 'drag-item extra-peeled-sticker pointer-events-auto';
+      wrapper.style.left = `${leftPct.toFixed(2)}%`;
+      wrapper.style.top = `${topPct.toFixed(2)}%`;
+      wrapper.style.width = `${stickerData.widthPct}%`;
+      wrapper.style.zIndex = topStickerZ;
+      wrapper.title = `${stickerData.label} (Drag to move • Double-click to remove)`;
+
+      const img = document.createElement('img');
+      img.src = stickerData.src;
+      img.alt = stickerData.label || 'Sticker';
+      img.className = 'w-full h-auto block drop-shadow-xl pointer-events-none';
+      wrapper.appendChild(img);
+
+      // Pop-in animation
+      wrapper.animate([
+        { transform: 'scale(1.32) rotate(-6deg)', opacity: 0.75 },
+        { transform: 'scale(1) rotate(0deg)', opacity: 1 }
+      ], { duration: 260, easing: 'cubic-bezier(0.16, 1, 0.3, 1)' });
+
+      // Double-click any added sticker to peel it back off
+      wrapper.addEventListener('dblclick', () => {
+        playSparkleNote(1318.51, 0.03, 0.18);
+        wrapper.remove();
+      });
+
+      makeDraggable(wrapper);
+      stickersLayer.appendChild(wrapper);
+      playSparkleTwinkle();
+    }
+
+    function peelStickerFromBook(startEvt, stickerData, slotEl) {
+      playSparkleTwinkle();
+      const heroCanvas = document.querySelector('header.hero-blue-canvas');
+      const heroRect = heroCanvas.getBoundingClientRect();
+      const floatW = Math.max(72, Math.min(210, (stickerData.widthPct / 100) * heroRect.width));
+
+      const ghost = document.createElement('img');
+      ghost.src = stickerData.src;
+      ghost.className = 'floating-peel-sticker';
+      ghost.style.width = `${floatW}px`;
+      ghost.style.left = `${startEvt.clientX}px`;
+      ghost.style.top = `${startEvt.clientY}px`;
+      document.body.appendChild(ghost);
+
+      slotEl.style.opacity = '0.45';
+      let movedDist = 0;
+      const startX = startEvt.clientX;
+      const startY = startEvt.clientY;
+
+      function onMove(e) {
+        movedDist = Math.hypot(e.clientX - startX, e.clientY - startY);
+        const tilt = Math.sin(movedDist * 0.15) * 8;
+        ghost.style.left = `${e.clientX}px`;
+        ghost.style.top = `${e.clientY}px`;
+        ghost.style.transform = `translate(-50%, -50%) scale(1.12) rotate(${tilt.toFixed(1)}deg)`;
+
+        // Gently auto-scroll upward if dragging near the top of the viewport so the blue header is in full view
+        if (e.clientY < 110 && window.scrollY > 0) {
+          window.scrollBy(0, -14);
+        }
+      }
+
+      function onUp(e) {
+        window.removeEventListener('pointermove', onMove);
+        window.removeEventListener('pointerup', onUp);
+        window.removeEventListener('pointercancel', onUp);
+        ghost.remove();
+        slotEl.style.opacity = '1';
+
+        const updatedHeroRect = heroCanvas.getBoundingClientRect();
+        if (movedDist < 8) {
+          // Tapped in book -> stick onto blue canvas & scroll gently if needed
+          placeStickerOnHeroCanvas(stickerData);
+        } else if (e.clientY <= updatedHeroRect.bottom + 90) {
+          // Dropped on or near the blue header canvas
+          placeStickerOnHeroCanvas(stickerData, e.clientX, e.clientY);
+        } else {
+          // Dropped outside book but below header -> still stick onto lower edge of blue canvas!
+          const bookRect = document.getElementById('sticker-book-stage').getBoundingClientRect();
+          if (e.clientY < bookRect.top + 30) {
+            placeStickerOnHeroCanvas(stickerData, e.clientX, updatedHeroRect.bottom - 50);
+          }
+        }
+      }
+
+      window.addEventListener('pointermove', onMove);
+      window.addEventListener('pointerup', onUp);
+      window.addEventListener('pointercancel', onUp);
+    }
+
+    function clearExtraHeroStickers() {
+      document.querySelectorAll('.extra-peeled-sticker').forEach((el) => el.remove());
+      playSparkleNote(1760, 0.03, 0.2);
+    }
 
     // INITIALIZE SHELF & MASONRY GALLERY
     renderBooks();
