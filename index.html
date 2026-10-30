@@ -1261,6 +1261,41 @@
   </dialog>
 
   <!-- =============================================================
+       SECRET EASTER EGG MINI-GAME POPUP: ABIGAIL & FLYING GILBERT RUNNER
+       (OPENED BY DOUBLE-CLICKING THE PLACED LAUGHING FACE STICKER!)
+       ============================================================= -->
+  <dialog id="abi-dino-modal" class="fixed inset-0 z-[99992] w-full h-full bg-stone-950/75 backdrop-blur-sm flex items-center justify-center p-3 sm:p-6 m-0 max-w-none max-h-none border-0 select-none">
+    <div class="max-w-3xl w-full bg-[#faf7f0] border-[3px] border-[#1800ad] rounded-2xl p-3 sm:p-5 shadow-2xl relative overflow-hidden">
+      <!-- Top Window Tab Bar -->
+      <div class="flex items-center justify-between bg-[#1800ad] text-white px-3.5 py-2 rounded-xl mb-3 border border-[#fde047]">
+        <div class="flex items-center gap-2">
+          <img src="stickers/sb_face_laugh.png" alt="" class="w-7 h-7 object-contain drop-shadow">
+          <span class="font-cute font-bold text-lg sm:text-xl tracking-wide text-[#fde047]">★ ABIGAIL &amp; FLYING GILBERT RUNNER ★</span>
+        </div>
+        <div class="flex items-center gap-2">
+          <span class="hidden sm:inline font-mono-exif text-[11px] text-blue-200">[SPACE / ↑ / CLICK] JUMP • [↓] DUCK</span>
+          <button type="button" onclick="closeAbiDinoGame()" class="font-cute font-bold text-base px-2.5 py-0.5 rounded-lg bg-white/15 hover:bg-red-500 text-white border border-white/30 transition-colors" title="Close Mini Game">
+            ✕
+          </button>
+        </div>
+      </div>
+
+      <!-- Game Canvas Container -->
+      <div class="relative w-full bg-[#fdfbf7] border-2 border-stone-300 rounded-xl overflow-hidden shadow-inner">
+        <canvas id="abi-dino-canvas" width="720" height="250" class="w-full h-auto block"></canvas>
+      </div>
+
+      <!-- Bottom Controls Hint -->
+      <div class="mt-2.5 flex items-center justify-between font-cute text-sm sm:text-base font-bold text-stone-600 px-1">
+        <span>👱‍♀️ Jump over film rolls &amp; dodge the flying orange Gilberts! 🐱🪽</span>
+        <button type="button" onclick="restartAbiDinoGame()" class="px-3 py-0.5 bg-[#1800ad] text-[#fde047] rounded-full text-sm hover:bg-blue-800 transition-colors">
+          ↻ play again
+        </button>
+      </div>
+    </div>
+  </dialog>
+
+  <!-- =============================================================
        3. FULL-SCREEN PHOTO VIEW (PURE IMAGE ONLY • ZERO WORDS • CLICK ANYWHERE TO CLOSE)
        ============================================================= -->
   <dialog id="photo-lightbox" class="fixed inset-0 z-[99995] w-full h-full bg-stone-950/90 backdrop-blur-md flex items-center justify-center p-4 sm:p-8 m-0 max-w-none max-h-none border-0 select-none">
@@ -2347,8 +2382,19 @@
             stickersLayer.appendChild(el);
           }
           playStickerTapePeelSound(true);
-        } else if (wasTap && el.id === 'drag-gilbert') {
-          openGilbertModal();
+        } else if (wasTap) {
+          if (el.id === 'drag-gilbert') {
+            openGilbertModal();
+          } else if (el.dataset.stickerSrc === 'stickers/sb_face_laugh.png') {
+            const nowTap = performance.now();
+            const prevTap = parseFloat(el.dataset.lastTapTime || '0');
+            if (nowTap - prevTap < 460) {
+              el.dataset.lastTapTime = '0';
+              openAbiDinoGame();
+            } else {
+              el.dataset.lastTapTime = String(nowTap);
+            }
+          }
         }
       }
 
@@ -2618,7 +2664,11 @@
         wrapper.style.setProperty('--current-rot', `${stickerData.rot}deg`);
       }
       wrapper.style.zIndex = topStickerZ;
-      wrapper.title = `${stickerData.label} (Drag to move • Double-click to remove)`;
+      wrapper.dataset.stickerSrc = stickerData.src;
+      const isSecretDinoSticker = stickerData.src === 'stickers/sb_face_laugh.png';
+      wrapper.title = isSecretDinoSticker
+        ? `${stickerData.label} (Double-click once placed for a secret mini-game! 🕹️)`
+        : `${stickerData.label} (Drag to move • Drag to 🗑️ to delete)`;
 
       const img = document.createElement('img');
       img.src = stickerData.src;
@@ -2626,12 +2676,12 @@
       img.className = 'w-full h-auto block drop-shadow-xl pointer-events-none';
       wrapper.appendChild(img);
 
-      // Double-click any added sticker to peel it back off
-      wrapper.addEventListener('dblclick', () => {
-        playStickerTapePeelSound(false);
-        removeStickerFromAllBookPages(wrapper);
-        wrapper.remove();
-      });
+      if (isSecretDinoSticker) {
+        wrapper.addEventListener('dblclick', (e) => {
+          e.stopPropagation();
+          openAbiDinoGame();
+        });
+      }
 
       makeDraggable(wrapper);
 
@@ -2755,6 +2805,645 @@
         if (el.style.display === 'none') el.style.display = '';
       });
       playSparkleNote(1760, 0.03, 0.2);
+    }
+
+    // =============================================================
+    // SECRET EASTER EGG: CHROME NO-WIFI DINO GAME
+    // (LITTLE BLONDE GIRL + FLYING ORANGE GILBERT CATS!)
+    // =============================================================
+    const abiDinoModal = document.getElementById('abi-dino-modal');
+    const abiDinoCanvas = document.getElementById('abi-dino-canvas');
+    const abiDinoCtx = abiDinoCanvas ? abiDinoCanvas.getContext('2d') : null;
+    let dinoAnimFrame = null;
+    let isDinoModalOpen = false;
+    let dinoHighScore = 0;
+
+    const dinoState = {
+      running: false,
+      gameOver: false,
+      score: 0,
+      speed: 5.4,
+      frame: 0,
+      groundY: 206,
+      player: {
+        x: 68,
+        y: 206,
+        vy: 0,
+        w: 34,
+        h: 52,
+        ducking: false,
+        onGround: true
+      },
+      obstacles: [],
+      clouds: [
+        { x: 140, y: 46, s: 0.9 },
+        { x: 390, y: 32, s: 1.1 },
+        { x: 610, y: 58, s: 0.8 }
+      ],
+      groundDots: Array.from({ length: 28 }, (_, i) => ({
+        x: i * 28 + Math.random() * 12,
+        y: 212 + (i % 3) * 5,
+        w: 2 + (i % 4) * 2
+      })),
+      spawnTimer: 42
+    };
+
+    function playDinoJumpSound() {
+      const ctx = getAudioCtx();
+      if (!ctx || ctx.state !== 'running') return;
+      const now = ctx.currentTime;
+      const osc = ctx.createOscillator();
+      const gain = ctx.createGain();
+      osc.type = 'square';
+      osc.frequency.setValueAtTime(260, now);
+      osc.frequency.exponentialRampToValueAtTime(580, now + 0.085);
+      gain.gain.setValueAtTime(0.025, now);
+      gain.gain.exponentialRampToValueAtTime(0.001, now + 0.095);
+      osc.connect(gain);
+      gain.connect(ctx.destination);
+      osc.start(now);
+      osc.stop(now + 0.1);
+    }
+
+    function playDinoMilestoneSound() {
+      const ctx = getAudioCtx();
+      if (!ctx || ctx.state !== 'running') return;
+      const now = ctx.currentTime;
+      [587.33, 880.0].forEach((freq, idx) => {
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        osc.type = 'square';
+        const t0 = now + idx * 0.075;
+        osc.frequency.setValueAtTime(freq, t0);
+        gain.gain.setValueAtTime(0.024, t0);
+        gain.gain.exponentialRampToValueAtTime(0.001, t0 + 0.09);
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+        osc.start(t0);
+        osc.stop(t0 + 0.095);
+      });
+    }
+
+    function playDinoGameOverSound() {
+      const ctx = getAudioCtx();
+      if (!ctx || ctx.state !== 'running') return;
+      const now = ctx.currentTime;
+      [330, 277, 220].forEach((freq, idx) => {
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        osc.type = 'triangle';
+        const t0 = now + idx * 0.08;
+        osc.frequency.setValueAtTime(freq, t0);
+        gain.gain.setValueAtTime(0.04, t0);
+        gain.gain.exponentialRampToValueAtTime(0.001, t0 + 0.11);
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+        osc.start(t0);
+        osc.stop(t0 + 0.12);
+      });
+    }
+
+    function openAbiDinoGame() {
+      if (!abiDinoModal) return;
+      isDinoModalOpen = true;
+      abiDinoModal.setAttribute('open', '');
+      playDinoMilestoneSound();
+      restartAbiDinoGame();
+    }
+
+    function closeAbiDinoGame() {
+      if (!abiDinoModal) return;
+      isDinoModalOpen = false;
+      dinoState.running = false;
+      if (dinoAnimFrame) cancelAnimationFrame(dinoAnimFrame);
+      abiDinoModal.removeAttribute('open');
+    }
+
+    if (abiDinoModal) {
+      abiDinoModal.addEventListener('click', (e) => {
+        if (e.target === abiDinoModal) closeAbiDinoGame();
+      });
+    }
+
+    function restartAbiDinoGame() {
+      dinoState.running = true;
+      dinoState.gameOver = false;
+      dinoState.score = 0;
+      dinoState.speed = 5.4;
+      dinoState.frame = 0;
+      dinoState.player.y = dinoState.groundY;
+      dinoState.player.vy = 0;
+      dinoState.player.ducking = false;
+      dinoState.player.onGround = true;
+      dinoState.obstacles = [];
+      dinoState.spawnTimer = 38;
+      if (dinoAnimFrame) cancelAnimationFrame(dinoAnimFrame);
+      dinoLoop();
+    }
+
+    function triggerDinoJump() {
+      if (!isDinoModalOpen) return;
+      if (dinoState.gameOver) {
+        restartAbiDinoGame();
+        return;
+      }
+      if (dinoState.player.onGround) {
+        dinoState.player.vy = -11.6;
+        dinoState.player.onGround = false;
+        playDinoJumpSound();
+      }
+    }
+
+    if (abiDinoCanvas) {
+      abiDinoCanvas.addEventListener('pointerdown', (e) => {
+        e.preventDefault();
+        triggerDinoJump();
+      });
+    }
+
+    window.addEventListener('keydown', (e) => {
+      if (!isDinoModalOpen) return;
+      if (e.key === 'Escape') {
+        closeAbiDinoGame();
+        return;
+      }
+      if (e.code === 'Space' || e.key === 'ArrowUp' || e.key === 'w' || e.key === 'W') {
+        e.preventDefault();
+        triggerDinoJump();
+      } else if (e.key === 'ArrowDown' || e.key === 's' || e.key === 'S') {
+        e.preventDefault();
+        dinoState.player.ducking = true;
+        if (!dinoState.player.onGround) {
+          dinoState.player.vy += 2.5;
+        }
+      }
+    });
+
+    window.addEventListener('keyup', (e) => {
+      if (!isDinoModalOpen) return;
+      if (e.key === 'ArrowDown' || e.key === 's' || e.key === 'S') {
+        dinoState.player.ducking = false;
+      }
+    });
+
+    // Draw the Little Blonde Girl Runner (instead of the Chrome T-Rex)
+    function drawBlondeGirlPlayer(ctx, p, frame, isGameOver) {
+      ctx.save();
+      const baseX = p.x;
+      const feetY = p.y;
+      const isDuck = p.ducking && p.onGround;
+      const bounce = p.onGround ? Math.abs(Math.sin(frame * 0.28)) * 2.5 : 0;
+      const headY = isDuck ? feetY - 30 + bounce : feetY - 44 + bounce;
+      const bodyTopY = isDuck ? feetY - 22 + bounce : feetY - 32 + bounce;
+
+      // 1. Flowing Golden-Blonde Hair (back layer streaming behind her)
+      ctx.fillStyle = '#eab308';
+      ctx.beginPath();
+      const hairWave = Math.sin(frame * 0.35) * 3;
+      ctx.ellipse(baseX + 8, headY + 6, 13, 15, -0.25, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.fillStyle = '#facc15';
+      ctx.beginPath();
+      ctx.moveTo(baseX + 10, headY - 7);
+      ctx.quadraticCurveTo(baseX - 10, headY + 4 + hairWave, baseX - 8, headY + 20 + hairWave);
+      ctx.quadraticCurveTo(baseX + 4, headY + 22, baseX + 14, headY + 10);
+      ctx.closePath();
+      ctx.fill();
+
+      // 2. Animated Running Legs (White Star Socks + Mary Jane Shoes)
+      const legSwing = p.onGround ? Math.sin(frame * 0.42) * 7 : 4;
+      const drawLeg = (offsetX, swing) => {
+        // Leg skin
+        ctx.strokeStyle = '#f5cba7';
+        ctx.lineWidth = 4.5;
+        ctx.lineCap = 'round';
+        ctx.beginPath();
+        ctx.moveTo(baseX + offsetX, feetY - 12);
+        ctx.lineTo(baseX + offsetX + swing, feetY - 3);
+        ctx.stroke();
+        // White sock
+        ctx.strokeStyle = '#ffffff';
+        ctx.lineWidth = 4.8;
+        ctx.beginPath();
+        ctx.moveTo(baseX + offsetX + swing * 0.55, feetY - 7);
+        ctx.lineTo(baseX + offsetX + swing, feetY - 2);
+        ctx.stroke();
+        // Black Mary Jane shoe
+        ctx.fillStyle = '#1c1917';
+        ctx.beginPath();
+        ctx.ellipse(baseX + offsetX + swing + 2.5, feetY - 1.5, 4.8, 2.6, 0, 0, Math.PI * 2);
+        ctx.fill();
+      };
+      drawLeg(12, -legSwing);
+      drawLeg(20, legSwing);
+
+      // 3. Cute Cobalt-Blue Dress / Top (#1800ad)
+      ctx.fillStyle = '#1800ad';
+      ctx.beginPath();
+      if (isDuck) {
+        ctx.roundRect(baseX + 5, bodyTopY, 24, 13, 5);
+      } else {
+        ctx.moveTo(baseX + 9, bodyTopY);
+        ctx.lineTo(baseX + 23, bodyTopY);
+        ctx.lineTo(baseX + 27, feetY - 11);
+        ctx.lineTo(baseX + 5, feetY - 11);
+        ctx.closePath();
+      }
+      ctx.fill();
+
+      // Little yellow star on her blue dress
+      ctx.fillStyle = '#fde047';
+      ctx.beginPath();
+      ctx.arc(baseX + 16, bodyTopY + (isDuck ? 6 : 9), 2.5, 0, Math.PI * 2);
+      ctx.fill();
+
+      // 4. Swinging Arm
+      ctx.strokeStyle = '#f5cba7';
+      ctx.lineWidth = 3.8;
+      ctx.lineCap = 'round';
+      ctx.beginPath();
+      ctx.moveTo(baseX + 17, bodyTopY + 4);
+      ctx.lineTo(baseX + 24 + (p.onGround ? -legSwing * 0.5 : 4), bodyTopY + 12);
+      ctx.stroke();
+
+      // 5. Head & Rosy Cheeks
+      ctx.fillStyle = '#fad7b8';
+      ctx.beginPath();
+      ctx.arc(baseX + 17, headY, 10.5, 0, Math.PI * 2);
+      ctx.fill();
+
+      // Golden-Blonde Bangs & Top Hair
+      ctx.fillStyle = '#facc15';
+      ctx.beginPath();
+      ctx.arc(baseX + 16, headY - 2, 11, Math.PI * 0.92, Math.PI * 2.08);
+      ctx.fill();
+
+      // Cute Pink Hair Bow / Clip
+      ctx.fillStyle = '#ec4899';
+      ctx.beginPath();
+      ctx.arc(baseX + 10, headY - 8, 3.2, 0, Math.PI * 2);
+      ctx.fill();
+
+      // Rosy cheek
+      ctx.fillStyle = 'rgba(244, 63, 94, 0.45)';
+      ctx.beginPath();
+      ctx.arc(baseX + 21, headY + 2.5, 2.4, 0, Math.PI * 2);
+      ctx.fill();
+
+      // Eye & Expression
+      ctx.fillStyle = '#1c1917';
+      if (isGameOver) {
+        // Surprised X eye & O mouth on bump
+        ctx.lineWidth = 1.6;
+        ctx.strokeStyle = '#1c1917';
+        ctx.beginPath();
+        ctx.moveTo(baseX + 19, headY - 3);
+        ctx.lineTo(baseX + 23, headY + 1);
+        ctx.moveTo(baseX + 23, headY - 3);
+        ctx.lineTo(baseX + 19, headY + 1);
+        ctx.stroke();
+        ctx.beginPath();
+        ctx.arc(baseX + 22, headY + 5.5, 2.2, 0, Math.PI * 2);
+        ctx.fill();
+      } else {
+        ctx.beginPath();
+        ctx.arc(baseX + 21.5, headY - 1.2, 1.8, 0, Math.PI * 2);
+        ctx.fill();
+        // Cute smile
+        ctx.strokeStyle = '#be123c';
+        ctx.lineWidth = 1.5;
+        ctx.beginPath();
+        ctx.arc(baseX + 21, headY + 3, 2.8, 0.15, Math.PI * 0.85);
+        ctx.stroke();
+      }
+
+      ctx.restore();
+    }
+
+    // Draw Flying Orange Gilbert Cat (instead of the Chrome Pterodactyl!)
+    function drawFlyingGilbertCat(ctx, obs, frame) {
+      ctx.save();
+      const x = obs.x;
+      const y = obs.y;
+      const wingUp = Math.floor(frame / 7) % 2 === 0;
+      const bob = Math.sin((frame + x) * 0.12) * 2.5;
+
+      // 1. Swishing Orange Tabby Tail (behind right side)
+      ctx.strokeStyle = '#ea580c';
+      ctx.lineWidth = 4.5;
+      ctx.lineCap = 'round';
+      ctx.beginPath();
+      ctx.moveTo(x + 34, y + 14 + bob);
+      ctx.quadraticCurveTo(x + 46, y + 6 + bob + (wingUp ? -4 : 4), x + 48, y + 12 + bob);
+      ctx.stroke();
+
+      // 2. Chubby Orange Tabby Body (#f97316)
+      ctx.fillStyle = '#f97316';
+      ctx.beginPath();
+      ctx.ellipse(x + 23, y + 16 + bob, 14, 9.5, 0, 0, Math.PI * 2);
+      ctx.fill();
+
+      // Cream belly patch
+      ctx.fillStyle = '#ffedd5';
+      ctx.beginPath();
+      ctx.ellipse(x + 22, y + 20 + bob, 9, 4.5, 0, 0, Math.PI * 2);
+      ctx.fill();
+
+      // Ginger tabby stripes on back
+      ctx.strokeStyle = '#c2410c';
+      ctx.lineWidth = 2;
+      [-4, 1, 6].forEach((dx) => {
+        ctx.beginPath();
+        ctx.moveTo(x + 23 + dx, y + 7 + bob);
+        ctx.lineTo(x + 22 + dx, y + 13 + bob);
+        ctx.stroke();
+      });
+
+      // Little tucked paws
+      ctx.fillStyle = '#ffedd5';
+      ctx.beginPath();
+      ctx.arc(x + 13, y + 23 + bob, 3.2, 0, Math.PI * 2);
+      ctx.arc(x + 31, y + 23 + bob, 3.2, 0, Math.PI * 2);
+      ctx.fill();
+
+      // 3. Cute Flapping Angel Wings on Gilbert's Back!
+      ctx.fillStyle = '#ffffff';
+      ctx.strokeStyle = '#94a3b8';
+      ctx.lineWidth = 1.4;
+      ctx.beginPath();
+      if (wingUp) {
+        ctx.moveTo(x + 21, y + 11 + bob);
+        ctx.quadraticCurveTo(x + 18, y - 8 + bob, x + 32, y - 5 + bob);
+        ctx.quadraticCurveTo(x + 30, y + 6 + bob, x + 25, y + 12 + bob);
+      } else {
+        ctx.moveTo(x + 21, y + 13 + bob);
+        ctx.quadraticCurveTo(x + 20, y + 28 + bob, x + 33, y + 25 + bob);
+        ctx.quadraticCurveTo(x + 30, y + 17 + bob, x + 25, y + 13 + bob);
+      }
+      ctx.closePath();
+      ctx.fill();
+      ctx.stroke();
+
+      // 4. Gilbert's Orange Cat Head (facing left toward Abigail)
+      ctx.fillStyle = '#f97316';
+      ctx.beginPath();
+      ctx.arc(x + 10, y + 12 + bob, 9.5, 0, Math.PI * 2);
+      ctx.fill();
+
+      // Pointy Cat Ears
+      ctx.fillStyle = '#ea580c';
+      ctx.beginPath();
+      ctx.moveTo(x + 3, y + 6 + bob);
+      ctx.lineTo(x + 5, y - 2 + bob);
+      ctx.lineTo(x + 10, y + 4 + bob);
+      ctx.closePath();
+      ctx.fill();
+
+      ctx.beginPath();
+      ctx.moveTo(x + 11, y + 4 + bob);
+      ctx.lineTo(x + 15, y - 2 + bob);
+      ctx.lineTo(x + 18, y + 6 + bob);
+      ctx.closePath();
+      ctx.fill();
+
+      // Pink inner ear & pink nose
+      ctx.fillStyle = '#fda4af';
+      ctx.beginPath();
+      ctx.arc(x + 3.2, y + 13 + bob, 1.8, 0, Math.PI * 2);
+      ctx.fill();
+
+      // Bright cat eye
+      ctx.fillStyle = '#1c1917';
+      ctx.beginPath();
+      ctx.arc(x + 7, y + 10.5 + bob, 1.8, 0, Math.PI * 2);
+      ctx.fill();
+
+      // Cute white whiskers
+      ctx.strokeStyle = '#78716c';
+      ctx.lineWidth = 1;
+      ctx.beginPath();
+      ctx.moveTo(x + 4, y + 14 + bob);
+      ctx.lineTo(x - 3, y + 12.5 + bob);
+      ctx.moveTo(x + 4, y + 15.5 + bob);
+      ctx.lineTo(x - 3, y + 16.5 + bob);
+      ctx.stroke();
+
+      ctx.restore();
+    }
+
+    // Draw Ground Obstacles (35mm Film Roll Canister or Stack of Photo Books)
+    function drawGroundObstacle(ctx, obs) {
+      ctx.save();
+      const x = obs.x;
+      const y = obs.y;
+      if (obs.kind === 'film') {
+        // 35mm Film Roll Canister (Gold & Black)
+        ctx.fillStyle = '#1c1917';
+        ctx.fillRect(x + 6, y, 16, 4);
+        ctx.fillStyle = '#eab308';
+        ctx.fillRect(x + 2, y + 4, 24, obs.h - 4);
+        ctx.fillStyle = '#1c1917';
+        ctx.fillRect(x + 2, y + 11, 24, 9);
+        ctx.fillStyle = '#fde047';
+        ctx.font = 'bold 7px monospace';
+        ctx.fillText('35MM', x + 4, y + 18);
+      } else {
+        // Vintage Camera Obstacle
+        ctx.fillStyle = '#334155';
+        ctx.fillRect(x + 6, y, 12, 5);
+        ctx.fillStyle = '#1e293b';
+        ctx.fillRect(x, y + 5, obs.w, obs.h - 5);
+        ctx.fillStyle = '#e2e8f0';
+        ctx.fillRect(x + 2, y + 7, obs.w - 4, 5);
+        ctx.fillStyle = '#38bdf8';
+        ctx.beginPath();
+        ctx.arc(x + obs.w * 0.5, y + 19, 6.5, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.strokeStyle = '#f8fafc';
+        ctx.lineWidth = 2;
+        ctx.stroke();
+      }
+      ctx.restore();
+    }
+
+    function spawnDinoObstacle() {
+      // Frequently spawn Flying Orange Gilbert Cats (60% Flying Gilbert, 40% 35mm Film / Camera)
+      const isFlyingGilbert = Math.random() < 0.62;
+      if (isFlyingGilbert) {
+        // Three flight altitudes: low (jump over), mid (jump over or duck under), high (duck under or run under)
+        const heights = [174, 152, 136];
+        const flightY = heights[Math.floor(Math.random() * heights.length)];
+        dinoState.obstacles.push({
+          type: 'gilbert',
+          x: 740,
+          y: flightY,
+          w: 42,
+          h: 26
+        });
+      } else {
+        const isFilm = Math.random() < 0.55;
+        const h = isFilm ? 34 : 30;
+        const w = isFilm ? 28 : 34;
+        dinoState.obstacles.push({
+          type: 'ground',
+          kind: isFilm ? 'film' : 'camera',
+          x: 740,
+          y: dinoState.groundY - h,
+          w,
+          h
+        });
+      }
+    }
+
+    function dinoLoop() {
+      if (!isDinoModalOpen || !abiDinoCtx) return;
+
+      const ctx = abiDinoCtx;
+      const W = abiDinoCanvas.width;
+      const H = abiDinoCanvas.height;
+
+      if (dinoState.running && !dinoState.gameOver) {
+        dinoState.frame += 1;
+        const prevHundreds = Math.floor(dinoState.score / 100);
+        dinoState.score += 0.18;
+        const newHundreds = Math.floor(dinoState.score / 100);
+        if (newHundreds > prevHundreds && newHundreds > 0) {
+          playDinoMilestoneSound();
+        }
+        dinoState.speed = Math.min(11.5, 5.4 + dinoState.score * 0.0045);
+
+        // Physics for Blonde Girl Player
+        const p = dinoState.player;
+        if (!p.onGround) {
+          p.y += p.vy;
+          p.vy += 0.62;
+          if (p.y >= dinoState.groundY) {
+            p.y = dinoState.groundY;
+            p.vy = 0;
+            p.onGround = true;
+          }
+        }
+
+        // Clouds & Ground scroll
+        dinoState.clouds.forEach((c) => {
+          c.x -= dinoState.speed * 0.22;
+          if (c.x < -60) c.x = W + 40;
+        });
+        dinoState.groundDots.forEach((d) => {
+          d.x -= dinoState.speed;
+          if (d.x < -10) d.x = W + Math.random() * 20;
+        });
+
+        // Spawn & move obstacles
+        dinoState.spawnTimer -= 1;
+        if (dinoState.spawnTimer <= 0) {
+          spawnDinoObstacle();
+          const minGap = Math.max(42, 78 - Math.floor(dinoState.speed * 2.5));
+          dinoState.spawnTimer = minGap + Math.floor(Math.random() * 38);
+        }
+
+        const pTop = p.y - (p.ducking && p.onGround ? 28 : 46);
+        const pBottom = p.y - 2;
+        const pLeft = p.x + 8;
+        const pRight = p.x + 24;
+
+        for (let i = dinoState.obstacles.length - 1; i >= 0; i--) {
+          const obs = dinoState.obstacles[i];
+          obs.x -= obs.type === 'gilbert' ? dinoState.speed * 1.12 : dinoState.speed;
+
+          // Forgiving hitbox check
+          const oLeft = obs.x + 5;
+          const oRight = obs.x + obs.w - 5;
+          const oTop = obs.y + 4;
+          const oBottom = obs.y + obs.h - 3;
+
+          if (pRight > oLeft && pLeft < oRight && pBottom > oTop && pTop < oBottom) {
+            dinoState.gameOver = true;
+            dinoState.running = false;
+            if (Math.floor(dinoState.score) > dinoHighScore) {
+              dinoHighScore = Math.floor(dinoState.score);
+            }
+            playDinoGameOverSound();
+          }
+
+          if (obs.x < -70) {
+            dinoState.obstacles.splice(i, 1);
+          }
+        }
+      }
+
+      // RENDER FRAME
+      ctx.clearRect(0, 0, W, H);
+
+      // Soft paper sky background
+      ctx.fillStyle = '#fdfbf7';
+      ctx.fillRect(0, 0, W, H);
+
+      // Cute drifting clouds
+      ctx.fillStyle = '#e2e8f0';
+      dinoState.clouds.forEach((c) => {
+        ctx.beginPath();
+        ctx.arc(c.x, c.y, 12 * c.s, 0, Math.PI * 2);
+        ctx.arc(c.x + 11 * c.s, c.y - 4 * c.s, 14 * c.s, 0, Math.PI * 2);
+        ctx.arc(c.x + 24 * c.s, c.y, 11 * c.s, 0, Math.PI * 2);
+        ctx.fill();
+      });
+
+      // Horizon Ground Line
+      ctx.strokeStyle = '#334155';
+      ctx.lineWidth = 2;
+      ctx.beginPath();
+      ctx.moveTo(0, dinoState.groundY);
+      ctx.lineTo(W, dinoState.groundY);
+      ctx.stroke();
+
+      // Scrolling Ground Pebbles
+      ctx.fillStyle = '#94a3b8';
+      dinoState.groundDots.forEach((d) => {
+        ctx.fillRect(d.x, d.y, d.w, 2);
+      });
+
+      // Obstacles (Flying Gilberts & 35mm Film / Cameras)
+      dinoState.obstacles.forEach((obs) => {
+        if (obs.type === 'gilbert') {
+          drawFlyingGilbertCat(ctx, obs, dinoState.frame);
+        } else {
+          drawGroundObstacle(ctx, obs);
+        }
+      });
+
+      // Little Blonde Girl Player
+      drawBlondeGirlPlayer(ctx, dinoState.player, dinoState.frame, dinoState.gameOver);
+
+      // Retro Chrome-Dino Scoreboard (Top Right)
+      const curScoreStr = String(Math.floor(dinoState.score)).padStart(5, '0');
+      const hiScoreStr = String(Math.max(dinoHighScore, Math.floor(dinoState.score))).padStart(5, '0');
+      ctx.fillStyle = '#1800ad';
+      ctx.font = 'bold 15px "Space Mono", monospace';
+      ctx.textAlign = 'right';
+      ctx.fillText(`HI ${hiScoreStr}   ${curScoreStr}`, W - 18, 28);
+
+      // Game Over Overlay Banner
+      if (dinoState.gameOver) {
+        ctx.fillStyle = 'rgba(250, 247, 240, 0.86)';
+        ctx.fillRect(W * 0.5 - 165, H * 0.5 - 48, 330, 88);
+        ctx.strokeStyle = '#1800ad';
+        ctx.lineWidth = 2.5;
+        ctx.strokeRect(W * 0.5 - 165, H * 0.5 - 48, 330, 88);
+
+        ctx.fillStyle = '#1800ad';
+        ctx.font = 'bold 20px "Space Mono", monospace';
+        ctx.textAlign = 'center';
+        ctx.fillText('G A M E   O V E R', W * 0.5, H * 0.5 - 12);
+
+        ctx.fillStyle = '#ea580c';
+        ctx.font = 'bold 15px "Gaegu", cursive, sans-serif';
+        ctx.fillText('🐾 Press SPACE or Click to Jump Again! 🐾', W * 0.5, H * 0.5 + 18);
+      }
+
+      if (!dinoState.gameOver) {
+        dinoAnimFrame = requestAnimationFrame(dinoLoop);
+      }
     }
 
     // INITIALIZE SHELF & MASONRY GALLERY
