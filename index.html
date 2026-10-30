@@ -283,7 +283,7 @@
     .book-shelf {
       display: flex;
       align-items: flex-end;
-      gap: 1.25rem;
+      gap: 1.15rem;
       overflow-x: auto;
       padding: 1.5rem 1rem 2.25rem 1rem;
       scrollbar-width: thin;
@@ -292,8 +292,7 @@
 
     @media (min-width: 768px) {
       .book-shelf {
-        gap: 1.75rem;
-        justify-content: center;
+        gap: clamp(0.75rem, 1.25vw, 1.35rem);
       }
     }
 
@@ -305,9 +304,17 @@
       user-select: none;
     }
 
+    .book-item:first-child {
+      margin-left: auto;
+    }
+
+    .book-item:last-child {
+      margin-right: auto;
+    }
+
     .book-hardcover {
-      width: 130px;
-      height: 180px;
+      width: 124px;
+      height: 172px;
       position: relative;
       background: #1c1a17;
       border-radius: 2px 8px 8px 2px;
@@ -325,9 +332,9 @@
 
     @media (min-width: 640px) {
       .book-hardcover {
-        width: 160px;
-        height: 220px;
-        padding: 10px 10px 10px 20px;
+        width: clamp(112px, 8.8vw, 144px);
+        height: clamp(156px, 12.2vw, 198px);
+        padding: 9px 9px 9px 18px;
       }
     }
 
@@ -862,17 +869,6 @@
       </div>
 
     </div>
-
-    <!-- QUICK-OPEN 3D MINI STICKER BOOK BADGE ON THE BLUE HEADER (BOTTOM RIGHT) -->
-    <button id="hero-sticker-book-launcher"
-            type="button"
-            onclick="toggleStickerBook()"
-            class="absolute bottom-6 right-5 sm:right-8 z-30 flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#faf7f0] border-2 border-[#fde047] shadow-2xl hover:scale-105 active:scale-95 transition-transform"
-            title="Click to open your Sticker Book!">
-      <img src="stickers/sb_wizard_cat.png" alt="" class="w-7 h-7 object-contain -my-1">
-      <span class="font-cute text-lg sm:text-xl font-bold text-[#1800ad] leading-none pt-0.5">★ sticker book!</span>
-      <img src="stickers/sb_clay_star.png" alt="" class="w-5 h-5 object-contain">
-    </button>
 
     <!-- TORN PAPER BOTTOM EDGE -->
     <div class="torn-paper-edge" aria-hidden="true"></div>
