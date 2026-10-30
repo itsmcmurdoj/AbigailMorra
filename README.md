@@ -1,58 +1,61 @@
-# Abigail Morra — Film Photography Portfolio
+# Abigail Morra — Photojournalism Portfolio
 
-A handcrafted editorial web portfolio showcasing the film photography of **Abigail Morra**.
+An archival broadsheet scan & editorial web app showcasing the 35mm film photography and photojournalism of **Abigail Morra**.
 
-🌐 **Live Website**: [https://itsmcmurdoj.github.io/AbigailMorra/](https://itsmcmurdoj.github.io/AbigailMorra/)
-
----
-
-## 🎞️ Featured Series: *Decomposition and Revival*
-**The Second Lives of a Neighbourhood**  
-*Toronto Metropolitan University (TMU) • NNS103 Photojournalism*
-
-> *"In late October, a residential neighbourhood becomes a quiet study in mortality and renewal. As the season turns, everything around us appears to surrender to decay... Yet decay is only the first half of the story. In the face of breakdown, a quiet counter-movement of human care, maintenance, and salvage takes root across the streets. Things are not simply thrown away—they are rebuilt, sustained, and given second lives."*
+🌐 **Live Website**: [https://itsmcmurdoj.github.io/AbigailMorra/](https://itsmcmurdoj.github.io/AbigailMorra/)  
+🎓 **Program**: Toronto Metropolitan University (TMU) • School of Image Arts • VISA  
+🐾 **Web App Logo & Mascot**: Gilbert the Cat  
 
 ---
 
-## ✨ Features & Design Craft
-- **Interactive Stepped Film Cascade**: 4-column dynamic masonry layout with lightbox modal showing photo titles, captions, and camera metadata (ISO, Aperture, Shutter Speed).
-- **Handcrafted Doodles & Micro-Interactions**: Crayon-line SVG art, walking ladybug cursor tracking, and doodle canvas overlay.
-- **Audio Synthesizer**: Subtle chime sound effects synthesized with Web Audio API.
-- **In-Browser Photo Loader**: Discreet bottom controller with "Load Photos" tool to preview new scans directly in memory.
-- **Fast & Responsive**: Fully responsive grid optimized for mobile and retina desktop displays.
+## 🗞️ Design Aesthetic: Scanned Newspaper & Yves Klein Blue
+
+- **Movable Blue Sticker Hero**: Yves Klein ultramarine cobalt canvas with movable tactile stickers (Gilbert polaroid, vintage camera, ladybug drawing, stars doodle, vinyl record, and 35mm slide mount).
+- **Web App Logo**: Gilbert the cat featured as the official web app logo badge, tab favicon, and PWA icon.
+- **Archival Broadsheet Scan**: Textured paper crevices, fresh ink tone, four-color registration marks, and torn deckle edge.
+- **One Solid Block per Project**:
+  - **Assignment 01 — Urban Observations**: 21 curated 35mm urban observations across Toronto transit, streetcars, and architectural details. Features single active plate view with quick-switch filmstrip.
+  - **Assignment 02 — Autumn Series**: 13 seasonal neighbourhood studies in mortality, repair, and salvage.
+- **Full-Screen Archival Lightbox**: High-resolution inspect modal with keyboard navigation (`←`, `→`, `ESC`).
+- **Zero Clutter**: Clean editorial typography letting the photographs speak for themselves.
 
 ---
 
 ## 📁 Repository Structure
+
 ```
 AbigailMorra/
-├── index.html           # Main portfolio website
-├── README.md            # Documentation & project statement
-├── MOR_FIVE_1.jpg       # Autumn Canopy
-├── MOR_FIVE_2.jpg       # Silverado Weathering
-├── MOR_FIVE_3.jpg       # Broken Threshold
-├── MOR_FIVE_4.jpg       # Flaking Iron & Utility Pipe
-├── MOR_FIVE_5.jpg       # Fallen Foliage & Citrus
-├── MOR_FIVE_6.jpg       # Hollowed Gourd Decay
-├── MOR_FIVE_7.jpg       # Foundation Debris
-├── MOR_FIVE_8.jpg       # House No. 282 Plastic Insulation
-├── MOR_FIVE_9.jpg       # Mended Wicker Armchair
-├── MOR_FIVE_10.jpg      # Curbside Heels & Teacups
-├── MOR_FIVE_11.jpg      # Pruning Overgrowth
-├── MOR_FIVE_12.jpg      # Victorian in Violet
-├── MOR_FIVE_13.jpg      # Rising from the Lawn (Skeleton Hands)
-└── IMG_0557-2.jpg       # Through the Glass Barrier (Hockey Rink)
+├── index.html                  # Handcrafted portfolio web app
+├── site.webmanifest            # PWA manifest with Gilbert app icon
+├── favicon.ico                 # 32x32 Gilbert favicon
+├── favicon.png                 # 64x64 Gilbert favicon
+├── apple-touch-icon.png        # 180x180/256x256 Gilbert iOS icon
+├── photos/
+│   ├── ass1/                   # 21 optimized urban observation plates
+│   └── autumn/                 # 13 optimized autumn plates
+├── stickers/                   # Tactile hero stickers & Gilbert portraits
+│   ├── gilbert_icon_tight.png  # Circular web app logo
+│   ├── gilbert_sticker.png     # Polaroid hero sticker
+│   ├── camera_sticker.png      # Vintage rangefinder
+│   ├── ladybug_sticker.png     # Abigail's original drawing
+│   ├── hand_eyes_sticker.png   # Hand framer
+│   ├── stars_sticker.png       # Retro starbursts
+│   ├── vinyl_sticker.png       # Grooved record
+│   └── abigail.jpg             # 35mm slide portrait
+└── scripts/
+    └── drive_sync_watcher.py   # Autonomous Google Drive monitor & auto-updater
 ```
 
 ---
 
-## 🚀 How to Add or Replace Photos
-1. Drop your new image files into the root directory of this repository.
-2. If using the existing filenames (`IMG_0053.jpg`, `IMG_0007.jpg`, `MOR_THREE_1.jpg`, `MOR_TWO_3.JPG.jpg`), they will automatically display in their assigned cards.
-3. Commit and push:
-   ```bash
-   git add .
-   git commit -m "Add new photo scans"
-   git push origin main
-   ```
-GitHub Pages will automatically update in ~60 seconds.
+## 🔄 Automated Google Drive Sync
+
+To monitor Abigail's Google Drive folder and automatically ingest, optimize, commit, and push new photos:
+
+```bash
+# Run one-time check and sync:
+python3 scripts/drive_sync_watcher.py --once
+
+# Or run continuous background monitor:
+python3 scripts/drive_sync_watcher.py --watch --interval 60
+```

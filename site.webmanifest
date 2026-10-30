@@ -1,0 +1,27 @@
+{
+  "name": "Abigail Morra — Photojournalism",
+  "short_name": "Abigail & Gilbert",
+  "description": "Film photography & photojournalism portfolio of Abigail Morra. Toronto Metropolitan University.",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#162bc5",
+  "theme_color": "#162bc5",
+  "icons": [
+    {
+      "src": "favicon.png",
+      "sizes": "64x64",
+      "type": "image/png"
+    },
+    {
+      "src": "stickers/gilbert_icon_tight.png",
+      "sizes": "256x256",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "apple-touch-icon.png",
+      "sizes": "256x256",
+      "type": "image/png"
+    }
+  ]
+}
