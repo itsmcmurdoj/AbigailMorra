@@ -850,6 +850,15 @@
     }
 
     document.querySelectorAll('.drag-item').forEach(makeDraggable);
+
+    // Progressive Web App Service Worker Registration
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('./sw.js').catch((err) => {
+          console.log('SW registration:', err);
+        });
+      });
+    }
   </script>
 </body>
 </html>
