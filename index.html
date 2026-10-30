@@ -210,14 +210,15 @@
       user-select: none;
       -webkit-user-drag: none;
       touch-action: none;
-      transition: box-shadow 0.2s cubic-bezier(0.16, 1, 0.3, 1), transform 0.15s ease-out;
+      transform: rotate(var(--current-rot, 0deg));
+      transition: filter 0.2s cubic-bezier(0.16, 1, 0.3, 1), transform 0.15s ease-out;
       will-change: transform, left, top;
     }
 
     .drag-item:active, .drag-item.is-dragging {
       cursor: grabbing !important;
-      z-index: 100 !important;
-      box-shadow: 0 24px 48px -10px rgba(0, 0, 0, 0.5), 0 12px 20px -8px rgba(0, 0, 0, 0.3) !important;
+      z-index: 99999 !important;
+      filter: drop-shadow(0 20px 28px rgba(0, 0, 0, 0.42)) !important;
       transform: scale(1.08) rotate(var(--current-rot, 0deg));
     }
 
@@ -635,7 +636,7 @@
     /* Floating sticker while peeling from Sticker Book to Blue Header */
     .floating-peel-sticker {
       position: fixed;
-      z-index: 9998;
+      z-index: 99999 !important;
       pointer-events: none;
       transform: translate(-50%, -50%) scale(1.12) rotate(-5deg);
       filter: drop-shadow(0 22px 28px rgba(0, 0, 0, 0.45));
@@ -645,15 +646,15 @@
     /* Page tab buttons on top edge of Sticker Book */
     .sb-tab-btn {
       font-family: 'Gaegu', 'Fredoka', 'Covered By Your Grace', cursive;
-      font-size: 0.98rem;
+      font-size: 0.92rem;
       font-weight: 700;
       height: 31px;
-      padding: 0 9px;
+      padding: 0 7px;
       border-radius: 10px 10px 0 0;
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      gap: 3px;
+      gap: 2px;
       background: rgba(255, 255, 255, 0.16);
       color: #ffffff;
       border: 1px solid rgba(255, 255, 255, 0.28);
@@ -1059,7 +1060,58 @@
        2. COFFEE TABLE BOOKS SHELF & MULTI-COLUMN MASONRY GALLERY
        (ZERO WORDS PAST BLUE HEADER • PURE PHOTOGRAPHY CONTENT)
        ============================================================= -->
-  <main class="w-full relative">
+  <main id="white-page-main" class="w-full relative min-h-[340px]">
+
+    <!-- CUTE WASHI TAPE STRIPS STUCK ONTO THE WHITE PAGE (DRAGGABLE!) -->
+    <div id="white-page-stickers-layer" class="absolute inset-0 pointer-events-none z-30 overflow-visible">
+      <!-- 1. Pink Polka-Dot Washi Tape taping the top-left of the white page -->
+      <div class="drag-item pointer-events-auto"
+           data-on-white-page="true"
+           style="left: 4.5%; top: -14px; width: 13.5%; --current-rot: -4deg; z-index: 31;"
+           title="Pink Polka-Dot Washi Tape 🎀 (Drag me!)">
+        <img src="stickers/washi_pink_dots.png" alt="Washi Tape" class="w-full h-auto block drop-shadow-sm pointer-events-none">
+      </div>
+
+      <!-- 2. Green Gingham Washi Tape on top-center-left of the white page -->
+      <div class="drag-item pointer-events-auto"
+           data-on-white-page="true"
+           style="left: 29.5%; top: -10px; width: 12.0%; --current-rot: 2.5deg; z-index: 31;"
+           title="Green Gingham Washi Tape 🌿 (Drag me!)">
+        <img src="stickers/washi_green_gingham.png" alt="Washi Tape" class="w-full h-auto block drop-shadow-sm pointer-events-none">
+      </div>
+
+      <!-- 3. Strawberry Jam Washi Tape on top-center-right of the white page -->
+      <div class="drag-item pointer-events-auto"
+           data-on-white-page="true"
+           style="left: 58.0%; top: -11px; width: 11.5%; --current-rot: -2deg; z-index: 31;"
+           title="Strawberry Jam Washi Tape 🍓 (Drag me!)">
+        <img src="stickers/washi_strawberry_jam.png" alt="Washi Tape" class="w-full h-auto block drop-shadow-sm pointer-events-none">
+      </div>
+
+      <!-- 4. Yellow Gingham Washi Tape taping top-right of the white page -->
+      <div class="drag-item pointer-events-auto"
+           data-on-white-page="true"
+           style="left: 82.5%; top: -12px; width: 12.2%; --current-rot: 4.5deg; z-index: 31;"
+           title="Yellow Gingham Washi Tape 🌼 (Drag me!)">
+        <img src="stickers/washi_yellow_gingham.png" alt="Washi Tape" class="w-full h-auto block drop-shadow-sm pointer-events-none">
+      </div>
+
+      <!-- 5. Pastel Rainbow Plaid Washi Tape stuck on the lower-left white page -->
+      <div class="drag-item pointer-events-auto"
+           data-on-white-page="true"
+           style="left: 2.2%; top: 76%; width: 11.8%; --current-rot: 6deg; z-index: 31;"
+           title="Pastel Plaid Washi Tape 🎀 (Drag me!)">
+        <img src="stickers/washi_rainbow_plaid.png" alt="Washi Tape" class="w-full h-auto block drop-shadow-sm pointer-events-none">
+      </div>
+
+      <!-- 6. Pink Grid Washi Tape stuck on the lower-right white page -->
+      <div class="drag-item pointer-events-auto"
+           data-on-white-page="true"
+           style="left: 85.0%; top: 74%; width: 12.0%; --current-rot: -5deg; z-index: 31;"
+           title="Pink Grid Washi Tape ✨ (Drag me!)">
+        <img src="stickers/washi_pink_grid.png" alt="Washi Tape" class="w-full h-auto block drop-shadow-sm pointer-events-none">
+      </div>
+    </div>
 
     <!-- 3D ANIMATED STICKER BOOK (OPENS AT BOTTOM-RIGHT • SCROLLABLE, RESIZABLE & PEELABLE) -->
     <div id="sticker-book-stage" class="sticker-book-stage" aria-hidden="true">
@@ -1075,15 +1127,17 @@
         <div id="sticker-book-cover-flap" class="sticker-book-cover-flap"></div>
 
         <!-- Top Page Tabs & Controls (Cute Handwritten Font) -->
-        <div class="flex items-center justify-between pl-14 sm:pl-24 pr-1.5 pb-1.5 select-none">
-          <div class="flex items-center gap-1">
+        <div class="flex items-center justify-between pl-14 sm:pl-24 pr-1.5 pb-1.5 select-none gap-1">
+          <div class="flex items-center gap-1 overflow-x-auto">
             <button type="button" onclick="switchStickerSpread('all')" id="sb-tab-all" class="sb-tab-btn is-active" title="All Stickers (Scrollable!)">✦ all</button>
             <button type="button" onclick="switchStickerSpread(0)" id="sb-tab-0" class="sb-tab-btn" title="Spread 1: Cats & Friends">🐾 pals</button>
             <button type="button" onclick="switchStickerSpread(1)" id="sb-tab-1" class="sb-tab-btn" title="Spread 2: Magic & Doodles">✨ magic</button>
             <button type="button" onclick="switchStickerSpread(2)" id="sb-tab-2" class="sb-tab-btn" title="Spread 3: Garden Bugs & Vinyl">🦋 bugs</button>
             <button type="button" onclick="switchStickerSpread(3)" id="sb-tab-3" class="sb-tab-btn" title="Spread 4: Clear Face Stickers">😊 faces</button>
+            <button type="button" onclick="switchStickerSpread(4)" id="sb-tab-4" class="sb-tab-btn" title="Spread 5: Letters & Alphabet Cutouts">🔤 abc</button>
+            <button type="button" onclick="switchStickerSpread(5)" id="sb-tab-5" class="sb-tab-btn" title="Spread 6: Cute Washi Tape">🎀 tape</button>
           </div>
-          <div class="flex items-center gap-1">
+          <div class="flex items-center gap-1 flex-shrink-0">
             <button type="button" id="sb-trash-tab" class="sb-tab-btn sb-trash-dropzone" title="Drag any sticker here to delete it!">🗑️</button>
             <button type="button" onclick="clearExtraHeroStickers()" class="sb-tab-btn" title="Reset / Clear extra stickers">↺</button>
             <button type="button" onclick="toggleStickerBook(false)" class="sb-tab-btn" title="Close Sticker Book">✕</button>
@@ -1181,10 +1235,10 @@
   <!-- =============================================================
        4. GILBERT THE CAT BLURB MODAL DIALOG
        ============================================================= -->
-  <dialog id="gilbert-modal" class="fixed inset-0 z-50 w-full h-full bg-stone-950/70 backdrop-blur-sm flex items-center justify-center p-4">
+  <dialog id="gilbert-modal" class="fixed inset-0 z-[99990] w-full h-full bg-stone-950/70 backdrop-blur-sm flex items-center justify-center p-4 m-0 max-w-none max-h-none border-0">
     <div class="max-w-md w-full bg-[#faf7f0] border-2 border-stone-900 p-6 shadow-2xl relative">
       <button onclick="closeGilbertModal()" class="absolute top-3 right-3 text-stone-500 hover:text-stone-900 font-mono-exif text-xs px-2.5 py-1 border border-stone-400 bg-white">
-        ✕ CLOSE
+        ✕
       </button>
 
       <div class="flex items-center space-x-4 mb-4">
@@ -1207,48 +1261,16 @@
   </dialog>
 
   <!-- =============================================================
-       3. ARCHIVAL FULL-SCREEN LIGHTBOX (INFORMATION REVEALED ON CLICK)
+       3. FULL-SCREEN PHOTO VIEW (PURE IMAGE ONLY • ZERO WORDS • CLICK ANYWHERE TO CLOSE)
        ============================================================= -->
-  <dialog id="photo-lightbox" class="fixed inset-0 z-50 w-full h-full bg-stone-950/95 backdrop-blur-md flex items-center justify-center p-3 sm:p-6">
-    <div class="max-w-6xl w-full bg-[#faf7f0] border border-stone-800 p-3 sm:p-5 shadow-2xl relative flex flex-col max-h-[94vh]">
-      
-      <!-- TOP BAR -->
-      <div class="flex items-center justify-between border-b border-stone-300 pb-2 mb-2 font-mono-exif text-xs">
-        <span id="modal-counter" class="font-bold text-stone-900">01 / 34</span>
-        <button onclick="closeLightbox()" class="px-3 py-1 bg-stone-900 text-white font-bold hover:bg-stone-700 transition-colors">
-          ✕ CLOSE [ESC]
-        </button>
-      </div>
-
-      <!-- MAIN IMAGE -->
-      <div class="flex-1 overflow-hidden relative flex items-center justify-center min-h-[50vh] bg-stone-900/5 p-2">
-        <img id="modal-main-img" src="" alt="Enlarged Photograph" class="max-h-[74vh] max-w-full object-contain">
-
-        <button id="modal-prev-btn" class="absolute left-3 top-1/2 -translate-y-1/2 px-3.5 py-2 bg-stone-900/80 text-white hover:bg-stone-900 font-mono-exif text-sm">
-          ‹ PREV
-        </button>
-        <button id="modal-next-btn" class="absolute right-3 top-1/2 -translate-y-1/2 px-3.5 py-2 bg-stone-900/80 text-white hover:bg-stone-900 font-mono-exif text-sm">
-          NEXT ›
-        </button>
-      </div>
-
-      <!-- CAPTION / INFORMATION (ONLY IN LIGHTBOX) -->
-      <div class="mt-2 pt-2 border-t border-stone-300 flex justify-between items-baseline font-mono-exif text-xs text-stone-700">
-        <div>
-          <span id="modal-plate-title" class="font-bold text-stone-900">Dundas Station</span>
-          <span class="text-stone-400 mx-1.5">•</span>
-          <span id="modal-plate-info" class="text-stone-600">35mm Film</span>
-        </div>
-        <span class="text-[11px] text-stone-500">ABIGAIL MORRA</span>
-      </div>
-
-    </div>
+  <dialog id="photo-lightbox" class="fixed inset-0 z-[99995] w-full h-full bg-stone-950/90 backdrop-blur-md flex items-center justify-center p-4 sm:p-8 m-0 max-w-none max-h-none border-0 select-none">
+    <img id="modal-main-img" src="" alt="" class="max-h-[90vh] max-w-[92vw] object-contain rounded-sm shadow-2xl">
   </dialog>
 
   <!-- UPCOMING BOOK MODAL -->
-  <dialog id="upcoming-modal" class="fixed inset-0 z-50 w-full h-full bg-stone-950/70 backdrop-blur-sm flex items-center justify-center p-4">
+  <dialog id="upcoming-modal" class="fixed inset-0 z-[99990] w-full h-full bg-stone-950/70 backdrop-blur-sm flex items-center justify-center p-4 m-0 max-w-none max-h-none border-0">
     <div class="max-w-sm w-full bg-[#faf7f0] border-2 border-stone-900 p-6 shadow-2xl relative text-center">
-      <button onclick="document.getElementById('upcoming-modal').close()" class="absolute top-3 right-3 text-stone-500 hover:text-stone-900 font-mono-exif text-xs px-2.5 py-1 border border-stone-400 bg-white">
+      <button onclick="document.getElementById('upcoming-modal').removeAttribute('open')" class="absolute top-3 right-3 text-stone-500 hover:text-stone-900 font-mono-exif text-xs px-2.5 py-1 border border-stone-400 bg-white">
         ✕
       </button>
       <div class="w-14 h-20 mx-auto mb-3 bg-[#1e2738] rounded-sm shadow-md flex items-center justify-center text-white/50 text-xs font-mono-exif border border-stone-600">
@@ -1798,55 +1820,47 @@
     setupCornerResize('photo-book-resize-corner', 'photo-book-stage', 'photo-book-spread', false);
     setupCornerResize('sticker-book-resize-corner', 'sticker-book-stage', 'sticker-book-scroll', true);
 
-    // LIGHTBOX LOGIC
+    // LIGHTBOX LOGIC (PURE IMAGE ONLY • ZERO WORDS • LADYBUG CURSOR VISIBLE • CLICK ANYWHERE TO CLOSE)
     const lightbox = document.getElementById('photo-lightbox');
     const modalImg = document.getElementById('modal-main-img');
-    const modalTitle = document.getElementById('modal-plate-title');
-    const modalInfo = document.getElementById('modal-plate-info');
-    const modalCounter = document.getElementById('modal-counter');
     let activeLightboxIdx = 0;
 
     function openLightbox(idx) {
       activeLightboxIdx = idx;
       const photo = currentGalleryPhotos[idx];
+      if (!photo) return;
       modalImg.src = photo.src;
-      modalTitle.textContent = photo.title || 'Photograph';
-      modalInfo.textContent = photo.info || '35mm Film';
-      modalCounter.textContent = `${String(idx + 1).padStart(2, '0')} / ${String(currentGalleryPhotos.length).padStart(2, '0')}`;
-      lightbox.showModal();
+      lightbox.setAttribute('open', '');
     }
 
     function closeLightbox() {
-      lightbox.close();
+      lightbox.removeAttribute('open');
     }
 
-    lightbox.addEventListener('click', (e) => {
-      if (e.target === lightbox) closeLightbox();
+    // Click anywhere (backdrop or image) to close the enlarged photo view
+    lightbox.addEventListener('click', () => {
+      closeLightbox();
     });
 
-    document.getElementById('modal-prev-btn').addEventListener('click', () => {
-      activeLightboxIdx = (activeLightboxIdx - 1 + currentGalleryPhotos.length) % currentGalleryPhotos.length;
-      openLightbox(activeLightboxIdx);
-    });
-
-    document.getElementById('modal-next-btn').addEventListener('click', () => {
-      activeLightboxIdx = (activeLightboxIdx + 1) % currentGalleryPhotos.length;
-      openLightbox(activeLightboxIdx);
-    });
-
-    // GILBERT MODAL
+    // GILBERT MODAL (NON-TOP-LAYER SO LADYBUG CURSOR REMAINS VISIBLE)
     const gilbertModal = document.getElementById('gilbert-modal');
-    function openGilbertModal() { gilbertModal.showModal(); }
-    function closeGilbertModal() { gilbertModal.close(); }
+    function openGilbertModal() { gilbertModal.setAttribute('open', ''); }
+    function closeGilbertModal() { gilbertModal.removeAttribute('open'); }
     gilbertModal.addEventListener('click', (e) => { if (e.target === gilbertModal) closeGilbertModal(); });
 
     // KEYBOARD NAVIGATION
     window.addEventListener('keydown', (e) => {
-      if (lightbox.open) {
+      if (lightbox.hasAttribute('open')) {
         if (e.key === 'Escape') closeLightbox();
-        if (e.key === 'ArrowLeft') document.getElementById('modal-prev-btn').click();
-        if (e.key === 'ArrowRight') document.getElementById('modal-next-btn').click();
-      } else if (gilbertModal.open) {
+        if (e.key === 'ArrowLeft') {
+          activeLightboxIdx = (activeLightboxIdx - 1 + currentGalleryPhotos.length) % currentGalleryPhotos.length;
+          openLightbox(activeLightboxIdx);
+        }
+        if (e.key === 'ArrowRight') {
+          activeLightboxIdx = (activeLightboxIdx + 1) % currentGalleryPhotos.length;
+          openLightbox(activeLightboxIdx);
+        }
+      } else if (gilbertModal.hasAttribute('open')) {
         if (e.key === 'Escape') closeGilbertModal();
       } else if (isPhotoBookOpen) {
         if (e.key === 'Escape') closePhotoBook();
@@ -1937,6 +1951,7 @@
     let totalDistMoved = 0;
     let wiggleResetTimer = null;
     let isPointerPressed = false;
+    let isStickerDragInProgress = false;
     let lastParticleTime = 0;
 
     function spawnSparkleParticle(x, y) {
@@ -1978,15 +1993,17 @@
           cursorImg.style.transform = `rotate(0deg) scale(${isPointerPressed ? 0.9 : 1.0})`;
         }, 90);
 
-        // Trigger delicate sparkle sound & tiny star particle while moving
-        const now = performance.now();
-        if (stepDist > 3.5 && now - lastSparkleTime > 95) {
-          lastSparkleTime = now;
-          playSparkleNote();
-        }
-        if (stepDist > 6 && now - lastParticleTime > 85) {
-          lastParticleTime = now;
-          spawnSparkleParticle(x, y);
+        // Trigger delicate sparkle sound & tiny star particle ONLY when not dragging a sticker!
+        if (!isStickerDragInProgress && !isPointerPressed) {
+          const now = performance.now();
+          if (stepDist > 3.5 && now - lastSparkleTime > 95) {
+            lastSparkleTime = now;
+            playSparkleNote();
+          }
+          if (stepDist > 6 && now - lastParticleTime > 85) {
+            lastParticleTime = now;
+            spawnSparkleParticle(x, y);
+          }
         }
       }
     }, { passive: true });
@@ -1995,18 +2012,21 @@
       if (e.pointerType === 'touch') return;
       isPointerPressed = true;
       cursorImg.style.transform = 'rotate(-12deg) scale(0.88)';
-      spawnSparkleParticle(e.clientX, e.clientY);
+      if (!isStickerDragInProgress) {
+        spawnSparkleParticle(e.clientX, e.clientY);
+      }
     }, { passive: true });
 
     window.addEventListener('pointerup', () => {
       isPointerPressed = false;
+      isStickerDragInProgress = false;
       cursorImg.style.transform = 'rotate(0deg) scale(1)';
     }, { passive: true });
 
     // =============================================================
-    // DRAGGABLE INTERACTIVE HERO & BOOK PAGE STICKERS
+    // DRAGGABLE INTERACTIVE HERO, WHITE PAGE & BOOK PAGE STICKERS
     // =============================================================
-    let topStickerZ = 30;
+    let topStickerZ = 35;
 
     function tryAttachStickerToOpenPhotoPage(el, cx, cy, dropW, dropH) {
       if (!isPhotoBookOpen) return false;
@@ -2031,13 +2051,13 @@
       const pRect = targetPage.getBoundingClientRect();
       if (pRect.width <= 0 || pRect.height <= 0) return false;
 
-      const wPct = Math.max(8, Math.min(52, (dropW / pRect.width) * 100));
+      const wPct = Math.max(8, Math.min(54, (dropW / pRect.width) * 100));
       const actualWPx = (wPct / 100) * pRect.width;
       const actualHPx = dropH || actualWPx;
       const rawLeftPct = ((cx - pRect.left - actualWPx * 0.5) / pRect.width) * 100;
       const rawTopPct = ((cy - pRect.top - actualHPx * 0.5) / pRect.height) * 100;
-      const lPct = Math.max(-6, Math.min(92, rawLeftPct));
-      const tPct = Math.max(-6, Math.min(90, rawTopPct));
+      const lPct = Math.max(-8, Math.min(92, rawLeftPct));
+      const tPct = Math.max(-8, Math.min(90, rawTopPct));
 
       removeStickerFromAllBookPages(el);
       topStickerZ += 1;
@@ -2056,32 +2076,37 @@
       return true;
     }
 
-    function getHoveredTrashDropzone(clientX, clientY, stickerEl) {
-      const zones = document.querySelectorAll('.sb-trash-dropzone');
-      const sRect = stickerEl ? stickerEl.getBoundingClientRect() : null;
-      for (const z of zones) {
-        const stage = z.closest('.sticker-book-stage');
-        if (stage && !stage.classList.contains('is-open')) continue;
-        const r = z.getBoundingClientRect();
-        if (r.width <= 0 || r.height <= 0) continue;
-        const pad = 22;
-        const pointerHit =
-          clientX >= r.left - pad &&
-          clientX <= r.right + pad &&
-          clientY >= r.top - pad &&
-          clientY <= r.bottom + pad;
-        const boxOverlap = sRect
-          ? !(sRect.right < r.left - 8 || sRect.left > r.right + 8 || sRect.bottom < r.top - 8 || sRect.top > r.bottom + 8)
-          : false;
-        if (pointerHit || boxOverlap) return z;
-      }
-      return null;
-    }
+    function tryAttachStickerToWhitePage(el, cx, cy, dropW, dropH) {
+      const heroCanvas = document.querySelector('header.hero-blue-canvas');
+      const whiteMain = document.getElementById('white-page-main');
+      const whiteLayer = document.getElementById('white-page-stickers-layer');
+      if (!heroCanvas || !whiteMain || !whiteLayer) return false;
 
-    function clearTrashHoverState() {
-      document.querySelectorAll('.sb-trash-dropzone.is-trash-hovered').forEach((z) => {
-        z.classList.remove('is-trash-hovered');
-      });
+      const hRect = heroCanvas.getBoundingClientRect();
+      const wRect = whiteMain.getBoundingClientRect();
+      if (cy < hRect.bottom - 10 || wRect.width <= 0 || wRect.height <= 0) {
+        return false;
+      }
+
+      const restoredWidth = el.dataset.heroWidth || '10%';
+      el.style.width = restoredWidth;
+      const wPx = ((parseFloat(restoredWidth) || 10) / 100) * wRect.width;
+      const hPx = dropH || wPx * 0.5;
+      const rawLeftPct = ((cx - wRect.left - wPx * 0.5) / wRect.width) * 100;
+      const rawTopPx = cy - wRect.top - hPx * 0.5;
+      const leftPct = Math.max(-2, Math.min(94, rawLeftPct));
+      const topPx = Math.max(-22, Math.min(wRect.height - 20, rawTopPx));
+
+      removeStickerFromAllBookPages(el);
+      topStickerZ += 1;
+      el.style.position = 'absolute';
+      el.style.left = `${leftPct.toFixed(2)}%`;
+      el.style.top = `${Math.round(topPx)}px`;
+      el.style.right = 'auto';
+      el.style.bottom = 'auto';
+      el.style.zIndex = topStickerZ;
+      whiteLayer.appendChild(el);
+      return true;
     }
 
     function playKerplunkSound() {
@@ -2120,69 +2145,38 @@
       oscPlunk.stop(plunkStart + 0.19);
     }
 
-    // Synthesize realistic ASMR tape / paper sticker peel & stick sound
+    // Soft, gentle, low-volume tactile paper tap (zero harsh white-noise static!)
     function playStickerTapePeelSound(isStickDown = false) {
       const ctx = getAudioCtx();
       if (!ctx || ctx.state !== 'running') return;
       const now = ctx.currentTime;
-      const dur = isStickDown ? 0.14 : 0.19;
-      const sampleRate = ctx.sampleRate;
-      const len = Math.floor(sampleRate * dur);
-      const buf = ctx.createBuffer(1, len, sampleRate);
-      const data = buf.getChannelData(0);
 
-      // Build micro-adhesive crackle + paper friction texture (like tape peeling off wax paper)
-      let smooth = 0;
-      for (let i = 0; i < len; i++) {
-        const t = i / len;
-        const env = Math.sin(Math.PI * Math.pow(t, isStickDown ? 0.65 : 0.8));
-        // Sticky glue fiber micro-ticks + crisp paper noise
-        const crackleProb = isStickDown ? 0.08 : 0.12;
-        const pop = Math.random() < crackleProb ? (Math.random() * 2 - 1) * 1.0 : 0;
-        const white = (Math.random() * 2 - 1) * 0.28;
-        smooth = smooth * 0.55 + (pop + white) * 0.45;
-        data[i] = smooth * env;
-      }
-
-      const src = ctx.createBufferSource();
-      src.buffer = buf;
-
-      // Sweeping resonant bandpass filter mimics the changing angle of peeling tape
-      const bp = ctx.createBiquadFilter();
-      bp.type = 'bandpass';
-      bp.Q.setValueAtTime(2.6, now);
-      if (isStickDown) {
-        bp.frequency.setValueAtTime(3400, now);
-        bp.frequency.exponentialRampToValueAtTime(1150, now + dur);
-      } else {
-        bp.frequency.setValueAtTime(1150, now);
-        bp.frequency.exponentialRampToValueAtTime(3800, now + dur);
-      }
-
+      const osc = ctx.createOscillator();
       const gain = ctx.createGain();
-      gain.gain.setValueAtTime(isStickDown ? 0.18 : 0.22, now);
-      gain.gain.exponentialRampToValueAtTime(0.002, now + dur);
+      osc.type = 'sine';
 
-      src.connect(bp);
-      bp.connect(gain);
-      gain.connect(ctx.destination);
-      src.start(now);
-      src.stop(now + dur + 0.01);
-
-      // When sticking a sticker down, add a soft tactile paper-pat thud at the end
       if (isStickDown) {
-        const pat = ctx.createOscillator();
-        const patGain = ctx.createGain();
-        pat.type = 'triangle';
-        pat.frequency.setValueAtTime(185, now + 0.03);
-        pat.frequency.exponentialRampToValueAtTime(75, now + 0.095);
-        patGain.gain.setValueAtTime(0.001, now + 0.03);
-        patGain.gain.linearRampToValueAtTime(0.045, now + 0.042);
-        patGain.gain.exponentialRampToValueAtTime(0.001, now + 0.10);
-        pat.connect(patGain);
-        patGain.connect(ctx.destination);
-        pat.start(now + 0.03);
-        pat.stop(now + 0.105);
+        // Gentle cozy soft paper pat when placing down
+        osc.frequency.setValueAtTime(240, now);
+        osc.frequency.exponentialRampToValueAtTime(115, now + 0.055);
+        gain.gain.setValueAtTime(0.0008, now);
+        gain.gain.linearRampToValueAtTime(0.028, now + 0.008);
+        gain.gain.exponentialRampToValueAtTime(0.0005, now + 0.06);
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+        osc.start(now);
+        osc.stop(now + 0.065);
+      } else {
+        // Subtle light lift inflection when picking up
+        osc.frequency.setValueAtTime(190, now);
+        osc.frequency.exponentialRampToValueAtTime(310, now + 0.045);
+        gain.gain.setValueAtTime(0.0008, now);
+        gain.gain.linearRampToValueAtTime(0.022, now + 0.007);
+        gain.gain.exponentialRampToValueAtTime(0.0005, now + 0.05);
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+        osc.start(now);
+        osc.stop(now + 0.055);
       }
     }
 
@@ -2242,10 +2236,12 @@
         if (el.classList.contains('extra-peeled-sticker')) {
           el.remove();
         } else {
-          // Original header sticker: hide completely (restorable with ↺ reset button)
+          // Original header/page sticker: hide completely (restorable with ↺ reset button)
           el.style.display = 'none';
-          const stickersLayer = document.getElementById('hero-stickers-layer');
-          if (stickersLayer) stickersLayer.appendChild(el);
+          const targetLayer = el.dataset.onWhitePage === 'true'
+            ? document.getElementById('white-page-stickers-layer')
+            : document.getElementById('hero-stickers-layer');
+          if (targetLayer) targetLayer.appendChild(el);
         }
       };
     }
@@ -2265,7 +2261,8 @@
         const dy = e.clientY - startY;
         moved = Math.hypot(dx, dy);
 
-        if (moved > 3 && !isLiftedToBody) {
+        // Lift immediately to document.body at z-index 99999 so the sticker stays 100% visible across book pages!
+        if (moved > 1 && !isLiftedToBody) {
           isLiftedToBody = true;
           el.classList.add('is-dragging');
           removeStickerFromAllBookPages(el);
@@ -2275,7 +2272,7 @@
           el.style.top = `${initScreenT + dy}px`;
           el.style.right = 'auto';
           el.style.bottom = 'auto';
-          el.style.zIndex = 9500;
+          el.style.zIndex = '99999';
           document.body.appendChild(el);
         } else if (isLiftedToBody) {
           el.style.left = `${initScreenL + dx}px`;
@@ -2297,6 +2294,7 @@
       function onWindowUp(e) {
         if (!isDragging) return;
         isDragging = false;
+        isStickerDragInProgress = false;
         window.removeEventListener('pointermove', onWindowMove);
         window.removeEventListener('pointerup', onWindowUp);
         window.removeEventListener('pointercancel', onWindowUp);
@@ -2323,8 +2321,11 @@
           // 1. Check if dropped onto an open Photo Book page!
           const stuckToBook = tryAttachStickerToOpenPhotoPage(el, cx, cy, dropRect.width, dropRect.height);
 
-          // 2. Otherwise, attach back onto the Blue Header Canvas!
-          if (!stuckToBook) {
+          // 2. Check if dropped onto the White Page below the blue header!
+          const stuckToWhite = !stuckToBook && tryAttachStickerToWhitePage(el, cx, cy, dropRect.width, dropRect.height);
+
+          // 3. Otherwise, attach onto the Blue Header Canvas!
+          if (!stuckToBook && !stuckToWhite) {
             const heroCanvas = document.querySelector('header.hero-blue-canvas');
             const stickersLayer = document.getElementById('hero-stickers-layer');
             const hRect = heroCanvas.getBoundingClientRect();
@@ -2334,7 +2335,7 @@
             const rawLeftPct = ((cx - hRect.left - heroWPx * 0.5) / hRect.width) * 100;
             const rawTopPct = ((cy - hRect.top - dropRect.height * 0.5) / hRect.height) * 100;
             const leftPct = Math.max(-2, Math.min(93, rawLeftPct));
-            const topPct = Math.max(1, Math.min(85, rawTopPct));
+            const topPct = Math.max(1, Math.min(88, rawTopPct));
 
             topStickerZ += 1;
             el.style.position = 'absolute';
@@ -2355,6 +2356,7 @@
         if (e.button !== undefined && e.button !== 0) return;
         e.stopPropagation();
         isDragging = true;
+        isStickerDragInProgress = true;
         isLiftedToBody = false;
         moved = 0;
         startX = e.clientX;
@@ -2377,7 +2379,7 @@
     document.querySelectorAll('.drag-item').forEach(makeDraggable);
 
     // =============================================================
-    // 3D ANIMATED STICKER BOOK ENGINE (PEEL & DRAG TO BLUE CANVAS OR OPEN PHOTO BOOK)
+    // 3D ANIMATED STICKER BOOK ENGINE (PEEL & DRAG TO BLUE CANVAS, WHITE PAGE, OR OPEN PHOTO BOOK)
     // =============================================================
     const STICKER_BOOK_SPREADS = [
       // SPREAD 0: CATS, PUP & LITTLE GUYS (12 STICKERS: 6 LEFT, 6 RIGHT)
@@ -2455,6 +2457,64 @@
           { src: 'stickers/sb_face_wine.png', widthPct: 9.0, rot: 4, label: 'Golden Hour Sip 🥂' },
           { src: 'stickers/sb_face_gilbert_closeup.png', widthPct: 9.5, rot: -4, label: 'Gilbert Face Closeup 🐾' }
         ]
+      },
+      // SPREAD 4: LETTERS, PATCHES & RANSOM ALPHABET CUTOUTS
+      {
+        left: [
+          { src: 'stickers/sb_patch_a_floral.png', widthPct: 8.5, rot: -4, label: 'Floral Embroidered A 🌸' },
+          { src: 'stickers/sb_patch_a_denim.png', widthPct: 8.5, rot: 4, label: 'Denim Patch A 👖' },
+          { src: 'stickers/sb_patch_a_crown.png', widthPct: 8.5, rot: -3, label: 'Pink Crown A 👑' },
+          { src: 'stickers/sb_patch_a_rainbow.png', widthPct: 8.5, rot: 5, label: 'Rainbow Stripes A 🌈' },
+          { src: 'stickers/sb_patch_a_roses.png', widthPct: 8.5, rot: -5, label: 'Roses Patch A 🌹' },
+          { src: 'stickers/sb_patch_a_star.png', widthPct: 8.5, rot: 3, label: 'Star Polka Patch A ⭐' },
+          { src: 'stickers/sb_letter_a.png', widthPct: 6.2, rot: -4, label: 'Ransom Letter A' },
+          { src: 'stickers/sb_letter_b.png', widthPct: 6.2, rot: 4, label: 'Ransom Letter B' },
+          { src: 'stickers/sb_letter_c.png', widthPct: 6.2, rot: -3, label: 'Ransom Letter C' },
+          { src: 'stickers/sb_letter_d.png', widthPct: 6.2, rot: 5, label: 'Ransom Letter D' },
+          { src: 'stickers/sb_letter_e.png', widthPct: 6.2, rot: -4, label: 'Ransom Letter E' },
+          { src: 'stickers/sb_letter_f.png', widthPct: 6.2, rot: 3, label: 'Ransom Letter F' },
+          { src: 'stickers/sb_letter_g.png', widthPct: 6.2, rot: -5, label: 'Ransom Letter G' },
+          { src: 'stickers/sb_letter_h.png', widthPct: 6.2, rot: 4, label: 'Ransom Letter H' },
+          { src: 'stickers/sb_letter_i.png', widthPct: 5.8, rot: -3, label: 'Ransom Letter I' }
+        ],
+        right: [
+          { src: 'stickers/sb_letter_j.png', widthPct: 6.0, rot: 4, label: 'Ransom Letter J' },
+          { src: 'stickers/sb_letter_k.png', widthPct: 6.2, rot: -4, label: 'Ransom Letter K' },
+          { src: 'stickers/sb_letter_l.png', widthPct: 6.2, rot: 5, label: 'Ransom Letter L' },
+          { src: 'stickers/sb_letter_m.png', widthPct: 6.5, rot: -3, label: 'Ransom Letter M' },
+          { src: 'stickers/sb_letter_n.png', widthPct: 6.4, rot: 4, label: 'Ransom Letter N' },
+          { src: 'stickers/sb_letter_o.png', widthPct: 6.2, rot: -4, label: 'Ransom Letter O' },
+          { src: 'stickers/sb_letter_p.png', widthPct: 6.2, rot: 5, label: 'Ransom Letter P' },
+          { src: 'stickers/sb_letter_r.png', widthPct: 6.2, rot: -4, label: 'Ransom Letter R' },
+          { src: 'stickers/sb_letter_s.png', widthPct: 6.2, rot: 4, label: 'Ransom Letter S' },
+          { src: 'stickers/sb_letter_t.png', widthPct: 6.2, rot: -3, label: 'Ransom Letter T' },
+          { src: 'stickers/sb_letter_u.png', widthPct: 6.2, rot: 4, label: 'Ransom Letter U' },
+          { src: 'stickers/sb_letter_v.png', widthPct: 6.2, rot: -5, label: 'Ransom Letter V' },
+          { src: 'stickers/sb_letter_y.png', widthPct: 6.2, rot: 3, label: 'Ransom Letter Y' },
+          { src: 'stickers/sb_letter_z.png', widthPct: 6.2, rot: -4, label: 'Ransom Letter Z' },
+          { src: 'stickers/canva_abi.png', widthPct: 8.5, rot: 4, label: 'ABi Cutout Letters ✨' }
+        ]
+      },
+      // SPREAD 5: CUTE WASHI TAPE STRIPS
+      {
+        left: [
+          { src: 'stickers/washi_pink_dots.png', widthPct: 13.5, rot: -4, label: 'Pink Polka-Dot Washi Tape 🎀' },
+          { src: 'stickers/washi_strawberry_jam.png', widthPct: 12.0, rot: 3, label: 'Strawberry Jam Washi Tape 🍓' },
+          { src: 'stickers/washi_green_gingham.png', widthPct: 12.5, rot: -3, label: 'Green Gingham Washi Tape 🌿' },
+          { src: 'stickers/washi_yellow_gingham.png', widthPct: 12.5, rot: 4, label: 'Yellow Gingham Washi Tape 🌼' },
+          { src: 'stickers/washi_pink_grid.png', widthPct: 12.5, rot: -4, label: 'Pink Grid Washi Tape ✨' },
+          { src: 'stickers/washi_rainbow_plaid.png', widthPct: 12.5, rot: 3, label: 'Rainbow Plaid Washi Tape 🌈' },
+          { src: 'stickers/washi_pink_gingham.png', widthPct: 11.5, rot: -3, label: 'Pink Gingham Washi Tape 🩷' }
+        ],
+        right: [
+          { src: 'stickers/washi_yellow_dots.png', widthPct: 12.0, rot: 4, label: 'Yellow Polka-Dot Washi Tape ☀️' },
+          { src: 'stickers/washi_bw_dots.png', widthPct: 12.5, rot: -3, label: 'Black & White Polka Washi Tape 🖤' },
+          { src: 'stickers/washi_navy_hearts.png', widthPct: 12.5, rot: 4, label: 'Navy Hearts Washi Tape 💙' },
+          { src: 'stickers/washi_peach_hearts.png', widthPct: 12.0, rot: -4, label: 'Peach Hearts Washi Tape 🧡' },
+          { src: 'stickers/washi_red_floral.png', widthPct: 12.0, rot: 3, label: 'Red Floral Washi Tape 🌺' },
+          { src: 'stickers/washi_blue_stripes.png', widthPct: 12.0, rot: -3, label: 'Blue Striped Washi Tape 💠' },
+          { src: 'stickers/washi_evil_eye.png', widthPct: 12.0, rot: 4, label: 'Evil Eye Charm Washi Tape 🧿' }
+        ]
       }
     ];
 
@@ -2492,7 +2552,7 @@
 
     function switchStickerSpread(spreadIdx) {
       activeStickerSpread = spreadIdx;
-      ['all', 0, 1, 2, 3].forEach((i) => {
+      ['all', 0, 1, 2, 3, 4, 5].forEach((i) => {
         const btn = document.getElementById(`sb-tab-${i}`);
         if (btn) btn.classList.toggle('is-active', i === spreadIdx);
       });
@@ -2509,7 +2569,7 @@
       rightPage.innerHTML = '';
 
       if (spreadIdx === 'all') {
-        [0, 1, 2, 3].forEach((idx) => {
+        [0, 1, 2, 3, 4, 5].forEach((idx) => {
           const sp = STICKER_BOOK_SPREADS[idx];
           if (sp) {
             sp.left.forEach((st) => leftPage.appendChild(createStickerBookSlot(st)));
@@ -2528,14 +2588,14 @@
       slot.className = 'sb-sticker-slot';
       slot.style.setProperty('--sb-rot', `${stickerData.rot || 0}deg`);
       slot.style.transform = `rotate(${stickerData.rot || 0}deg)`;
-      slot.title = `${stickerData.label} — Drag onto the blue header or open photo book!`;
+      slot.title = `${stickerData.label} — Drag onto the blue header, white page, or open photo book!`;
 
       const img = document.createElement('img');
       img.src = stickerData.src;
       img.alt = stickerData.label || 'Sticker';
       slot.appendChild(img);
 
-      // Peel & drag from Sticker Book onto the Blue Header Canvas or Open Photo Book
+      // Peel & drag from Sticker Book onto the Blue Header Canvas, White Page, or Open Photo Book
       slot.addEventListener('pointerdown', (e) => {
         if (e.button !== undefined && e.button !== 0) return;
         peelStickerFromBook(e, stickerData, slot);
@@ -2554,6 +2614,9 @@
       wrapper.className = 'drag-item extra-peeled-sticker pointer-events-auto';
       wrapper.style.width = `${stickerData.widthPct}%`;
       wrapper.dataset.heroWidth = `${stickerData.widthPct}%`;
+      if (stickerData.rot) {
+        wrapper.style.setProperty('--current-rot', `${stickerData.rot}deg`);
+      }
       wrapper.style.zIndex = topStickerZ;
       wrapper.title = `${stickerData.label} (Drag to move • Double-click to remove)`;
 
@@ -2572,13 +2635,24 @@
 
       makeDraggable(wrapper);
 
-      // Check if dropped onto an open Photo Book page first!
       const approxWPx = Math.max(72, Math.min(180, (stickerData.widthPct / 100) * rect.width));
+
+      // 1. Check if dropped onto an open Photo Book page first!
       if (clientX !== undefined && clientY !== undefined && tryAttachStickerToOpenPhotoPage(wrapper, clientX, clientY, approxWPx, approxWPx)) {
         wrapper.animate([
-          { transform: 'scale(1.32) rotate(-6deg)', opacity: 0.75 },
+          { transform: 'scale(1.22) rotate(-4deg)', opacity: 0.8 },
           { transform: 'scale(1) rotate(0deg)', opacity: 1 }
-        ], { duration: 260, easing: 'cubic-bezier(0.16, 1, 0.3, 1)' });
+        ], { duration: 220, easing: 'cubic-bezier(0.16, 1, 0.3, 1)' });
+        playStickerTapePeelSound(true);
+        return;
+      }
+
+      // 2. Check if dropped onto the White Page section below the blue header!
+      if (clientX !== undefined && clientY !== undefined && tryAttachStickerToWhitePage(wrapper, clientX, clientY, approxWPx, approxWPx * 0.5)) {
+        wrapper.animate([
+          { transform: 'scale(1.22) rotate(-4deg)', opacity: 0.8 },
+          { transform: 'scale(1) rotate(0deg)', opacity: 1 }
+        ], { duration: 220, easing: 'cubic-bezier(0.16, 1, 0.3, 1)' });
         playStickerTapePeelSound(true);
         return;
       }
@@ -2589,7 +2663,7 @@
         const rawLeft = ((clientX - rect.left - wPx * 0.5) / rect.width) * 100;
         const rawTop = ((clientY - rect.top - wPx * 0.5) / rect.height) * 100;
         leftPct = Math.max(1, Math.min(92 - stickerData.widthPct * 0.5, rawLeft));
-        topPct = Math.max(3, Math.min(82, rawTop));
+        topPct = Math.max(3, Math.min(85, rawTop));
       } else {
         // Pick a lovely open spot on the blue canvas if tapped directly
         leftPct = 8 + Math.random() * 74;
@@ -2602,14 +2676,15 @@
 
       // Pop-in animation
       wrapper.animate([
-        { transform: 'scale(1.32) rotate(-6deg)', opacity: 0.75 },
+        { transform: 'scale(1.22) rotate(-4deg)', opacity: 0.8 },
         { transform: 'scale(1) rotate(0deg)', opacity: 1 }
-      ], { duration: 260, easing: 'cubic-bezier(0.16, 1, 0.3, 1)' });
+      ], { duration: 220, easing: 'cubic-bezier(0.16, 1, 0.3, 1)' });
 
       playStickerTapePeelSound(true);
     }
 
     function peelStickerFromBook(startEvt, stickerData, slotEl) {
+      isStickerDragInProgress = true;
       playStickerTapePeelSound(false);
       const heroCanvas = document.querySelector('header.hero-blue-canvas');
       const heroRect = heroCanvas.getBoundingClientRect();
@@ -2642,6 +2717,7 @@
       }
 
       function onUp(e) {
+        isStickerDragInProgress = false;
         window.removeEventListener('pointermove', onMove);
         window.removeEventListener('pointerup', onUp);
         window.removeEventListener('pointercancel', onUp);
@@ -2660,7 +2736,7 @@
           // Tapped in book -> stick onto blue canvas!
           placeStickerOnHeroCanvas(stickerData);
         } else if (droppedOutsideBook || e.clientY <= updatedHeroRect.bottom + 90) {
-          // Dropped outside the Sticker Book (onto an open Photo Book page or onto the blue header)!
+          // Dropped outside the Sticker Book (onto an open Photo Book page, White Page, or Blue Header)!
           placeStickerOnHeroCanvas(stickerData, e.clientX, e.clientY);
         }
       }
