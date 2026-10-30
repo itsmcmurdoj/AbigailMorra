@@ -50,15 +50,24 @@
       --yellow-dot: #ffcc00;
       --key-dot: #141311;
 
-      --ladybug-cursor: url("stickers/ladybug_sticker.png"), 16 16, auto;
+      --ladybug-cursor: url("stickers/ladybug_cursor.png") 5 2, auto;
+      --ladybug-pointer: url("stickers/ladybug_cursor.png") 5 2, pointer;
     }
 
-    body {
+    html, body {
       background-color: #faf8f5;
       color: var(--ink-charcoal);
       font-family: 'Newsreader', Georgia, serif;
       overflow-x: hidden;
-      cursor: var(--ladybug-cursor);
+      cursor: url("stickers/ladybug_cursor.png") 5 2, auto;
+    }
+
+    *, *::before, *::after {
+      cursor: url("stickers/ladybug_cursor.png") 5 2, auto;
+    }
+
+    a, button, [role="button"], .book-item, .masonry-photo-item, .drag-item, .cursor-pointer, input, select, summary, dialog {
+      cursor: url("stickers/ladybug_cursor.png") 5 2, pointer !important;
     }
 
     /* -------------------------------------------------------------
@@ -149,7 +158,7 @@
        ------------------------------------------------------------- */
     .drag-item {
       position: absolute;
-      cursor: grab;
+      cursor: url("stickers/ladybug_cursor.png") 5 2, pointer;
       user-select: none;
       -webkit-user-drag: none;
       touch-action: none;
@@ -227,7 +236,7 @@
 
     .book-item {
       flex-shrink: 0;
-      cursor: pointer;
+      cursor: url("stickers/ladybug_cursor.png") 5 2, pointer;
       position: relative;
       transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
       user-select: none;
@@ -364,7 +373,7 @@
       break-inside: avoid;
       margin-bottom: 12px;
       position: relative;
-      cursor: zoom-in;
+      cursor: url("stickers/ladybug_cursor.png") 5 2, pointer;
       background-color: #ece8de;
       overflow: hidden;
       border-radius: 2px;
