@@ -2,7 +2,7 @@
 
 This folder contains everything for your personal **Photojournalism Portfolio Website & Web App**.
 
-🌐 **Your Live Site**: [https://itsmcmurdoj.github.io/AbigailMorra/](https://itsmcmurdoj.github.io/AbigailMorra/)  
+🌐 **Your Live Site**: [https://abigailmorra.xyz/](https://abigailmorra.xyz/)  
 🐾 **Mascot & Web App Logo**: Gilbert the Cat  
 🐞 **Mouse Cursor**: Your hand-drawn ladybug drawing  
 

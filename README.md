@@ -2,7 +2,7 @@
 
 An archival broadsheet scan & editorial web app showcasing the 35mm film photography and photojournalism of **Abigail Morra**.
 
-🌐 **Live Website**: [https://itsmcmurdoj.github.io/AbigailMorra/](https://itsmcmurdoj.github.io/AbigailMorra/)  
+🌐 **Live Website**: [https://abigailmorra.xyz/](https://abigailmorra.xyz/)  
 🎓 **Program**: Toronto Metropolitan University (TMU) • School of Image Arts • VISA  
 🐾 **Web App Logo & Mascot**: Gilbert the Cat  
 

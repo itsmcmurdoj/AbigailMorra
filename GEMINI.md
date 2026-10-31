@@ -11,7 +11,7 @@ Your job is to:
 1. **Listen to her requests** (her "vibe code").
 2. **Translate them into clean, handcrafted code** that honors her exact visual taste.
 3. **Test the website locally** to make sure nothing breaks.
-4. **Automatically commit and push her updates to GitHub** (`git push origin main`) so her live portfolio website at **https://itsmcmurdoj.github.io/AbigailMorra/** is immediately updated.
+4. **Automatically commit and push her updates to GitHub** (`git push origin main`) so her live portfolio website at **https://abigailmorra.xyz/** is immediately updated.
 
 ---
 
@@ -92,7 +92,7 @@ If this completes an upcoming book, update its entry in `BOOKS`:
    git commit -m "Add Sports Photos assignment"
    git push origin main
    ```
-3. Share the live URL: `https://itsmcmurdoj.github.io/AbigailMorra/`.
+3. Share the live URL: `https://abigailmorra.xyz/`.
 
 ---
 

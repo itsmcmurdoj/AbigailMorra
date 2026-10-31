@@ -15,4 +15,4 @@ description: "Guidelines and aesthetic rules for Abigail Morra's Photography Por
    - Strictly no mention of Jackson or external names on the website.
 4. **Autonomous Deployment**:
    - Always run `git add .`, `git commit -m "..."`, and `git push origin main` after completing requested changes.
-   - Provide the live link: `https://itsmcmurdoj.github.io/AbigailMorra/`.
+   - Provide the live link: `https://abigailmorra.xyz/`.

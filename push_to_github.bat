@@ -23,7 +23,7 @@ git push origin main
 echo.
 echo ========================================================
 echo Done! Your live portfolio is updating at:
-echo https://itsmcmurdoj.github.io/AbigailMorra/
+echo https://abigailmorra.xyz/
 echo ========================================================
 echo.
 pause
