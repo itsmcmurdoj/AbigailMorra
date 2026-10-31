@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+  <url>
+    <loc>https://abigailmorra.xyz/</loc>
+    <lastmod>2026-10-31</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+    <image:image>
+      <image:loc>https://abigailmorra.xyz/photos/ass1/img_0103.jpg</image:loc>
+      <image:title>Abigail Morra — King &amp; Spadina Rails (35mm Film)</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://abigailmorra.xyz/photos/ass1/img_0023.jpg</image:loc>
+      <image:title>Abigail Morra — Queen West Window (35mm Film)</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://abigailmorra.xyz/photos/autumn/MOR_FIVE_1.jpg</image:loc>
+      <image:title>Abigail Morra — Autumn Series Porch Threshold (35mm Film)</image:title>
+    </image:image>
+  </url>
+</urlset>
