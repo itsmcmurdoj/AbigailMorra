@@ -1059,10 +1059,11 @@
         <img src="stickers/canva_star.png" alt="Star Sticker" class="w-full h-auto block drop-shadow-md pointer-events-none">
       </div>
 
-      <!-- 9. GREEN & ORANGE GECKO / LIZARD -->
-      <div class="drag-item pointer-events-auto"
+      <!-- 9. GREEN & ORANGE GECKO / LIZARD (CLICK TO PLAY GECKO SNAKE GAME!) -->
+      <div id="drag-gecko" class="drag-item pointer-events-auto"
+           data-sticker-src="stickers/canva_gecko.png"
            style="left: 19.34%; top: 46.23%; width: 14.69%; z-index: 21;"
-           title="Drag me! 🦎">
+           title="Green & Orange Gecko 🦎 (Click me to play Gecko Garden Snake! 🕹️)">
         <img src="stickers/canva_gecko.png" alt="Gecko Sticker" class="w-full h-auto block drop-shadow-lg pointer-events-none">
       </div>
 
@@ -1099,54 +1100,30 @@
        ============================================================= -->
   <main id="white-page-main" class="tactile-paper-sheet w-full relative min-h-[360px]">
 
-    <!-- CUTE WASHI TAPE STRIPS OVERLAPPING THE BLUE & PAPER BORDER (DRAGGABLE!) -->
+    <!-- 3 SMALL DELICATE SLICES OF WASHI TAPE OVERLAPPING THE BLUE & PAPER BORDER (DRAGGABLE!) -->
     <div id="white-page-stickers-layer" class="absolute inset-0 pointer-events-none z-30 overflow-visible">
-      <!-- 1. Pink Polka-Dot Washi Tape angled across the top-left blue/paper corner -->
+      <!-- 1. Small Pink Polka-Dot Washi Tape angled across the top-left corner -->
       <div class="drag-item pointer-events-auto"
            data-on-white-page="true"
-           style="left: 2.5%; top: -28px; width: 14.5%; --current-rot: -15deg; z-index: 36;"
+           style="left: 6.5%; top: -18px; width: 8.8%; --current-rot: -14deg; z-index: 36;"
            title="Pink Polka-Dot Washi Tape 🎀 (Drag me!)">
         <img src="stickers/washi_pink_dots.png" alt="Washi Tape" class="w-full h-auto block drop-shadow-md pointer-events-none">
       </div>
 
-      <!-- 2. Green Gingham Washi Tape straddling the blue & paper seam -->
+      <!-- 2. Small Strawberry Jam Washi Tape straddling the center border -->
       <div class="drag-item pointer-events-auto"
            data-on-white-page="true"
-           style="left: 24.5%; top: -24px; width: 13.0%; --current-rot: 7deg; z-index: 36;"
-           title="Green Gingham Washi Tape 🌿 (Drag me!)">
-        <img src="stickers/washi_green_gingham.png" alt="Washi Tape" class="w-full h-auto block drop-shadow-md pointer-events-none">
-      </div>
-
-      <!-- 3. Pastel Rainbow Plaid Washi Tape straddling the center seam -->
-      <div class="drag-item pointer-events-auto"
-           data-on-white-page="true"
-           style="left: 46.5%; top: -26px; width: 12.2%; --current-rot: -5deg; z-index: 36;"
-           title="Pastel Plaid Washi Tape 🌈 (Drag me!)">
-        <img src="stickers/washi_rainbow_plaid.png" alt="Washi Tape" class="w-full h-auto block drop-shadow-md pointer-events-none">
-      </div>
-
-      <!-- 4. Strawberry Jam Washi Tape straddling the right-center blue & paper seam -->
-      <div class="drag-item pointer-events-auto"
-           data-on-white-page="true"
-           style="left: 66.5%; top: -22px; width: 12.2%; --current-rot: 9deg; z-index: 36;"
+           style="left: 46.0%; top: -15px; width: 8.0%; --current-rot: 2.5deg; z-index: 36;"
            title="Strawberry Jam Washi Tape 🍓 (Drag me!)">
         <img src="stickers/washi_strawberry_jam.png" alt="Washi Tape" class="w-full h-auto block drop-shadow-md pointer-events-none">
       </div>
 
-      <!-- 5. Yellow Gingham Washi Tape angled across the top-right blue/paper corner -->
+      <!-- 3. Small Green Gingham Washi Tape angled across the top-right corner -->
       <div class="drag-item pointer-events-auto"
            data-on-white-page="true"
-           style="left: 84.0%; top: -26px; width: 13.2%; --current-rot: 16deg; z-index: 36;"
-           title="Yellow Gingham Washi Tape 🌼 (Drag me!)">
-        <img src="stickers/washi_yellow_gingham.png" alt="Washi Tape" class="w-full h-auto block drop-shadow-md pointer-events-none">
-      </div>
-
-      <!-- 6. Pink Grid Washi Tape stuck on the lower-right paper edge -->
-      <div class="drag-item pointer-events-auto"
-           data-on-white-page="true"
-           style="left: 85.5%; top: 76%; width: 12.0%; --current-rot: -8deg; z-index: 35;"
-           title="Pink Grid Washi Tape ✨ (Drag me!)">
-        <img src="stickers/washi_pink_grid.png" alt="Washi Tape" class="w-full h-auto block drop-shadow-md pointer-events-none">
+           style="left: 84.5%; top: -17px; width: 8.8%; --current-rot: 13deg; z-index: 36;"
+           title="Green Gingham Washi Tape 🌿 (Drag me!)">
+        <img src="stickers/washi_green_gingham.png" alt="Washi Tape" class="w-full h-auto block drop-shadow-md pointer-events-none">
       </div>
     </div>
 
@@ -1352,6 +1329,69 @@
         </div>
         <div id="dino-leaderboard-list" class="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-1 font-mono-exif text-xs">
           <!-- Populated dynamically with global arcade high scores -->
+        </div>
+      </div>
+    </div>
+  </dialog>
+
+  <!-- =============================================================
+       2C. SECRET LIZARD MINI-GAME MODAL (GECKO GARDEN SNAKE ARCADE)
+       Triggered by clicking the green & orange lizard sticker!
+       ============================================================= -->
+  <dialog id="gecko-snake-modal" class="fixed inset-0 z-[99992] w-full h-full bg-stone-950/80 backdrop-blur-md flex items-center justify-center p-3 sm:p-6 m-0 max-w-none max-h-none border-0 select-none">
+    <div class="max-w-2xl w-full bg-[#f7fee7] border-4 border-[#15803d] rounded-2xl p-4 sm:p-5 shadow-[0_24px_70px_rgba(0,0,0,0.65)] relative overflow-hidden">
+      <!-- Retro Green & Orange Gecko Arcade Header Bar -->
+      <div class="flex items-center justify-between bg-[#15803d] text-white px-4 py-2.5 rounded-xl mb-3 border-2 border-[#f97316] shadow-md">
+        <div class="flex items-center gap-2.5">
+          <img src="stickers/canva_gecko.png" alt="Gecko" class="w-8 h-8 object-contain drop-shadow bg-white/90 rounded-full p-0.5 border border-[#fde047]">
+          <div>
+            <p class="font-cute font-bold text-lg sm:text-xl leading-none tracking-wide text-[#fde047]">🦎 GECKO GARDEN SNAKE ★</p>
+            <p class="font-mono-exif text-[10px] text-green-100 uppercase tracking-widest">Eat garden treats &amp; grow your spotted lizard tail!</p>
+          </div>
+        </div>
+        <div class="flex items-center gap-2">
+          <span class="hidden sm:inline font-mono-exif text-[11px] text-green-100">[↑ ↓ ← → / WASD / TAP] TURN</span>
+          <button type="button" onclick="closeGeckoSnakeGame()" class="font-cute font-bold text-base px-2.5 py-0.5 rounded-lg bg-white/15 hover:bg-red-500 text-white border border-white/30 transition-colors" title="Close Lizard Game">
+            ✕
+          </button>
+        </div>
+      </div>
+
+      <!-- Snake Canvas Container -->
+      <div class="relative w-full bg-[#ecfccb] border-2 border-[#15803d]/40 rounded-xl overflow-hidden shadow-inner">
+        <canvas id="gecko-snake-canvas" width="560" height="300" class="w-full h-auto block"></canvas>
+      </div>
+
+      <!-- Arcade High-Score Name Entry Bar (Pops up on Game Over!) -->
+      <form id="gecko-score-entry-form" onsubmit="submitGeckoSnakeHighScore(event)" class="hidden mt-2.5 bg-[#15803d] text-white px-3.5 py-2.5 rounded-xl border-2 border-[#fde047] flex flex-wrap items-center justify-between gap-2 shadow-lg">
+        <div class="flex items-center gap-2">
+          <span class="font-cute font-bold text-base sm:text-lg text-[#fde047]">🏆 LIZARD SCORE: <span id="gecko-entry-score-val" class="font-mono-exif text-white">0000</span></span>
+        </div>
+        <div class="flex items-center gap-2 flex-1 sm:flex-initial justify-end">
+          <input id="gecko-player-name" type="text" maxlength="12" placeholder="ENTER NAME..." autocomplete="off"
+                 class="px-2.5 py-1 rounded-lg bg-[#f7fee7] text-[#14532d] font-mono-exif font-bold text-xs sm:text-sm uppercase tracking-wider border-2 border-[#fde047] focus:outline-none w-36 sm:w-44 select-text">
+          <button type="submit" id="gecko-save-score-btn" class="px-3 py-1 bg-[#fde047] hover:bg-yellow-300 text-[#14532d] font-cute font-bold text-base rounded-lg shadow transition-transform active:scale-95">
+            ★ log score
+          </button>
+        </div>
+      </form>
+
+      <!-- Bottom Controls Hint & Play Again -->
+      <div class="mt-2.5 flex items-center justify-between font-cute text-sm sm:text-base font-bold text-stone-700 px-1">
+        <span>🦎 Use arrow keys, WASD, or tap the garden to steer the spotted gecko! 🍓🦋</span>
+        <button type="button" onclick="restartGeckoSnakeGame()" class="px-3 py-0.5 bg-[#15803d] text-[#fde047] rounded-full text-sm hover:bg-green-800 transition-colors">
+          ↻ play again
+        </button>
+      </div>
+
+      <!-- Global Gecko Snake Arcade Leaderboard -->
+      <div class="mt-2.5 bg-[#14532d] text-white rounded-xl p-3 border border-[#fde047]/60 shadow-inner">
+        <div class="flex items-center justify-between border-b border-white/20 pb-1.5 mb-2">
+          <span class="font-mono-exif font-bold text-xs tracking-widest text-[#fde047] uppercase">🦎 GECKO SNAKE HIGH SCORES (GLOBAL LEADERBOARD)</span>
+          <span id="gecko-leaderboard-status" class="font-mono-exif text-[10px] text-green-200">LIVE ✦</span>
+        </div>
+        <div id="gecko-leaderboard-list" class="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-1 font-mono-exif text-xs">
+          <!-- Populated dynamically with global gecko snake high scores -->
         </div>
       </div>
     </div>
@@ -2446,6 +2486,8 @@
         } else if (wasTap) {
           if (el.id === 'drag-gilbert') {
             openGilbertModal();
+          } else if (el.id === 'drag-gecko' || el.dataset.stickerSrc === 'stickers/canva_gecko.png') {
+            openGeckoSnakeGame();
           } else if (el.dataset.stickerSrc === 'stickers/sb_face_laugh.png') {
             const nowTap = performance.now();
             const prevTap = parseFloat(el.dataset.lastTapTime || '0');
@@ -2727,9 +2769,12 @@
       wrapper.style.zIndex = topStickerZ;
       wrapper.dataset.stickerSrc = stickerData.src;
       const isSecretDinoSticker = stickerData.src === 'stickers/sb_face_laugh.png';
+      const isGeckoSnakeSticker = stickerData.src === 'stickers/canva_gecko.png';
       wrapper.title = isSecretDinoSticker
         ? `${stickerData.label} (Double-click once placed for a secret mini-game! 🕹️)`
-        : `${stickerData.label} (Drag to move • Drag to 🗑️ to delete)`;
+        : isGeckoSnakeSticker
+          ? `${stickerData.label} (Click once placed to play Gecko Garden Snake! 🦎)`
+          : `${stickerData.label} (Drag to move • Drag to 🗑️ to delete)`;
 
       const img = document.createElement('img');
       img.src = stickerData.src;
@@ -2741,6 +2786,11 @@
         wrapper.addEventListener('dblclick', (e) => {
           e.stopPropagation();
           openAbiDinoGame();
+        });
+      } else if (isGeckoSnakeSticker) {
+        wrapper.addEventListener('dblclick', (e) => {
+          e.stopPropagation();
+          openGeckoSnakeGame();
         });
       }
 
@@ -3705,6 +3755,546 @@
         dinoAnimFrame = requestAnimationFrame(dinoLoop);
       }
     }
+
+    // =========================================================================
+    // 4E. GECKO GARDEN SNAKE MINI-GAME (Triggered by clicking the Lizard Sticker!)
+    //     - Cute Green & Orange Spotted Gecko Snake
+    //     - Eats garden treats (🍓, 🦋, 🍎, 🌼) to grow longer & faster
+    //     - Live Shared Global High-Score Leaderboard & Name Entry
+    // =========================================================================
+    let geckoSnakeTimer = null;
+    let geckoSnakeRunning = false;
+    let geckoHighScore = 140;
+    const GECKO_KV_APP = 'kuqx791h';
+    const GECKO_KV_KEY = 'gecko_board';
+    const GECKO_NTFY_TOPIC = 'abigail_morra_gecko_snake_scores_v1';
+    const GECKO_LOCAL_SCORES_KEY = 'abigail_gecko_snake_leaderboard_v1';
+
+    let geckoLeaderboard = [
+      { name: 'ABIGAIL', score: 140 },
+      { name: 'JUSTYNA', score: 110 },
+      { name: 'GILBERT', score: 80 }
+    ];
+
+    function normalizeGeckoBoard(arr) {
+      if (!Array.isArray(arr)) return [];
+      const bestByName = new Map();
+      arr.forEach((item) => {
+        if (!item || typeof item.name !== 'string') return;
+        const cleanName = item.name.trim().toUpperCase().replace(/[^A-Z0-9 _\-.★♥🐾🦎]/g, '').slice(0, 12) || 'PLAYER';
+        const sc = Math.max(0, Math.min(99999, parseInt(item.score, 10) || 0));
+        if (sc <= 0) return;
+        const prev = bestByName.get(cleanName) || 0;
+        if (sc > prev) bestByName.set(cleanName, sc);
+      });
+      return Array.from(bestByName.entries())
+        .map(([name, score]) => ({ name, score }))
+        .sort((a, b) => b.score - a.score)
+        .slice(0, 10);
+    }
+
+    function renderGeckoLeaderboard() {
+      const listEl = document.getElementById('gecko-leaderboard-list');
+      if (!listEl) return;
+      geckoLeaderboard = normalizeGeckoBoard(geckoLeaderboard);
+      if (geckoLeaderboard.length > 0) {
+        geckoHighScore = Math.max(geckoHighScore, geckoLeaderboard[0].score);
+      }
+      listEl.innerHTML = geckoLeaderboard.slice(0, 8).map((entry, idx) => {
+        const medal = idx === 0 ? '👑' : idx === 1 ? '🥈' : idx === 2 ? '🥉' : `${idx + 1}.`;
+        const rowHighlight = idx === 0 ? 'text-[#fde047] font-bold' : 'text-green-100';
+        return `
+          <div class="flex items-center justify-between bg-white/5 px-2.5 py-1 rounded border border-white/10 ${rowHighlight}">
+            <span class="truncate pr-2">${medal} ${entry.name}</span>
+            <span class="tracking-wider font-bold">${String(entry.score).padStart(4, '0')}</span>
+          </div>
+        `;
+      }).join('');
+    }
+
+    async function fetchGeckoGlobalLeaderboard() {
+      const statusEl = document.getElementById('gecko-leaderboard-status');
+      try {
+        const localRaw = localStorage.getItem(GECKO_LOCAL_SCORES_KEY);
+        if (localRaw) {
+          const parsed = JSON.parse(localRaw);
+          geckoLeaderboard = normalizeGeckoBoard([...geckoLeaderboard, ...parsed]);
+        }
+      } catch (e) {}
+      renderGeckoLeaderboard();
+
+      const merged = [...geckoLeaderboard];
+
+      try {
+        const kvRes = await fetch(`https://keyvalue.immanuel.co/api/KeyVal/GetValue/${GECKO_KV_APP}/${GECKO_KV_KEY}`);
+        if (kvRes.ok) {
+          const valStr = (await kvRes.text()).replace(/^"|"$/g, '');
+          if (valStr && valStr !== 'null') {
+            const b64 = valStr.replace(/-/g, '+').replace(/_/g, '/');
+            const decoded = JSON.parse(atob(b64));
+            if (Array.isArray(decoded)) merged.push(...decoded);
+          }
+        }
+      } catch (err) {}
+
+      try {
+        const ntfyRes = await fetch(`https://ntfy.sh/${GECKO_NTFY_TOPIC}/json?poll=1&since=1700000000`);
+        if (ntfyRes.ok) {
+          const text = await ntfyRes.text();
+          text.trim().split('\n').forEach((line) => {
+            if (!line) return;
+            try {
+              const ev = JSON.parse(line);
+              if (ev && ev.event === 'message' && ev.message) {
+                const item = JSON.parse(ev.message);
+                if (item && item.name && item.score) merged.push(item);
+              }
+            } catch (e) {}
+          });
+        }
+      } catch (err) {}
+
+      geckoLeaderboard = normalizeGeckoBoard(merged);
+      try {
+        localStorage.setItem(GECKO_LOCAL_SCORES_KEY, JSON.stringify(geckoLeaderboard));
+      } catch (e) {}
+      renderGeckoLeaderboard();
+      if (statusEl) statusEl.textContent = 'GLOBAL LIVE ✦';
+    }
+
+    async function submitGeckoSnakeHighScore(e) {
+      if (e) e.preventDefault();
+      const inputEl = document.getElementById('gecko-player-name');
+      const btnEl = document.getElementById('gecko-save-score-btn');
+      const formEl = document.getElementById('gecko-score-entry-form');
+      const statusEl = document.getElementById('gecko-leaderboard-status');
+      const rawName = (inputEl && inputEl.value ? inputEl.value : 'GECKO FAN').trim().toUpperCase();
+      const cleanName = rawName.replace(/[^A-Z0-9 _\-.★♥🐾🦎]/g, '').slice(0, 12) || 'GECKO FAN';
+      const finalScore = Math.max(10, Math.floor(geckoSnakeState.score));
+
+      try {
+        localStorage.setItem('abigail_dino_last_player_name', cleanName);
+      } catch (err) {}
+
+      if (btnEl) {
+        btnEl.disabled = true;
+        btnEl.textContent = 'SAVING...';
+      }
+
+      const newEntry = { name: cleanName, score: finalScore };
+      geckoLeaderboard = normalizeGeckoBoard([...geckoLeaderboard, newEntry]);
+      try {
+        localStorage.setItem(GECKO_LOCAL_SCORES_KEY, JSON.stringify(geckoLeaderboard));
+      } catch (err) {}
+      renderGeckoLeaderboard();
+
+      try {
+        const jsonStr = JSON.stringify(geckoLeaderboard);
+        const b64Url = btoa(jsonStr).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
+        await Promise.allSettled([
+          fetch(`https://keyvalue.immanuel.co/api/KeyVal/UpdateValue/${GECKO_KV_APP}/${GECKO_KV_KEY}/${b64Url}`, { method: 'POST' }),
+          fetch(`https://ntfy.sh/${GECKO_NTFY_TOPIC}`, {
+            method: 'POST',
+            body: JSON.stringify(newEntry)
+          })
+        ]);
+        if (statusEl) statusEl.textContent = 'SAVED TO ARCADE ✦';
+      } catch (err) {}
+
+      if (btnEl) {
+        btnEl.disabled = false;
+        btnEl.textContent = '★ log score';
+      }
+      if (formEl) formEl.classList.add('hidden');
+      playSparkleTwinkle();
+    }
+
+    const GECKO_COLS = 28;
+    const GECKO_ROWS = 15;
+    const GECKO_TILE = 20;
+    const GECKO_TREATS = ['🍓', '🦋', '🍎', '🌼', '🍒'];
+
+    const geckoSnakeState = {
+      snake: [],
+      dir: { x: 1, y: 0 },
+      nextDir: { x: 1, y: 0 },
+      food: { x: 18, y: 7, icon: '🍓' },
+      score: 0,
+      gameOver: false,
+      tickMs: 125,
+      stepCount: 0
+    };
+
+    function spawnGeckoFood() {
+      const occupied = new Set(geckoSnakeState.snake.map((s) => `${s.x},${s.y}`));
+      const free = [];
+      for (let x = 1; x < GECKO_COLS - 1; x++) {
+        for (let y = 1; y < GECKO_ROWS - 1; y++) {
+          if (!occupied.has(`${x},${y}`)) free.push({ x, y });
+        }
+      }
+      const pick = free.length > 0 ? free[Math.floor(Math.random() * free.length)] : { x: 10, y: 7 };
+      const icon = GECKO_TREATS[Math.floor(Math.random() * GECKO_TREATS.length)];
+      geckoSnakeState.food = { x: pick.x, y: pick.y, icon };
+    }
+
+    function resetGeckoSnakeState() {
+      geckoSnakeState.snake = [
+        { x: 8, y: 7 },
+        { x: 7, y: 7 },
+        { x: 6, y: 7 },
+        { x: 5, y: 7 }
+      ];
+      geckoSnakeState.dir = { x: 1, y: 0 };
+      geckoSnakeState.nextDir = { x: 1, y: 0 };
+      geckoSnakeState.score = 0;
+      geckoSnakeState.gameOver = false;
+      geckoSnakeState.tickMs = 125;
+      geckoSnakeState.stepCount = 0;
+      spawnGeckoFood();
+      const formEl = document.getElementById('gecko-score-entry-form');
+      if (formEl) formEl.classList.add('hidden');
+    }
+
+    function openGeckoSnakeGame() {
+      const modal = document.getElementById('gecko-snake-modal');
+      if (!modal) return;
+      modal.setAttribute('open', '');
+      playSparkleTwinkle();
+      fetchGeckoGlobalLeaderboard();
+      restartGeckoSnakeGame();
+    }
+
+    function closeGeckoSnakeGame() {
+      const modal = document.getElementById('gecko-snake-modal');
+      if (modal) modal.removeAttribute('open');
+      geckoSnakeRunning = false;
+      if (geckoSnakeTimer) clearTimeout(geckoSnakeTimer);
+    }
+
+    function restartGeckoSnakeGame() {
+      resetGeckoSnakeState();
+      geckoSnakeRunning = true;
+      if (geckoSnakeTimer) clearTimeout(geckoSnakeTimer);
+      drawGeckoSnakeBoard();
+      scheduleGeckoTick();
+    }
+
+    function scheduleGeckoTick() {
+      if (!geckoSnakeRunning) return;
+      geckoSnakeTimer = setTimeout(() => {
+        stepGeckoSnake();
+        drawGeckoSnakeBoard();
+        if (geckoSnakeRunning && !geckoSnakeState.gameOver) {
+          scheduleGeckoTick();
+        }
+      }, geckoSnakeState.tickMs);
+    }
+
+    function stepGeckoSnake() {
+      if (geckoSnakeState.gameOver) return;
+      geckoSnakeState.stepCount += 1;
+      geckoSnakeState.dir = { ...geckoSnakeState.nextDir };
+      const head = geckoSnakeState.snake[0];
+      const nx = head.x + geckoSnakeState.dir.x;
+      const ny = head.y + geckoSnakeState.dir.y;
+
+      // Hit garden wall or self
+      const hitWall = nx < 0 || nx >= GECKO_COLS || ny < 0 || ny >= GECKO_ROWS;
+      const hitSelf = geckoSnakeState.snake.slice(0, -1).some((seg) => seg.x === nx && seg.y === ny);
+
+      if (hitWall || hitSelf) {
+        geckoSnakeState.gameOver = true;
+        geckoHighScore = Math.max(geckoHighScore, geckoSnakeState.score);
+        playGeckoBonkSound();
+
+        const finalScore = geckoSnakeState.score;
+        const formEl = document.getElementById('gecko-score-entry-form');
+        const scoreValEl = document.getElementById('gecko-entry-score-val');
+        const nameInput = document.getElementById('gecko-player-name');
+        if (formEl && scoreValEl && finalScore > 0) {
+          scoreValEl.textContent = String(finalScore).padStart(4, '0');
+          formEl.classList.remove('hidden');
+          try {
+            const savedName = localStorage.getItem('abigail_dino_last_player_name');
+            if (savedName && nameInput && !nameInput.value) nameInput.value = savedName;
+          } catch (e) {}
+        }
+        return;
+      }
+
+      geckoSnakeState.snake.unshift({ x: nx, y: ny });
+
+      if (nx === geckoSnakeState.food.x && ny === geckoSnakeState.food.y) {
+        geckoSnakeState.score += 10;
+        geckoHighScore = Math.max(geckoHighScore, geckoSnakeState.score);
+        geckoSnakeState.tickMs = Math.max(68, 125 - Math.floor(geckoSnakeState.score / 25) * 6);
+        playGeckoEatSound();
+        spawnGeckoFood();
+      } else {
+        geckoSnakeState.snake.pop();
+      }
+    }
+
+    function playGeckoEatSound() {
+      try {
+        const ctx = getStickerAudioCtx();
+        const now = ctx.currentTime;
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        osc.type = 'triangle';
+        osc.frequency.setValueAtTime(520, now);
+        osc.frequency.exponentialRampToValueAtTime(880, now + 0.09);
+        gain.gain.setValueAtTime(0.08, now);
+        gain.gain.exponentialRampToValueAtTime(0.001, now + 0.1);
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+        osc.start(now);
+        osc.stop(now + 0.11);
+      } catch (e) {}
+    }
+
+    function playGeckoBonkSound() {
+      try {
+        const ctx = getStickerAudioCtx();
+        const now = ctx.currentTime;
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        osc.type = 'sawtooth';
+        osc.frequency.setValueAtTime(210, now);
+        osc.frequency.exponentialRampToValueAtTime(85, now + 0.18);
+        gain.gain.setValueAtTime(0.09, now);
+        gain.gain.exponentialRampToValueAtTime(0.001, now + 0.2);
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+        osc.start(now);
+        osc.stop(now + 0.21);
+      } catch (e) {}
+    }
+
+    function drawGeckoSnakeBoard() {
+      const canvas = document.getElementById('gecko-snake-canvas');
+      if (!canvas) return;
+      const ctx = canvas.getContext('2d');
+      const W = canvas.width;
+      const H = canvas.height;
+
+      // Soft checkered garden grass background
+      for (let x = 0; x < GECKO_COLS; x++) {
+        for (let y = 0; y < GECKO_ROWS; y++) {
+          ctx.fillStyle = (x + y) % 2 === 0 ? '#ecfccb' : '#d9f99d';
+          ctx.fillRect(x * GECKO_TILE, y * GECKO_TILE, GECKO_TILE, GECKO_TILE);
+        }
+      }
+
+      // Draw Garden Treat Food with gentle bounce
+      const fx = geckoSnakeState.food.x * GECKO_TILE + GECKO_TILE * 0.5;
+      const fy = geckoSnakeState.food.y * GECKO_TILE + GECKO_TILE * 0.55;
+      ctx.save();
+      ctx.font = '18px sans-serif';
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      ctx.fillText(geckoSnakeState.food.icon, fx, fy);
+      ctx.restore();
+
+      // Draw Spotted Green & Orange Gecko Snake!
+      const len = geckoSnakeState.snake.length;
+      for (let i = len - 1; i >= 0; i--) {
+        const seg = geckoSnakeState.snake[i];
+        const cx = seg.x * GECKO_TILE + GECKO_TILE * 0.5;
+        const cy = seg.y * GECKO_TILE + GECKO_TILE * 0.5;
+
+        if (i === 0) {
+          // Gecko Head
+          const angle = Math.atan2(geckoSnakeState.dir.y, geckoSnakeState.dir.x);
+          ctx.save();
+          ctx.translate(cx, cy);
+          ctx.rotate(angle);
+
+          // Flicking pink gecko tongue every few steps
+          if (!geckoSnakeState.gameOver && geckoSnakeState.stepCount % 3 === 0) {
+            ctx.strokeStyle = '#f43f5e';
+            ctx.lineWidth = 2;
+            ctx.beginPath();
+            ctx.moveTo(8, 0);
+            ctx.lineTo(15, 0);
+            ctx.lineTo(18, -3);
+            ctx.moveTo(15, 0);
+            ctx.lineTo(18, 3);
+            ctx.stroke();
+          }
+
+          // Rounded Gecko Head
+          ctx.fillStyle = '#22c55e';
+          ctx.strokeStyle = '#14532d';
+          ctx.lineWidth = 2;
+          ctx.beginPath();
+          ctx.ellipse(1, 0, 10.5, 8.5, 0, 0, Math.PI * 2);
+          ctx.fill();
+          ctx.stroke();
+
+          // Cute orange nose spot
+          ctx.fillStyle = '#f97316';
+          ctx.beginPath();
+          ctx.arc(5, 0, 2.2, 0, Math.PI * 2);
+          ctx.fill();
+
+          // Big Gecko Eyes on top/sides of head
+          ctx.fillStyle = '#fef08a';
+          ctx.beginPath();
+          ctx.arc(2, -5.5, 3.3, 0, Math.PI * 2);
+          ctx.arc(2, 5.5, 3.3, 0, Math.PI * 2);
+          ctx.fill();
+          ctx.strokeStyle = '#14532d';
+          ctx.lineWidth = 1.2;
+          ctx.stroke();
+
+          ctx.fillStyle = '#0f172a';
+          ctx.beginPath();
+          ctx.arc(3, -5.5, 1.6, 0, Math.PI * 2);
+          ctx.arc(3, 5.5, 1.6, 0, Math.PI * 2);
+          ctx.fill();
+
+          ctx.restore();
+        } else {
+          // Tapered Gecko Body & Tail with Little Feet on segment 1 and len-2!
+          const ratio = 1 - (i / (len + 3)) * 0.55;
+          const radius = Math.max(4.5, 8.5 * ratio);
+
+          // Draw cute little gecko legs on front shoulders (i===1) and back hips (i===Math.min(3, len-2))
+          if (i === 1 || (len >= 4 && i === len - 2)) {
+            const prev = geckoSnakeState.snake[i - 1];
+            const ang = Math.atan2(prev.y - seg.y, prev.x - seg.x);
+            const legWiggle = (geckoSnakeState.stepCount % 2 === 0 ? 1 : -1) * 0.25;
+            ctx.save();
+            ctx.translate(cx, cy);
+            ctx.rotate(ang);
+            ctx.strokeStyle = '#16a34a';
+            ctx.lineWidth = 3;
+            ctx.lineCap = 'round';
+            ctx.beginPath();
+            ctx.moveTo(0, -radius + 1);
+            ctx.lineTo(legWiggle * 8, -radius - 5);
+            ctx.moveTo(0, radius - 1);
+            ctx.lineTo(-legWiggle * 8, radius + 5);
+            ctx.stroke();
+            ctx.restore();
+          }
+
+          ctx.fillStyle = i % 2 === 0 ? '#22c55e' : '#4ade80';
+          ctx.strokeStyle = '#14532d';
+          ctx.lineWidth = 1.6;
+          ctx.beginPath();
+          ctx.arc(cx, cy, radius, 0, Math.PI * 2);
+          ctx.fill();
+          ctx.stroke();
+
+          // Signature Orange Gecko Spots (matching stickers/canva_gecko.png!)
+          if (i < len - 1) {
+            ctx.fillStyle = '#f97316';
+            ctx.beginPath();
+            ctx.arc(cx + (i % 2 === 0 ? 1.5 : -1.5), cy + (i % 2 === 0 ? -1.5 : 1.5), Math.max(2, radius * 0.42), 0, Math.PI * 2);
+            ctx.fill();
+          }
+        }
+      }
+
+      // Score HUD in Top-Right
+      const curStr = String(geckoSnakeState.score).padStart(4, '0');
+      const hiStr = String(Math.max(geckoHighScore, geckoSnakeState.score)).padStart(4, '0');
+      ctx.fillStyle = 'rgba(20, 83, 45, 0.85)';
+      ctx.fillRect(W - 188, 8, 180, 26);
+      ctx.fillStyle = '#fde047';
+      ctx.font = 'bold 13px "Space Mono", monospace';
+      ctx.textAlign = 'right';
+      ctx.fillText(`HI ${hiStr}  🦎 ${curStr}`, W - 16, 25);
+
+      if (geckoSnakeState.gameOver) {
+        ctx.fillStyle = 'rgba(247, 254, 231, 0.92)';
+        ctx.fillRect(W * 0.5 - 165, H * 0.5 - 48, 330, 88);
+        ctx.strokeStyle = '#15803d';
+        ctx.lineWidth = 3;
+        ctx.strokeRect(W * 0.5 - 165, H * 0.5 - 48, 330, 88);
+
+        ctx.fillStyle = '#14532d';
+        ctx.font = 'bold 20px "Space Mono", monospace';
+        ctx.textAlign = 'center';
+        ctx.fillText('G A M E   O V E R', W * 0.5, H * 0.5 - 12);
+
+        ctx.fillStyle = '#ea580c';
+        ctx.font = 'bold 15px "Gaegu", cursive, sans-serif';
+        ctx.fillText('🦎 Press SPACE or Click to Slither Again! 🍓', W * 0.5, H * 0.5 + 18);
+      }
+    }
+
+    // Keyboard & Canvas Click Controls for Gecko Snake
+    window.addEventListener('keydown', (e) => {
+      const modal = document.getElementById('gecko-snake-modal');
+      if (!modal || !modal.hasAttribute('open')) return;
+      const activeTag = document.activeElement ? document.activeElement.tagName : '';
+      if (activeTag === 'INPUT' || activeTag === 'TEXTAREA') {
+        if (e.key === 'Escape') closeGeckoSnakeGame();
+        return;
+      }
+
+      if (e.key === 'Escape') {
+        closeGeckoSnakeGame();
+        return;
+      }
+      if (geckoSnakeState.gameOver && (e.code === 'Space' || e.key === 'Enter')) {
+        e.preventDefault();
+        restartGeckoSnakeGame();
+        return;
+      }
+
+      const d = geckoSnakeState.dir;
+      if ((e.key === 'ArrowUp' || e.key === 'w' || e.key === 'W') && d.y === 0) {
+        e.preventDefault();
+        geckoSnakeState.nextDir = { x: 0, y: -1 };
+      } else if ((e.key === 'ArrowDown' || e.key === 's' || e.key === 'S') && d.y === 0) {
+        e.preventDefault();
+        geckoSnakeState.nextDir = { x: 0, y: 1 };
+      } else if ((e.key === 'ArrowLeft' || e.key === 'a' || e.key === 'A') && d.x === 0) {
+        e.preventDefault();
+        geckoSnakeState.nextDir = { x: -1, y: 0 };
+      } else if ((e.key === 'ArrowRight' || e.key === 'd' || e.key === 'D') && d.x === 0) {
+        e.preventDefault();
+        geckoSnakeState.nextDir = { x: 1, y: 0 };
+      }
+    });
+
+    document.addEventListener('DOMContentLoaded', () => {
+      const gCanvas = document.getElementById('gecko-snake-canvas');
+      if (gCanvas) {
+        gCanvas.addEventListener('pointerdown', (e) => {
+          if (geckoSnakeState.gameOver) {
+            restartGeckoSnakeGame();
+            return;
+          }
+          const rect = gCanvas.getBoundingClientRect();
+          const clickX = ((e.clientX - rect.left) / rect.width) * gCanvas.width;
+          const clickY = ((e.clientY - rect.top) / rect.height) * gCanvas.height;
+          const head = geckoSnakeState.snake[0];
+          const hx = (head.x + 0.5) * GECKO_TILE;
+          const hy = (head.y + 0.5) * GECKO_TILE;
+          const dx = clickX - hx;
+          const dy = clickY - hy;
+          const d = geckoSnakeState.dir;
+          if (Math.abs(dx) > Math.abs(dy)) {
+            if (d.x === 0) geckoSnakeState.nextDir = { x: dx > 0 ? 1 : -1, y: 0 };
+          } else {
+            if (d.y === 0) geckoSnakeState.nextDir = { x: 0, y: dy > 0 ? 1 : -1 };
+          }
+        });
+      }
+
+      const gModal = document.getElementById('gecko-snake-modal');
+      if (gModal) {
+        gModal.addEventListener('click', (e) => {
+          if (e.target === gModal) closeGeckoSnakeGame();
+        });
+      }
+    });
 
     // INITIALIZE SHELF & MASONRY GALLERY
     renderBooks();
