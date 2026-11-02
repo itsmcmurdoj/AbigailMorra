@@ -414,25 +414,47 @@
     .book-shelf {
       display: flex;
       align-items: flex-end;
-      gap: 0.9rem;
+      gap: 1.05rem;
       overflow-x: auto;
+      overflow-y: visible;
       -webkit-overflow-scrolling: touch;
-      scroll-snap-type: x proximity;
-      padding: 1.35rem 1rem 2rem 1rem;
+      touch-action: pan-x pan-y;
+      scroll-behavior: smooth;
+      padding: 1.6rem 1.25rem 2.2rem 1.25rem;
       scrollbar-width: thin;
+      scrollbar-color: rgba(24, 0, 173, 0.45) rgba(214, 208, 194, 0.35);
       perspective: 1200px;
+      cursor: grab;
+    }
+
+    .book-shelf:active {
+      cursor: grabbing;
+    }
+
+    .book-shelf::-webkit-scrollbar {
+      height: 7px;
+    }
+
+    .book-shelf::-webkit-scrollbar-track {
+      background: rgba(214, 208, 194, 0.35);
+      border-radius: 999px;
+      margin: 0 24px;
+    }
+
+    .book-shelf::-webkit-scrollbar-thumb {
+      background: rgba(24, 0, 173, 0.45);
+      border-radius: 999px;
     }
 
     @media (min-width: 768px) {
       .book-shelf {
-        gap: clamp(0.75rem, 1.25vw, 1.35rem);
-        padding: 1.5rem 1rem 2.25rem 1rem;
+        gap: clamp(0.85rem, 1.35vw, 1.45rem);
+        padding: 1.75rem 1.5rem 2.35rem 1.5rem;
       }
     }
 
     .book-item {
       flex-shrink: 0;
-      scroll-snap-align: center;
       cursor: url("stickers/ladybug_cursor.png") 5 2, pointer;
       position: relative;
       transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
@@ -1157,63 +1179,70 @@
          ----------------------------------------------------------- -->
     <div id="hero-stickers-layer" class="absolute inset-0 pointer-events-none z-20">
 
-      <!-- 1. BIRTHDAY CAKE SLICE WITH CANDLE -->
+      <!-- 1. TOP-LEFT GRUNGE RED STARS ON OLD PAPER CUTOUT -->
       <div class="drag-item pointer-events-auto"
-           style="left: 22.57%; top: 12.65%; width: 12.50%; z-index: 21;"
+           style="left: 4.39%; top: 14.44%; width: 12.88%; z-index: 23;"
+           title="Drag me! ★">
+        <img src="stickers/canva_grunge_stars.png" alt="Red Grunge Stars Sticker" class="w-full h-auto block drop-shadow-lg pointer-events-none">
+      </div>
+
+      <!-- 2. LEFT HORIZONTAL POLAROID PHOTO (FRIENDS ON COUCH) -->
+      <div class="drag-item pointer-events-auto"
+           style="left: 9.85%; top: 25.58%; width: 18.26%; z-index: 20;"
+           title="Drag me! 📸">
+        <img src="stickers/canva_polaroid_couch_left.png" alt="Friends Polaroid Sticker" class="w-full h-auto block drop-shadow-2xl pointer-events-none">
+      </div>
+
+      <!-- 3. BIRTHDAY CAKE SLICE WITH CANDLE -->
+      <div class="drag-item pointer-events-auto"
+           style="left: 22.57%; top: 5.95%; width: 14.80%; z-index: 22;"
            title="Drag me! 🎂">
         <img src="stickers/canva_cake.png" alt="Birthday Cake Sticker" class="w-full h-auto block drop-shadow-lg pointer-events-none">
       </div>
 
-      <!-- 2. TOP-CENTER SKETCHED BLACK STAR -->
+      <!-- 4. TOP-CENTER SKETCHED BLACK STAR -->
       <div class="drag-item pointer-events-auto"
            style="left: 41.60%; top: 12.78%; width: 8.85%; z-index: 21;"
            title="Drag me! ★">
         <img src="stickers/canva_star.png" alt="Star Sticker" class="w-full h-auto block drop-shadow-md pointer-events-none">
       </div>
 
-      <!-- 3. VINTAGE RANGEFINDER 35MM CAMERA -->
+      <!-- 5. VINTAGE RANGEFINDER 35MM CAMERA -->
       <div class="drag-item pointer-events-auto"
-           style="left: 57.24%; top: 16.39%; width: 21.98%; z-index: 14;"
+           style="left: 57.76%; top: 16.57%; width: 21.89%; z-index: 14;"
            title="Drag me! 📷">
         <img src="stickers/canva_camera.png" alt="35mm Camera Sticker" class="w-full h-auto block drop-shadow-xl pointer-events-none">
       </div>
 
-      <!-- 4. LIT MATCHSTICK -->
+      <!-- 6. LIT MATCHSTICK -->
       <div class="drag-item pointer-events-auto"
            style="left: 76.01%; top: 5.86%; width: 5.10%; z-index: 22;"
            title="Drag me! 🔥">
         <img src="stickers/canva_match.png" alt="Lit Match Sticker" class="w-full h-auto block drop-shadow-md pointer-events-none">
       </div>
 
-      <!-- 5. RANSOM CUTOUT LETTERS "ABi" -->
+      <!-- 7. RANSOM CUTOUT LETTERS "ABi" -->
       <div class="drag-item pointer-events-auto"
            style="left: 81.74%; top: 11.60%; width: 8.75%; z-index: 22;"
            title="Drag me! ✨">
         <img src="stickers/canva_abi.png" alt="ABi Cutout Letters" class="w-full h-auto block drop-shadow-md pointer-events-none">
       </div>
 
-      <!-- 6. GILBERT THE CAT FULL-BODY CUTOUT (TAP TO MEET GILBERT, OR DRAG!) -->
+      <!-- 8. GILBERT THE CAT FULL-BODY CUTOUT (TAP TO MEET GILBERT, OR DRAG!) -->
       <div id="drag-gilbert" class="drag-item pointer-events-auto"
-           style="left: 78.16%; top: 22.41%; width: 18.23%; z-index: 20;"
+           style="left: 78.16%; top: 26.80%; width: 18.80%; z-index: 24;"
            title="Gilbert the Cat 🐾 (Drag to move, or tap to meet Gilbert!)">
         <img src="stickers/canva_gilbert_full.png" alt="Gilbert the Cat" class="w-full h-auto block drop-shadow-2xl pointer-events-none">
       </div>
 
-      <!-- 7. POLAROID PHOTO WITH RED HEART -->
+      <!-- 9. RIGHT BALCONY POLAROID PHOTO WITH RED HEART -->
       <div class="drag-item pointer-events-auto"
-           style="left: 66.76%; top: 38.65%; width: 16.15%; z-index: 23;"
+           style="left: 65.10%; top: 43.40%; width: 15.80%; z-index: 23;"
            title="Drag me! ❤️">
-        <img src="stickers/canva_polaroid_couch.png" alt="Polaroid Photo with Red Heart" class="w-full h-auto block drop-shadow-2xl pointer-events-none">
+        <img src="stickers/canva_polaroid_balcony.png" alt="Balcony Polaroid Photo with Red Heart" class="w-full h-auto block drop-shadow-2xl pointer-events-none">
       </div>
 
-      <!-- 8. BOTTOM-RIGHT SKETCHED BLACK STAR -->
-      <div class="drag-item pointer-events-auto"
-           style="left: 82.80%; top: 69.50%; width: 8.85%; z-index: 24;"
-           title="Drag me! ★">
-        <img src="stickers/canva_star.png" alt="Star Sticker" class="w-full h-auto block drop-shadow-md pointer-events-none">
-      </div>
-
-      <!-- 9. GREEN & ORANGE GECKO / LIZARD (CLICK TO PLAY GECKO SNAKE GAME!) -->
+      <!-- 10. GREEN & ORANGE GECKO / LIZARD (CLICK TO PLAY GECKO SNAKE GAME!) -->
       <div id="drag-gecko" class="drag-item pointer-events-auto"
            data-sticker-src="stickers/canva_gecko.png"
            style="left: 19.34%; top: 46.23%; width: 14.69%; z-index: 21;"
@@ -1221,21 +1250,21 @@
         <img src="stickers/canva_gecko.png" alt="Gecko Sticker" class="w-full h-auto block drop-shadow-lg pointer-events-none">
       </div>
 
-      <!-- 10. LEFT SKETCHED BLACK STAR -->
+      <!-- 11. LEFT SKETCHED BLACK STAR -->
       <div class="drag-item pointer-events-auto"
            style="left: 2.85%; top: 45.31%; width: 11.32%; z-index: 21;"
            title="Drag me! ★">
         <img src="stickers/canva_star_left.png" alt="Star Sticker" class="w-full h-auto block drop-shadow-md pointer-events-none">
       </div>
 
-      <!-- 11. STAR SOCKS & MARY JANE SHOES -->
+      <!-- 12. STAR SOCKS & MARY JANE SHOES -->
       <div class="drag-item pointer-events-auto"
            style="left: 0%; top: 61.05%; width: 22.47%; z-index: 22;"
            title="Drag me! 👞">
         <img src="stickers/canva_shoes.png" alt="Star Socks and Mary Jane Shoes Sticker" class="w-full h-auto block drop-shadow-xl pointer-events-none">
       </div>
 
-      <!-- 12. PEEKING HAND EYES FRAMER -->
+      <!-- 13. PEEKING HAND EYES FRAMER -->
       <div class="drag-item pointer-events-auto"
            style="left: 22.95%; top: 72.84%; width: 6.74%; z-index: 23;"
            title="Drag me! 👀">
@@ -1278,8 +1307,7 @@
             <button type="button" onclick="switchStickerSpread(1)" id="sb-tab-1" class="sb-tab-btn" title="Spread 2: Magic & Doodles">✨ magic</button>
             <button type="button" onclick="switchStickerSpread(2)" id="sb-tab-2" class="sb-tab-btn" title="Spread 3: Garden Bugs & Vinyl">🦋 bugs</button>
             <button type="button" onclick="switchStickerSpread(3)" id="sb-tab-3" class="sb-tab-btn" title="Spread 4: Clear Face Stickers">😊 faces</button>
-            <button type="button" onclick="switchStickerSpread(4)" id="sb-tab-4" class="sb-tab-btn" title="Spread 5: Letters & Alphabet Cutouts">🔤 abc</button>
-            <button type="button" onclick="switchStickerSpread(5)" id="sb-tab-5" class="sb-tab-btn" title="Spread 6: Cute Washi Tape">🎀 tape</button>
+            <button type="button" onclick="switchStickerSpread(4)" id="sb-tab-4" class="sb-tab-btn" title="Spread 5: Cute Washi Tape">🎀 tape</button>
           </div>
           <div class="flex items-center gap-1 flex-shrink-0">
             <button type="button" id="sb-trash-tab" class="sb-tab-btn sb-trash-dropzone" title="Drag any sticker here to delete it!">🗑️</button>
@@ -1364,11 +1392,23 @@
       </div>
     </div>
     
-    <!-- COFFEE TABLE BOOKS SHELF -->
-    <section class="max-w-[1400px] mx-auto pt-6 pb-10 px-3 sm:px-6 md:px-8">
+    <!-- COFFEE TABLE BOOKS SHELF (WITH EASY LEFT/RIGHT SCROLL ARROWS & DRAG-TO-SCROLL) -->
+    <section class="max-w-[1400px] mx-auto pt-6 pb-10 px-2 sm:px-6 md:px-8 relative">
+      <!-- Left Shelf Scroll Button -->
+      <button type="button" onclick="scrollBooksShelf(-1)" aria-label="Scroll books left"
+              class="flex items-center justify-center w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-[#1800ad] text-[#fde047] border-2 border-[#fde047] shadow-lg hover:scale-110 active:scale-95 transition-transform absolute left-1.5 sm:left-3 top-1/2 -translate-y-1/2 z-40 font-cute font-bold text-xl">
+        ‹
+      </button>
+
       <div id="books-shelf" class="book-shelf">
         <!-- Dynamically populated cute sticker-decorated books -->
       </div>
+
+      <!-- Right Shelf Scroll Button -->
+      <button type="button" onclick="scrollBooksShelf(1)" aria-label="Scroll books right"
+              class="flex items-center justify-center w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-[#1800ad] text-[#fde047] border-2 border-[#fde047] shadow-lg hover:scale-110 active:scale-95 transition-transform absolute right-1.5 sm:right-3 top-1/2 -translate-y-1/2 z-40 font-cute font-bold text-xl">
+        ›
+      </button>
     </section>
 
     <!-- Hidden legacy container for compatibility -->
@@ -1552,48 +1592,41 @@
        4. CLIENT JAVASCRIPT
        ============================================================= -->
   <script>
-    // ALL MASTER PHOTOGRAPHS
+    // ALL MASTER PHOTOGRAPHS (SORTED BY PROJECT FOLDER)
     const ALL_PHOTOS = [
-      // MISCELLANEOUS (21 URBAN OBSERVATIONS — until sorted into new project folders)
-      { src: 'photos/ass1/img_0007.jpg', title: 'Dundas Station', info: '1/125s • f/4.0 • 35mm Film', book: 'miscellaneous' },
-      { src: 'photos/ass1/img_0023.jpg', title: 'Queen West Window', info: '1/250s • f/2.8 • 35mm Film', book: 'miscellaneous' },
-      { src: 'photos/ass1/img_0027.jpg', title: 'Queen East Corridor', info: '1/200s • f/3.5 • 35mm Film', book: 'miscellaneous' },
-      { src: 'photos/ass1/img_0046.jpg', title: '504 King Streetcar', info: '1/250s • f/2.0 • 35mm Film', book: 'miscellaneous' },
-      { src: 'photos/ass1/img_0052.jpg', title: 'Catenary Wire Intersect', info: '1/500s • f/4.0 • 35mm Film', book: 'miscellaneous' },
-      { src: 'photos/ass1/img_0053.jpg', title: 'Railway Underpass', info: '1/320s • f/5.6 • 35mm Film', book: 'miscellaneous' },
-      { src: 'photos/ass1/img_0062.jpg', title: 'Transit Shelter', info: '1/160s • f/2.8 • 35mm Film', book: 'miscellaneous' },
-      { src: 'photos/ass1/img_0095.jpg', title: 'Yonge Marquee Reflection', info: '1/250s • f/4.0 • 35mm Film', book: 'miscellaneous' },
-      { src: 'photos/ass1/img_0103.jpg', title: 'King & Spadina Rails', info: '1/500s • f/5.6 • 35mm Film', book: 'miscellaneous' },
-      { src: 'photos/ass1/img_0108.jpg', title: 'Dundas Station Concourse', info: '1/200s • f/2.8 • 35mm Film', book: 'miscellaneous' },
-      { src: 'photos/ass1/img_0118.jpg', title: 'Evening Reflection', info: '1/60s • f/2.8 • 35mm Film', book: 'miscellaneous' },
-      { src: 'photos/ass1/img_0119.jpg', title: 'Broadview Loop Curve', info: '1/125s • f/4.0 • 35mm Film', book: 'miscellaneous' },
-      { src: 'photos/ass1/img_0124.jpg', title: 'Cast Iron Pole & Rivets', info: '1/250s • f/5.6 • 35mm Film', book: 'miscellaneous' },
-      { src: 'photos/ass1/img_0143.jpg', title: 'Queen West Twilight', info: '1/80s • f/2.8 • 35mm Film', book: 'miscellaneous' },
-      { src: 'photos/ass1/img_0146.jpg', title: 'Spadina Median Island', info: '1/160s • f/4.0 • 35mm Film', book: 'miscellaneous' },
-      { src: 'photos/ass1/img_0163.jpg', title: 'Underpass Silhouette', info: '1/200s • f/2.8 • 35mm Film', book: 'miscellaneous' },
-      { src: 'photos/ass1/img_0164.jpg', title: 'Subway Stairwell', info: '1/250s • f/3.5 • 35mm Film', book: 'miscellaneous' },
-      { src: 'photos/ass1/img_0178.jpg', title: 'Streetcar Pantograph', info: '1/125s • f/4.0 • 35mm Film', book: 'miscellaneous' },
-      { src: 'photos/ass1/img_0212.jpg', title: 'Yonge Façade Grid', info: '1/400s • f/5.6 • 35mm Film', book: 'miscellaneous' },
-      { src: 'photos/ass1/img_0239.jpg', title: 'Street Asphalt Crease', info: '1/320s • f/4.0 • 35mm Film', book: 'miscellaneous' },
-      { src: 'photos/ass1/img_0258.jpg', title: 'Broadview Terminal', info: '1/100s • f/2.8 • 35mm Film', book: 'miscellaneous' },
+      // 1. GENERAL OR SPOT NEWS (4 PHOTOS)
+      { src: 'photos/General or Spot News/MOR_TWO_1.JPG.jpg', title: 'Spot News 01', info: 'General or Spot News', book: 'general_spot_news' },
+      { src: 'photos/General or Spot News/MOR_TWO_2.JPG.jpg', title: 'Spot News 02', info: 'General or Spot News', book: 'general_spot_news' },
+      { src: 'photos/General or Spot News/MOR_TWO_3.JPG.jpg', title: 'Spot News 03', info: 'General or Spot News', book: 'general_spot_news' },
+      { src: 'photos/General or Spot News/MOR_TWO_4.JPG.JPG', title: 'Spot News 04', info: 'General or Spot News', book: 'general_spot_news' },
 
-      // GENERAL OR SPOT NEWS (13 AUTUMN SERIES / GENERAL SPOT NEWS)
-      { src: 'photos/autumn/MOR_FIVE_1.jpg', title: 'Porch Threshold', info: 'General or Spot News • 35mm Film', book: 'general_spot_news' },
-      { src: 'photos/autumn/MOR_FIVE_2.jpg', title: 'Frost Gourd', info: 'General or Spot News • 35mm Film', book: 'general_spot_news' },
-      { src: 'photos/autumn/MOR_FIVE_3.jpg', title: 'Garden Fence Line', info: 'General or Spot News • 35mm Film', book: 'general_spot_news' },
-      { src: 'photos/autumn/MOR_FIVE_4.jpg', title: 'Lawn Salvage', info: 'General or Spot News • 35mm Film', book: 'general_spot_news' },
-      { src: 'photos/autumn/MOR_FIVE_5.jpg', title: 'Laneway Leaves', info: 'General or Spot News • 35mm Film', book: 'general_spot_news' },
-      { src: 'photos/autumn/MOR_FIVE_6.jpg', title: 'Porch Steps', info: 'General or Spot News • 35mm Film', book: 'general_spot_news' },
-      { src: 'photos/autumn/MOR_FIVE_7.jpg', title: 'Maple Canopy', info: 'General or Spot News • 35mm Film', book: 'general_spot_news' },
-      { src: 'photos/autumn/MOR_FIVE_8.jpg', title: 'Weathered Siding', info: 'General or Spot News • 35mm Film', book: 'general_spot_news' },
-      { src: 'photos/autumn/MOR_FIVE_9.jpg', title: 'Sidewalk Curb', info: 'General or Spot News • 35mm Film', book: 'general_spot_news' },
-      { src: 'photos/autumn/MOR_FIVE_10.jpg', title: 'Overgrowth Pruning', info: 'General or Spot News • 35mm Film', book: 'general_spot_news' },
-      { src: 'photos/autumn/MOR_FIVE_11.jpg', title: 'Victorian Exterior', info: 'General or Spot News • 35mm Film', book: 'general_spot_news' },
-      { src: 'photos/autumn/MOR_FIVE_12.jpg', title: 'Autumn Street', info: 'General or Spot News • 35mm Film', book: 'general_spot_news' },
-      { src: 'photos/autumn/MOR_FIVE_13.jpg', title: 'Curbside Leaves', info: 'General or Spot News • 35mm Film', book: 'general_spot_news' }
+      // 2. SPORTS (3 PHOTOS)
+      { src: 'photos/Sports/MOR_THREE_1.JPEG', title: 'Sports 01', info: 'Sports', book: 'sports' },
+      { src: 'photos/Sports/MOR_THREE_2.JPEG', title: 'Sports 02', info: 'Sports', book: 'sports' },
+      { src: 'photos/Sports/MOR_THREE_3.JPEG', title: 'Sports 03', info: 'Sports', book: 'sports' },
+
+      // 3. PHOTO ESSAY (13 PHOTOS)
+      { src: 'photos/Photo Essay/MOR_FIVE_1.jpg', title: 'Photo Essay 01', info: 'Photo Essay', book: 'photo_essay' },
+      { src: 'photos/Photo Essay/MOR_FIVE_2.jpg', title: 'Photo Essay 02', info: 'Photo Essay', book: 'photo_essay' },
+      { src: 'photos/Photo Essay/MOR_FIVE_3.jpg', title: 'Photo Essay 03', info: 'Photo Essay', book: 'photo_essay' },
+      { src: 'photos/Photo Essay/MOR_FIVE_4.jpg', title: 'Photo Essay 04', info: 'Photo Essay', book: 'photo_essay' },
+      { src: 'photos/Photo Essay/MOR_FIVE_5.jpg', title: 'Photo Essay 05', info: 'Photo Essay', book: 'photo_essay' },
+      { src: 'photos/Photo Essay/MOR_FIVE_6.jpg', title: 'Photo Essay 06', info: 'Photo Essay', book: 'photo_essay' },
+      { src: 'photos/Photo Essay/MOR_FIVE_7.jpg', title: 'Photo Essay 07', info: 'Photo Essay', book: 'photo_essay' },
+      { src: 'photos/Photo Essay/MOR_FIVE_8.jpg', title: 'Photo Essay 08', info: 'Photo Essay', book: 'photo_essay' },
+      { src: 'photos/Photo Essay/MOR_FIVE_9.jpg', title: 'Photo Essay 09', info: 'Photo Essay', book: 'photo_essay' },
+      { src: 'photos/Photo Essay/MOR_FIVE_10.jpg', title: 'Photo Essay 10', info: 'Photo Essay', book: 'photo_essay' },
+      { src: 'photos/Photo Essay/MOR_FIVE_11.jpg', title: 'Photo Essay 11', info: 'Photo Essay', book: 'photo_essay' },
+      { src: 'photos/Photo Essay/MOR_FIVE_12.jpg', title: 'Photo Essay 12', info: 'Photo Essay', book: 'photo_essay' },
+      { src: 'photos/Photo Essay/MOR_FIVE_13.jpg', title: 'Photo Essay 13', info: 'Photo Essay', book: 'photo_essay' },
+
+      // 4. MISCELLANEOUS (3 PHOTOS)
+      { src: 'photos/Miscellaneous/IMG_0052.JPG', title: 'Miscellaneous 01', info: 'Miscellaneous', book: 'miscellaneous' },
+      { src: 'photos/Miscellaneous/IMG_0380.JPG', title: 'Miscellaneous 02', info: 'Miscellaneous', book: 'miscellaneous' },
+      { src: 'photos/Miscellaneous/IMG_0915.JPG', title: 'Miscellaneous 03', info: 'Miscellaneous', book: 'miscellaneous' }
     ];
 
-    // COFFEE TABLE BOOKS CATALOG (CUTE STICKER-DECORATED COLOUR THEME STORY)
+    // COFFEE TABLE BOOKS CATALOG (UNIFIED CUTE STICKER-DECORATED COVER STYLE & ROUNDED PILL BUBBLES)
     const BOOKS = [
       {
         id: 'sticker_book',
@@ -1612,7 +1645,7 @@
       {
         id: 'general_spot_news',
         folder: 'photos/General or Spot News',
-        cover: 'photos/autumn/MOR_FIVE_1.jpg',
+        cover: 'photos/General or Spot News/MOR_TWO_1.JPG.jpg',
         isUpcoming: false,
         title: 'General or Spot News',
         badge: '🗞️ spot news',
@@ -1622,15 +1655,15 @@
         borderCol: '#fecaca',
         topLeftSticker: 'stickers/sb_black_cat.png',
         topRightSticker: 'stickers/sb_yellow_starburst.png',
-        bottomSticker: 'stickers/canva_shoes.png',
         centerSticker: 'stickers/canva_camera.png'
       },
       {
         id: 'sports',
         folder: 'photos/Sports',
+        cover: 'photos/Sports/MOR_THREE_1.JPEG',
         title: 'Sports',
         badge: '⚡ sports',
-        isUpcoming: true,
+        isUpcoming: false,
         themeColor: '#16a34a',
         coverBg: 'linear-gradient(145deg, #22c55e 0%, #15803d 100%)',
         innerBg: '#16a34a',
@@ -1642,9 +1675,10 @@
       {
         id: 'photo_essay',
         folder: 'photos/Photo Essay',
+        cover: 'photos/Photo Essay/MOR_FIVE_1.jpg',
         title: 'Photo Essay',
         badge: '📖 photo essay',
-        isUpcoming: true,
+        isUpcoming: false,
         themeColor: '#db2777',
         coverBg: 'linear-gradient(145deg, #ec4899 0%, #be185d 100%)',
         innerBg: '#db2777',
@@ -1698,18 +1732,31 @@
       {
         id: 'miscellaneous',
         folder: 'photos/Miscellaneous',
-        cover: 'photos/ass1/img_0023.jpg',
+        cover: 'photos/Miscellaneous/IMG_0052.JPG',
         isUpcoming: false,
         title: 'Miscellaneous',
-        badge: '🎞️ miscellaneous',
+        badge: '🎞️ misc',
         themeColor: '#2563eb',
         coverBg: 'linear-gradient(145deg, #3b82f6 0%, #1d4ed8 100%)',
         innerBg: '#2563eb',
         borderCol: '#bfdbfe',
         topLeftSticker: 'stickers/canva_camera.png',
         topRightSticker: 'stickers/sb_twin_stars.png',
-        bottomSticker: 'stickers/sb_star_ladybug.png',
         centerSticker: 'stickers/sb_star_ladybug.png'
+      },
+      {
+        id: 'profile',
+        folder: 'photos/Profile',
+        title: 'Profile',
+        badge: '🪪 profile',
+        isUpcoming: true,
+        themeColor: '#ea580c',
+        coverBg: 'linear-gradient(145deg, #f97316 0%, #c2410c 100%)',
+        innerBg: '#ea580c',
+        borderCol: '#fed7aa',
+        topLeftSticker: 'stickers/sb_twin_stars.png',
+        topRightSticker: 'stickers/sb_clay_star.png',
+        centerSticker: 'stickers/gilbert_head_sticker.png'
       }
     ];
 
@@ -1719,7 +1766,47 @@
     let isPhotoBookOpen = false;
     let currentPhotoSpreadIdx = 0;
 
-    // RENDER COFFEE TABLE BOOKS (CUTE STICKER-DECORATED COLOUR STORY)
+    function scrollBooksShelf(dir) {
+      const shelf = document.getElementById('books-shelf');
+      if (!shelf) return;
+      shelf.scrollBy({ left: dir * 270, behavior: 'smooth' });
+      playSparkleNote(dir > 0 ? 1975.53 : 1567.98, 0.022, 0.14);
+    }
+
+    // Smooth mouse/pointer drag-to-scroll on the books shelf
+    let booksShelfDragged = false;
+    (function initBooksShelfDragScroll() {
+      const shelf = document.getElementById('books-shelf');
+      if (!shelf) return;
+      let isDown = false;
+      let startX = 0;
+      let scrollLeft = 0;
+
+      shelf.addEventListener('pointerdown', (e) => {
+        if (e.pointerType === 'touch') return; // let native touch momentum handle touch
+        isDown = true;
+        booksShelfDragged = false;
+        startX = e.pageX - shelf.offsetLeft;
+        scrollLeft = shelf.scrollLeft;
+      });
+
+      window.addEventListener('pointermove', (e) => {
+        if (!isDown) return;
+        const x = e.pageX - shelf.offsetLeft;
+        const walk = (x - startX) * 1.4;
+        if (Math.abs(walk) > 6) {
+          booksShelfDragged = true;
+          shelf.scrollLeft = scrollLeft - walk;
+        }
+      });
+
+      window.addEventListener('pointerup', () => {
+        isDown = false;
+        setTimeout(() => { booksShelfDragged = false; }, 60);
+      });
+    })();
+
+    // RENDER COFFEE TABLE BOOKS (100% CONSISTENT ROUNDED EDGES, STICKER ART & CENTERED BUBBLE PILLS!)
     function renderBooks() {
       const shelf = document.getElementById('books-shelf');
       shelf.innerHTML = '';
@@ -1735,40 +1822,25 @@
         hardcover.className = 'book-hardcover';
         hardcover.style.background = b.coverBg;
         hardcover.style.border = `1.5px solid ${b.borderCol || 'rgba(255,255,255,0.4)'}`;
-        hardcover.title = `${b.badge} — Click to open book!`;
+        hardcover.title = `${b.title || b.badge} — Click to open book!`;
 
-        if (b.cover) {
-          // Active Photo Book Cover: Mini Polaroid Frame + Little Stickers + Title Sticker Pill
-          hardcover.innerHTML = `
-            <div class="w-full h-full relative flex flex-col items-center justify-between overflow-hidden rounded-sm border border-white/30 p-1.5 select-none" style="background: ${b.innerBg};">
-              <div class="w-full flex justify-between items-start z-20 pointer-events-none">
-                <img src="${b.topLeftSticker}" alt="" class="w-6 h-6 sm:w-7 sm:h-7 object-contain rotate-[-12deg] drop-shadow">
-                <img src="${b.topRightSticker}" alt="" class="w-6 h-6 sm:w-7 sm:h-7 object-contain rotate-[14deg] drop-shadow">
-              </div>
-              <div class="relative z-10 w-[84%] h-[56%] bg-white p-1 pb-2.5 rounded-[2px] shadow-md rotate-[-2deg] flex items-center justify-center -my-1">
-                <img src="${b.cover}" alt="${b.title || ''}" class="w-full h-full object-cover rounded-[1px]">
-                ${b.bottomSticker ? `<img src="${b.bottomSticker}" alt="" class="w-6 h-6 object-contain absolute -bottom-2 -right-2 rotate-[10deg] drop-shadow">` : ''}
-              </div>
-              <span class="relative z-20 bg-[#faf7f0] font-cute font-bold text-xs sm:text-sm leading-none px-2 py-0.5 rounded-full shadow border border-stone-300 whitespace-nowrap" style="color: ${b.themeColor};">${b.badge}</span>
+        // Unified Sticker-Book Cover Design for ALL books:
+        // Soft rounded inner card, two corner stickers, cute center sticker, and centered rounded bubble title pill!
+        hardcover.innerHTML = `
+          <div class="w-full h-full relative flex flex-col items-center justify-between overflow-hidden rounded-xl border border-white/35 p-1.5 select-none shadow-inner" style="background: ${b.innerBg};">
+            <div class="w-full flex justify-between items-start z-20 pointer-events-none">
+              <img src="${b.topLeftSticker}" alt="" class="w-6 h-6 sm:w-7 sm:h-7 object-contain rotate-[-14deg] drop-shadow">
+              <img src="${b.topRightSticker}" alt="" class="w-6 h-6 sm:w-7 sm:h-7 object-contain rotate-[12deg] drop-shadow">
             </div>
-          `;
-        } else {
-          // Sticker Book or Upcoming Series Book: Cute Stickers + Title Sticker Pill
-          hardcover.innerHTML = `
-            <div class="w-full h-full relative flex flex-col items-center justify-between overflow-hidden rounded-sm border border-white/30 p-1.5 select-none" style="background: ${b.innerBg};">
-              <div class="w-full flex justify-between items-start z-20 pointer-events-none">
-                <img src="${b.topLeftSticker}" alt="" class="w-6 h-6 sm:w-7 sm:h-7 object-contain rotate-[-14deg] drop-shadow">
-                <img src="${b.topRightSticker}" alt="" class="w-6 h-6 sm:w-7 sm:h-7 object-contain rotate-[12deg] drop-shadow">
-              </div>
-              <img src="${b.centerSticker}" alt="" class="w-12 h-14 sm:w-14 sm:h-16 object-contain relative z-10 drop-shadow-lg -my-1">
-              <span class="relative z-20 bg-[#faf7f0] font-cute font-bold text-xs sm:text-sm leading-none px-2 py-0.5 rounded-full shadow border border-stone-300 whitespace-nowrap" style="color: ${b.themeColor};">${b.badge}</span>
-            </div>
-          `;
-        }
+            <img src="${b.centerSticker}" alt="" class="w-12 h-14 sm:w-14 sm:h-16 object-contain relative z-10 drop-shadow-lg -my-1 pointer-events-none">
+            <span class="relative z-20 w-[94%] bg-[#faf7f0] font-cute font-bold text-[12px] sm:text-[13px] leading-none py-1 px-1.5 rounded-full shadow-md border border-stone-300 text-center flex items-center justify-center whitespace-nowrap overflow-hidden text-ellipsis" style="color: ${b.themeColor};">${b.badge}</span>
+          </div>
+        `;
 
         item.appendChild(hardcover);
 
         item.addEventListener('click', () => {
+          if (booksShelfDragged) return;
           if (b.isStickerBook) {
             toggleStickerBook();
             return;
@@ -2710,8 +2782,7 @@
           { src: 'stickers/sb_dachshund.png', widthPct: 13.5, rot: -3, label: 'Dachshund Pup 🐶' },
           { src: 'stickers/sb_mouse.png', widthPct: 10.5, rot: 5, label: 'Heart Sweater Mouse 🐭' },
           { src: 'stickers/sb_blue_bird.png', widthPct: 11.0, rot: -4, label: 'Blue Floral Bird 🐦' },
-          { src: 'stickers/sb_clay_star.png', widthPct: 8.5, rot: 6, label: 'Happy Clay Star ⭐' },
-          { src: 'stickers/sb_bead_a.png', widthPct: 7.5, rot: -5, label: 'Letter A Bead 🅰️' }
+          { src: 'stickers/sb_clay_star.png', widthPct: 8.5, rot: 6, label: 'Happy Clay Star ⭐' }
         ]
       },
       // SPREAD 1: MAGIC, STARS & DOODLES (12 STICKERS: 6 LEFT, 6 RIGHT)
@@ -2752,63 +2823,22 @@
           { src: 'stickers/canva_gecko.png', widthPct: 12.5, rot: 4, label: 'Green & Orange Gecko 🦎' }
         ]
       },
-      // SPREAD 3: CLEAR FACE STICKERS (12 STICKERS: 6 LEFT, 6 RIGHT)
+      // SPREAD 3: CLEAR FACE STICKERS (8 STICKERS: 4 LEFT, 4 RIGHT)
       {
         left: [
           { src: 'stickers/sb_face_wink.png', widthPct: 9.5, rot: -4, label: 'Sunny Balcony Wink 😉' },
           { src: 'stickers/sb_face_laugh.png', widthPct: 9.5, rot: 5, label: 'Big Laugh Cutout 😄' },
           { src: 'stickers/sb_face_portrait.png', widthPct: 9.5, rot: -3, label: '35mm Portrait Face ✨' },
-          { src: 'stickers/sb_face_bday_1.png', widthPct: 9.0, rot: 4, label: 'Birthday Smile 1 🎂' },
-          { src: 'stickers/sb_face_bday_2.png', widthPct: 9.0, rot: -5, label: 'Birthday Smile 2 🎉' },
-          { src: 'stickers/sb_face_bday_3.png', widthPct: 9.0, rot: 3, label: 'Birthday Smile 3 🥳' }
+          { src: 'stickers/sb_face_couch_1.png', widthPct: 9.0, rot: 4, label: 'Sunnies Smile 1 😎' }
         ],
         right: [
-          { src: 'stickers/sb_face_couch_1.png', widthPct: 9.0, rot: 4, label: 'Sunnies Smile 1 😎' },
           { src: 'stickers/sb_face_couch_2.png', widthPct: 9.0, rot: -4, label: 'Sunnies Smile 2 😎' },
           { src: 'stickers/sb_face_hug_1.png', widthPct: 9.0, rot: 5, label: 'Couch Hug Smile 1 💛' },
           { src: 'stickers/sb_face_hug_2.png', widthPct: 9.0, rot: -3, label: 'Couch Hug Smile 2 💛' },
-          { src: 'stickers/sb_face_wine.png', widthPct: 9.0, rot: 4, label: 'Golden Hour Sip 🥂' },
           { src: 'stickers/sb_face_gilbert_closeup.png', widthPct: 9.5, rot: -4, label: 'Gilbert Face Closeup 🐾' }
         ]
       },
-      // SPREAD 4: LETTERS, PATCHES & RANSOM ALPHABET CUTOUTS
-      {
-        left: [
-          { src: 'stickers/sb_patch_a_floral.png', widthPct: 8.5, rot: -4, label: 'Floral Embroidered A 🌸' },
-          { src: 'stickers/sb_patch_a_denim.png', widthPct: 8.5, rot: 4, label: 'Denim Patch A 👖' },
-          { src: 'stickers/sb_patch_a_crown.png', widthPct: 8.5, rot: -3, label: 'Pink Crown A 👑' },
-          { src: 'stickers/sb_patch_a_rainbow.png', widthPct: 8.5, rot: 5, label: 'Rainbow Stripes A 🌈' },
-          { src: 'stickers/sb_patch_a_roses.png', widthPct: 8.5, rot: -5, label: 'Roses Patch A 🌹' },
-          { src: 'stickers/sb_patch_a_star.png', widthPct: 8.5, rot: 3, label: 'Star Polka Patch A ⭐' },
-          { src: 'stickers/sb_letter_a.png', widthPct: 6.2, rot: -4, label: 'Ransom Letter A' },
-          { src: 'stickers/sb_letter_b.png', widthPct: 6.2, rot: 4, label: 'Ransom Letter B' },
-          { src: 'stickers/sb_letter_c.png', widthPct: 6.2, rot: -3, label: 'Ransom Letter C' },
-          { src: 'stickers/sb_letter_d.png', widthPct: 6.2, rot: 5, label: 'Ransom Letter D' },
-          { src: 'stickers/sb_letter_e.png', widthPct: 6.2, rot: -4, label: 'Ransom Letter E' },
-          { src: 'stickers/sb_letter_f.png', widthPct: 6.2, rot: 3, label: 'Ransom Letter F' },
-          { src: 'stickers/sb_letter_g.png', widthPct: 6.2, rot: -5, label: 'Ransom Letter G' },
-          { src: 'stickers/sb_letter_h.png', widthPct: 6.2, rot: 4, label: 'Ransom Letter H' },
-          { src: 'stickers/sb_letter_i.png', widthPct: 5.8, rot: -3, label: 'Ransom Letter I' }
-        ],
-        right: [
-          { src: 'stickers/sb_letter_j.png', widthPct: 6.0, rot: 4, label: 'Ransom Letter J' },
-          { src: 'stickers/sb_letter_k.png', widthPct: 6.2, rot: -4, label: 'Ransom Letter K' },
-          { src: 'stickers/sb_letter_l.png', widthPct: 6.2, rot: 5, label: 'Ransom Letter L' },
-          { src: 'stickers/sb_letter_m.png', widthPct: 6.5, rot: -3, label: 'Ransom Letter M' },
-          { src: 'stickers/sb_letter_n.png', widthPct: 6.4, rot: 4, label: 'Ransom Letter N' },
-          { src: 'stickers/sb_letter_o.png', widthPct: 6.2, rot: -4, label: 'Ransom Letter O' },
-          { src: 'stickers/sb_letter_p.png', widthPct: 6.2, rot: 5, label: 'Ransom Letter P' },
-          { src: 'stickers/sb_letter_r.png', widthPct: 6.2, rot: -4, label: 'Ransom Letter R' },
-          { src: 'stickers/sb_letter_s.png', widthPct: 6.2, rot: 4, label: 'Ransom Letter S' },
-          { src: 'stickers/sb_letter_t.png', widthPct: 6.2, rot: -3, label: 'Ransom Letter T' },
-          { src: 'stickers/sb_letter_u.png', widthPct: 6.2, rot: 4, label: 'Ransom Letter U' },
-          { src: 'stickers/sb_letter_v.png', widthPct: 6.2, rot: -5, label: 'Ransom Letter V' },
-          { src: 'stickers/sb_letter_y.png', widthPct: 6.2, rot: 3, label: 'Ransom Letter Y' },
-          { src: 'stickers/sb_letter_z.png', widthPct: 6.2, rot: -4, label: 'Ransom Letter Z' },
-          { src: 'stickers/canva_abi.png', widthPct: 8.5, rot: 4, label: 'ABi Cutout Letters ✨' }
-        ]
-      },
-      // SPREAD 5: CUTE WASHI TAPE STRIPS
+      // SPREAD 4: CUTE WASHI TAPE STRIPS
       {
         left: [
           { src: 'stickers/washi_pink_dots.png', widthPct: 13.5, rot: -4, label: 'Pink Polka-Dot Washi Tape 🎀' },
@@ -2865,7 +2895,7 @@
 
     function switchStickerSpread(spreadIdx) {
       activeStickerSpread = spreadIdx;
-      ['all', 0, 1, 2, 3, 4, 5].forEach((i) => {
+      ['all', 0, 1, 2, 3, 4].forEach((i) => {
         const btn = document.getElementById(`sb-tab-${i}`);
         if (btn) btn.classList.toggle('is-active', i === spreadIdx);
       });
@@ -2882,7 +2912,7 @@
       rightPage.innerHTML = '';
 
       if (spreadIdx === 'all') {
-        [0, 1, 2, 3, 4, 5].forEach((idx) => {
+        [0, 1, 2, 3, 4].forEach((idx) => {
           const sp = STICKER_BOOK_SPREADS[idx];
           if (sp) {
             sp.left.forEach((st) => leftPage.appendChild(createStickerBookSlot(st)));
