@@ -851,12 +851,20 @@
     }
 
     /* Page tab buttons on top edge of Sticker Book */
+    .sb-tabs-row {
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+    }
+    .sb-tabs-row::-webkit-scrollbar {
+      display: none;
+    }
+
     .sb-tab-btn {
       font-family: 'Gaegu', 'Fredoka', 'Covered By Your Grace', cursive;
-      font-size: 0.92rem;
+      font-size: 0.86rem;
       font-weight: 700;
-      height: 31px;
-      padding: 0 7px;
+      height: 29px;
+      padding: 0 5px;
       border-radius: 10px 10px 0 0;
       display: inline-flex;
       align-items: center;
@@ -1299,9 +1307,9 @@
         <!-- 3D Swinging Cover Flap on Open -->
         <div id="sticker-book-cover-flap" class="sticker-book-cover-flap"></div>
 
-        <!-- Top Page Tabs & Controls (Cute Handwritten Font) -->
-        <div class="flex items-center justify-between pl-14 sm:pl-24 pr-1.5 pb-1.5 select-none gap-1">
-          <div class="flex items-center gap-1 overflow-x-auto">
+        <!-- Top Page Tabs & Controls (Cute Handwritten Font — Fits cleanly with zero scrollbar) -->
+        <div class="flex items-center justify-between pl-14 sm:pl-20 pr-1 pb-1.5 select-none gap-1">
+          <div class="sb-tabs-row flex items-center gap-1 flex-1 min-w-0 overflow-hidden">
             <button type="button" onclick="switchStickerSpread('all')" id="sb-tab-all" class="sb-tab-btn is-active" title="All Stickers (Scrollable!)">✦ all</button>
             <button type="button" onclick="switchStickerSpread(0)" id="sb-tab-0" class="sb-tab-btn" title="Spread 1: Cats & Friends">🐾 pals</button>
             <button type="button" onclick="switchStickerSpread(1)" id="sb-tab-1" class="sb-tab-btn" title="Spread 2: Magic & Doodles">✨ magic</button>
