@@ -132,7 +132,10 @@
     }
 
     html, body {
-      background-color: #faf8f5;
+      background-color: #f8f4e9;
+      min-height: 100dvh;
+      display: flex;
+      flex-direction: column;
       color: var(--ink-charcoal);
       font-family: 'Newsreader', Georgia, serif;
       overflow-x: hidden;
@@ -229,7 +232,7 @@
       }
     }
 
-    /* Smooth Layered Physical Sketchbook Paper Sheet (Taped onto the Blue!) */
+    /* Hand-Torn Deckle Sketchbook Paper Edge at the Top of the Paper Sheet */
     .torn-paper-edge {
       display: none;
     }
@@ -237,48 +240,65 @@
     .tactile-paper-sheet {
       position: relative;
       z-index: 25;
-      margin-top: -14px;
-      background-color: #faf6ec;
+      flex: 1 1 auto;
+      display: flex;
+      flex-direction: column;
+      margin-top: -2px;
+      background-color: #f8f4e9;
       background-image:
-        radial-gradient(rgba(120, 105, 82, 0.16) 1.15px, transparent 1.15px),
+        radial-gradient(rgba(115, 98, 72, 0.16) 1.1px, transparent 1.1px),
+        radial-gradient(rgba(140, 120, 90, 0.10) 0.9px, transparent 0.9px),
         repeating-linear-gradient(
           0deg,
           transparent 0px,
-          transparent 27px,
-          rgba(168, 154, 130, 0.12) 27px,
-          rgba(168, 154, 130, 0.12) 28px
+          transparent 31px,
+          rgba(165, 148, 120, 0.14) 31px,
+          rgba(165, 148, 120, 0.14) 32px
         ),
         linear-gradient(
           180deg,
-          #fffdf7 0%,
-          #faf6ec 18%,
-          #f5efe0 100%
+          #fffdf8 0%,
+          #f8f4e9 22%,
+          #f2ecdc 100%
         );
-      background-size: 22px 22px, 100% 28px, 100% 100%;
-      border-top: 2px solid #fffefb;
-      border-radius: 14px 14px 0 0;
+      background-size: 20px 20px, 11px 11px, 100% 32px, 100% 100%;
+      background-position: 0 0, 5px 7px, 0 12px, 0 0;
       box-shadow:
-        0 -12px 30px rgba(8, 0, 56, 0.42),
-        0 -3px 8px rgba(0, 0, 0, 0.22),
-        inset 0 3px 0 rgba(255, 255, 255, 0.95),
-        inset 0 0 60px rgba(145, 125, 90, 0.14);
+        0 -14px 28px rgba(6, 0, 48, 0.45),
+        inset 0 0 65px rgba(145, 125, 90, 0.14);
     }
 
-    /* Second slightly crooked stacked paper sheet peeking out underneath the top edge */
+    /* Realistic organic hand-torn sketchbook paper deckle top border */
     .tactile-paper-sheet::before {
       content: "";
       position: absolute;
-      top: -7px;
-      left: 1.2%;
-      right: 1.2%;
-      height: 14px;
-      background: #efe9d8;
-      border-top: 1px solid rgba(255, 255, 255, 0.75);
-      border-radius: 12px 12px 0 0;
-      transform: rotate(-0.35deg);
-      box-shadow: 0 -5px 14px rgba(0, 0, 0, 0.28);
-      z-index: -1;
+      top: -22px;
+      left: 0;
+      right: 0;
+      height: 24px;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 48' preserveAspectRatio='none'%3E%3Cpath fill='%23ded6c3' d='M0,48 L0,18 L24,12 L52,21 L84,10 L118,19 L154,11 L188,20 L224,9 L262,18 L298,12 L336,22 L374,10 L412,19 L450,11 L488,21 L526,9 L564,18 L602,12 L640,21 L678,10 L716,19 L754,11 L792,20 L830,9 L868,18 L906,12 L944,21 L982,10 L1020,19 L1058,11 L1096,20 L1134,9 L1172,18 L1210,12 L1248,22 L1286,10 L1324,19 L1362,11 L1400,20 L1440,13 L1440,48 Z'/%3E%3Cpath fill='%23fffdf8' d='M0,48 L0,24 L22,17 L48,26 L78,15 L112,24 L148,16 L182,25 L218,14 L254,23 L292,17 L328,26 L366,15 L404,24 L442,16 L480,25 L518,14 L556,23 L594,17 L632,26 L670,15 L708,24 L746,16 L784,25 L822,14 L860,23 L898,17 L936,26 L974,15 L1012,24 L1050,16 L1088,25 L1126,14 L1164,23 L1202,17 L1240,26 L1278,15 L1316,24 L1354,16 L1392,25 L1440,18 L1440,48 Z'/%3E%3C/svg%3E");
+      background-size: 100% 100%;
+      background-repeat: no-repeat;
+      filter: drop-shadow(0 -5px 8px rgba(5, 0, 42, 0.42));
       pointer-events: none;
+      z-index: 26;
+    }
+
+    /* Subtle perforated notebook ring holes along the top edge of the paper */
+    .tactile-paper-sheet::after {
+      content: "";
+      position: absolute;
+      top: 6px;
+      left: 16px;
+      right: 16px;
+      height: 12px;
+      background-image: radial-gradient(circle, #1800AD 4.2px, rgba(120, 100, 75, 0.45) 5px, transparent 5.8px);
+      background-size: 38px 12px;
+      background-position: center;
+      background-repeat: repeat-x;
+      opacity: 0.85;
+      pointer-events: none;
+      z-index: 27;
     }
 
     /* -------------------------------------------------------------
@@ -1232,34 +1252,10 @@
        2. COFFEE TABLE BOOKS SHELF & MULTI-COLUMN MASONRY GALLERY
        (TACTILE SKETCHBOOK PAPER SHEET TAPED ONTO THE BLUE WITH WASHI TAPE!)
        ============================================================= -->
-  <main id="white-page-main" class="tactile-paper-sheet w-full relative min-h-[360px]">
+  <main id="white-page-main" class="tactile-paper-sheet w-full relative flex-1 min-h-[360px]">
 
-    <!-- 3 SMALL DELICATE SLICES OF WASHI TAPE OVERLAPPING THE BLUE & PAPER BORDER (DRAGGABLE!) -->
-    <div id="white-page-stickers-layer" class="absolute inset-0 pointer-events-none z-30 overflow-visible">
-      <!-- 1. Small Pink Polka-Dot Washi Tape angled across the top-left corner -->
-      <div class="drag-item pointer-events-auto"
-           data-on-white-page="true"
-           style="left: 6.5%; top: -18px; width: 8.8%; --current-rot: -14deg; z-index: 36;"
-           title="Pink Polka-Dot Washi Tape 🎀 (Drag me!)">
-        <img src="stickers/washi_pink_dots.png" alt="Washi Tape" class="w-full h-auto block drop-shadow-md pointer-events-none">
-      </div>
-
-      <!-- 2. Small Strawberry Jam Washi Tape straddling the center border -->
-      <div class="drag-item pointer-events-auto"
-           data-on-white-page="true"
-           style="left: 46.0%; top: -15px; width: 8.0%; --current-rot: 2.5deg; z-index: 36;"
-           title="Strawberry Jam Washi Tape 🍓 (Drag me!)">
-        <img src="stickers/washi_strawberry_jam.png" alt="Washi Tape" class="w-full h-auto block drop-shadow-md pointer-events-none">
-      </div>
-
-      <!-- 3. Small Green Gingham Washi Tape angled across the top-right corner -->
-      <div class="drag-item pointer-events-auto"
-           data-on-white-page="true"
-           style="left: 84.5%; top: -17px; width: 8.8%; --current-rot: 13deg; z-index: 36;"
-           title="Green Gingham Washi Tape 🌿 (Drag me!)">
-        <img src="stickers/washi_green_gingham.png" alt="Washi Tape" class="w-full h-auto block drop-shadow-md pointer-events-none">
-      </div>
-    </div>
+    <!-- WHITE PAGE STICKERS LAYER (EMPTY BY DEFAULT — WASHI TAPE REMAINS IN STICKER BOOK!) -->
+    <div id="white-page-stickers-layer" class="absolute inset-0 pointer-events-none z-30 overflow-visible"></div>
 
     <!-- 3D ANIMATED STICKER BOOK (OPENS AT BOTTOM-RIGHT • SCROLLABLE, RESIZABLE & PEELABLE) -->
     <div id="sticker-book-stage" class="sticker-book-stage" aria-hidden="true">
@@ -2366,6 +2362,9 @@
     }
 
     function tryAttachStickerToWhitePage(el, cx, cy, dropW, dropH) {
+      // On mobile screens (< 768px), keep stickers on the blue header or open photo book pages only!
+      if (window.innerWidth < 768) return false;
+
       const heroCanvas = document.querySelector('header.hero-blue-canvas');
       const whiteMain = document.getElementById('white-page-main');
       const whiteLayer = document.getElementById('white-page-stickers-layer');
@@ -2433,38 +2432,55 @@
       oscPlunk.stop(plunkStart + 0.19);
     }
 
-    // Soft, gentle, low-volume tactile paper tap (zero harsh white-noise static!)
+    // Cute, crisp tactile sticker peel & stick sound!
     function playStickerTapePeelSound(isStickDown = false) {
       const ctx = getAudioCtx();
       if (!ctx || ctx.state !== 'running') return;
       const now = ctx.currentTime;
 
-      const osc = ctx.createOscillator();
-      const gain = ctx.createGain();
-      osc.type = 'sine';
-
       if (isStickDown) {
-        // Gentle cozy soft paper pat when placing down
-        osc.frequency.setValueAtTime(240, now);
-        osc.frequency.exponentialRampToValueAtTime(115, now + 0.055);
-        gain.gain.setValueAtTime(0.0008, now);
-        gain.gain.linearRampToValueAtTime(0.028, now + 0.008);
-        gain.gain.exponentialRampToValueAtTime(0.0005, now + 0.06);
-        osc.connect(gain);
-        gain.connect(ctx.destination);
-        osc.start(now);
-        osc.stop(now + 0.065);
+        // Satisfying double-pop "plip-pat!" sticker placement sound
+        const osc1 = ctx.createOscillator();
+        const gain1 = ctx.createGain();
+        osc1.type = 'triangle';
+        osc1.frequency.setValueAtTime(370, now);
+        osc1.frequency.exponentialRampToValueAtTime(145, now + 0.065);
+        gain1.gain.setValueAtTime(0.001, now);
+        gain1.gain.linearRampToValueAtTime(0.085, now + 0.008);
+        gain1.gain.exponentialRampToValueAtTime(0.0008, now + 0.07);
+        osc1.connect(gain1);
+        gain1.connect(ctx.destination);
+        osc1.start(now);
+        osc1.stop(now + 0.075);
+
+        // Little high cute "tink!" snap right as the sticker seals down
+        const t2 = now + 0.032;
+        const osc2 = ctx.createOscillator();
+        const gain2 = ctx.createGain();
+        osc2.type = 'sine';
+        osc2.frequency.setValueAtTime(520, t2);
+        osc2.frequency.exponentialRampToValueAtTime(780, t2 + 0.045);
+        gain2.gain.setValueAtTime(0.001, t2);
+        gain2.gain.linearRampToValueAtTime(0.055, t2 + 0.006);
+        gain2.gain.exponentialRampToValueAtTime(0.0008, t2 + 0.05);
+        osc2.connect(gain2);
+        gain2.connect(ctx.destination);
+        osc2.start(t2);
+        osc2.stop(t2 + 0.055);
       } else {
-        // Subtle light lift inflection when picking up
-        osc.frequency.setValueAtTime(190, now);
-        osc.frequency.exponentialRampToValueAtTime(310, now + 0.045);
-        gain.gain.setValueAtTime(0.0008, now);
-        gain.gain.linearRampToValueAtTime(0.022, now + 0.007);
-        gain.gain.exponentialRampToValueAtTime(0.0005, now + 0.05);
-        osc.connect(gain);
-        gain.connect(ctx.destination);
-        osc.start(now);
-        osc.stop(now + 0.055);
+        // Cute upward "zwoop / peel-pop!" when lifting a sticker up
+        const osc1 = ctx.createOscillator();
+        const gain1 = ctx.createGain();
+        osc1.type = 'triangle';
+        osc1.frequency.setValueAtTime(240, now);
+        osc1.frequency.exponentialRampToValueAtTime(590, now + 0.068);
+        gain1.gain.setValueAtTime(0.001, now);
+        gain1.gain.linearRampToValueAtTime(0.075, now + 0.01);
+        gain1.gain.exponentialRampToValueAtTime(0.0008, now + 0.072);
+        osc1.connect(gain1);
+        gain1.connect(ctx.destination);
+        osc1.start(now);
+        osc1.stop(now + 0.078);
       }
     }
 
