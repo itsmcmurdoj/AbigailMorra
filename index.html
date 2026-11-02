@@ -1102,26 +1102,11 @@
       }
     }
 
-    /* Clean, Cozy Cream Dot-Grid Sketchbook Pages */
+    /* Clean container for Abigail's Canva Scrapbook Spreads */
     .zine-scrapbook-pages {
       position: relative;
-      background-color: #fdfbf7;
-      background-image:
-        radial-gradient(#cbd5e1 1.1px, transparent 1.1px),
-        linear-gradient(
-          90deg,
-          rgba(0, 0, 0, 0.03) 0%,
-          rgba(255, 255, 255, 0) 8%,
-          rgba(255, 255, 255, 0) 44%,
-          rgba(28, 25, 23, 0.06) 49.5%,
-          rgba(28, 25, 23, 0.06) 50.5%,
-          rgba(255, 255, 255, 0) 56%,
-          rgba(255, 255, 255, 0) 92%,
-          rgba(0, 0, 0, 0.03) 100%
-        );
-      background-size: 18px 18px, 100% 100%;
-      border-radius: 10px;
-      border: 1px solid #d6d0c2;
+      background-color: #f3ead8;
+      border-radius: 12px;
       overflow: hidden;
     }
 
@@ -1754,292 +1739,56 @@
       </svg>
 
       <div class="zine-scrapbook-spread">
-        <div id="zine-scrapbook-pages-stage" class="zine-scrapbook-pages p-5 sm:p-8 md:p-12 pb-16 sm:pb-20 flex flex-col justify-center relative">
-
-          <!-- Realistic Center Hardcover Book Spine Gutter Crease -->
-          <div class="open-photobook-crease hidden md:block" aria-hidden="true"></div>
+        <div id="zine-scrapbook-pages-stage" class="zine-scrapbook-pages p-0 flex flex-col justify-center relative overflow-hidden rounded-[14px] shadow-2xl">
 
           <div class="zine-spreads-stack">
 
           <!-- =========================================================
-               SPREAD 01 / 03: REAL TMU ONECARD ID + STICKY NOTE + PURE TAPED PHOTOS & ABI'S WORDS
+               SPREAD 01 / 03: ABIGAIL'S CANVA SCRAPBOOK SPREAD 1
                ========================================================= -->
-          <div id="zine-spread-0" class="zine-spread-panel grid grid-cols-1 md:grid-cols-12 gap-7 md:gap-10 items-center relative z-10">
+          <div id="zine-spread-0" class="zine-spread-panel relative w-full aspect-[16/9] select-none z-10">
+            <img src="photos/about me/canva_spread_1.png"
+                 alt="Abigail's About Me Scrapbook Spread 1"
+                 class="w-full h-full object-contain block pointer-events-none">
 
-            <!-- LEFT SCRAPBOOK PAGE: REALISTIC LAMINATED TMU ONECARD STUDENT ID + CRUMPLED STICKY NOTE -->
-            <div class="md:col-span-5 flex flex-col items-center md:items-start gap-7 relative">
+            <!-- Interactive Hotspot: TMU Student ID Portrait -->
+            <div onclick="openLightboxOnPhoto('photos/about me/abi_id_coat.jpg')"
+                 title="Click to view ID photo full size"
+                 class="absolute left-[8.5%] top-[23%] w-[9.8%] h-[23%] cursor-pointer z-20 rounded"></div>
 
-              <!-- 1. REALISTIC PLASTIC LAMINATED TMU ONECARD STUDENT ID (With IMG_1007_id.jpg!) -->
-              <div class="real-tmu-id-card w-full max-w-[355px] overflow-visible select-none relative">
-                <!-- Real Ripped Masking Tape + Washi Strip Holding the Plastic Card to the Page -->
-                <div class="masking-tape-strip w-24 h-6 -top-3 left-7 rotate-[-7deg]"></div>
-                <img src="stickers/washi_bw_dots.png" alt="" class="w-20 h-5 object-cover absolute -top-2.5 right-6 rotate-[9deg] drop-shadow pointer-events-none opacity-90 z-30">
+            <!-- Interactive Hotspot: TMU Student ID Email -->
+            <a href="mailto:abigail.morra@torontomu.ca"
+               onclick="event.stopPropagation()"
+               title="Email abigail.morra@torontomu.ca"
+               class="absolute left-[19%] top-[39%] w-[14%] h-[5.5%] cursor-pointer z-20"></a>
 
-                <!-- Authentic Plastic ID Card Inner Container -->
-                <div class="rounded-[10px] overflow-hidden bg-white">
-                  <!-- Official-Style TMU Royal Blue & Gold Header Band -->
-                  <div class="bg-[#002d72] text-white px-3.5 py-2 flex items-center justify-between border-b-[3px] border-[#ffdc00]">
-                    <div class="flex items-center gap-2">
-                      <div class="w-6 h-6 rounded-[3px] bg-[#ffdc00] text-[#002d72] font-extrabold text-[11px] flex items-center justify-center tracking-tighter leading-none shadow-sm">
-                        TMU
-                      </div>
-                      <div class="leading-tight">
-                        <p class="text-[10px] font-bold tracking-wider uppercase text-white">Toronto Metropolitan</p>
-                        <p class="text-[8.5px] font-semibold tracking-widest uppercase text-[#ffdc00]">University • OneCard</p>
-                      </div>
-                    </div>
-                    <span class="text-[9px] font-bold uppercase tracking-widest px-1.5 py-0.5 rounded bg-white/15 text-white">
-                      STUDENT
-                    </span>
-                  </div>
-
-                  <!-- Plastic Card Body: Real ID Photo + Clean University Typography -->
-                  <div class="p-3.5 flex items-start gap-3.5 bg-gradient-to-br from-white via-[#f8fafc] to-[#eff6ff] relative">
-                    <!-- Real Student ID Portrait Photo (Explicit 88x112px dimensions so it always loads!) -->
-                    <div class="w-[88px] h-[112px] rounded-[4px] bg-stone-200 border border-slate-300 shadow-sm flex-shrink-0 overflow-hidden cursor-pointer relative z-10"
-                         onclick="openLightboxOnPhoto('photos/about me/abi_id_coat.jpg')"
-                         title="Click to view photo">
-                      <img src="photos/about me/abi_id_coat.jpg"
-                           alt="Abigail Morra Student ID"
-                           class="w-full h-full object-cover object-top block">
-                    </div>
-
-                    <!-- Student Details -->
-                    <div class="min-w-0 flex-1 pt-0.5 relative z-10">
-                      <p class="text-[9px] font-bold uppercase tracking-wider text-slate-400 leading-none">Cardholder Name</p>
-                      <h2 class="font-extrabold text-[18px] sm:text-[19px] text-slate-900 tracking-tight leading-tight mt-0.5 truncate">
-                        MORRA, ABIGAIL
-                      </h2>
-
-                      <div class="mt-1.5 space-y-1 text-[11.5px] text-slate-700 leading-tight">
-                        <div>
-                          <span class="text-[8.5px] font-bold uppercase tracking-wider text-slate-400 block">Faculty / Program</span>
-                          <span class="font-semibold text-slate-800">Faculty of Arts • Politics &amp; Governance</span>
-                        </div>
-                        <div>
-                          <span class="text-[8.5px] font-bold uppercase tracking-wider text-slate-400 block">Elective Studio</span>
-                          <span class="font-semibold text-slate-800">Photojournalism</span>
-                        </div>
-                        <div>
-                          <span class="text-[8.5px] font-bold uppercase tracking-wider text-slate-400 block">Contact Email</span>
-                          <a href="mailto:abigail.morra@torontomu.ca" onclick="event.stopPropagation()" class="font-bold text-[#004c9b] hover:underline">abigail.morra@torontomu.ca</a>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
-                  <!-- Bottom Plastic Card Barcode & Issue Footer -->
-                  <div class="px-3.5 py-1.5 bg-[#f1f5f9] border-t border-slate-200 flex items-center justify-between text-[9px] text-slate-500 font-semibold">
-                    <span>TORONTO, ON • VALID 2026/27</span>
-                    <span class="tracking-[0.2em] text-slate-800 font-black text-[10px]">|| |||| | ||| ||||</span>
-                  </div>
-                </div>
-              </div>
-
-              <!-- 2. CRUMPLED YELLOW STICKY NOTE (In Abi's Handwriting Font!) -->
-              <div class="zine-sticky-note w-full max-w-[335px] p-4 sm:p-5 self-center md:self-end select-none relative">
-                <!-- Torn Masking Tape + Duct Tape Strip Holding Sticky Note -->
-                <div class="masking-tape-strip w-28 h-7 -top-3.5 left-1/2 -translate-x-1/2 rotate-[4deg]"></div>
-                <div class="duct-tape-strip w-16 h-5 -bottom-2 left-4 rotate-[-14deg]"></div>
-
-                <!-- Little Mouse in Blue Shirt with Yellow Heart Sticker (Frozen in place) -->
-                <img src="stickers/sb_mouse.png" alt="Mouse with yellow heart shirt"
-                     class="w-16 h-16 sm:w-20 sm:h-20 object-contain absolute -top-8 -right-4 rotate-[10deg] drop-shadow-md z-30 pointer-events-none">
-
-                <p class="font-cute font-bold text-xl sm:text-[22px] text-stone-900 leading-snug pr-8">
-                  hi i'm abigail!! welcome to my photojournalism scrapbook 📸✂️
-                </p>
-                <p class="font-cute font-bold text-lg sm:text-[19px] text-stone-800 leading-snug mt-1">
-                  flip through my project books above, click around &amp; enjoy :)
-                </p>
-
-                <div class="mt-2.5 flex items-center justify-between">
-                  <span class="font-cute font-bold text-base sm:text-lg text-[#1800ad]">— abi &amp; gilbert 🐾</span>
-                  <!-- Green Caterpillar Sticker Crawling Along the Bottom of Sticky Note -->
-                  <img src="stickers/sb_caterpillar.png" alt="Caterpillar"
-                       class="w-14 h-8 object-contain rotate-[-5deg] drop-shadow pointer-events-none">
-                </div>
-              </div>
-
-            </div>
-
-            <!-- RIGHT SCRAPBOOK PAGE: PURE TAPED PHOTOS (ZERO CAPTIONS) + RIPPED NOTEBOOK QUOTE -->
-            <div class="md:col-span-7 flex flex-col items-center justify-center gap-5 relative">
-
-              <!-- Grunge Torn Postcard Stars Cutout & Blue Stag Beetle Sticker (Frozen) -->
-              <img src="stickers/canva_grunge_stars.png" alt=""
-                   class="w-20 sm:w-24 h-auto object-contain absolute -top-5 -left-3 rotate-[-12deg] drop-shadow-md z-30 pointer-events-none">
-              <img src="stickers/sb_blue_beetle.png" alt="Blue Beetle"
-                   class="w-12 h-12 sm:w-14 sm:h-14 object-contain absolute -bottom-3 -left-2 rotate-[24deg] drop-shadow-md z-30 pointer-events-none">
-
-              <!-- SINGLE TAPED PRINT FROM THE 3 SELECTED PHOTOS: abi_window_wine.jpg -->
-              <div class="relative w-full max-w-[330px] flex items-center justify-center pt-1">
-                <div class="digicam-print-card w-full z-10"
-                     onclick="openLightboxOnPhoto('photos/about me/abi_window_wine.jpg')"
-                     title="Click to view full size!">
-                  <div class="masking-tape-strip w-24 h-6 -top-3 left-6 rotate-[-11deg]"></div>
-                  <div class="duct-tape-strip w-20 h-5 -bottom-2.5 right-5 rotate-[-7deg]"></div>
-                  <img src="stickers/washi_red_gingham.png" alt="" class="w-20 h-5 object-cover absolute -top-2.5 right-5 rotate-[8deg] drop-shadow pointer-events-none z-20">
-
-                  <div class="relative w-full aspect-[4/5] bg-stone-900 overflow-hidden">
-                    <img src="photos/about me/abi_window_wine.jpg"
-                         alt="Abigail"
-                         class="w-full h-full object-cover object-center">
-                  </div>
-                </div>
-              </div>
-
-              <!-- RIPPED LINED NOTEBOOK SCRAP WITH ABI'S EXACT WORDS (No "Why I Shoot" label!) -->
-              <div class="ripped-notebook-scrap w-full max-w-[510px] p-4 sm:p-5 pl-9 sm:pl-10 rotate-[-1.1deg] relative mt-1 select-none">
-                <div class="masking-tape-strip w-24 h-6 -top-2.5 right-8 rotate-[9deg]"></div>
-                <div class="metal-staple absolute top-2.5 left-3 rotate-[-12deg]"></div>
-
-                <!-- Cute Cutout Letters ("ABI") -->
-                <div class="flex items-center gap-1 mb-1">
-                  <img src="stickers/sb_letter_a.png" alt="A" class="w-5 h-5 object-contain rotate-[-6deg] pointer-events-none">
-                  <img src="stickers/sb_letter_b.png" alt="B" class="w-5 h-5 object-contain rotate-[5deg] pointer-events-none">
-                  <img src="stickers/sb_letter_i.png" alt="I" class="w-5 h-5 object-contain rotate-[-3deg] pointer-events-none">
-                </div>
-
-                <p class="font-cute font-bold text-lg sm:text-[20px] text-stone-900 leading-snug">
-                  i never thought i was good at taking pictures until i got ahold of a real nice camera. i like taking photos of unexpected things — i like when people aren't looking, i like raw, and i like telling a story through things people might not be looking at. grabbing extra hidden details.
-                </p>
-              </div>
-
-            </div>
-
+            <!-- Interactive Hotspot: Window Wine Portrait -->
+            <div onclick="openLightboxOnPhoto('photos/about me/abi_window_wine.jpg')"
+                 title="Click to view photo full size"
+                 class="absolute left-[56.5%] top-[5.5%] w-[35.5%] h-[50%] cursor-pointer z-20 rounded"></div>
           </div>
 
           <!-- =========================================================
-               SPREAD 02 / 03: PHOTO ESSAY STORY & PURE TAPED PHOTOS
+               SPREAD 02 / 03: ABIGAIL'S CANVA SCRAPBOOK SPREAD 2
                ========================================================= -->
-          <div id="zine-spread-1" class="zine-spread-panel is-inactive-spread grid grid-cols-1 md:grid-cols-12 gap-7 md:gap-10 items-center relative z-10">
+          <div id="zine-spread-1" class="zine-spread-panel is-inactive-spread relative w-full aspect-[16/9] select-none z-10">
+            <img src="photos/about me/canva_spread_2.png"
+                 alt="Abigail's Scrapbook Spread 2"
+                 class="w-full h-full object-contain block pointer-events-none">
 
-            <!-- LEFT PAGE: CUTE PHOTO ESSAY NOTE + PURE PHOTO CUTOUTS -->
-            <div class="md:col-span-6 flex flex-col gap-5 relative">
-
-              <!-- Cute Ripped Kraft Paper Banner with Dragonfly Sticker -->
-              <div class="ripped-kraft-scrap p-3.5 sm:p-4 rotate-[-1.5deg] relative select-none">
-                <div class="duct-tape-strip w-20 h-5 -top-2 left-6 rotate-[-6deg]"></div>
-                <img src="stickers/sb_dragonfly.png" alt="Dragonfly"
-                     class="w-14 h-14 sm:w-16 sm:h-16 object-contain absolute -top-5 -right-2 rotate-[15deg] drop-shadow-md pointer-events-none">
-
-                <p class="font-cute font-bold text-base sm:text-lg text-[#1800ad] leading-none">
-                  ★ photo essay notes
-                </p>
-                <h3 class="font-cute font-bold text-2xl sm:text-[28px] text-stone-950 leading-tight mt-0.5">
-                  finding the subject &amp; what people walk past ✨
-                </h3>
-              </div>
-
-              <!-- Ripped Lined Notebook Story Page (Pure handwriting font, no typewriter labels) -->
-              <div class="ripped-notebook-scrap p-4 sm:p-5 pl-9 sm:pl-10 rotate-[1.2deg] relative select-none">
-                <div class="masking-tape-strip w-28 h-6 -top-3 left-12 rotate-[-4deg]"></div>
-                <img src="stickers/canva_match.png" alt="Match"
-                     class="w-9 h-14 object-contain absolute -bottom-3 right-3 rotate-[-22deg] drop-shadow pointer-events-none">
-
-                <p class="font-cute font-bold text-lg sm:text-[19px] text-stone-900 leading-snug">
-                  when i started wandering around with my camera for the photo essay, i wasn't looking for posed portraits. what surprised me most was how much of a story lives in the textures people walk right past every day — peeling paint on a rusted street pole, powerlines cutting through autumn leaves, or a bright purple house tucked behind orange branches.
-                </p>
-                <p class="font-cute font-bold text-lg sm:text-[19px] text-stone-800 leading-snug mt-2">
-                  the best frames always happen when nobody is performing for the lens — catching the raw, quiet details hiding in plain sight.
-                </p>
-              </div>
-
-              <!-- Two Taped Photo Essay Cutouts (Pure Photos • Zero Words) -->
-              <div class="grid grid-cols-2 gap-3.5 pt-1">
-                <div class="digicam-print-card rotate-[-2.5deg]"
-                     onclick="openLightboxOnPhoto('photos/Photo Essay/MOR_FIVE_12.jpg')">
-                  <div class="masking-tape-strip w-16 h-5 -top-2.5 left-1/2 -translate-x-1/2 rotate-[5deg]"></div>
-                  <div class="aspect-[4/3] bg-stone-900 overflow-hidden">
-                    <img src="photos/Photo Essay/MOR_FIVE_12.jpg" alt="Photo Essay" class="w-full h-full object-cover">
-                  </div>
-                </div>
-
-                <div class="digicam-print-card rotate-[2.2deg]"
-                     onclick="openLightboxOnPhoto('photos/Photo Essay/MOR_FIVE_4.jpg')">
-                  <div class="duct-tape-strip w-16 h-4 -top-2 left-1/2 -translate-x-1/2 rotate-[-8deg]"></div>
-                  <div class="aspect-[4/3] bg-stone-900 overflow-hidden">
-                    <img src="photos/Photo Essay/MOR_FIVE_4.jpg" alt="Photo Essay" class="w-full h-full object-cover">
-                  </div>
-                </div>
-              </div>
-
-            </div>
-
-            <!-- RIGHT PAGE: PURE TAPED "ABOUT ME" PHOTOS (Zero Captions, No Bottom Tip Box) -->
-            <div class="md:col-span-6 flex flex-col items-center justify-center gap-5 relative">
-
-              <!-- Monarch Butterfly & Bumblebee Stickers (Frozen) -->
-              <img src="stickers/sb_monarch.png" alt="Monarch Butterfly"
-                   class="w-14 h-14 sm:w-16 sm:h-16 object-contain absolute -top-4 left-2 rotate-[-16deg] drop-shadow-md z-30 pointer-events-none">
-              <img src="stickers/sb_bumblebee.png" alt="Bumblebee"
-                   class="w-12 h-12 sm:w-14 sm:h-14 object-contain absolute -bottom-2 right-2 rotate-[14deg] drop-shadow-md z-30 pointer-events-none">
-
-              <div class="w-full max-w-[330px] flex items-center justify-center">
-                <!-- Balcony Portrait from the 3 selected photos: abi_balcony_camo.jpg (Zero Words) -->
-                <div class="digicam-print-card w-full rotate-[2.2deg]"
-                     onclick="openLightboxOnPhoto('photos/about me/abi_balcony_camo.jpg')"
-                     title="Click to view full size!">
-                  <img src="stickers/washi_blue_stripes.png" alt="" class="w-24 h-5 object-cover absolute -top-2.5 left-1/2 -translate-x-1/2 rotate-[4deg] drop-shadow pointer-events-none z-20">
-                  <div class="masking-tape-strip w-20 h-6 -bottom-2.5 left-6 rotate-[-9deg]"></div>
-                  <div class="duct-tape-strip w-16 h-5 -top-2.5 left-5 rotate-[-12deg]"></div>
-                  <div class="relative aspect-[3/4] bg-stone-900 overflow-hidden">
-                    <img src="photos/about me/abi_balcony_camo.jpg" alt="Abigail" class="w-full h-full object-cover">
-                  </div>
-                </div>
-              </div>
-
-            </div>
-
+            <!-- Interactive Hotspot: Balcony Camo Portrait -->
+            <div onclick="openLightboxOnPhoto('photos/about me/abi_balcony_camo.jpg')"
+                 title="Click to view photo full size"
+                 class="absolute left-[55%] top-[8.5%] w-[37%] h-[81%] cursor-pointer z-20 rounded"></div>
           </div>
 
           <!-- =========================================================
-               SPREAD 03 / 03: WORK IN PROGRESS // COMING SOON (Cute Handwriting Only)
+               SPREAD 03 / 03: ABIGAIL'S CANVA SCRAPBOOK SPREAD 3
                ========================================================= -->
-          <div id="zine-spread-2" class="zine-spread-panel is-inactive-spread grid grid-cols-1 md:grid-cols-12 gap-7 md:gap-10 items-center relative z-10">
-
-            <!-- LEFT PAGE: HALF-TAPED "COMING SOON" PLACEHOLDER FRAME -->
-            <div class="md:col-span-6 flex flex-col items-center justify-center relative py-4">
-              <div class="w-full max-w-[420px] min-h-[280px] border-2 border-dashed border-stone-600/80 bg-[#e2d6bc]/60 p-6 flex flex-col items-center justify-center text-center relative rotate-[-1.6deg] shadow-inner select-none">
-                <div class="masking-tape-strip w-24 h-6 -top-3 left-6 rotate-[-14deg]"></div>
-                <div class="masking-tape-strip w-24 h-6 -top-3 right-6 rotate-[12deg]"></div>
-                <div class="duct-tape-strip w-20 h-5 -bottom-2.5 left-10 rotate-[7deg]"></div>
-
-                <img src="stickers/sb_pink_slug.png" alt="Pink Slug"
-                     class="w-14 h-14 object-contain mb-2 rotate-[-8deg] drop-shadow pointer-events-none">
-
-                <h3 class="font-cute font-bold text-2xl sm:text-3xl text-stone-900 mt-1 leading-none">
-                  next shoot coming soon... 📸
-                </h3>
-                <p class="font-cute font-bold text-lg sm:text-xl text-stone-700 mt-2 max-w-[290px] leading-snug">
-                  saving this spot for my next photojournalism assignment later this semester!
-                </p>
-              </div>
-            </div>
-
-            <!-- RIGHT PAGE: CUTE HANDWRITTEN NOTEBOOK PAGE IN PROGRESS -->
-            <div class="md:col-span-6 flex flex-col items-center justify-center gap-5 relative py-4">
-              <div class="ripped-notebook-scrap w-full max-w-[430px] min-h-[240px] p-5 sm:p-6 pl-10 rotate-[1.8deg] flex flex-col justify-between relative select-none">
-                <div class="masking-tape-strip w-28 h-6 -top-3 left-1/2 -translate-x-1/2 rotate-[-3deg]"></div>
-                <div class="metal-staple absolute top-3 right-4 rotate-[20deg]"></div>
-
-                <div>
-                  <p class="font-cute font-bold text-2xl sm:text-3xl text-[#1800ad] leading-snug">
-                    to be continued... ✨
-                  </p>
-                  <p class="font-cute font-bold text-lg sm:text-xl text-stone-800 mt-2 leading-snug">
-                    more photos, tape &amp; stories from live events, environment, and features coming soon!
-                  </p>
-                </div>
-
-                <div class="pt-4 flex items-center justify-between border-t border-dashed border-stone-400/70">
-                  <span class="font-cute font-bold text-lg text-stone-700">check back soon!! ✂️</span>
-                  <img src="stickers/sb_caterpillar.png" alt="Caterpillar" class="w-14 h-8 object-contain rotate-[6deg] drop-shadow pointer-events-none">
-                </div>
-              </div>
-            </div>
-
+          <div id="zine-spread-2" class="zine-spread-panel is-inactive-spread relative w-full aspect-[16/9] select-none z-10">
+            <img src="photos/about me/canva_spread_3.png"
+                 alt="Abigail's Scrapbook Spread 3"
+                 class="w-full h-full object-contain block pointer-events-none">
           </div>
 
           </div><!-- /.zine-spreads-stack -->
