@@ -2060,6 +2060,7 @@
       <script>
         (function() {
           let currentZineSpread = 0;
+          window.currentZineSpreadIdx = 0;
           const totalZineSpreads = 3;
 
           window.playPageTurnSound = function(dir) {
@@ -2118,6 +2119,7 @@
             if (wrappedIndex === currentZineSpread) return;
             const direction = dir || 1;
             currentZineSpread = wrappedIndex;
+            window.currentZineSpreadIdx = wrappedIndex;
 
             if (typeof window.playPageTurnSound === 'function') {
               window.playPageTurnSound(direction);
@@ -3283,6 +3285,37 @@
     function tryAttachStickerToWhitePage(el, cx, cy, dropW, dropH) {
       // On mobile screens (< 768px), keep stickers on the blue header or open photo book pages only!
       if (window.innerWidth < 768) return false;
+
+      // First check if dropped onto the About Me Scrapbook Book: attach to the currently open spread page so it stays on that page when flipping!
+      const zineStage = document.getElementById('zine-scrapbook-pages-stage');
+      const activeZineSpread = document.getElementById('zine-spread-' + (window.currentZineSpreadIdx || 0));
+      if (zineStage && activeZineSpread) {
+        const zRect = zineStage.getBoundingClientRect();
+        if (cx >= zRect.left - 12 && cx <= zRect.right + 12 && cy >= zRect.top - 12 && cy <= zRect.bottom + 12) {
+          const pRect = activeZineSpread.getBoundingClientRect();
+          if (pRect.width > 0 && pRect.height > 0) {
+            const restoredWidth = el.dataset.heroWidth || '10%';
+            el.style.width = restoredWidth;
+            const wPx = ((parseFloat(restoredWidth) || 10) / 100) * pRect.width;
+            const hPx = dropH || wPx * 0.5;
+            const rawLeftPct = ((cx - pRect.left - wPx * 0.5) / pRect.width) * 100;
+            const rawTopPct = ((cy - pRect.top - hPx * 0.5) / pRect.height) * 100;
+            const leftPct = Math.max(-4, Math.min(94, rawLeftPct));
+            const topPct = Math.max(-6, Math.min(92, rawTopPct));
+
+            removeStickerFromAllBookPages(el);
+            topStickerZ += 1;
+            el.style.position = 'absolute';
+            el.style.left = `${leftPct.toFixed(2)}%`;
+            el.style.top = `${topPct.toFixed(2)}%`;
+            el.style.right = 'auto';
+            el.style.bottom = 'auto';
+            el.style.zIndex = topStickerZ;
+            activeZineSpread.appendChild(el);
+            return true;
+          }
+        }
+      }
 
       const heroCanvas = document.querySelector('header.hero-blue-canvas');
       const whiteMain = document.getElementById('white-page-main');
