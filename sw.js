@@ -1,4 +1,4 @@
-const CACHE_NAME = 'abigail-portfolio-v33';
+const CACHE_NAME = 'abigail-portfolio-v34';
 const PRECACHE_ASSETS = [
   './',
   './index.html',

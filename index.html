@@ -1811,7 +1811,7 @@
                         MORRA, ABIGAIL
                       </h2>
 
-                      <div class="mt-2 space-y-1 text-[11.5px] text-slate-700 leading-tight">
+                      <div class="mt-1.5 space-y-1 text-[11.5px] text-slate-700 leading-tight">
                         <div>
                           <span class="text-[8.5px] font-bold uppercase tracking-wider text-slate-400 block">Faculty / Program</span>
                           <span class="font-semibold text-slate-800">Faculty of Arts • Politics &amp; Governance</span>
@@ -1819,6 +1819,10 @@
                         <div>
                           <span class="text-[8.5px] font-bold uppercase tracking-wider text-slate-400 block">Elective Studio</span>
                           <span class="font-semibold text-slate-800">Photojournalism</span>
+                        </div>
+                        <div>
+                          <span class="text-[8.5px] font-bold uppercase tracking-wider text-slate-400 block">Contact Email</span>
+                          <a href="mailto:abigail.morra@torontomu.ca" onclick="event.stopPropagation()" class="font-bold text-[#004c9b] hover:underline">abigail.morra@torontomu.ca</a>
                         </div>
                       </div>
                     </div>
@@ -2308,10 +2312,14 @@
   </dialog>
 
   <!-- =============================================================
-       3. FULL-SCREEN PHOTO VIEW (PURE IMAGE ONLY • ZERO WORDS • CLICK ANYWHERE TO CLOSE)
+       3. FULL-SCREEN PHOTO VIEW (CAPTION & CAMERA SETTINGS ONLY ON CLICK IN CUTE FONT)
        ============================================================= -->
-  <dialog id="photo-lightbox" class="fixed inset-0 z-[99995] w-full h-full bg-stone-950/90 backdrop-blur-md flex items-center justify-center p-4 sm:p-8 m-0 max-w-none max-h-none border-0 select-none">
-    <img id="modal-main-img" src="" alt="" class="max-h-[90vh] max-w-[92vw] object-contain rounded-sm shadow-2xl">
+  <dialog id="photo-lightbox" class="fixed inset-0 z-[99995] w-full h-full bg-stone-950/90 backdrop-blur-md flex flex-col items-center justify-center gap-3 p-4 sm:p-8 m-0 max-w-none max-h-none border-0 select-none">
+    <img id="modal-main-img" src="" alt="" class="max-h-[80vh] max-w-[92vw] object-contain rounded-sm shadow-2xl">
+    <div id="modal-caption-box" class="hidden max-w-2xl bg-[#fffdf7]/95 border-2 border-[#004c9b]/25 rounded-2xl px-5 py-2.5 shadow-xl text-center">
+      <p id="modal-photo-caption" class="font-cute text-[19px] sm:text-[21px] text-stone-800 leading-snug"></p>
+      <p id="modal-photo-exif" class="font-cute text-[15px] sm:text-[16px] text-[#004c9b] mt-0.5"></p>
+    </div>
   </dialog>
 
   <!-- UPCOMING BOOK MODAL -->
@@ -2335,35 +2343,35 @@
     // ALL MASTER PHOTOGRAPHS (SORTED BY PROJECT FOLDER)
     const ALL_PHOTOS = [
       // 1. GENERAL OR SPOT NEWS (4 PHOTOS)
-      { src: 'photos/General or Spot News/MOR_TWO_1.JPG.jpg', title: 'Spot News 01', info: 'General or Spot News', book: 'general_spot_news' },
-      { src: 'photos/General or Spot News/MOR_TWO_2.JPG.jpg', title: 'Spot News 02', info: 'General or Spot News', book: 'general_spot_news' },
-      { src: 'photos/General or Spot News/MOR_TWO_3.JPG.jpg', title: 'Spot News 03', info: 'General or Spot News', book: 'general_spot_news' },
-      { src: 'photos/General or Spot News/MOR_TWO_4.JPG.JPG', title: 'Spot News 04', info: 'General or Spot News', book: 'general_spot_news' },
+      { src: 'photos/General or Spot News/MOR_TWO_1.JPG.jpg', title: 'General or Spot News — Toronto street scene (Abigail Morra / TMU)', info: 'Canon EOS Rebel T5i • 35mm / Digital • (Abigail Morra / TMU)', book: 'general_spot_news' },
+      { src: 'photos/General or Spot News/MOR_TWO_2.JPG.jpg', title: 'General or Spot News — Neighbourhood study (Abigail Morra / TMU)', info: 'Canon EOS Rebel T5i • 35mm / Digital • (Abigail Morra / TMU)', book: 'general_spot_news' },
+      { src: 'photos/General or Spot News/MOR_TWO_3.JPG.jpg', title: 'General or Spot News — Autumn street observation (Abigail Morra / TMU)', info: 'Canon EOS Rebel T5i • 35mm / Digital • (Abigail Morra / TMU)', book: 'general_spot_news' },
+      { src: 'photos/General or Spot News/MOR_TWO_4.JPG.JPG', title: 'General or Spot News — Dusk neighbourhood study (Abigail Morra / TMU)', info: 'Canon EOS Rebel T5i • 1/80 sec • f/5.6 • ISO-100', book: 'general_spot_news' },
 
       // 2. SPORTS (3 PHOTOS)
-      { src: 'photos/Sports/MOR_THREE_1.JPEG', title: 'Sports 01', info: 'Sports', book: 'sports' },
-      { src: 'photos/Sports/MOR_THREE_2.JPEG', title: 'Sports 02', info: 'Sports', book: 'sports' },
-      { src: 'photos/Sports/MOR_THREE_3.JPEG', title: 'Sports 03', info: 'Sports', book: 'sports' },
+      { src: 'photos/Sports/MOR_THREE_1.JPEG', title: 'Rink maintenance resurfaces the ice between periods at the hockey game. (Abigail Morra / TMU)', info: 'Canon EOS Rebel T5i • 1/1000 sec • f/5.0 • ISO-6400', book: 'sports' },
+      { src: 'photos/Sports/MOR_THREE_2.JPEG', title: 'The blue and white teams shake hands at the end of a hockey game. (Abigail Morra / TMU)', info: 'Canon EOS Rebel T5i • 1/1000 sec • f/5.6 • ISO-6400', book: 'sports' },
+      { src: 'photos/Sports/MOR_THREE_3.JPEG', title: 'Players battle for position in front of the crease during hockey action. (Abigail Morra / TMU)', info: 'Canon EOS Rebel T5i • 1/1000 sec • f/5.0 • ISO-6400', book: 'sports' },
 
       // 3. PHOTO ESSAY (13 PHOTOS)
-      { src: 'photos/Photo Essay/MOR_FIVE_1.jpg', title: 'Photo Essay 01', info: 'Photo Essay', book: 'photo_essay' },
-      { src: 'photos/Photo Essay/MOR_FIVE_2.jpg', title: 'Photo Essay 02', info: 'Photo Essay', book: 'photo_essay' },
-      { src: 'photos/Photo Essay/MOR_FIVE_3.jpg', title: 'Photo Essay 03', info: 'Photo Essay', book: 'photo_essay' },
-      { src: 'photos/Photo Essay/MOR_FIVE_4.jpg', title: 'Photo Essay 04', info: 'Photo Essay', book: 'photo_essay' },
-      { src: 'photos/Photo Essay/MOR_FIVE_5.jpg', title: 'Photo Essay 05', info: 'Photo Essay', book: 'photo_essay' },
-      { src: 'photos/Photo Essay/MOR_FIVE_6.jpg', title: 'Photo Essay 06', info: 'Photo Essay', book: 'photo_essay' },
-      { src: 'photos/Photo Essay/MOR_FIVE_7.jpg', title: 'Photo Essay 07', info: 'Photo Essay', book: 'photo_essay' },
-      { src: 'photos/Photo Essay/MOR_FIVE_8.jpg', title: 'Photo Essay 08', info: 'Photo Essay', book: 'photo_essay' },
-      { src: 'photos/Photo Essay/MOR_FIVE_9.jpg', title: 'Photo Essay 09', info: 'Photo Essay', book: 'photo_essay' },
-      { src: 'photos/Photo Essay/MOR_FIVE_10.jpg', title: 'Photo Essay 10', info: 'Photo Essay', book: 'photo_essay' },
-      { src: 'photos/Photo Essay/MOR_FIVE_11.jpg', title: 'Photo Essay 11', info: 'Photo Essay', book: 'photo_essay' },
-      { src: 'photos/Photo Essay/MOR_FIVE_12.jpg', title: 'Photo Essay 12', info: 'Photo Essay', book: 'photo_essay' },
-      { src: 'photos/Photo Essay/MOR_FIVE_13.jpg', title: 'Photo Essay 13', info: 'Photo Essay', book: 'photo_essay' },
+      { src: 'photos/Photo Essay/MOR_FIVE_1.jpg', title: 'Photo Essay — Plate 01 (Abigail Morra / TMU)', info: 'Photo Essay Series • Toronto • (Abigail Morra / TMU)', book: 'photo_essay' },
+      { src: 'photos/Photo Essay/MOR_FIVE_2.jpg', title: 'Photo Essay — Plate 02 (Abigail Morra / TMU)', info: 'Photo Essay Series • Toronto • (Abigail Morra / TMU)', book: 'photo_essay' },
+      { src: 'photos/Photo Essay/MOR_FIVE_3.jpg', title: 'Photo Essay — Plate 03 (Abigail Morra / TMU)', info: 'Photo Essay Series • Toronto • (Abigail Morra / TMU)', book: 'photo_essay' },
+      { src: 'photos/Photo Essay/MOR_FIVE_4.jpg', title: 'Photo Essay — Plate 04 (Abigail Morra / TMU)', info: 'Photo Essay Series • Toronto • (Abigail Morra / TMU)', book: 'photo_essay' },
+      { src: 'photos/Photo Essay/MOR_FIVE_5.jpg', title: 'Photo Essay — Plate 05 (Abigail Morra / TMU)', info: 'Photo Essay Series • Toronto • (Abigail Morra / TMU)', book: 'photo_essay' },
+      { src: 'photos/Photo Essay/MOR_FIVE_6.jpg', title: 'Photo Essay — Plate 06 (Abigail Morra / TMU)', info: 'Photo Essay Series • Toronto • (Abigail Morra / TMU)', book: 'photo_essay' },
+      { src: 'photos/Photo Essay/MOR_FIVE_7.jpg', title: 'Photo Essay — Plate 07 (Abigail Morra / TMU)', info: 'Photo Essay Series • Toronto • (Abigail Morra / TMU)', book: 'photo_essay' },
+      { src: 'photos/Photo Essay/MOR_FIVE_8.jpg', title: 'Photo Essay — Plate 08 (Abigail Morra / TMU)', info: 'Photo Essay Series • Toronto • (Abigail Morra / TMU)', book: 'photo_essay' },
+      { src: 'photos/Photo Essay/MOR_FIVE_9.jpg', title: 'Photo Essay — Plate 09 (Abigail Morra / TMU)', info: 'Photo Essay Series • Toronto • (Abigail Morra / TMU)', book: 'photo_essay' },
+      { src: 'photos/Photo Essay/MOR_FIVE_10.jpg', title: 'Photo Essay — Plate 10 (Abigail Morra / TMU)', info: 'Photo Essay Series • Toronto • (Abigail Morra / TMU)', book: 'photo_essay' },
+      { src: 'photos/Photo Essay/MOR_FIVE_11.jpg', title: 'Photo Essay — Plate 11 (Abigail Morra / TMU)', info: 'Photo Essay Series • Toronto • (Abigail Morra / TMU)', book: 'photo_essay' },
+      { src: 'photos/Photo Essay/MOR_FIVE_12.jpg', title: 'Photo Essay — Plate 12 (Abigail Morra / TMU)', info: 'Photo Essay Series • Toronto • (Abigail Morra / TMU)', book: 'photo_essay' },
+      { src: 'photos/Photo Essay/MOR_FIVE_13.jpg', title: 'Photo Essay — Plate 13 (Abigail Morra / TMU)', info: 'Photo Essay Series • Toronto • (Abigail Morra / TMU)', book: 'photo_essay' },
 
       // 4. MISCELLANEOUS (3 PHOTOS)
-      { src: 'photos/Miscellaneous/IMG_0052.JPG', title: 'Miscellaneous 01', info: 'Miscellaneous', book: 'miscellaneous' },
-      { src: 'photos/Miscellaneous/IMG_0380.JPG', title: 'Miscellaneous 02', info: 'Miscellaneous', book: 'miscellaneous' },
-      { src: 'photos/Miscellaneous/IMG_0915.JPG', title: 'Miscellaneous 03', info: 'Miscellaneous', book: 'miscellaneous' }
+      { src: 'photos/Miscellaneous/IMG_0052.JPG', title: 'Miscellaneous Study 01 (Abigail Morra / TMU)', info: 'Canon EOS Rebel T5i • 1/30 sec • f/5.6 • ISO-100', book: 'miscellaneous' },
+      { src: 'photos/Miscellaneous/IMG_0380.JPG', title: 'Miscellaneous Study 02 (Abigail Morra / TMU)', info: 'Canon EOS Rebel T5i • 1/1000 sec • f/5.0 • ISO-6400', book: 'miscellaneous' },
+      { src: 'photos/Miscellaneous/IMG_0915.JPG', title: 'Miscellaneous Study 03 (Abigail Morra / TMU)', info: '1/60 sec • f/1.6 • ISO-80 • (Abigail Morra / TMU)', book: 'miscellaneous' }
     ];
 
     // COFFEE TABLE BOOKS CATALOG (UNIFIED CUTE STICKER-DECORATED COVER STYLE & ROUNDED PILL BUBBLES)
@@ -2857,8 +2865,10 @@
     function openLightboxOnPhoto(src) {
       const modal = document.getElementById('photo-lightbox');
       const mainImg = document.getElementById('modal-main-img');
+      const capBox = document.getElementById('modal-caption-box');
       if (!modal || !mainImg) return;
       mainImg.src = src;
+      if (capBox) capBox.classList.add('hidden');
       modal.setAttribute('open', '');
     }
 
@@ -3009,9 +3019,12 @@
     setupCornerResize('photo-book-resize-corner', 'photo-book-stage', 'photo-book-spread', false);
     setupCornerResize('sticker-book-resize-corner', 'sticker-book-stage', 'sticker-book-scroll', true);
 
-    // LIGHTBOX LOGIC (PURE IMAGE ONLY • ZERO WORDS • LADYBUG CURSOR VISIBLE • CLICK ANYWHERE TO CLOSE)
+    // LIGHTBOX LOGIC (CAPTION & CAMERA SETTINGS IN CUTE HANDWRITING FONT ONLY ON FULL-SCREEN CLICK)
     const lightbox = document.getElementById('photo-lightbox');
     const modalImg = document.getElementById('modal-main-img');
+    const modalCaptionBox = document.getElementById('modal-caption-box');
+    const modalCaptionText = document.getElementById('modal-photo-caption');
+    const modalExifText = document.getElementById('modal-photo-exif');
     let activeLightboxIdx = 0;
 
     function openLightbox(idx) {
@@ -3019,6 +3032,11 @@
       const photo = currentGalleryPhotos[idx];
       if (!photo) return;
       modalImg.src = photo.src;
+      if (modalCaptionBox && modalCaptionText && modalExifText) {
+        modalCaptionText.textContent = photo.title || '';
+        modalExifText.textContent = photo.info || '';
+        modalCaptionBox.classList.toggle('hidden', !photo.title && !photo.info);
+      }
       lightbox.setAttribute('open', '');
     }
 
