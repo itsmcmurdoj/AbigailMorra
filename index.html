@@ -563,7 +563,7 @@
       right: 10px;
       left: 10px;
       width: auto;
-      max-width: 650px;
+      max-width: calc(100vw - 20px);
       margin-left: auto;
       z-index: 9000;
       perspective: 1800px;
@@ -574,7 +574,8 @@
       transform-origin: bottom center;
       transition:
         opacity 0.38s ease,
-        transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+        transform 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+        width 0.28s cubic-bezier(0.16, 1, 0.3, 1);
     }
 
     @media (min-width: 640px) {
@@ -582,10 +583,22 @@
         bottom: 16px;
         right: 16px;
         left: auto;
-        width: min(94vw, 650px);
+        width: min(94vw, 680px);
+        max-width: calc(100vw - 24px);
         transform: translate3d(24px, 36px, 0) scale(0.9) rotateX(14deg);
         transform-origin: bottom right;
       }
+    }
+
+    .sticker-book-stage.is-maximized {
+      left: 12px !important;
+      right: 12px !important;
+      bottom: 12px !important;
+      width: min(calc(100vw - 24px), 1480px) !important;
+      max-width: calc(100vw - 24px) !important;
+      margin: 0 auto !important;
+      z-index: 9600 !important;
+      transform-origin: bottom center !important;
     }
 
     .sticker-book-stage.is-open {
@@ -1674,7 +1687,7 @@
             <button type="button" id="pb-trash-tab" class="sb-tab-btn sb-trash-dropzone" title="Drag any sticker here to delete it!">🗑️</button>
             <button type="button" id="pb-top-prev" onclick="stepPhotoBookSpread(-1)" class="sb-tab-btn" title="Previous Pages (or swipe right)">‹<span class="hidden sm:inline"> prev</span></button>
             <button type="button" id="pb-top-next" onclick="stepPhotoBookSpread(1)" class="sb-tab-btn" title="Next Pages (or swipe left)"><span class="hidden sm:inline">next </span>›</button>
-            <button type="button" onclick="togglePhotoBookMaximize()" class="sb-tab-btn" title="Toggle Big / Cozy Size">⤢</button>
+            <button type="button" id="pb-max-btn" onclick="togglePhotoBookMaximize()" class="sb-tab-btn" title="Open as big as the whole page!">⤢ <span class="hidden sm:inline">full page</span></button>
             <button type="button" onclick="closePhotoBook()" class="sb-tab-btn" title="Close Book">✕</button>
           </div>
         </div>
@@ -2902,16 +2915,23 @@
     // Corner Drag-to-Resize Engine for Both Photo Book & Sticker Book
     let isPhotoBookMaximized = false;
 
-    function togglePhotoBookMaximize() {
+    function togglePhotoBookMaximize(forceState) {
       const stage = document.getElementById('photo-book-stage');
       const spread = document.getElementById('photo-book-spread');
-      isPhotoBookMaximized = !isPhotoBookMaximized;
+      const maxBtn = document.getElementById('pb-max-btn');
+      isPhotoBookMaximized = typeof forceState === 'boolean' ? forceState : !isPhotoBookMaximized;
       if (isPhotoBookMaximized) {
-        stage.style.width = `${Math.min(window.innerWidth * 0.94, 1240)}px`;
-        spread.style.setProperty('--pb-spread-h', `${Math.min(window.innerHeight * 0.76, 680)}px`);
+        stage.classList.add('is-maximized');
+        stage.style.width = `${Math.min(window.innerWidth - 24, 1480)}px`;
+        stage.style.maxWidth = 'calc(100vw - 24px)';
+        spread.style.setProperty('--pb-spread-h', `${Math.max(400, window.innerHeight - 105)}px`);
+        if (maxBtn) maxBtn.innerHTML = '⤡ <span class="hidden sm:inline">smaller</span>';
       } else {
+        stage.classList.remove('is-maximized');
         stage.style.width = '';
+        stage.style.maxWidth = '';
         spread.style.setProperty('--pb-spread-h', '360px');
+        if (maxBtn) maxBtn.innerHTML = '⤢ <span class="hidden sm:inline">full page</span>';
       }
       playSparkleTwinkle();
     }
@@ -2925,6 +2945,12 @@
       let isResizing = false;
       let startX = 0, startY = 0, startW = 0, startH = 0;
 
+      corner.addEventListener('dblclick', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        if (!isSticker) togglePhotoBookMaximize();
+      });
+
       corner.addEventListener('pointerdown', (e) => {
         e.preventDefault();
         e.stopPropagation();
@@ -2933,6 +2959,7 @@
         startY = e.clientY;
         startW = stage.getBoundingClientRect().width;
         startH = spread.getBoundingClientRect().height;
+        stage.style.transition = 'none';
         corner.setPointerCapture(e.pointerId);
         playSparkleNote(2093.0, 0.025, 0.15);
       });
@@ -2942,21 +2969,31 @@
         // Since book is anchored at bottom-right, dragging top-left corner left/up increases width/height!
         const dx = startX - e.clientX;
         const dy = startY - e.clientY;
-        const minW = Math.min(360, window.innerWidth - 20);
-        const newW = Math.max(minW, Math.min(window.innerWidth - 20, startW + dx));
-        const newH = Math.max(200, Math.min(window.innerHeight - 100, startH + dy));
+        const minW = Math.min(360, window.innerWidth - 24);
+        const newW = Math.max(minW, Math.min(window.innerWidth - 24, startW + dx));
+        const newH = Math.max(220, Math.min(window.innerHeight - 95, startH + dy));
+        stage.classList.remove('is-maximized');
+        stage.style.maxWidth = 'calc(100vw - 24px)';
         stage.style.width = `${newW}px`;
         if (isSticker) {
           spread.style.maxHeight = `${newH}px`;
           spread.style.height = `${newH}px`;
         } else {
           spread.style.setProperty('--pb-spread-h', `${newH}px`);
+          const maxBtn = document.getElementById('pb-max-btn');
+          isPhotoBookMaximized = newW >= window.innerWidth * 0.85 && newH >= window.innerHeight * 0.72;
+          if (maxBtn) {
+            maxBtn.innerHTML = isPhotoBookMaximized
+              ? '⤡ <span class="hidden sm:inline">smaller</span>'
+              : '⤢ <span class="hidden sm:inline">full page</span>';
+          }
         }
       });
 
       const stopResize = (e) => {
         if (!isResizing) return;
         isResizing = false;
+        stage.style.transition = '';
         if (e && e.pointerId !== undefined) {
           try { corner.releasePointerCapture(e.pointerId); } catch (err) {}
         }
