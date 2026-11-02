@@ -474,7 +474,7 @@
       height: 172px;
       position: relative;
       background: #1c1a17;
-      border-radius: 2px 8px 8px 2px;
+      border-radius: 3px 10px 10px 3px;
       box-shadow: 
         -4px 0 6px rgba(0,0,0,0.3),
         6px 14px 26px -4px rgba(0,0,0,0.35),
@@ -491,7 +491,7 @@
       .book-hardcover {
         width: clamp(112px, 8.8vw, 144px);
         height: clamp(156px, 12.2vw, 198px);
-        padding: 9px 9px 9px 18px;
+        padding: 9px 10px 9px 18px;
       }
     }
 
@@ -512,17 +512,9 @@
       pointer-events: none;
     }
 
-    /* Page edges */
+    /* Clean hardcover edge (no striped page-edge bar) */
     .book-hardcover::after {
-      content: '';
-      position: absolute;
-      top: 4px;
-      bottom: 4px;
-      right: 1px;
-      width: 4px;
-      background: repeating-linear-gradient(to bottom, #f5f2eb, #dfd8cb 2px, #f5f2eb 4px);
-      box-shadow: -1px 0 2px rgba(0,0,0,0.25);
-      z-index: 9;
+      display: none;
     }
 
     .book-item:hover .book-hardcover {
@@ -1969,7 +1961,7 @@
       {
         id: 'photo_essay',
         folder: 'photos/Photo Essay',
-        cover: 'photos/Photo Essay/MOR_FIVE_1.jpg',
+        cover: 'photos/Photo Essay/MOR_FIVE_12.jpg',
         title: 'Photo Essay',
         badge: '📖 photo essay',
         isUpcoming: false,
@@ -2026,7 +2018,7 @@
       {
         id: 'miscellaneous',
         folder: 'photos/Miscellaneous',
-        cover: 'photos/Miscellaneous/IMG_0052.JPG',
+        cover: 'photos/Miscellaneous/IMG_0915.JPG',
         isUpcoming: false,
         title: 'Miscellaneous',
         badge: '🎞️ misc',
@@ -2037,20 +2029,6 @@
         topLeftSticker: 'stickers/canva_camera.png',
         topRightSticker: 'stickers/sb_twin_stars.png',
         centerSticker: 'stickers/sb_star_ladybug.png'
-      },
-      {
-        id: 'profile',
-        folder: 'photos/Profile',
-        title: 'Profile',
-        badge: '🪪 profile',
-        isUpcoming: false,
-        themeColor: '#ea580c',
-        coverBg: 'linear-gradient(145deg, #f97316 0%, #c2410c 100%)',
-        innerBg: '#ea580c',
-        borderCol: '#fed7aa',
-        topLeftSticker: 'stickers/sb_twin_stars.png',
-        topRightSticker: 'stickers/sb_clay_star.png',
-        centerSticker: 'stickers/gilbert_head_sticker.png'
       }
     ];
 
@@ -2119,14 +2097,20 @@
         hardcover.title = `${b.title || b.badge} — Click to open book!`;
 
         // Unified Sticker-Book Cover Design for ALL books:
-        // Soft rounded inner card, two corner stickers, cute center sticker, and centered rounded bubble title pill!
+        // Soft rounded inner card, two corner stickers, Polaroid photo (for books with photos!) or cute center sticker, and centered rounded bubble title pill!
+        const centerVisual = (!b.isStickerBook && !b.isUpcoming && b.cover)
+          ? `<div class="relative z-10 bg-white p-1 pb-2.5 rounded-[3px] shadow-lg rotate-[-3deg] w-14 h-16 sm:w-16 sm:h-[70px] flex items-center justify-center -my-1 pointer-events-none border border-stone-200/80">
+               <img src="${b.cover}" alt="" class="w-full h-full object-cover rounded-[1px]">
+             </div>`
+          : `<img src="${b.centerSticker}" alt="" class="w-12 h-14 sm:w-14 sm:h-16 object-contain relative z-10 drop-shadow-lg -my-1 pointer-events-none">`;
+
         hardcover.innerHTML = `
           <div class="w-full h-full relative flex flex-col items-center justify-between overflow-hidden rounded-xl border border-white/35 p-1.5 select-none shadow-inner" style="background: ${b.innerBg};">
             <div class="w-full flex justify-between items-start z-20 pointer-events-none">
               <img src="${b.topLeftSticker}" alt="" class="w-6 h-6 sm:w-7 sm:h-7 object-contain rotate-[-14deg] drop-shadow">
               <img src="${b.topRightSticker}" alt="" class="w-6 h-6 sm:w-7 sm:h-7 object-contain rotate-[12deg] drop-shadow">
             </div>
-            <img src="${b.centerSticker}" alt="" class="w-12 h-14 sm:w-14 sm:h-16 object-contain relative z-10 drop-shadow-lg -my-1 pointer-events-none">
+            ${centerVisual}
             <span class="relative z-20 w-[94%] bg-[#faf7f0] font-cute font-bold text-[12px] sm:text-[13px] leading-none py-1 px-1.5 rounded-full shadow-md border border-stone-300 text-center flex items-center justify-center whitespace-nowrap overflow-hidden text-ellipsis" style="color: ${b.themeColor};">${b.badge}</span>
           </div>
         `;
