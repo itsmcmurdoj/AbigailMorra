@@ -2745,6 +2745,35 @@
       } catch (err) {}
     }
 
+    let diarySseSource = null;
+
+    function mergeDiaryEntryList(incomingList) {
+      if (!Array.isArray(incomingList) || incomingList.length === 0) return;
+      const byId = new Map();
+      // Keep newest entries first, preserving seed note at the end
+      incomingList.forEach((e) => {
+        if (e && e.id && (e.note || e.doodle || (e.stickers && e.stickers.length))) {
+          byId.set(e.id, e);
+        }
+      });
+      diaryEntries.forEach((e) => {
+        if (e && e.id && !byId.has(e.id)) {
+          byId.set(e.id, e);
+        }
+      });
+      const all = Array.from(byId.values());
+      const seeds = all.filter((e) => String(e.id).startsWith('seed_'));
+      const nonSeeds = all.filter((e) => !String(e.id).startsWith('seed_'));
+      nonSeeds.sort((a, b) => {
+        const ta = parseInt(String(a.id).split('_')[1] || '0', 10) || 0;
+        const tb = parseInt(String(b.id).split('_')[1] || '0', 10) || 0;
+        return tb - ta;
+      });
+      diaryEntries = [...nonSeeds, ...seeds].slice(0, 60);
+      saveDiaryEntriesToStorage();
+      renderDiaryEntries();
+    }
+
     async function syncDiaryEntriesFromCloud() {
       try {
         const res = await fetch(`https://ntfy.sh/${DIARY_NTFY_TOPIC}/json?poll=1&since=all`, { cache: 'no-store' });
@@ -2752,26 +2781,63 @@
         const text = await res.text();
         const lines = text.trim().split('\n');
         const cloudList = [];
+        const attachmentPromises = [];
+
         for (const line of lines) {
           if (!line) continue;
           try {
             const msg = JSON.parse(line);
-            if (msg.event === 'message' && msg.message) {
-              const entry = JSON.parse(msg.message);
-              if (entry && entry.id && (entry.note || entry.doodle)) {
-                cloudList.push(entry);
+            if (msg.event === 'message') {
+              if (msg.attachment && msg.attachment.url) {
+                attachmentPromises.push(
+                  fetch(msg.attachment.url, { cache: 'no-store' })
+                    .then((r) => (r.ok ? r.json() : null))
+                    .then((entry) => {
+                      if (entry && entry.id && (entry.note || entry.doodle)) cloudList.push(entry);
+                    })
+                    .catch(() => {})
+                );
+              } else if (msg.message && msg.message.startsWith('{')) {
+                const entry = JSON.parse(msg.message);
+                if (entry && entry.id && (entry.note || entry.doodle || (entry.stickers && entry.stickers.length))) {
+                  cloudList.push(entry);
+                }
               }
             }
           } catch (e) {}
         }
-        if (cloudList.length > 0) {
-          const byId = new Map();
-          cloudList.reverse().forEach((e) => byId.set(e.id, e));
-          diaryEntries.forEach((e) => { if (!byId.has(e.id)) byId.set(e.id, e); });
-          diaryEntries = Array.from(byId.values()).slice(0, 60);
-          saveDiaryEntriesToStorage();
-          renderDiaryEntries();
+
+        if (attachmentPromises.length > 0) {
+          await Promise.allSettled(attachmentPromises);
         }
+
+        if (cloudList.length > 0) {
+          mergeDiaryEntryList(cloudList.reverse());
+        }
+      } catch (err) {}
+    }
+
+    function startDiaryLiveStream() {
+      if (diarySseSource || typeof EventSource === 'undefined') return;
+      try {
+        diarySseSource = new EventSource(`https://ntfy.sh/${DIARY_NTFY_TOPIC}/sse`);
+        diarySseSource.onmessage = async (evt) => {
+          try {
+            const msg = JSON.parse(evt.data);
+            if (msg && msg.event === 'message') {
+              if (msg.attachment && msg.attachment.url) {
+                const r = await fetch(msg.attachment.url, { cache: 'no-store' });
+                if (r.ok) {
+                  const entry = await r.json();
+                  if (entry && entry.id) mergeDiaryEntryList([entry]);
+                }
+              } else if (msg.message && msg.message.startsWith('{')) {
+                const entry = JSON.parse(msg.message);
+                if (entry && entry.id) mergeDiaryEntryList([entry]);
+              }
+            }
+          } catch (e) {}
+        };
       } catch (err) {}
     }
 
@@ -2863,15 +2929,31 @@
       if (hint) hint.style.opacity = '1';
     }
 
-    function isDiaryCanvasBlank(canvas) {
-      const stLayer = document.getElementById('diary-doodle-stickers-layer');
-      if (stLayer && stLayer.children.length > 0) return false;
+    function isDiaryStrokeCanvasBlank(canvas) {
       const ctx = canvas.getContext('2d');
       const data = ctx.getImageData(0, 0, canvas.width, canvas.height).data;
       for (let i = 3; i < data.length; i += 16) {
         if (data[i] > 10) return false;
       }
       return true;
+    }
+
+    function compressDiaryCanvasUnder4KB(canvas) {
+      const out = document.createElement('canvas');
+      out.width = 240;
+      out.height = 92;
+      const octx = out.getContext('2d');
+      octx.fillStyle = '#fffef9';
+      octx.fillRect(0, 0, out.width, out.height);
+      octx.drawImage(canvas, 0, 0, out.width, out.height);
+      let dataUrl = out.toDataURL('image/webp', 0.58);
+      if (!dataUrl.startsWith('data:image/webp') || dataUrl.length > 2900) {
+        dataUrl = out.toDataURL('image/jpeg', 0.62);
+      }
+      if (dataUrl.length > 2900) {
+        dataUrl = out.toDataURL('image/jpeg', 0.46);
+      }
+      return dataUrl;
     }
 
     async function submitDiaryEntry() {
@@ -2884,38 +2966,36 @@
       const author = (authorEl.value || '').trim() || 'anonymous friend ✦';
       const note = (noteEl.value || '').trim();
 
-      // Composite any stickers peeled from the Sticker Book into the doodle box onto the canvas!
+      // Collect any stickers peeled from the Sticker Book into a tiny JSON array (~50 bytes each) AND also draw onto canvas if local
+      const placedStickers = [];
       if (stLayer && stLayer.children.length > 0) {
-        const ctx = canvas.getContext('2d');
-        ctx.globalCompositeOperation = 'source-over';
         const cRect = canvas.getBoundingClientRect();
         if (cRect.width > 0 && cRect.height > 0) {
           Array.from(stLayer.children).forEach((el) => {
             const img = el.querySelector('img');
-            if (!img) return;
+            const src = el.dataset.stickerSrc || (img ? img.getAttribute('src') : '');
+            if (!src) return;
             const r = el.getBoundingClientRect();
-            const x = ((r.left - cRect.left) / cRect.width) * canvas.width;
-            const y = ((r.top - cRect.top) / cRect.height) * canvas.height;
-            const w = (r.width / cRect.width) * canvas.width;
-            const h = (r.height / cRect.height) * canvas.height;
-            try {
-              ctx.drawImage(img, x, y, w, h);
-            } catch (e) {}
+            const xPct = Math.round(((r.left - cRect.left) / cRect.width) * 100);
+            const yPct = Math.round(((r.top - cRect.top) / cRect.height) * 100);
+            const wPct = Math.round((r.width / cRect.width) * 100);
+            placedStickers.push({ s: src, x: xPct, y: yPct, w: wPct });
           });
         }
       }
 
-      const hasDoodle = !isDiaryCanvasBlank(canvas);
+      const hasStrokes = !isDiaryStrokeCanvasBlank(canvas);
+      const hasStickers = placedStickers.length > 0;
 
-      if (!note && !hasDoodle) {
+      if (!note && !hasStrokes && !hasStickers) {
         noteEl.focus();
         return;
       }
 
       let doodleData = '';
-      if (hasDoodle) {
+      if (hasStrokes) {
         try {
-          doodleData = canvas.toDataURL('image/png');
+          doodleData = compressDiaryCanvasUnder4KB(canvas);
         } catch (e) {}
       }
 
@@ -2926,7 +3006,8 @@
         author: author.slice(0, 28),
         note: note.slice(0, 180),
         date: dateStr,
-        doodle: doodleData
+        doodle: doodleData,
+        stickers: placedStickers.slice(0, 8)
       };
 
       diaryEntries.unshift(newEntry);
@@ -2942,6 +3023,7 @@
       try {
         await fetch(`https://ntfy.sh/${DIARY_NTFY_TOPIC}`, {
           method: 'POST',
+          headers: { 'Content-Type': 'text/plain;charset=UTF-8' },
           body: JSON.stringify(newEntry)
         });
       } catch (err) {}
@@ -2986,6 +3068,12 @@
       listEl.innerHTML = slice.map((entry, idx) => {
         const rot = idx % 2 === 0 ? '-0.8deg' : '0.9deg';
         const bg = idx % 2 === 0 ? '#fff9db' : '#fdf6ec';
+        const hasArt = Boolean(entry.doodle || (entry.stickers && entry.stickers.length > 0));
+        const stickersHtml = Array.isArray(entry.stickers)
+          ? entry.stickers.map((st) =>
+              `<img src="${escapeDiaryHtml(st.s)}" alt="" style="position:absolute;left:${Number(st.x)||10}%;top:${Number(st.y)||10}%;width:${Number(st.w)||22}%;" class="h-auto object-contain drop-shadow pointer-events-none">`
+            ).join('')
+          : '';
         return `
           <div class="jiggle-on-hover relative rounded-md border border-stone-300/90 p-2.5 shadow-sm"
                style="background: ${bg}; --base-rot: ${rot};">
@@ -2994,7 +3082,12 @@
               <span class="font-mono-exif text-[9px] uppercase tracking-wider text-stone-500">${escapeDiaryHtml(entry.date)}</span>
             </div>
             ${entry.note ? `<p class="font-cute font-bold text-stone-800 text-sm sm:text-base leading-snug mb-1">${escapeDiaryHtml(entry.note)}</p>` : ''}
-            ${entry.doodle ? `<img src="${entry.doodle}" alt="Visitor Doodle" class="w-full max-h-[95px] object-contain rounded bg-white/70 border border-stone-200/80 mt-1">` : ''}
+            ${hasArt ? `
+              <div class="relative w-full h-[88px] rounded bg-[#fffef9] border border-stone-200/80 mt-1 overflow-hidden flex items-center justify-center">
+                ${entry.doodle ? `<img src="${entry.doodle}" alt="Visitor Doodle" class="w-full h-full object-contain">` : ''}
+                ${stickersHtml}
+              </div>
+            ` : ''}
           </div>
         `;
       }).join('');
@@ -3007,6 +3100,7 @@
       initDiaryDoodleCanvas();
       renderDiaryEntries();
       syncDiaryEntriesFromCloud();
+      startDiaryLiveStream();
 
       const stage = document.getElementById('diary-book-stage');
       const flap = document.getElementById('diary-book-cover-flap');
@@ -5926,7 +6020,7 @@
     // Progressive Web App Service Worker Registration (with immediate update check)
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', () => {
-        navigator.serviceWorker.register('./sw.js?v=4').then((reg) => {
+        navigator.serviceWorker.register('./sw.js?v=5').then((reg) => {
           reg.update();
         }).catch((err) => {
           console.log('SW registration:', err);
