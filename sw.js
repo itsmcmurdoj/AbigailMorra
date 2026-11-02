@@ -1,4 +1,4 @@
-const CACHE_NAME = 'abigail-portfolio-v24';
+const CACHE_NAME = 'abigail-portfolio-v25';
 const PRECACHE_ASSETS = [
   './',
   './index.html',
@@ -22,7 +22,7 @@ const PRECACHE_ASSETS = [
   './stickers/canva_polaroid_couch.png',
   './stickers/canva_grunge_stars.png',
   './stickers/canva_polaroid_couch_left.png',
-  './stickers/canva_polaroid_balcony.png',
+  './stickers/canva_polaroid_balcony_v2.png',
   './stickers/sb_wizard_cat.png',
   './stickers/sb_miffy_book.png',
   './stickers/sb_clay_star.png',
