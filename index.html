@@ -1223,11 +1223,11 @@
       clip-path: polygon(1% 0%, 22% 2%, 44% 0%, 67% 2.5%, 89% 0.5%, 100% 2%, 98.5% 48%, 100% 97%, 81% 100%, 56% 97.5%, 33% 100%, 12% 98%, 0% 99%, 1.5% 52%);
     }
 
-    /* Printed 4x6 Glossy Digicam Photo Frame (Rough & Scuffed) */
+    /* Printed 4x6 Glossy Photo Frame (Pure Photo Only • Zero Captions) */
     .digicam-print-card {
       position: relative;
       background: #fbf9f4;
-      padding: 8px 8px 14px 8px;
+      padding: 8px;
       border-radius: 1px;
       border: 1px solid #d6cfc2;
       box-shadow:
@@ -1246,32 +1246,26 @@
         0 5px 12px rgba(0, 0, 0, 0.25);
     }
 
-    .digicam-date-stamp {
-      font-family: 'Space Mono', monospace;
-      color: #ff6b00;
-      text-shadow: 0 0 6px rgba(255, 107, 0, 0.65), 1px 1px 0 rgba(0, 0, 0, 0.55);
-      letter-spacing: 0.08em;
-    }
-
-    /* Scuffed & Stapled Student / Press ID Card */
-    .zine-id-card {
+    /* Realistic Laminated PVC Plastic TMU OneCard Student ID */
+    .real-tmu-id-card {
       position: relative;
       background:
-        radial-gradient(rgba(24,0,173,0.05) 1px, transparent 0),
-        linear-gradient(155deg, #faf8f2 0%, #ede7d9 100%);
-      background-size: 8px 8px, 100% 100%;
-      border: 2px solid #1e1b4b;
-      border-radius: 7px;
+        linear-gradient(125deg, rgba(255,255,255,0) 28%, rgba(255,255,255,0.55) 46%, rgba(255,255,255,0.08) 54%, rgba(255,255,255,0) 72%),
+        linear-gradient(180deg, #ffffff 0%, #f4f6f9 100%);
+      border: 1px solid #cbd5e1;
+      border-radius: 11px;
       box-shadow:
-        0 14px 26px -6px rgba(0, 0, 0, 0.34),
-        0 3px 7px rgba(0, 0, 0, 0.2),
-        inset 0 0 15px rgba(135, 115, 80, 0.16);
-      transform: rotate(-2.4deg);
+        0 18px 32px -8px rgba(0, 0, 0, 0.42),
+        0 4px 10px rgba(0, 0, 0, 0.22),
+        inset 0 1px 0 rgba(255, 255, 255, 0.9),
+        inset 0 -1px 2px rgba(15, 23, 42, 0.12);
+      transform: rotate(-2.2deg);
       transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
     }
 
-    .zine-id-card:hover {
-      transform: rotate(-0.8deg) translateY(-2px);
+    .real-tmu-id-card:hover {
+      transform: rotate(-0.6deg) translateY(-2px);
     }
 
     /* Crumpled & Taped Yellow Sticky Note */
@@ -1304,25 +1298,44 @@
       box-shadow: 0 1px 2px rgba(0,0,0,0.45);
     }
 
-    /* Torn-Tape Page Flip Buttons */
-    .zine-flip-btn {
-      position: relative;
-      background: linear-gradient(180deg, #f3e5be 0%, #dfd0a3 100%);
-      color: #1c1917;
-      border: 1.5px solid #574c3a;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.28);
-      clip-path: polygon(2% 0%, 98% 3%, 100% 28%, 97% 65%, 100% 100%, 2% 97%, 0% 68%, 3% 31%);
-      transition: transform 0.18s ease, background 0.18s ease;
+    /* Folded Dog-Ear Page Corner Flip Button */
+    .folded-page-corner-btn {
+      position: absolute;
+      bottom: 0;
+      right: 0;
+      z-index: 40;
+      display: flex;
+      align-items: flex-end;
+      justify-content: flex-end;
+      padding: 18px 58px 10px 22px;
+      background: transparent;
+      border: none;
+      cursor: url("stickers/ladybug_cursor.png") 5 2, pointer;
+      transition: transform 0.22s cubic-bezier(0.16, 1, 0.3, 1);
     }
 
-    .zine-flip-btn:hover:not(:disabled) {
-      transform: scale(1.06) rotate(-1deg);
-      background: linear-gradient(180deg, #fef08a 0%, #fde047 100%);
+    /* The Folded Triangle Flap on the Bottom-Right Corner of the Page */
+    .folded-page-corner-btn::before {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      right: 0;
+      width: 52px;
+      height: 52px;
+      background: linear-gradient(315deg, #3a3228 0%, #3a3228 48%, #f7f0df 50%, #d8cbb0 100%);
+      box-shadow: -5px -5px 12px rgba(0, 0, 0, 0.28);
+      border-top-left-radius: 6px;
+      transition: width 0.22s ease, height 0.22s ease, box-shadow 0.22s ease;
     }
 
-    .zine-flip-btn:disabled {
-      opacity: 0.38;
-      filter: grayscale(0.6);
+    .folded-page-corner-btn:hover::before {
+      width: 64px;
+      height: 64px;
+      box-shadow: -8px -8px 16px rgba(0, 0, 0, 0.36);
+    }
+
+    .folded-page-corner-btn:hover {
+      transform: translate(-2px, -2px);
     }
 
     /* -------------------------------------------------------------
@@ -1667,7 +1680,7 @@
 
     <!-- =============================================================
          ROUGH / HANDMADE INDIE ZINE & SCRAPBOOK (FLIPPABLE 3-SPREAD BOOK)
-         (Torn paper, masking tape, duct tape, glue smudges, ID card, sticky note & Abi's words)
+         (Torn paper, masking tape, duct tape, glue smudges, real TMU ID card, sticky note & Abi's words)
          ============================================================= -->
     <section id="profile-newspaper-section" class="max-w-[1140px] mx-auto px-3 sm:px-6 md:px-8 pb-16 pt-1 relative z-20">
       <!-- Hidden SVG Filter for Rough Paper & Glue Smudge Distortion -->
@@ -1680,31 +1693,8 @@
         </defs>
       </svg>
 
-      <!-- Top Scrapbook Flip Controls Bar (Looks like ripped masking tape & typewriter stamp) -->
-      <div class="flex flex-wrap items-center justify-between gap-2 mb-2.5 px-1 select-none">
-        <div class="flex items-center gap-2">
-          <span class="px-2.5 py-1 bg-[#27272a] text-[#f3e5be] font-mono-exif text-[10px] sm:text-xs uppercase tracking-widest rounded-sm shadow border border-stone-700 rotate-[-1deg]">
-            ✂️ ABI'S ZINE &amp; SCRAPBOOK
-          </span>
-          <span id="zine-spread-status-label" class="font-cute font-bold text-sm sm:text-base text-stone-700">
-            spread 01 / 03 — about me &amp; id
-          </span>
-        </div>
-
-        <div class="flex items-center gap-2">
-          <button type="button" id="zine-prev-btn" onclick="flipZineSpread(-1)" disabled
-                  class="zine-flip-btn px-3 py-1 font-mono-exif font-bold text-[11px] sm:text-xs uppercase tracking-wider">
-            ← prev page
-          </button>
-          <button type="button" id="zine-next-btn" onclick="flipZineSpread(1)"
-                  class="zine-flip-btn px-3.5 py-1 font-mono-exif font-bold text-[11px] sm:text-xs uppercase tracking-wider">
-            flip page →
-          </button>
-        </div>
-      </div>
-
       <div class="zine-scrapbook-spread">
-        <div id="zine-scrapbook-pages-stage" class="zine-scrapbook-pages p-4 sm:p-7 md:p-10 min-h-[540px] flex flex-col justify-between">
+        <div id="zine-scrapbook-pages-stage" class="zine-scrapbook-pages p-4 sm:p-7 md:p-10 pb-14 sm:pb-16 min-h-[540px] flex flex-col justify-center relative">
 
           <!-- Dried Glue Smears & Coffee Ring Stains on the Underlying Scrapbook Paper -->
           <div class="glue-smudge w-44 h-36 top-6 left-8 rotate-[-14deg]"></div>
@@ -1724,73 +1714,98 @@
           </div>
 
           <!-- =========================================================
-               SPREAD 01 / 03: STUDENT ID CARD + STICKY NOTE + DIGICAM PRINTS & ABI'S WORDS
+               SPREAD 01 / 03: REAL TMU ONECARD ID + STICKY NOTE + PURE TAPED PHOTOS & ABI'S WORDS
                ========================================================= -->
           <div id="zine-spread-0" class="zine-spread-panel grid grid-cols-1 md:grid-cols-12 gap-7 md:gap-10 items-center relative z-10 my-auto">
 
-            <!-- LEFT SCRAPBOOK PAGE: TAPED & STAPLED TMU ID CARD + CRUMPLED STICKY NOTE + MOUSE & CATERPILLAR -->
+            <!-- LEFT SCRAPBOOK PAGE: REALISTIC LAMINATED TMU ONECARD STUDENT ID + CRUMPLED STICKY NOTE -->
             <div class="md:col-span-5 flex flex-col items-center md:items-start gap-7 relative">
 
-              <!-- 1. SCUFFED & STAPLED TMU STUDENT ID CARD (With IMG_1007.JPG from about me folder!) -->
-              <div class="zine-id-card w-full max-w-[345px] p-3.5 sm:p-4 select-none relative">
-                <!-- Real Ripped Masking Tape + Washi Strip & Metal Staple Holding the ID Card -->
-                <div class="masking-tape-strip w-28 h-7 -top-3.5 left-6 rotate-[-8deg]"></div>
-                <img src="stickers/washi_bw_dots.png" alt="" class="w-24 h-6 object-cover absolute -top-3 right-5 rotate-[11deg] drop-shadow pointer-events-none opacity-90">
-                <div class="metal-staple absolute top-2 right-3 rotate-[18deg]"></div>
+              <!-- 1. REALISTIC PLASTIC LAMINATED TMU ONECARD STUDENT ID (With IMG_1007_id.jpg!) -->
+              <div class="real-tmu-id-card w-full max-w-[355px] overflow-visible select-none relative">
+                <!-- Real Ripped Masking Tape + Washi Strip Holding the Plastic Card to the Page -->
+                <div class="masking-tape-strip w-24 h-6 -top-3 left-7 rotate-[-7deg]"></div>
+                <img src="stickers/washi_bw_dots.png" alt="" class="w-20 h-5 object-cover absolute -top-2.5 right-6 rotate-[9deg] drop-shadow pointer-events-none opacity-90 z-30">
 
-                <!-- Top Blue TMU Student / Press Pass Header Bar -->
-                <div class="bg-[#1800ad] text-white px-3 py-1.5 rounded flex items-center justify-between mb-3 border border-[#fde047]">
-                  <span class="font-mono-exif font-bold text-[10px] sm:text-[11px] tracking-widest uppercase text-[#fde047]">★ TMU STUDENT / ZINE ID</span>
-                  <span class="font-mono-exif text-[9px] uppercase tracking-widest text-blue-200">TORONTO, ON</span>
-                </div>
-
-                <!-- Real ID Photo (IMG_1007.JPG) + Politics & Governance Info -->
-                <div class="flex items-center gap-3.5">
-                  <div class="w-20 h-26 sm:w-22 sm:h-28 rounded-sm bg-stone-900 border-2 border-stone-800 shadow-md flex-shrink-0 relative overflow-hidden cursor-pointer group"
-                       onclick="openLightboxOnPhoto('photos/about me/IMG_1007.JPG')"
-                       title="Click to view ID photo">
-                    <img src="photos/about me/IMG_1007.JPG" alt="Abigail Morra ID Photo" class="w-full h-full object-cover group-hover:scale-105 transition-transform">
-                    <div class="metal-staple absolute -top-0.5 left-1/2 -translate-x-1/2 rotate-[-4deg] scale-75"></div>
+                <!-- Authentic Plastic ID Card Inner Container -->
+                <div class="rounded-[10px] overflow-hidden bg-white">
+                  <!-- Official-Style TMU Royal Blue & Gold Header Band -->
+                  <div class="bg-[#002d72] text-white px-3.5 py-2 flex items-center justify-between border-b-[3px] border-[#ffdc00]">
+                    <div class="flex items-center gap-2">
+                      <div class="w-6 h-6 rounded-[3px] bg-[#ffdc00] text-[#002d72] font-extrabold text-[11px] flex items-center justify-center tracking-tighter leading-none shadow-sm">
+                        TMU
+                      </div>
+                      <div class="leading-tight">
+                        <p class="text-[10px] font-bold tracking-wider uppercase text-white">Toronto Metropolitan</p>
+                        <p class="text-[8.5px] font-semibold tracking-widest uppercase text-[#ffdc00]">University • OneCard</p>
+                      </div>
+                    </div>
+                    <span class="text-[9px] font-bold uppercase tracking-widest px-1.5 py-0.5 rounded bg-white/15 text-white">
+                      STUDENT
+                    </span>
                   </div>
 
-                  <div class="min-w-0 flex-1 font-cute">
-                    <p class="text-[9.5px] font-mono-exif uppercase tracking-widest text-stone-500 leading-none">STUDENT / PHOTOGRAPHER</p>
-                    <h2 class="font-bold text-xl sm:text-2xl text-[#1800ad] leading-tight truncate">Abigail Morra</h2>
+                  <!-- Plastic Card Body: Real ID Photo + Clean University Typography -->
+                  <div class="p-3.5 flex items-start gap-3.5 bg-gradient-to-br from-white via-[#f8fafc] to-[#eff6ff] relative">
+                    <!-- Subtle Holographic Watermark Circle on Plastic -->
+                    <div class="w-16 h-16 rounded-full border border-blue-900/10 bg-gradient-to-tr from-blue-400/10 via-amber-200/15 to-pink-300/10 absolute right-3 top-2 pointer-events-none"></div>
 
-                    <div class="mt-1.5 space-y-0.5 text-sm sm:text-[14.5px] font-bold text-stone-800 leading-snug">
-                      <p>🎓 BA Politics &amp; Governance</p>
-                      <p>📸 Photojournalism Elective</p>
-                      <p>🐾 Darkroom Asst: Gilbert</p>
+                    <!-- Real Student ID Portrait Photo (Explicit 88x112px dimensions so it always loads!) -->
+                    <div class="w-[88px] h-[112px] rounded-[4px] bg-stone-200 border border-slate-300 shadow-sm flex-shrink-0 overflow-hidden cursor-pointer relative z-10"
+                         onclick="openLightboxOnPhoto('photos/about me/abi_id_coat.jpg')"
+                         title="Click to view photo">
+                      <img src="photos/about me/abi_id_coat.jpg"
+                           alt="Abigail Morra Student ID"
+                           class="w-full h-full object-cover object-top block">
+                    </div>
+
+                    <!-- Student Details -->
+                    <div class="min-w-0 flex-1 pt-0.5 relative z-10">
+                      <p class="text-[9px] font-bold uppercase tracking-wider text-slate-400 leading-none">Cardholder Name</p>
+                      <h2 class="font-extrabold text-[18px] sm:text-[19px] text-slate-900 tracking-tight leading-tight mt-0.5 truncate">
+                        MORRA, ABIGAIL
+                      </h2>
+
+                      <div class="mt-2 space-y-1 text-[11.5px] text-slate-700 leading-tight">
+                        <div>
+                          <span class="text-[8.5px] font-bold uppercase tracking-wider text-slate-400 block">Faculty / Program</span>
+                          <span class="font-semibold text-slate-800">Faculty of Arts • Politics &amp; Governance</span>
+                        </div>
+                        <div>
+                          <span class="text-[8.5px] font-bold uppercase tracking-wider text-slate-400 block">Elective Studio</span>
+                          <span class="font-semibold text-slate-800">Photojournalism</span>
+                        </div>
+                      </div>
                     </div>
                   </div>
-                </div>
 
-                <!-- Bottom Scuffed Barcode & Ink Stamp Strip -->
-                <div class="mt-3 pt-2 border-t border-dashed border-stone-400 flex items-center justify-between font-mono-exif text-[9px] text-stone-600">
-                  <span>TMU • POL-GOV / PJ</span>
-                  <span class="tracking-[0.22em] text-stone-900 font-bold">||| |||| || |||</span>
+                  <!-- Bottom Plastic Card Barcode & Issue Footer -->
+                  <div class="px-3.5 py-1.5 bg-[#f1f5f9] border-t border-slate-200 flex items-center justify-between text-[9px] text-slate-500 font-semibold">
+                    <span>TORONTO, ON • VALID 2026/27</span>
+                    <span class="tracking-[0.2em] text-slate-800 font-black text-[10px]">|| |||| | ||| ||||</span>
+                  </div>
                 </div>
               </div>
 
-              <!-- 2. CRUMPLED YELLOW STICKY NOTE (Updated with Abi's exact welcome words!) -->
+              <!-- 2. CRUMPLED YELLOW STICKY NOTE (In Abi's Handwriting Font!) -->
               <div class="zine-sticky-note w-full max-w-[335px] p-4 sm:p-5 self-center md:self-end select-none relative">
                 <!-- Torn Masking Tape + Duct Tape Strip Holding Sticky Note -->
                 <div class="masking-tape-strip w-28 h-7 -top-3.5 left-1/2 -translate-x-1/2 rotate-[4deg]"></div>
                 <div class="duct-tape-strip w-16 h-5 -bottom-2 left-4 rotate-[-14deg]"></div>
 
-                <!-- Little Mouse in Blue Shirt with Yellow Heart Sticker (Right on the corner!) -->
+                <!-- Little Mouse in Blue Shirt with Yellow Heart Sticker (Frozen in place) -->
                 <img src="stickers/sb_mouse.png" alt="Mouse with yellow heart shirt"
                      class="w-16 h-16 sm:w-20 sm:h-20 object-contain absolute -top-8 -right-4 rotate-[10deg] drop-shadow-md z-30 pointer-events-none">
 
-                <p class="font-cute font-bold text-lg sm:text-[20px] text-stone-900 leading-snug pr-8">
+                <p class="font-cute font-bold text-xl sm:text-[22px] text-stone-900 leading-snug pr-8">
                   hi i'm abigail!! welcome to my photojournalism scrapbook 📸✂️
                 </p>
-                <p class="font-cute font-bold text-base sm:text-[17px] text-stone-800 leading-snug mt-1.5">
+                <p class="font-cute font-bold text-lg sm:text-[19px] text-stone-800 leading-snug mt-1">
                   flip through my project books above, click around &amp; enjoy :)
                 </p>
 
-                <div class="mt-3 flex items-center justify-between">
-                  <span class="font-mono-exif text-[10px] uppercase tracking-wider text-stone-800 font-bold">— abi &amp; gilbert 🐾</span>
+                <div class="mt-2.5 flex items-center justify-between">
+                  <span class="font-cute font-bold text-base sm:text-lg text-[#1800ad]">— abi &amp; gilbert 🐾</span>
                   <!-- Green Caterpillar Sticker Crawling Along the Bottom of Sticky Note -->
                   <img src="stickers/sb_caterpillar.png" alt="Caterpillar"
                        class="w-14 h-8 object-contain rotate-[-5deg] drop-shadow pointer-events-none">
@@ -1799,75 +1814,45 @@
 
             </div>
 
-            <!-- RIGHT SCRAPBOOK PAGE: RIPPED NOTEBOOK STORY SCRAP + TAPED DIGICAM PRINTS FROM "about me" -->
+            <!-- RIGHT SCRAPBOOK PAGE: PURE TAPED PHOTOS (ZERO CAPTIONS) + RIPPED NOTEBOOK QUOTE -->
             <div class="md:col-span-7 flex flex-col items-center justify-center gap-5 relative">
 
-              <!-- Grunge Torn Postcard Stars Cutout & Blue Stag Beetle Sticker -->
+              <!-- Grunge Torn Postcard Stars Cutout & Blue Stag Beetle Sticker (Frozen) -->
               <img src="stickers/canva_grunge_stars.png" alt=""
                    class="w-20 sm:w-24 h-auto object-contain absolute -top-5 -left-3 rotate-[-12deg] drop-shadow-md z-30 pointer-events-none">
               <img src="stickers/sb_blue_beetle.png" alt="Blue Beetle"
                    class="w-12 h-12 sm:w-14 sm:h-14 object-contain absolute -bottom-3 -left-2 rotate-[24deg] drop-shadow-md z-30 pointer-events-none">
 
-              <!-- OVERLAPPING TAPED DIGICAM PRINTS FROM photos/about me/ -->
-              <div class="relative w-full max-w-[520px] flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-3 pt-2">
-
-                <!-- Main Digicam Print: IMG_1015_upright.jpg (Grainy Retro Window Camcorder Shot) -->
-                <div class="digicam-print-card w-full sm:w-[58%] z-10"
-                     onclick="openLightboxOnPhoto('photos/about me/IMG_1015_upright.jpg')"
+              <!-- SINGLE TAPED PRINT FROM THE 3 SELECTED PHOTOS: abi_window_wine.jpg -->
+              <div class="relative w-full max-w-[330px] flex items-center justify-center pt-1">
+                <div class="digicam-print-card w-full z-10"
+                     onclick="openLightboxOnPhoto('photos/about me/abi_window_wine.jpg')"
                      title="Click to view full size!">
-                  <!-- Torn Masking Tape & Black Gaffer Duct Tape on Corners -->
-                  <div class="masking-tape-strip w-24 h-6 -top-3 left-5 rotate-[-11deg]"></div>
-                  <div class="duct-tape-strip w-20 h-5 -bottom-2.5 right-4 rotate-[-7deg]"></div>
+                  <div class="masking-tape-strip w-24 h-6 -top-3 left-6 rotate-[-11deg]"></div>
+                  <div class="duct-tape-strip w-20 h-5 -bottom-2.5 right-5 rotate-[-7deg]"></div>
+                  <img src="stickers/washi_red_gingham.png" alt="" class="w-20 h-5 object-cover absolute -top-2.5 right-5 rotate-[8deg] drop-shadow pointer-events-none z-20">
 
                   <div class="relative w-full aspect-[4/5] bg-stone-900 overflow-hidden">
-                    <img src="photos/about me/IMG_1015_upright.jpg"
-                         alt="Abigail Retro Digicam Print"
+                    <img src="photos/about me/abi_window_wine.jpg"
+                         alt="Abigail"
                          class="w-full h-full object-cover object-center">
-                    <span class="digicam-date-stamp absolute bottom-2 right-2.5 text-[11px] sm:text-xs font-bold select-none pointer-events-none">
-                      '26 11 01
-                    </span>
-                  </div>
-                  <div class="pt-2 px-1 flex items-center justify-between select-none">
-                    <span class="font-cute font-bold text-sm sm:text-base text-stone-800">caught off guard 🎞️</span>
-                    <span class="font-mono-exif text-[8.5px] uppercase tracking-widest text-stone-500">IMG_1015.JPG</span>
-                  </div>
-                </div>
-
-                <!-- Second Taped Print from about me: IMG_0937.jpg (Brick Wall & Sunglasses) -->
-                <div class="digicam-print-card w-[82%] sm:w-[44%] sm:-ml-4 sm:mt-8 rotate-[-3.5deg] z-20"
-                     onclick="openLightboxOnPhoto('photos/about me/IMG_0937.jpg')"
-                     title="Click to view full size!">
-                  <img src="stickers/washi_red_gingham.png" alt="" class="w-20 h-5 object-cover absolute -top-2.5 left-1/2 -translate-x-1/2 rotate-[6deg] drop-shadow pointer-events-none">
-                  <div class="masking-tape-strip w-16 h-5 -bottom-2 left-3 rotate-[12deg]"></div>
-
-                  <div class="relative w-full aspect-[3/4] bg-stone-900 overflow-hidden">
-                    <img src="photos/about me/IMG_0937.jpg"
-                         alt="Abigail Brick Wall Portrait"
-                         class="w-full h-full object-cover">
-                  </div>
-                  <div class="pt-1.5 px-1 flex items-center justify-between select-none">
-                    <span class="font-cute font-bold text-xs sm:text-sm text-stone-800">between classes ☕</span>
-                    <span class="font-mono-exif text-[8px] text-stone-500">0937</span>
                   </div>
                 </div>
               </div>
 
-              <!-- RIPPED LINED NOTEBOOK SCRAP WITH ABI'S EXACT WORDS (Glued & Taped Below) -->
+              <!-- RIPPED LINED NOTEBOOK SCRAP WITH ABI'S EXACT WORDS (No "Why I Shoot" label!) -->
               <div class="ripped-notebook-scrap w-full max-w-[510px] p-4 sm:p-5 pl-9 sm:pl-10 rotate-[-1.1deg] relative mt-1 select-none">
                 <div class="masking-tape-strip w-24 h-6 -top-2.5 right-8 rotate-[9deg]"></div>
                 <div class="metal-staple absolute top-2.5 left-3 rotate-[-12deg]"></div>
 
-                <!-- Ransom Cutout Letters Header ("ABI") -->
-                <div class="flex items-center gap-1 mb-1.5">
-                  <img src="stickers/sb_letter_a.png" alt="A" class="w-5 h-5 object-contain rotate-[-6deg]">
-                  <img src="stickers/sb_letter_b.png" alt="B" class="w-5 h-5 object-contain rotate-[5deg]">
-                  <img src="stickers/sb_letter_i.png" alt="I" class="w-5 h-5 object-contain rotate-[-3deg]">
-                  <span class="font-mono-exif text-[10px] uppercase tracking-widest bg-stone-900 text-[#fde047] px-2 py-0.5 ml-1 rotate-[1deg]">
-                    WHY I SHOOT // IN MY WORDS
-                  </span>
+                <!-- Cute Cutout Letters ("ABI") -->
+                <div class="flex items-center gap-1 mb-1">
+                  <img src="stickers/sb_letter_a.png" alt="A" class="w-5 h-5 object-contain rotate-[-6deg] pointer-events-none">
+                  <img src="stickers/sb_letter_b.png" alt="B" class="w-5 h-5 object-contain rotate-[5deg] pointer-events-none">
+                  <img src="stickers/sb_letter_i.png" alt="I" class="w-5 h-5 object-contain rotate-[-3deg] pointer-events-none">
                 </div>
 
-                <p class="font-cute font-bold text-base sm:text-[18px] text-stone-900 leading-snug">
+                <p class="font-cute font-bold text-lg sm:text-[20px] text-stone-900 leading-snug">
                   "i never thought i was good at taking pictures until i got ahold of a real nice camera. i like taking photos of unexpected things — i like when people aren't looking, i like raw, and i like telling a story through things people might not be looking at. grabbing extra hidden details."
                 </p>
               </div>
@@ -1877,108 +1862,83 @@
           </div>
 
           <!-- =========================================================
-               SPREAD 02 / 03: BEHIND THE LENS — PHOTO ESSAY & HIDDEN DETAILS
+               SPREAD 02 / 03: PHOTO ESSAY STORY & PURE TAPED PHOTOS
                ========================================================= -->
           <div id="zine-spread-1" class="zine-spread-panel hidden grid-cols-1 md:grid-cols-12 gap-7 md:gap-10 items-center relative z-10 my-auto">
 
-            <!-- LEFT PAGE: FIELD NOTES ON THE PHOTO ESSAY + TAPED CUTOUTS -->
+            <!-- LEFT PAGE: CUTE PHOTO ESSAY NOTE + PURE PHOTO CUTOUTS -->
             <div class="md:col-span-6 flex flex-col gap-5 relative">
 
-              <!-- Ripped Kraft Paper Title Banner with Dragonfly & Match Stickers -->
+              <!-- Cute Ripped Kraft Paper Banner with Dragonfly Sticker -->
               <div class="ripped-kraft-scrap p-3.5 sm:p-4 rotate-[-1.5deg] relative select-none">
                 <div class="duct-tape-strip w-20 h-5 -top-2 left-6 rotate-[-6deg]"></div>
                 <img src="stickers/sb_dragonfly.png" alt="Dragonfly"
                      class="w-14 h-14 sm:w-16 sm:h-16 object-contain absolute -top-5 -right-2 rotate-[15deg] drop-shadow-md pointer-events-none">
 
-                <p class="font-mono-exif text-[10px] uppercase tracking-widest text-stone-800 font-bold">
-                  ASSIGNMENT FIELD NOTES // PHOTO ESSAY
+                <p class="font-cute font-bold text-base sm:text-lg text-[#1800ad] leading-none">
+                  ★ photo essay notes
                 </p>
-                <h3 class="font-headline font-black text-xl sm:text-2xl text-stone-950 leading-tight mt-0.5">
-                  Finding the Subject &amp; What People Walk Past
+                <h3 class="font-cute font-bold text-2xl sm:text-[28px] text-stone-950 leading-tight mt-0.5">
+                  finding the subject &amp; what people walk past ✨
                 </h3>
               </div>
 
-              <!-- Ripped Lined Notebook Story Page: How I Found It & What Surprised Me -->
+              <!-- Ripped Lined Notebook Story Page (Pure handwriting font, no typewriter labels) -->
               <div class="ripped-notebook-scrap p-4 sm:p-5 pl-9 sm:pl-10 rotate-[1.2deg] relative select-none">
                 <div class="masking-tape-strip w-28 h-6 -top-3 left-12 rotate-[-4deg]"></div>
                 <img src="stickers/canva_match.png" alt="Match"
                      class="w-9 h-14 object-contain absolute -bottom-3 right-3 rotate-[-22deg] drop-shadow pointer-events-none">
 
-                <p class="font-mono-exif text-[10px] uppercase tracking-widest text-red-700 font-bold mb-1">
-                  ✦ BEHIND THE SHOOT:
-                </p>
-                <p class="font-cute font-bold text-base sm:text-[17.5px] text-stone-900 leading-snug">
+                <p class="font-cute font-bold text-lg sm:text-[19px] text-stone-900 leading-snug">
                   when i started wandering around with my camera for the photo essay, i wasn't looking for posed portraits. what surprised me most was how much of a story lives in the textures people walk right past every day — peeling paint on a rusted street pole, powerlines cutting through autumn leaves, or a bright purple house tucked behind orange branches.
                 </p>
-                <p class="font-cute font-bold text-base sm:text-[17.5px] text-stone-800 leading-snug mt-2">
+                <p class="font-cute font-bold text-lg sm:text-[19px] text-stone-800 leading-snug mt-2">
                   the best frames always happen when nobody is performing for the lens — catching the raw, quiet details hiding in plain sight.
                 </p>
               </div>
 
-              <!-- Two Taped Photo Essay Cutouts (Clickable) -->
+              <!-- Two Taped Photo Essay Cutouts (Pure Photos • Zero Words) -->
               <div class="grid grid-cols-2 gap-3.5 pt-1">
                 <div class="digicam-print-card rotate-[-2.5deg]"
                      onclick="openLightboxOnPhoto('photos/Photo Essay/MOR_FIVE_12.jpg')">
                   <div class="masking-tape-strip w-16 h-5 -top-2.5 left-1/2 -translate-x-1/2 rotate-[5deg]"></div>
                   <div class="aspect-[4/3] bg-stone-900 overflow-hidden">
-                    <img src="photos/Photo Essay/MOR_FIVE_12.jpg" alt="Photo Essay Purple House" class="w-full h-full object-cover">
+                    <img src="photos/Photo Essay/MOR_FIVE_12.jpg" alt="Photo Essay" class="w-full h-full object-cover">
                   </div>
-                  <p class="font-mono-exif text-[9px] text-stone-700 font-bold pt-1.5 truncate">FIG 01 • HIDDEN COLOUR</p>
                 </div>
 
                 <div class="digicam-print-card rotate-[2.2deg]"
                      onclick="openLightboxOnPhoto('photos/Photo Essay/MOR_FIVE_4.jpg')">
                   <div class="duct-tape-strip w-16 h-4 -top-2 left-1/2 -translate-x-1/2 rotate-[-8deg]"></div>
                   <div class="aspect-[4/3] bg-stone-900 overflow-hidden">
-                    <img src="photos/Photo Essay/MOR_FIVE_4.jpg" alt="Photo Essay Rusted Texture" class="w-full h-full object-cover">
+                    <img src="photos/Photo Essay/MOR_FIVE_4.jpg" alt="Photo Essay" class="w-full h-full object-cover">
                   </div>
-                  <p class="font-mono-exif text-[9px] text-stone-700 font-bold pt-1.5 truncate">FIG 02 • PEELING PAINT</p>
                 </div>
               </div>
 
             </div>
 
-            <!-- RIGHT PAGE: TAPED "ABOUT ME" NIGHT & BALCONY PRINTS + MONARCH & BUMBLEBEE BUG STICKERS -->
+            <!-- RIGHT PAGE: PURE TAPED "ABOUT ME" PHOTOS (Zero Captions, No Bottom Tip Box) -->
             <div class="md:col-span-6 flex flex-col items-center justify-center gap-5 relative">
 
-              <!-- Monarch Butterfly & Bumblebee Stickers -->
+              <!-- Monarch Butterfly & Bumblebee Stickers (Frozen) -->
               <img src="stickers/sb_monarch.png" alt="Monarch Butterfly"
                    class="w-14 h-14 sm:w-16 sm:h-16 object-contain absolute -top-4 left-2 rotate-[-16deg] drop-shadow-md z-30 pointer-events-none">
               <img src="stickers/sb_bumblebee.png" alt="Bumblebee"
-                   class="w-12 h-12 sm:w-14 sm:h-14 object-contain absolute bottom-2 right-2 rotate-[14deg] drop-shadow-md z-30 pointer-events-none">
+                   class="w-12 h-12 sm:w-14 sm:h-14 object-contain absolute -bottom-2 right-2 rotate-[14deg] drop-shadow-md z-30 pointer-events-none">
 
-              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 w-full max-w-[500px] items-center">
-                <!-- Night Flash Portrait from about me: IMG_1042_cropped.jpg -->
-                <div class="digicam-print-card rotate-[-2.2deg]"
-                     onclick="openLightboxOnPhoto('photos/about me/IMG_1042_cropped.jpg')"
+              <div class="w-full max-w-[330px] flex items-center justify-center">
+                <!-- Balcony Portrait from the 3 selected photos: abi_balcony_camo.jpg (Zero Words) -->
+                <div class="digicam-print-card w-full rotate-[2.2deg]"
+                     onclick="openLightboxOnPhoto('photos/about me/abi_balcony_camo.jpg')"
                      title="Click to view full size!">
-                  <div class="masking-tape-strip w-20 h-6 -top-3 left-6 rotate-[-10deg]"></div>
-                  <div class="duct-tape-strip w-16 h-5 -bottom-2 right-4 rotate-[8deg]"></div>
+                  <img src="stickers/washi_blue_stripes.png" alt="" class="w-24 h-5 object-cover absolute -top-2.5 left-1/2 -translate-x-1/2 rotate-[4deg] drop-shadow pointer-events-none z-20">
+                  <div class="masking-tape-strip w-20 h-6 -bottom-2.5 left-6 rotate-[-9deg]"></div>
+                  <div class="duct-tape-strip w-16 h-5 -top-2.5 left-5 rotate-[-12deg]"></div>
                   <div class="relative aspect-[3/4] bg-stone-900 overflow-hidden">
-                    <img src="photos/about me/IMG_1042_cropped.jpg" alt="Abigail Night Flash" class="w-full h-full object-cover">
-                    <span class="digicam-date-stamp absolute bottom-2 right-2 text-[10px] font-bold">'26 10 28</span>
+                    <img src="photos/about me/abi_balcony_camo.jpg" alt="Abigail" class="w-full h-full object-cover">
                   </div>
-                  <p class="font-cute font-bold text-sm text-stone-800 pt-1.5 px-0.5">late night walks ✨</p>
                 </div>
-
-                <!-- Balcony Portrait from about me: IMG_1045.jpg -->
-                <div class="digicam-print-card rotate-[2.6deg] sm:mt-6"
-                     onclick="openLightboxOnPhoto('photos/about me/IMG_1045.jpg')"
-                     title="Click to view full size!">
-                  <img src="stickers/washi_blue_stripes.png" alt="" class="w-20 h-5 object-cover absolute -top-2.5 left-1/2 -translate-x-1/2 rotate-[4deg] drop-shadow pointer-events-none">
-                  <div class="masking-tape-strip w-16 h-5 -bottom-2.5 left-5 rotate-[-9deg]"></div>
-                  <div class="relative aspect-[3/4] bg-stone-900 overflow-hidden">
-                    <img src="photos/about me/IMG_1045.jpg" alt="Abigail Balcony" class="w-full h-full object-cover">
-                  </div>
-                  <p class="font-cute font-bold text-sm text-stone-800 pt-1.5 px-0.5">toronto autumn 🍂</p>
-                </div>
-              </div>
-
-              <!-- Torn Masking Tape Note at Bottom of Spread 2 -->
-              <div class="ripped-kraft-scrap px-4 py-2.5 rotate-[-1deg] max-w-[440px] w-full text-center select-none">
-                <p class="font-mono-exif text-[10px] sm:text-[11px] text-stone-900 font-bold uppercase tracking-wider">
-                  💡 TIP: CLICK ANY BOOK ABOVE TO OPEN ALL 23 FULL-RES PROJECT PLATES
-                </p>
               </div>
 
             </div>
@@ -1986,85 +1946,59 @@
           </div>
 
           <!-- =========================================================
-               SPREAD 03 / 03: WORK IN PROGRESS // NEXT SEMESTER SHOOTS COMING SOON
+               SPREAD 03 / 03: WORK IN PROGRESS // COMING SOON (Cute Handwriting Only)
                ========================================================= -->
           <div id="zine-spread-2" class="zine-spread-panel hidden grid-cols-1 md:grid-cols-12 gap-7 md:gap-10 items-center relative z-10 my-auto">
 
-            <!-- LEFT PAGE: HALF-TAPED "COMING SOON" PLACEHOLDER FRAME FOR NEXT ASSIGNMENT -->
+            <!-- LEFT PAGE: HALF-TAPED "COMING SOON" PLACEHOLDER FRAME -->
             <div class="md:col-span-6 flex flex-col items-center justify-center relative py-4">
-              <div class="w-full max-w-[420px] min-h-[300px] border-2 border-dashed border-stone-600/80 bg-[#e2d6bc]/60 p-6 flex flex-col items-center justify-center text-center relative rotate-[-1.6deg] shadow-inner select-none">
-                <!-- Empty Masking Tape & Duct Tape Strips Waiting for the Next Print -->
+              <div class="w-full max-w-[420px] min-h-[280px] border-2 border-dashed border-stone-600/80 bg-[#e2d6bc]/60 p-6 flex flex-col items-center justify-center text-center relative rotate-[-1.6deg] shadow-inner select-none">
                 <div class="masking-tape-strip w-24 h-6 -top-3 left-6 rotate-[-14deg]"></div>
                 <div class="masking-tape-strip w-24 h-6 -top-3 right-6 rotate-[12deg]"></div>
                 <div class="duct-tape-strip w-20 h-5 -bottom-2.5 left-10 rotate-[7deg]"></div>
 
-                <!-- Pink Spotted Slug Sticker & Grunge Stars -->
                 <img src="stickers/sb_pink_slug.png" alt="Pink Slug"
-                     class="w-14 h-14 object-contain mb-2 rotate-[-8deg] drop-shadow">
+                     class="w-14 h-14 object-contain mb-2 rotate-[-8deg] drop-shadow pointer-events-none">
 
-                <span class="px-3 py-1 bg-stone-900 text-[#fde047] font-mono-exif text-[10px] uppercase tracking-widest font-bold rotate-[1deg]">
-                  ★ RESERVED SPACE // SEM 01
-                </span>
-                <h3 class="font-cute font-bold text-2xl sm:text-3xl text-stone-900 mt-3 leading-none">
-                  next assignment story coming soon...
+                <h3 class="font-cute font-bold text-2xl sm:text-3xl text-stone-900 mt-1 leading-none">
+                  next shoot coming soon... 📸
                 </h3>
-                <p class="font-mono-exif text-[11px] text-stone-700 mt-2 max-w-[290px]">
-                  [ blank tape &amp; glue spot saved for my next photojournalism shoot later this semester! ]
+                <p class="font-cute font-bold text-lg sm:text-xl text-stone-700 mt-2 max-w-[290px] leading-snug">
+                  saving this spot for my next photojournalism assignment later this semester!
                 </p>
               </div>
             </div>
 
-            <!-- RIGHT PAGE: BLANK LINED NOTEBOOK PAGE IN PROGRESS + CATERPILLAR & BEETLE -->
+            <!-- RIGHT PAGE: CUTE HANDWRITTEN NOTEBOOK PAGE IN PROGRESS -->
             <div class="md:col-span-6 flex flex-col items-center justify-center gap-5 relative py-4">
-              <div class="ripped-notebook-scrap w-full max-w-[440px] min-h-[270px] p-5 sm:p-6 pl-10 rotate-[1.8deg] flex flex-col justify-between relative select-none">
+              <div class="ripped-notebook-scrap w-full max-w-[430px] min-h-[240px] p-5 sm:p-6 pl-10 rotate-[1.8deg] flex flex-col justify-between relative select-none">
                 <div class="masking-tape-strip w-28 h-6 -top-3 left-1/2 -translate-x-1/2 rotate-[-3deg]"></div>
                 <div class="metal-staple absolute top-3 right-4 rotate-[20deg]"></div>
 
                 <div>
-                  <p class="font-mono-exif text-[10px] uppercase tracking-widest text-stone-500 font-bold">
-                    FIELD NOTES // TO BE CONTINUED
+                  <p class="font-cute font-bold text-2xl sm:text-3xl text-[#1800ad] leading-snug">
+                    to be continued... ✨
                   </p>
-                  <p class="font-cute font-bold text-xl sm:text-2xl text-stone-800 mt-2 leading-snug">
-                    upcoming shoots on the shelf above:
+                  <p class="font-cute font-bold text-lg sm:text-xl text-stone-800 mt-2 leading-snug">
+                    more photos, tape &amp; stories from live events, environment, and features coming soon!
                   </p>
-                  <ul class="mt-2.5 space-y-1 font-mono-exif text-xs text-stone-700">
-                    <li>☐ Live Events — <span class="italic text-stone-500">in progress</span></li>
-                    <li>☐ Environment — <span class="italic text-stone-500">in progress</span></li>
-                    <li>☐ Features — <span class="italic text-stone-500">in progress</span></li>
-                    <li>☑ Spot News, Sports &amp; Photo Essay — <span class="text-[#1800ad] font-bold">live above!</span></li>
-                  </ul>
                 </div>
 
                 <div class="pt-4 flex items-center justify-between border-t border-dashed border-stone-400/70">
-                  <span class="font-cute font-bold text-base text-stone-600">check back soon for new prints &amp; glue!! ✂️</span>
-                  <img src="stickers/sb_caterpillar.png" alt="Caterpillar" class="w-14 h-8 object-contain rotate-[6deg] drop-shadow">
+                  <span class="font-cute font-bold text-lg text-stone-700">check back soon!! ✂️</span>
+                  <img src="stickers/sb_caterpillar.png" alt="Caterpillar" class="w-14 h-8 object-contain rotate-[6deg] drop-shadow pointer-events-none">
                 </div>
               </div>
             </div>
 
           </div>
 
-          <!-- Bottom Zine Page Footer Bar (Page Dots + Quick Flip Buttons) -->
-          <div class="mt-6 pt-3 border-t border-stone-500/40 flex flex-wrap items-center justify-between gap-2 relative z-20 select-none">
-            <span class="font-mono-exif text-[10px] uppercase tracking-widest text-stone-700 font-bold">
-              HAND-TAPED IN TORONTO • ABIGAIL MORRA
+          <!-- SINGLE FOLDED PAGE-CORNER FLIP BUTTON (Bottom-Right Corner of the Book) -->
+          <button type="button" onclick="flipZineSpread(1)" class="folded-page-corner-btn select-none group" title="Flip the page">
+            <span class="font-cute font-bold text-lg sm:text-xl text-stone-900 group-hover:text-[#1800ad] transition-colors flex items-center gap-1 drop-shadow-sm">
+              flip the page ➔
             </span>
-
-            <div class="flex items-center gap-2">
-              <button type="button" onclick="goToZineSpread(0)" id="zine-dot-0"
-                      class="px-2.5 py-0.5 font-mono-exif text-[10px] font-bold uppercase border border-stone-800 bg-stone-900 text-[#fde047] rounded-sm">
-                01 • ID &amp; BIO
-              </button>
-              <button type="button" onclick="goToZineSpread(1)" id="zine-dot-1"
-                      class="px-2.5 py-0.5 font-mono-exif text-[10px] font-bold uppercase border border-stone-700 bg-[#dfd0a3] text-stone-900 rounded-sm hover:bg-[#fef08a]">
-                02 • BEHIND THE SHOOT
-              </button>
-              <button type="button" onclick="goToZineSpread(2)" id="zine-dot-2"
-                      class="px-2.5 py-0.5 font-mono-exif text-[10px] font-bold uppercase border border-stone-700 bg-[#dfd0a3] text-stone-900 rounded-sm hover:bg-[#fef08a]">
-                03 • COMING SOON
-              </button>
-            </div>
-          </div>
+          </button>
 
         </div>
       </div>
@@ -2073,27 +2007,22 @@
         (function() {
           let currentZineSpread = 0;
           const totalZineSpreads = 3;
-          const spreadLabels = [
-            'spread 01 / 03 — about me & id',
-            'spread 02 / 03 — behind the shoot & hidden details',
-            'spread 03 / 03 — work in progress / coming soon'
-          ];
 
           window.goToZineSpread = function(targetIndex, dir) {
-            if (targetIndex < 0 || targetIndex >= totalZineSpreads || targetIndex === currentZineSpread) return;
-            const direction = dir || (targetIndex > currentZineSpread ? 1 : -1);
-            currentZineSpread = targetIndex;
+            const wrappedIndex = ((targetIndex % totalZineSpreads) + totalZineSpreads) % totalZineSpreads;
+            if (wrappedIndex === currentZineSpread) return;
+            const direction = dir || 1;
+            currentZineSpread = wrappedIndex;
 
             const stage = document.getElementById('zine-scrapbook-pages-stage');
             if (stage) {
               stage.classList.remove('flip-anim-next', 'flip-anim-prev');
               void stage.offsetWidth;
-              stage.classList.add(direction > 0 ? 'flip-anim-next' : 'flip-anim-prev');
+              stage.classList.add(direction >= 0 ? 'flip-anim-next' : 'flip-anim-prev');
             }
 
             for (let i = 0; i < totalZineSpreads; i++) {
               const panel = document.getElementById('zine-spread-' + i);
-              const dot = document.getElementById('zine-dot-' + i);
               if (panel) {
                 if (i === currentZineSpread) {
                   panel.classList.remove('hidden');
@@ -2103,26 +2032,11 @@
                   panel.classList.remove('grid');
                 }
               }
-              if (dot) {
-                if (i === currentZineSpread) {
-                  dot.className = 'px-2.5 py-0.5 font-mono-exif text-[10px] font-bold uppercase border border-stone-800 bg-stone-900 text-[#fde047] rounded-sm';
-                } else {
-                  dot.className = 'px-2.5 py-0.5 font-mono-exif text-[10px] font-bold uppercase border border-stone-700 bg-[#dfd0a3] text-stone-900 rounded-sm hover:bg-[#fef08a]';
-                }
-              }
             }
-
-            const statusLabel = document.getElementById('zine-spread-status-label');
-            if (statusLabel) statusLabel.textContent = spreadLabels[currentZineSpread];
-
-            const prevBtn = document.getElementById('zine-prev-btn');
-            const nextBtn = document.getElementById('zine-next-btn');
-            if (prevBtn) prevBtn.disabled = (currentZineSpread === 0);
-            if (nextBtn) nextBtn.disabled = (currentZineSpread === totalZineSpreads - 1);
           };
 
           window.flipZineSpread = function(delta) {
-            window.goToZineSpread(currentZineSpread + delta, delta);
+            window.goToZineSpread(currentZineSpread + (delta || 1), delta || 1);
           };
         })();
       </script>
