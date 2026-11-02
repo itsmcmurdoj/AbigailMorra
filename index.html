@@ -567,6 +567,52 @@
       z-index: 35 !important;
     }
 
+    /* Tactile Little Wax Crayons for the Guestbook Diary */
+    .diary-crayon-btn {
+      position: relative;
+      width: 15px;
+      height: 30px;
+      margin-top: 9px;
+      border-radius: 1.5px 1.5px 3px 3px;
+      background:
+        linear-gradient(90deg, rgba(255,255,255,0.34) 0%, rgba(255,255,255,0) 48%, rgba(0,0,0,0.22) 100%),
+        linear-gradient(180deg,
+          var(--crayon-color, #1c1917) 0%,
+          var(--crayon-color, #1c1917) 14%,
+          #1c1917 14%,
+          #1c1917 21%,
+          var(--crayon-wrap, #fde68a) 21%,
+          var(--crayon-wrap, #fde68a) 74%,
+          #1c1917 74%,
+          #1c1917 81%,
+          var(--crayon-color, #1c1917) 81%,
+          var(--crayon-color, #1c1917) 100%);
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.25);
+      transition: transform 0.2s cubic-bezier(0.22, 1, 0.36, 1), filter 0.2s ease;
+    }
+
+    .diary-crayon-btn::before {
+      content: '';
+      position: absolute;
+      top: -9px;
+      left: 1px;
+      right: 1px;
+      height: 9px;
+      background:
+        linear-gradient(90deg, rgba(255,255,255,0.3) 0%, rgba(0,0,0,0.2) 100%),
+        var(--crayon-color, #1c1917);
+      clip-path: polygon(32% 0%, 68% 0%, 100% 100%, 0% 100%);
+    }
+
+    .diary-crayon-btn:hover {
+      transform: translateY(-4px) scale(1.06);
+    }
+
+    .diary-crayon-btn.is-selected {
+      transform: translateY(-7px) scale(1.12);
+      filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.32));
+    }
+
     /* -------------------------------------------------------------
        3D ANIMATED STICKER BOOK (OPENS ON PAGE & PEELS TO BLUE HERO)
        ------------------------------------------------------------- */
@@ -1730,73 +1776,110 @@
       </div>
     </div>
 
-    <!-- 3D INTERACTIVE SHARED GUESTBOOK DIARY (WRITE NOTES, DOODLE & STAMP STICKERS FOR EVERYONE TO SEE!) -->
+    <!-- 3D INTERACTIVE SHARED GUESTBOOK DIARY (WRITE NOTES, DOODLE WITH CRAYONS & PEEL STICKERS FROM STICKER BOOK!) -->
     <div id="diary-book-stage" class="sticker-book-stage" aria-hidden="true">
-      <div id="diary-book-wrapper" class="sticker-book-3d-wrapper" style="background: #4a2531; border-color: #e8d5c4;">
-        <div id="diary-book-cover-flap" class="sticker-book-cover-flap" style="background: linear-gradient(145deg, #592b3a 0%, #3d1b26 100%);"></div>
+      <div id="diary-book-wrapper" class="sticker-book-3d-wrapper" style="background: #d97706; border-color: #fef08a;">
+
+        <!-- Corner Drag-to-Resize Handle (Just like the other books!) -->
+        <div id="diary-book-resize-corner" class="book-resize-corner" title="Click and drag corner to make diary bigger!">
+          <span>⤡</span>
+          <span class="hidden sm:inline">drag bigger</span>
+        </div>
+
+        <!-- 3D Swinging Cover Flap Matching the Golden-Amber Diary Book -->
+        <div id="diary-book-cover-flap" class="sticker-book-cover-flap" style="background: linear-gradient(145deg, #f59e0b 0%, #d97706 100%);"></div>
 
         <!-- Top Diary Header Bar -->
-        <div class="flex items-center justify-between pl-12 sm:pl-24 pr-1.5 pb-1.5 select-none gap-1 overflow-x-auto">
+        <div class="flex items-center justify-between pl-12 sm:pl-28 pr-1.5 pb-1.5 select-none gap-1 overflow-x-auto">
           <div class="flex items-center gap-1.5 flex-shrink-0">
-            <span class="sb-tab-btn is-active text-xs sm:text-sm" style="color: #4a2531;">✎ guestbook diary</span>
-            <span id="diary-page-indicator" class="font-cute text-amber-100 text-sm sm:text-base font-bold px-1.5 whitespace-nowrap">shared notes ✦</span>
+            <span class="sb-tab-btn is-active text-xs sm:text-sm" style="color: #d97706;">💌 diary!</span>
+            <span id="diary-page-indicator" class="font-cute text-white text-sm sm:text-base font-bold px-1.5 whitespace-nowrap">shared notes ✦</span>
           </div>
           <div class="flex items-center gap-1 sm:gap-1.5 flex-shrink-0">
-            <button type="button" onclick="stepDiaryEntryPage(-1)" id="diary-prev-btn" class="sb-tab-btn" title="Newer Notes">‹ prev</button>
-            <button type="button" onclick="stepDiaryEntryPage(1)" id="diary-next-btn" class="sb-tab-btn" title="Older Notes">next ›</button>
+            <button type="button" id="diary-trash-tab" class="sb-tab-btn sb-trash-dropzone" title="Drag any sticker here to delete it!">🗑️</button>
+            <button type="button" onclick="stepDiaryEntryPage(-1)" id="diary-prev-btn" class="sb-tab-btn" title="Newer Notes">‹<span class="hidden sm:inline"> prev</span></button>
+            <button type="button" onclick="stepDiaryEntryPage(1)" id="diary-next-btn" class="sb-tab-btn" title="Older Notes"><span class="hidden sm:inline">next </span>›</button>
+            <button type="button" id="diary-max-btn" onclick="toggleDiaryBookMaximize()" class="sb-tab-btn" title="Open as big as the whole page!">⤢ <span class="hidden sm:inline">full page</span></button>
             <button type="button" onclick="closeDiaryBook()" class="sb-tab-btn" title="Close Guestbook Diary">✕</button>
           </div>
         </div>
 
         <!-- Two-Page Open Diary Spread -->
-        <div class="photo-book-spread" style="min-height: 410px;">
-          <!-- Left Page: Write a Note, Doodle & Stamp Stickers -->
-          <div class="photo-book-page page-left flex flex-col justify-between p-3 sm:p-4 text-left overflow-y-auto"
+        <div id="diary-book-spread" class="photo-book-spread" style="--pb-spread-h: 410px; min-height: var(--pb-spread-h, 410px);">
+          <!-- Left Page: Write a Note, Doodle with Crayons & Drop Stickers from Sticker Book -->
+          <div id="diary-page-left" class="photo-book-page page-left relative flex flex-col justify-between p-3 sm:p-4 text-left overflow-y-auto"
                style="background: repeating-linear-gradient(0deg, #fffdf8 0px, #fffdf8 25px, rgba(180, 160, 130, 0.22) 25px, rgba(180, 160, 130, 0.22) 26px);">
-            <div>
+            <div class="w-full">
               <div class="flex items-center justify-between border-b border-stone-300/80 pb-1 mb-2">
-                <span class="font-cute font-bold text-lg sm:text-xl text-stone-800">leave a note & doodle ★</span>
-                <span class="font-mono-exif text-[10px] uppercase tracking-wider text-stone-500">stays in the book!</span>
+                <span class="font-cute font-bold text-lg sm:text-xl text-stone-800">leave a note &amp; doodle ★</span>
+                <span class="font-mono-exif text-[10px] uppercase tracking-wider text-amber-700 font-bold">stays in the book!</span>
               </div>
 
               <!-- Visitor Name & Handwritten Note -->
               <div class="grid grid-cols-1 gap-1.5 mb-2">
                 <input id="diary-author-input" type="text" maxlength="28" placeholder="your name or initials..."
-                       class="w-full px-2.5 py-1 rounded bg-amber-50/80 border border-stone-300 font-cute font-bold text-base sm:text-lg text-stone-900 placeholder:text-stone-400 focus:outline-none focus:border-[#1800ad]">
+                       class="w-full px-2.5 py-1 rounded bg-amber-50/80 border border-stone-300 font-cute font-bold text-base sm:text-lg text-stone-900 placeholder:text-stone-400 focus:outline-none focus:border-[#d97706]">
                 <textarea id="diary-note-input" rows="2" maxlength="180" placeholder="write a little note for abigail's diary..."
-                          class="w-full px-2.5 py-1 rounded bg-amber-50/80 border border-stone-300 font-cute font-bold text-base sm:text-lg text-stone-900 leading-tight placeholder:text-stone-400 focus:outline-none focus:border-[#1800ad] resize-none"></textarea>
+                          class="w-full px-2.5 py-1 rounded bg-amber-50/80 border border-stone-300 font-cute font-bold text-base sm:text-lg text-stone-900 leading-tight placeholder:text-stone-400 focus:outline-none focus:border-[#d97706] resize-none"></textarea>
               </div>
 
-              <!-- Doodle & Sticker Canvas -->
-              <div class="relative rounded-md border border-stone-300 bg-[#fffef9] shadow-inner overflow-hidden mb-1.5">
+              <!-- Doodle & Sticker Drop Canvas -->
+              <div id="diary-doodle-box" class="relative rounded-md border border-stone-300 bg-[#fffef9] shadow-inner overflow-hidden mb-1.5">
                 <canvas id="diary-doodle-canvas" width="340" height="150"
                         class="w-full h-[125px] sm:h-[140px] block touch-none cursor-crosshair"></canvas>
-                <span id="diary-canvas-hint" class="pointer-events-none absolute top-1.5 right-2 font-cute text-xs text-stone-400 select-none">doodle or tap a sticker below ✎</span>
+                <!-- Stickers dragged from the Sticker Book into this box land here so you can move them before pinning! -->
+                <div id="diary-doodle-stickers-layer" class="absolute inset-0 pointer-events-none overflow-hidden"></div>
+                <span id="diary-canvas-hint" class="pointer-events-none absolute top-1.5 right-2 font-cute text-xs text-stone-400 select-none">doodle with crayons or drag stickers in 🖍️</span>
               </div>
 
-              <!-- Pen Colors, Eraser & Mini Stickers Row -->
-              <div class="flex flex-wrap items-center justify-between gap-1 mb-2">
-                <div class="flex items-center gap-1">
-                  <button type="button" onclick="setDiaryPen('#1c1917')" data-diary-color="#1c1917" class="diary-color-swatch w-5 h-5 rounded-full bg-stone-900 ring-2 ring-offset-1 ring-stone-900" title="Black Ink"></button>
-                  <button type="button" onclick="setDiaryPen('#1800ad')" data-diary-color="#1800ad" class="diary-color-swatch w-5 h-5 rounded-full bg-[#1800ad]" title="Cobalt Blue Ink"></button>
-                  <button type="button" onclick="setDiaryPen('#dc2626')" data-diary-color="#dc2626" class="diary-color-swatch w-5 h-5 rounded-full bg-red-600" title="Red Marker"></button>
-                  <button type="button" onclick="setDiaryPen('#15803d')" data-diary-color="#15803d" class="diary-color-swatch w-5 h-5 rounded-full bg-green-700" title="Forest Green"></button>
-                  <button type="button" onclick="setDiaryPen('#db2777')" data-diary-color="#db2777" class="diary-color-swatch w-5 h-5 rounded-full bg-pink-600" title="Berry Pink"></button>
-                  <button type="button" onclick="clearDiaryCanvas()" class="ml-1 px-1.5 py-0.5 rounded bg-stone-200 hover:bg-stone-300 font-cute font-bold text-xs text-stone-700" title="Clear Doodle">clear</button>
+              <!-- Little Wax Crayons, Pink Eraser & Sticker Book Launcher -->
+              <div class="flex flex-wrap items-end justify-between gap-1.5 mb-2 pt-1">
+                <div class="flex items-end gap-1.5 px-1">
+                  <button type="button" onclick="setDiaryPen('#1c1917', false, this)" data-diary-color="#1c1917"
+                          style="--crayon-color: #1c1917; --crayon-wrap: #fde68a;"
+                          class="diary-crayon-btn is-selected" title="Black Crayon"></button>
+                  <button type="button" onclick="setDiaryPen('#1800ad', false, this)" data-diary-color="#1800ad"
+                          style="--crayon-color: #1800ad; --crayon-wrap: #bfdbfe;"
+                          class="diary-crayon-btn" title="Cobalt Blue Crayon"></button>
+                  <button type="button" onclick="setDiaryPen('#dc2626', false, this)" data-diary-color="#dc2626"
+                          style="--crayon-color: #dc2626; --crayon-wrap: #fecaca;"
+                          class="diary-crayon-btn" title="Cherry Red Crayon"></button>
+                  <button type="button" onclick="setDiaryPen('#ea580c', false, this)" data-diary-color="#ea580c"
+                          style="--crayon-color: #ea580c; --crayon-wrap: #fed7aa;"
+                          class="diary-crayon-btn" title="Tangerine Orange Crayon"></button>
+                  <button type="button" onclick="setDiaryPen('#eab308', false, this)" data-diary-color="#eab308"
+                          style="--crayon-color: #eab308; --crayon-wrap: #fef9c3;"
+                          class="diary-crayon-btn" title="Sunshine Yellow Crayon"></button>
+                  <button type="button" onclick="setDiaryPen('#15803d', false, this)" data-diary-color="#15803d"
+                          style="--crayon-color: #15803d; --crayon-wrap: #bbf7d0;"
+                          class="diary-crayon-btn" title="Forest Green Crayon"></button>
+                  <button type="button" onclick="setDiaryPen('#db2777', false, this)" data-diary-color="#db2777"
+                          style="--crayon-color: #db2777; --crayon-wrap: #fbcfe8;"
+                          class="diary-crayon-btn" title="Berry Pink Crayon"></button>
+                  <button type="button" onclick="setDiaryPen('#7c3aed', false, this)" data-diary-color="#7c3aed"
+                          style="--crayon-color: #7c3aed; --crayon-wrap: #ddd6fe;"
+                          class="diary-crayon-btn" title="Violet Crayon"></button>
+                  <!-- Cute Pink Rubber Eraser -->
+                  <button type="button" onclick="setDiaryPen('#fffef9', true, this)" data-diary-color="eraser"
+                          class="diary-crayon-btn ml-0.5 !w-[18px] !h-[24px] !mt-0 !rounded-[3px] border border-pink-400"
+                          style="background: linear-gradient(180deg, #f472b6 0%, #f472b6 65%, #e2e8f0 65%, #cbd5e1 100%);"
+                          title="Pink Eraser"></button>
+                  <button type="button" onclick="clearDiaryCanvas()"
+                          class="ml-0.5 px-1.5 py-0.5 rounded bg-stone-200 hover:bg-stone-300 font-cute font-bold text-xs text-stone-700"
+                          title="Clear Doodle &amp; Stickers">clear</button>
                 </div>
-                <div class="flex items-center gap-1 bg-amber-100/70 px-1.5 py-0.5 rounded-full border border-amber-300/70">
-                  <span class="font-cute text-xs text-stone-600">stamp:</span>
-                  <button type="button" onclick="stampStickerOnDiary('stickers/ladybug_sticker.png')" class="hover:scale-125 transition-transform" title="Stamp Ladybug"><img src="stickers/ladybug_sticker.png" alt="" class="w-5 h-5 object-contain"></button>
-                  <button type="button" onclick="stampStickerOnDiary('stickers/sb_clay_star.png')" class="hover:scale-125 transition-transform" title="Stamp Star"><img src="stickers/sb_clay_star.png" alt="" class="w-5 h-5 object-contain"></button>
-                  <button type="button" onclick="stampStickerOnDiary('stickers/sb_black_cat.png')" class="hover:scale-125 transition-transform" title="Stamp Cat"><img src="stickers/sb_black_cat.png" alt="" class="w-5 h-5 object-contain"></button>
-                  <button type="button" onclick="stampStickerOnDiary('stickers/sb_pink_butterfly.png')" class="hover:scale-125 transition-transform" title="Stamp Butterfly"><img src="stickers/sb_pink_butterfly.png" alt="" class="w-5 h-5 object-contain"></button>
-                  <button type="button" onclick="stampStickerOnDiary('stickers/sb_caterpillar.png')" class="hover:scale-125 transition-transform" title="Stamp Caterpillar"><img src="stickers/sb_caterpillar.png" alt="" class="w-5 h-5 object-contain"></button>
-                </div>
+
+                <!-- Open Sticker Book to Peel Stickers Directly Into the Diary! -->
+                <button type="button" onclick="toggleStickerBook(true)"
+                        class="px-2.5 py-1 rounded-full bg-[#1800ad] hover:bg-[#2408d4] text-[#fde047] border border-[#fde047] font-cute font-bold text-xs sm:text-sm shadow-sm hover:scale-105 transition-transform flex items-center gap-1"
+                        title="Open the Sticker Book to drag any sticker onto your diary note or pages!">
+                  <span>★ peel stickers from sticker book</span>
+                </button>
               </div>
             </div>
 
             <button type="button" id="diary-submit-btn" onclick="submitDiaryEntry()"
-                    class="w-full py-1.5 px-3 rounded-md bg-[#1800ad] hover:bg-[#2408d4] text-[#fde047] font-cute font-bold text-lg shadow-md active:scale-[0.99] transition-all flex items-center justify-center gap-1.5">
+                    class="w-full py-1.5 px-3 rounded-md bg-[#d97706] hover:bg-[#b45309] text-white border border-[#fef08a] font-cute font-bold text-lg shadow-md active:scale-[0.99] transition-all flex items-center justify-center gap-1.5">
               <span>pin note to diary page ✦</span>
             </button>
           </div>
@@ -1813,13 +1896,13 @@
           </div>
 
           <!-- Right Page: Community Diary Wall (Visitors' Notes, Doodles & Stickers) -->
-          <div class="photo-book-page page-right flex flex-col justify-between p-3 sm:p-4 text-left overflow-y-auto"
+          <div id="diary-page-right" class="photo-book-page page-right relative flex flex-col justify-between p-3 sm:p-4 text-left overflow-y-auto"
                style="background: repeating-linear-gradient(0deg, #fffdf8 0px, #fffdf8 25px, rgba(180, 160, 130, 0.22) 25px, rgba(180, 160, 130, 0.22) 26px);">
-            <div class="flex items-center justify-between border-b border-stone-300/80 pb-1 mb-2">
-              <span class="font-cute font-bold text-lg sm:text-xl text-stone-800">visitor notes & doodles 🐾</span>
+            <div class="w-full flex items-center justify-between border-b border-stone-300/80 pb-1 mb-2">
+              <span class="font-cute font-bold text-lg sm:text-xl text-stone-800">visitor notes &amp; doodles 🐾</span>
               <span id="diary-entries-count" class="font-mono-exif text-[10px] uppercase tracking-wider text-stone-500">page 1</span>
             </div>
-            <div id="diary-entries-list" class="flex-1 flex flex-col gap-2.5 overflow-y-auto pr-0.5">
+            <div id="diary-entries-list" class="w-full flex-1 flex flex-col gap-2.5 overflow-y-auto pr-0.5">
               <!-- Populated by renderDiaryEntries() -->
             </div>
           </div>
@@ -2617,7 +2700,31 @@
     ];
     let currentDiaryPageIdx = 0;
     let diaryPenColor = '#1c1917';
+    let diaryIsEraser = false;
     let diaryCanvasReady = false;
+    let isDiaryBookMaximized = false;
+
+    function toggleDiaryBookMaximize(forceState) {
+      const stage = document.getElementById('diary-book-stage');
+      const spread = document.getElementById('diary-book-spread');
+      const maxBtn = document.getElementById('diary-max-btn');
+      if (!stage || !spread) return;
+      isDiaryBookMaximized = typeof forceState === 'boolean' ? forceState : !isDiaryBookMaximized;
+      if (isDiaryBookMaximized) {
+        stage.classList.add('is-maximized');
+        stage.style.width = `${Math.min(window.innerWidth - 24, 1480)}px`;
+        stage.style.maxWidth = 'calc(100vw - 24px)';
+        spread.style.setProperty('--pb-spread-h', `${Math.max(410, window.innerHeight - 105)}px`);
+        if (maxBtn) maxBtn.innerHTML = '⤡ <span class="hidden sm:inline">smaller</span>';
+      } else {
+        stage.classList.remove('is-maximized');
+        stage.style.width = '';
+        stage.style.maxWidth = '';
+        spread.style.setProperty('--pb-spread-h', '410px');
+        if (maxBtn) maxBtn.innerHTML = '⤢ <span class="hidden sm:inline">full page</span>';
+      }
+      playSparkleTwinkle();
+    }
 
     function loadDiaryEntriesFromStorage() {
       try {
@@ -2690,6 +2797,17 @@
         };
       }
 
+      function applyStrokeSettings() {
+        if (diaryIsEraser) {
+          ctx.globalCompositeOperation = 'destination-out';
+          ctx.lineWidth = 14;
+        } else {
+          ctx.globalCompositeOperation = 'source-over';
+          ctx.strokeStyle = diaryPenColor;
+          ctx.lineWidth = 3.6;
+        }
+      }
+
       canvas.addEventListener('pointerdown', (e) => {
         drawing = true;
         const p = getPos(e);
@@ -2697,8 +2815,7 @@
         lastY = p.y;
         const hint = document.getElementById('diary-canvas-hint');
         if (hint) hint.style.opacity = '0';
-        ctx.strokeStyle = diaryPenColor;
-        ctx.lineWidth = 2.8;
+        applyStrokeSettings();
         ctx.beginPath();
         ctx.moveTo(lastX, lastY);
         ctx.lineTo(lastX + 0.1, lastY + 0.1);
@@ -2708,8 +2825,7 @@
       canvas.addEventListener('pointermove', (e) => {
         if (!drawing) return;
         const p = getPos(e);
-        ctx.strokeStyle = diaryPenColor;
-        ctx.lineWidth = 2.8;
+        applyStrokeSettings();
         ctx.beginPath();
         ctx.moveTo(lastX, lastY);
         ctx.lineTo(p.x, p.y);
@@ -2720,52 +2836,38 @@
 
       window.addEventListener('pointerup', () => {
         drawing = false;
+        ctx.globalCompositeOperation = 'source-over';
       });
     }
 
-    function setDiaryPen(color) {
+    function setDiaryPen(color, isEraser = false, btnEl = null) {
       diaryPenColor = color;
-      document.querySelectorAll('.diary-color-swatch').forEach((btn) => {
-        if (btn.getAttribute('data-diary-color') === color) {
-          btn.classList.add('ring-2', 'ring-offset-1', 'ring-stone-900');
-        } else {
-          btn.classList.remove('ring-2', 'ring-offset-1', 'ring-stone-900');
-        }
+      diaryIsEraser = Boolean(isEraser);
+      document.querySelectorAll('.diary-crayon-btn').forEach((btn) => {
+        btn.classList.remove('is-selected');
       });
+      if (btnEl) {
+        btnEl.classList.add('is-selected');
+      }
+      playSparkleNote(isEraser ? 1318.51 : 1975.53, 0.018, 0.12);
     }
 
     function clearDiaryCanvas() {
       const canvas = document.getElementById('diary-doodle-canvas');
-      if (!canvas) return;
-      const ctx = canvas.getContext('2d');
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      if (canvas) {
+        const ctx = canvas.getContext('2d');
+        ctx.globalCompositeOperation = 'source-over';
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+      }
+      const stLayer = document.getElementById('diary-doodle-stickers-layer');
+      if (stLayer) stLayer.innerHTML = '';
       const hint = document.getElementById('diary-canvas-hint');
       if (hint) hint.style.opacity = '1';
     }
 
-    function stampStickerOnDiary(src) {
-      const canvas = document.getElementById('diary-doodle-canvas');
-      if (!canvas) return;
-      const ctx = canvas.getContext('2d');
-      const img = new Image();
-      img.onload = () => {
-        const size = 40;
-        const x = 24 + Math.random() * (canvas.width - size - 48);
-        const y = 16 + Math.random() * (canvas.height - size - 32);
-        const angle = (Math.random() - 0.5) * 0.35;
-        ctx.save();
-        ctx.translate(x + size / 2, y + size / 2);
-        ctx.rotate(angle);
-        ctx.drawImage(img, -size / 2, -size / 2, size, size);
-        ctx.restore();
-        const hint = document.getElementById('diary-canvas-hint');
-        if (hint) hint.style.opacity = '0';
-        playSparkleNote(1760, 0.02, 0.12);
-      };
-      img.src = src;
-    }
-
     function isDiaryCanvasBlank(canvas) {
+      const stLayer = document.getElementById('diary-doodle-stickers-layer');
+      if (stLayer && stLayer.children.length > 0) return false;
       const ctx = canvas.getContext('2d');
       const data = ctx.getImageData(0, 0, canvas.width, canvas.height).data;
       for (let i = 3; i < data.length; i += 16) {
@@ -2778,10 +2880,33 @@
       const authorEl = document.getElementById('diary-author-input');
       const noteEl = document.getElementById('diary-note-input');
       const canvas = document.getElementById('diary-doodle-canvas');
+      const stLayer = document.getElementById('diary-doodle-stickers-layer');
       if (!authorEl || !noteEl || !canvas) return;
 
       const author = (authorEl.value || '').trim() || 'anonymous friend ✦';
       const note = (noteEl.value || '').trim();
+
+      // Composite any stickers peeled from the Sticker Book into the doodle box onto the canvas!
+      if (stLayer && stLayer.children.length > 0) {
+        const ctx = canvas.getContext('2d');
+        ctx.globalCompositeOperation = 'source-over';
+        const cRect = canvas.getBoundingClientRect();
+        if (cRect.width > 0 && cRect.height > 0) {
+          Array.from(stLayer.children).forEach((el) => {
+            const img = el.querySelector('img');
+            if (!img) return;
+            const r = el.getBoundingClientRect();
+            const x = ((r.left - cRect.left) / cRect.width) * canvas.width;
+            const y = ((r.top - cRect.top) / cRect.height) * canvas.height;
+            const w = (r.width / cRect.width) * canvas.width;
+            const h = (r.height / cRect.height) * canvas.height;
+            try {
+              ctx.drawImage(img, x, y, w, h);
+            } catch (e) {}
+          });
+        }
+      }
+
       const hasDoodle = !isDiaryCanvasBlank(canvas);
 
       if (!note && !hasDoodle) {
@@ -3273,7 +3398,8 @@
       corner.addEventListener('dblclick', (e) => {
         e.preventDefault();
         e.stopPropagation();
-        if (!isSticker) togglePhotoBookMaximize();
+        if (stageId === 'diary-book-stage') toggleDiaryBookMaximize();
+        else if (!isSticker) togglePhotoBookMaximize();
       });
 
       corner.addEventListener('pointerdown', (e) => {
@@ -3305,10 +3431,13 @@
           spread.style.height = `${newH}px`;
         } else {
           spread.style.setProperty('--pb-spread-h', `${newH}px`);
-          const maxBtn = document.getElementById('pb-max-btn');
-          isPhotoBookMaximized = newW >= window.innerWidth * 0.85 && newH >= window.innerHeight * 0.72;
+          const isDiary = stageId === 'diary-book-stage';
+          const maxBtn = document.getElementById(isDiary ? 'diary-max-btn' : 'pb-max-btn');
+          const isMaxNow = newW >= window.innerWidth * 0.85 && newH >= window.innerHeight * 0.72;
+          if (isDiary) isDiaryBookMaximized = isMaxNow;
+          else isPhotoBookMaximized = isMaxNow;
           if (maxBtn) {
-            maxBtn.innerHTML = isPhotoBookMaximized
+            maxBtn.innerHTML = isMaxNow
               ? '⤡ <span class="hidden sm:inline">smaller</span>'
               : '⤢ <span class="hidden sm:inline">full page</span>';
           }
@@ -3330,6 +3459,7 @@
     }
 
     setupCornerResize('photo-book-resize-corner', 'photo-book-stage', 'photo-book-spread', false);
+    setupCornerResize('diary-book-resize-corner', 'diary-book-stage', 'diary-book-spread', false);
     setupCornerResize('sticker-book-resize-corner', 'sticker-book-stage', 'sticker-book-scroll', true);
 
     // LIGHTBOX LOGIC (CAPTION & CAMERA SETTINGS IN CUTE HANDWRITING FONT ONLY ON FULL-SCREEN CLICK)
@@ -3566,6 +3696,75 @@
     let topStickerZ = 35;
 
     function tryAttachStickerToOpenPhotoPage(el, cx, cy, dropW, dropH) {
+      // 1. Check if Guestbook Diary is open: allow dropping stickers from the Sticker Book into the Diary Doodle Box or Diary Pages!
+      if (isDiaryBookOpen) {
+        const doodleBox = document.getElementById('diary-doodle-box');
+        const doodleStickersLayer = document.getElementById('diary-doodle-stickers-layer');
+        if (doodleBox && doodleStickersLayer) {
+          const dRect = doodleBox.getBoundingClientRect();
+          if (cx >= dRect.left - 14 && cx <= dRect.right + 14 && cy >= dRect.top - 14 && cy <= dRect.bottom + 14 && dRect.width > 0 && dRect.height > 0) {
+            const wPct = Math.max(14, Math.min(34, (dropW / dRect.width) * 75));
+            const actualWPx = (wPct / 100) * dRect.width;
+            const actualHPx = actualWPx;
+            const rawLeftPct = ((cx - dRect.left - actualWPx * 0.5) / dRect.width) * 100;
+            const rawTopPct = ((cy - dRect.top - actualHPx * 0.5) / dRect.height) * 100;
+            const lPct = Math.max(0, Math.min(100 - wPct, rawLeftPct));
+            const tPct = Math.max(0, Math.min(78, rawTopPct));
+
+            removeStickerFromAllBookPages(el);
+            topStickerZ += 1;
+            el.style.position = 'absolute';
+            el.style.width = `${wPct.toFixed(2)}%`;
+            el.style.left = `${lPct.toFixed(2)}%`;
+            el.style.top = `${tPct.toFixed(2)}%`;
+            el.style.right = 'auto';
+            el.style.bottom = 'auto';
+            el.style.zIndex = topStickerZ;
+            doodleStickersLayer.appendChild(el);
+            const hint = document.getElementById('diary-canvas-hint');
+            if (hint) hint.style.opacity = '0';
+            return true;
+          }
+        }
+
+        const dLeft = document.getElementById('diary-page-left');
+        const dRight = document.getElementById('diary-page-right');
+        if (dLeft && dRight) {
+          const lRect = dLeft.getBoundingClientRect();
+          const rRect = dRight.getBoundingClientRect();
+          const unionLeft = lRect.left - 18;
+          const unionRight = rRect.right + 18;
+          const unionTop = Math.min(lRect.top, rRect.top) - 18;
+          const unionBottom = Math.max(lRect.bottom, rRect.bottom) + 18;
+          if (cx >= unionLeft && cx <= unionRight && cy >= unionTop && cy <= unionBottom) {
+            const isRightSide = cx >= lRect.right;
+            const targetPage = isRightSide ? dRight : dLeft;
+            const pRect = targetPage.getBoundingClientRect();
+            if (pRect.width > 0 && pRect.height > 0) {
+              const wPct = Math.max(10, Math.min(38, (dropW / pRect.width) * 100));
+              const actualWPx = (wPct / 100) * pRect.width;
+              const actualHPx = dropH || actualWPx;
+              const rawLeftPct = ((cx - pRect.left - actualWPx * 0.5) / pRect.width) * 100;
+              const rawTopPct = ((cy - pRect.top - actualHPx * 0.5) / pRect.height) * 100;
+              const lPct = Math.max(-4, Math.min(88, rawLeftPct));
+              const tPct = Math.max(-4, Math.min(88, rawTopPct));
+
+              removeStickerFromAllBookPages(el);
+              topStickerZ += 1;
+              el.style.position = 'absolute';
+              el.style.width = `${wPct.toFixed(2)}%`;
+              el.style.left = `${lPct.toFixed(2)}%`;
+              el.style.top = `${tPct.toFixed(2)}%`;
+              el.style.right = 'auto';
+              el.style.bottom = 'auto';
+              el.style.zIndex = topStickerZ;
+              targetPage.appendChild(el);
+              return true;
+            }
+          }
+        }
+      }
+
       if (!isPhotoBookOpen) return false;
       const leftPage = document.getElementById('photo-page-left');
       const rightPage = document.getElementById('photo-page-right');
@@ -4086,8 +4285,8 @@
 
       if (isStickerBookOpen) {
         renderStickerBookSpread(activeStickerSpread);
-        // Smoothly bring the blue header canvas into view so stickers can be pulled right onto it
-        if (window.scrollY > 140) {
+        // Smoothly bring the blue header canvas into view if no other book is open
+        if (window.scrollY > 140 && !isPhotoBookOpen && !isDiaryBookOpen) {
           window.scrollTo({ top: 0, behavior: 'smooth' });
         }
         // Re-trigger 3D cover swing animation
