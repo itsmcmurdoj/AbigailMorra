@@ -463,20 +463,18 @@
 
     .book-hardcover {
       width: 138px;
-      height: 192px;
+      height: 190px;
       position: relative;
       background: #1c1a17;
-      border-radius: 3px 8px 8px 3px;
+      border-radius: 6px 14px 14px 6px;
       box-shadow:
-        -3px 0 7px rgba(0, 0, 0, 0.28),
-        3px 2px 0 #ebe5d8,
-        4px 3px 0 rgba(0, 0, 0, 0.18),
-        0 14px 26px -6px rgba(15, 10, 40, 0.28),
-        0 6px 14px -3px rgba(0, 0, 0, 0.24),
-        inset 0 1px 0 rgba(255, 255, 255, 0.22);
+        -3px 0 6px rgba(0, 0, 0, 0.22),
+        0 14px 26px -6px rgba(24, 0, 173, 0.22),
+        0 6px 14px -3px rgba(0, 0, 0, 0.22),
+        inset 0 1.5px 0 rgba(255, 255, 255, 0.45);
       transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
       overflow: hidden;
-      padding: 8px 9px 9px 17px;
+      padding: 8px 8px 8px 17px;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -484,57 +482,45 @@
 
     @media (min-width: 640px) {
       .book-hardcover {
-        width: clamp(130px, 9.8vw, 162px);
-        height: clamp(180px, 13.5vw, 222px);
-        padding: 10px 10px 10px 19px;
+        width: clamp(128px, 9.6vw, 158px);
+        height: clamp(176px, 13.3vw, 218px);
+        padding: 9px 10px 9px 19px;
       }
     }
 
-    /* Tactile Woven Bookcloth Spine Groove Along the Left Edge */
+    /* Cute Stitched Ribbon Spine Along the Left Edge */
     .book-hardcover::before {
       content: '';
       position: absolute;
       top: 0;
       bottom: 0;
       left: 0;
-      width: 14px;
+      width: 16px;
       background: linear-gradient(to right,
-        rgba(0, 0, 0, 0.36) 0%,
-        rgba(255, 255, 255, 0.14) 32%,
-        rgba(0, 0, 0, 0.28) 78%,
-        rgba(255, 255, 255, 0.08) 100%);
-      border-right: 1px solid rgba(0, 0, 0, 0.32);
-      box-shadow: 1px 0 0 rgba(255, 255, 255, 0.12);
+        rgba(0, 0, 0, 0.28) 0%,
+        rgba(255, 255, 255, 0.28) 38%,
+        rgba(0, 0, 0, 0.18) 100%);
+      border-right: 1.5px dashed rgba(255, 255, 255, 0.65);
       z-index: 15;
       pointer-events: none;
     }
 
-    /* Subtle Woven Linen Texture Overlay on Book Covers */
     .book-hardcover::after {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background-image:
-        repeating-linear-gradient(0deg, rgba(255,255,255,0.03) 0px, rgba(255,255,255,0.03) 1px, transparent 1px, transparent 3px),
-        repeating-linear-gradient(90deg, rgba(0,0,0,0.04) 0px, rgba(0,0,0,0.04) 1px, transparent 1px, transparent 3px);
-      pointer-events: none;
-      z-index: 12;
+      display: none;
     }
 
     .book-item:hover .book-hardcover {
-      transform: translateY(-9px) rotate(-1.5deg) scale(1.04);
+      transform: translateY(-10px) rotate(-2deg) scale(1.05);
       box-shadow:
-        -4px 0 10px rgba(0,0,0,0.3),
-        3px 2px 0 #ebe5d8,
-        4px 3px 0 rgba(0, 0, 0, 0.22),
-        0 22px 34px -6px rgba(15, 10, 40, 0.34),
+        -4px 0 10px rgba(0,0,0,0.25),
+        0 22px 34px -6px rgba(24, 0, 173, 0.28),
         0 10px 20px -4px rgba(0,0,0,0.28);
     }
 
     .book-item.is-active .book-hardcover {
       transform: translateY(-8px) scale(1.03);
       box-shadow:
-        0 0 0 2px #162bc5,
+        0 0 0 2.5px #162bc5,
         0 0 24px rgba(22, 43, 197, 0.35),
         8px 20px 32px -4px rgba(0,0,0,0.4);
     }
@@ -1919,17 +1905,13 @@
                  style="--base-rot: -2deg;"
                  title="Squeak! 🐁"></div>
 
-            <!-- YELLOW STICKY NOTE HANDWRITTEN BIO (CLEAN CUTE HANDWRITING + JIGGLES ON HOVER!) -->
-            <div class="jiggle-on-hover absolute left-[20.3%] top-[59.2%] w-[19.0%] h-[32.5%] z-25 flex flex-col justify-center px-[1.4%] py-[1%] cursor-default"
+            <!-- YELLOW STICKY NOTE (COMING SOON + JIGGLES ON HOVER!) -->
+            <div class="jiggle-on-hover absolute left-[20.3%] top-[59.2%] w-[19.0%] h-[32.5%] z-25 flex items-center justify-center px-[1.4%] py-[1%] cursor-default"
                  style="--base-rot: -1.5deg;">
-              <p class="font-cute font-bold text-stone-900 leading-[1.12] tracking-tight"
-                 style="font-size: clamp(9px, 1.28vw, 18.5px);">
-                Hi! I'm Abigail, a Politics &amp; Governance student at TMU with a passion for photojournalism &amp; capturing the world around me on 35mm film.
+              <p class="font-handwriting text-stone-900 leading-none text-center"
+                 style="font-size: clamp(14px, 2.2vw, 32px);">
+                coming soon ...
               </p>
-              <span class="font-cute font-bold text-[#1800ad] mt-[3%] block leading-none"
-                    style="font-size: clamp(8px, 1.05vw, 15px);">
-                — toronto, on 🎞️✦
-              </span>
             </div>
 
             <!-- TOP-RIGHT WINDOW WINE PORTRAIT (JIGGLES ON HOVER + OPENS FULLSCREEN LIGHTBOX!) -->
@@ -1938,74 +1920,37 @@
                  style="--base-rot: 1.5deg;"
                  class="jiggle-on-hover absolute left-[56.5%] top-[5.5%] w-[35.5%] h-[49.5%] cursor-pointer z-20 rounded"></div>
 
-            <!-- BOTTOM-RIGHT SPIRAL NOTEBOOK HANDWRITTEN QUOTE (FITS NEATLY ON THE RULED LINES!) -->
-            <div class="jiggle-on-hover absolute left-[55.6%] top-[63.2%] w-[38.6%] h-[30.5%] z-25 flex flex-col justify-center px-[1.5%]"
+            <!-- BOTTOM-RIGHT SPIRAL NOTEBOOK UNDER WINE PHOTO (COMING SOON!) -->
+            <div class="jiggle-on-hover absolute left-[55.6%] top-[63.2%] w-[38.6%] h-[30.5%] z-25 flex items-center justify-center px-[1.5%]"
                  style="--base-rot: 1.2deg;">
-              <p class="font-handwriting text-stone-900 leading-[1.24]"
-                 style="font-size: clamp(10px, 1.52vw, 22px);">
-                “Photography helps me slow down and really look at the world. Even ordinary places have something worth noticing if you take the time.”
+              <p class="font-handwriting text-stone-900 leading-none text-center"
+                 style="font-size: clamp(16px, 2.6vw, 38px);">
+                coming soon ...
               </p>
-              <div class="flex items-center justify-between mt-[2.5%]">
-                <span class="font-cute font-bold text-stone-600" style="font-size: clamp(8px, 1.05vw, 15px);">
-                  ★ flip the page for street notes &amp; upcoming rolls ➔
-                </span>
-              </div>
             </div>
           </div>
 
           <!-- =========================================================
                SPREAD 02 / 03: ABIGAIL'S CANVA SCRAPBOOK SPREAD 2
-               (Photo Essay Notes + Real Clickable Polaroids + Hover Jiggle!)
+               (Clickable Polaroids + Hover Jiggle!)
                ========================================================= -->
           <div id="zine-spread-1" class="zine-spread-panel is-inactive-spread relative w-full aspect-[16/9] select-none z-10">
             <img src="photos/about me/canva_spread_2.png"
                  alt="Abigail's Scrapbook Spread 2"
                  class="w-full h-full object-contain block pointer-events-none">
 
-            <!-- TOP-LEFT BROWN KRAFT BANNER HANDWRITTEN TITLE -->
-            <div class="jiggle-on-hover absolute left-[6.8%] top-[8.2%] w-[34.5%] h-[17.5%] z-25 flex flex-col justify-center px-[2%]"
-                 style="--base-rot: -3.2deg;">
-              <span class="font-mono-exif uppercase tracking-widest text-stone-700/90 font-bold"
-                    style="font-size: clamp(7px, 0.78vw, 11px);">
-                FIELD JOURNAL • TORONTO STREETS
-              </span>
-              <h3 class="font-handwriting text-stone-900 leading-none mt-0.5"
-                  style="font-size: clamp(14px, 2.35vw, 34px);">
-                photo essay &amp; street notes
-              </h3>
-              <p class="font-cute font-bold text-stone-800 leading-tight mt-0.5"
-                 style="font-size: clamp(8.5px, 1.15vw, 16.5px);">
-                catching the quiet moments people walk right past ✨
-              </p>
-            </div>
-
             <!-- PUFFY YELLOW STAR STICKER JIGGLE HOTSPOT -->
             <div class="jiggle-on-hover absolute left-[41.0%] top-[4.8%] w-[8.5%] h-[15%] z-25 cursor-pointer"
                  style="--base-rot: 6deg;"
                  title="★ shiny star!"></div>
 
-            <!-- BOTTOM-LEFT VERTICAL LINED NOTEBOOK SHEET: HANDWRITTEN NOTES -->
-            <div class="jiggle-on-hover absolute left-[5.5%] top-[42.8%] w-[21.5%] h-[41.5%] z-25 flex flex-col justify-between p-[1.8%]"
+            <!-- BOTTOM-LEFT VERTICAL LINED NOTEBOOK SHEET (COMING SOON!) -->
+            <div class="jiggle-on-hover absolute left-[5.5%] top-[42.8%] w-[21.5%] h-[41.5%] z-25 flex items-center justify-center p-[1.8%]"
                  style="--base-rot: -1.2deg;">
-              <div>
-                <span class="font-cute font-bold text-[#1800ad] block border-b border-stone-400/50 pb-0.5 mb-1"
-                      style="font-size: clamp(9px, 1.25vw, 18px);">
-                  on my camera roll 🎞️
-                </span>
-                <p class="font-cute font-bold text-stone-800 leading-[1.22]"
-                   style="font-size: clamp(8px, 1.12vw, 16px);">
-                  • late afternoon crosswalk shadows<br>
-                  • neighborhood storefronts &amp; neon<br>
-                  • candid faces in transit<br>
-                  • 35mm grain &amp; autumn light
-                </p>
-              </div>
-              <button type="button"
-                      onclick="openPhotoBook('photo_essay')"
-                      class="self-start font-cute font-bold text-[#1800ad] hover:underline flex items-center gap-1"
-                      style="font-size: clamp(8.5px, 1.12vw, 16px);">
-                <span>open photo essay book ➔</span>
-              </button>
+              <p class="font-handwriting text-stone-900 leading-none text-center"
+                 style="font-size: clamp(14px, 2.2vw, 32px);">
+                coming soon ...
+              </p>
             </div>
 
             <!-- TOP SQUARE POLAROID FRAME (WITH PHOTO ESSAY PRINT + HOVER JIGGLE!) -->
@@ -2044,42 +1989,20 @@
 
           <!-- =========================================================
                SPREAD 03 / 03: ABIGAIL'S CANVA SCRAPBOOK SPREAD 3
-               ("Coming Soon" Postcard + Darkroom Checklist + Open Guestbook Diary Button!)
+               ("Coming Soon ..." Postcard & Notebook)
                ========================================================= -->
           <div id="zine-spread-2" class="zine-spread-panel is-inactive-spread relative w-full aspect-[16/9] select-none z-10">
             <img src="photos/about me/canva_spread_3.png"
                  alt="Abigail's Scrapbook Spread 3"
                  class="w-full h-full object-contain block pointer-events-none">
 
-            <!-- LEFT VINTAGE POSTCARD: "COMING SOON" NOTE & POSTCARD DETAILS (JIGGLES ON HOVER!) -->
-            <div class="jiggle-on-hover absolute left-[9.2%] top-[8.2%] w-[31.8%] h-[82.5%] z-25 flex flex-col justify-between p-[2.2%]"
+            <!-- LEFT VINTAGE POSTCARD: "COMING SOON ..." -->
+            <div class="jiggle-on-hover absolute left-[9.2%] top-[8.2%] w-[31.8%] h-[82.5%] z-25 flex items-center justify-center p-[2.2%]"
                  style="--base-rot: -1.5deg;">
-              <!-- Top Half of Vertical Postcard -->
-              <div class="pt-[4%] px-[3%]">
-                <span class="inline-block px-2 py-0.5 rounded bg-[#1800ad]/10 border border-[#1800ad]/30 font-mono-exif uppercase tracking-widest text-[#1800ad] font-bold mb-1"
-                      style="font-size: clamp(7px, 0.78vw, 11px);">
-                  ★ COMING SOON TO THE ARCHIVE
-                </span>
-                <h3 class="font-handwriting text-stone-900 leading-tight"
-                    style="font-size: clamp(14px, 2.2vw, 32px);">
-                  fresh rolls in the darkroom...
-                </h3>
-                <p class="font-cute font-bold text-stone-800 leading-[1.18] mt-1"
-                   style="font-size: clamp(8.5px, 1.15vw, 16.5px);">
-                  currently shooting &amp; scanning new 35mm contact sheets around toronto for my upcoming series!
-                </p>
-              </div>
-
-              <!-- Bottom Half of Vertical Postcard (Postcard Address Lines) -->
-              <div class="pb-[5%] pl-[46%] pr-[4%] flex flex-col justify-end text-left">
-                <p class="font-cute font-bold text-stone-800 leading-[1.35]"
-                   style="font-size: clamp(8px, 1.05vw, 15px);">
-                  TO: visitors &amp; friends 💌<br>
-                  FROM: abigail &amp; gilbert 🐾<br>
-                  TMU school of image arts<br>
-                  toronto, ontario
-                </p>
-              </div>
+              <p class="font-handwriting text-stone-900 leading-none text-center -mt-[18%]"
+                 style="font-size: clamp(16px, 2.6vw, 38px);">
+                coming soon ...
+              </p>
             </div>
 
             <!-- TOP-RIGHT CHECKERED DISCO BALL (JIGGLES ON HOVER!) -->
@@ -2087,35 +2010,13 @@
                  style="--base-rot: 5deg;"
                  title="Disco ball 🪩✨"></div>
 
-            <!-- RIGHT SPIRAL NOTEBOOK: UPCOMING SERIES CHECKLIST & GUESTBOOK DIARY INVITE -->
-            <div class="jiggle-on-hover absolute left-[54.8%] top-[22.5%] w-[34.2%] h-[66.5%] z-25 flex flex-col justify-between p-[2%]"
+            <!-- RIGHT SPIRAL NOTEBOOK: "COMING SOON ..." -->
+            <div class="jiggle-on-hover absolute left-[54.8%] top-[22.5%] w-[34.2%] h-[66.5%] z-25 flex items-center justify-center p-[2%]"
                  style="--base-rot: 1.4deg;">
-              <div>
-                <h4 class="font-handwriting text-[#1800ad] leading-none mb-1.5"
-                    style="font-size: clamp(13px, 2.05vw, 29px);">
-                  next up on the shelf ✨
-                </h4>
-                <ul class="font-cute font-bold text-stone-800 space-y-1 leading-[1.22]"
-                    style="font-size: clamp(8.5px, 1.18vw, 17px);">
-                  <li>☐ <span class="underline decoration-amber-500/70">live events</span> — concert &amp; crowd light</li>
-                  <li>☐ <span class="underline decoration-emerald-600/70">environment</span> — urban nature &amp; weather</li>
-                  <li>☐ <span class="underline decoration-rose-500/70">features</span> — neighbourhood portraits</li>
-                  <li>☑ <span class="text-[#1800ad]">guestbook diary</span> — open now on the shelf!</li>
-                </ul>
-              </div>
-
-              <div class="pt-2 border-t border-stone-400/40 flex flex-col gap-1">
-                <p class="font-cute font-bold text-stone-700 leading-tight"
-                   style="font-size: clamp(8px, 1.08vw, 15.5px);">
-                  want to leave a doodle, sticker, or note on my site?
-                </p>
-                <button type="button"
-                        onclick="openDiaryBook()"
-                        class="self-start px-3 py-1 rounded-full bg-[#1800ad] text-[#fde047] font-cute font-bold shadow-md hover:scale-105 transition-transform"
-                        style="font-size: clamp(9px, 1.15vw, 16.5px);">
-                  ✎ open the guestbook diary ➔
-                </button>
-              </div>
+              <p class="font-handwriting text-stone-900 leading-none text-center"
+                 style="font-size: clamp(16px, 2.6vw, 38px);">
+                coming soon ...
+              </p>
             </div>
           </div>
 
@@ -2451,20 +2352,20 @@
       { src: 'photos/Miscellaneous/IMG_0915.JPG', title: 'Miscellaneous Study 03 (Abigail Morra / TMU)', info: '1/60 sec • f/1.6 • ISO-80 • (Abigail Morra / TMU)', book: 'miscellaneous' }
     ];
 
-    // COFFEE TABLE BOOKS CATALOG (TACTILE ARCHIVAL CLOTH HARDCOVERS & PHOTO ZINES)
+    // COFFEE TABLE BOOKS CATALOG (UNIFIED CUTE STICKER-DECORATED COVER STYLE & ROUNDED PILL BUBBLES)
     const BOOKS = [
       {
         id: 'sticker_book',
         isStickerBook: true,
         isUpcoming: false,
-        title: 'Sticker Book',
-        subLabel: 'INTERACTIVE',
-        badge: '★ sticker book',
+        title: 'Stickers',
+        badge: '★ stickers!',
         themeColor: '#1800ad',
-        coverBg: 'linear-gradient(155deg, #1a1f5c 0%, #101440 100%)',
-        innerBg: '#151a4f',
-        borderCol: 'rgba(235, 225, 205, 0.32)',
+        coverBg: 'linear-gradient(145deg, #1800ad 0%, #2b14cc 100%)',
+        innerBg: '#150096',
+        borderCol: '#fde047',
         topLeftSticker: 'stickers/sb_clay_star.png',
+        topRightSticker: 'stickers/sb_miffy_book.png',
         centerSticker: 'stickers/sb_wizard_cat.png'
       },
       {
@@ -2472,13 +2373,13 @@
         isDiaryBook: true,
         isUpcoming: false,
         title: 'Guestbook Diary',
-        subLabel: 'LEAVE A NOTE',
-        badge: '✎ diary & notes',
-        themeColor: '#4a2531',
-        coverBg: 'linear-gradient(155deg, #592b3a 0%, #381822 100%)',
-        innerBg: '#4a2230',
-        borderCol: 'rgba(235, 225, 205, 0.32)',
+        badge: '💌 diary!',
+        themeColor: '#d97706',
+        coverBg: 'linear-gradient(145deg, #f59e0b 0%, #d97706 100%)',
+        innerBg: '#d97706',
+        borderCol: '#fef08a',
         topLeftSticker: 'stickers/ladybug_sticker.png',
+        topRightSticker: 'stickers/sb_clay_star.png',
         centerSticker: 'stickers/sb_miffy_book.png'
       },
       {
@@ -2487,13 +2388,13 @@
         cover: 'photos/General or Spot News/MOR_TWO_1.JPG.jpg',
         isUpcoming: false,
         title: 'General or Spot News',
-        subLabel: 'ISSUE 01 • 35MM',
-        badge: 'spot news',
-        themeColor: '#4c1d24',
-        coverBg: 'linear-gradient(155deg, #572229 0%, #381419 100%)',
-        innerBg: '#471b21',
-        borderCol: 'rgba(235, 225, 205, 0.28)',
+        badge: '🗞️ spot news',
+        themeColor: '#dc2626',
+        coverBg: 'linear-gradient(145deg, #ef4444 0%, #b91c1c 100%)',
+        innerBg: '#dc2626',
+        borderCol: '#fecaca',
         topLeftSticker: 'stickers/sb_black_cat.png',
+        topRightSticker: 'stickers/sb_yellow_starburst.png',
         centerSticker: 'stickers/canva_camera.png'
       },
       {
@@ -2501,14 +2402,14 @@
         folder: 'photos/Sports',
         cover: 'photos/Sports/MOR_THREE_1.JPEG',
         title: 'Sports',
-        subLabel: 'ISSUE 02 • ACTION',
-        badge: 'sports',
+        badge: '⚡ sports',
         isUpcoming: false,
-        themeColor: '#1d3628',
-        coverBg: 'linear-gradient(155deg, #244232 0%, #15291e 100%)',
-        innerBg: '#1d3628',
-        borderCol: 'rgba(235, 225, 205, 0.28)',
+        themeColor: '#16a34a',
+        coverBg: 'linear-gradient(145deg, #22c55e 0%, #15803d 100%)',
+        innerBg: '#16a34a',
+        borderCol: '#bbf7d0',
         topLeftSticker: 'stickers/sb_stitched_star.png',
+        topRightSticker: 'stickers/sb_yellow_starburst.png',
         centerSticker: 'stickers/sb_star_boots.png'
       },
       {
@@ -2516,15 +2417,57 @@
         folder: 'photos/Photo Essay',
         cover: 'photos/Photo Essay/MOR_FIVE_12.jpg',
         title: 'Photo Essay',
-        subLabel: 'ISSUE 03 • 13 PLATES',
-        badge: 'photo essay',
+        badge: '📖 photo essay',
         isUpcoming: false,
-        themeColor: '#3d2722',
-        coverBg: 'linear-gradient(155deg, #4f332c 0%, #301e1a 100%)',
-        innerBg: '#422a24',
-        borderCol: 'rgba(235, 225, 205, 0.28)',
-        topLeftSticker: 'stickers/sb_clay_star.png',
+        themeColor: '#db2777',
+        coverBg: 'linear-gradient(145deg, #ec4899 0%, #be185d 100%)',
+        innerBg: '#db2777',
+        borderCol: '#fbcfe8',
+        topLeftSticker: 'stickers/sb_pink_button.png',
+        topRightSticker: 'stickers/sb_clay_star.png',
         centerSticker: 'stickers/sb_three_kittens.png'
+      },
+      {
+        id: 'live_events',
+        folder: 'photos/Live Events',
+        title: 'Live Events',
+        badge: '🎶 live events',
+        isUpcoming: true,
+        themeColor: '#7c3aed',
+        coverBg: 'linear-gradient(145deg, #8b5cf6 0%, #5b21b6 100%)',
+        innerBg: '#7c3aed',
+        borderCol: '#ddd6fe',
+        topLeftSticker: 'stickers/sb_party_hat.png',
+        topRightSticker: 'stickers/sb_pink_starburst.png',
+        centerSticker: 'stickers/vinyl_sticker.png'
+      },
+      {
+        id: 'environment',
+        folder: 'photos/Environment',
+        title: 'Environment',
+        badge: '🌿 environment',
+        isUpcoming: true,
+        themeColor: '#0d9488',
+        coverBg: 'linear-gradient(145deg, #14b8a6 0%, #0f766e 100%)',
+        innerBg: '#0d9488',
+        borderCol: '#99f6e4',
+        topLeftSticker: 'stickers/sb_caterpillar.png',
+        topRightSticker: 'stickers/sb_pink_butterfly.png',
+        centerSticker: 'stickers/sb_dragonfly.png'
+      },
+      {
+        id: 'features',
+        folder: 'photos/Features',
+        title: 'Features',
+        badge: '✨ features',
+        isUpcoming: true,
+        themeColor: '#e11d48',
+        coverBg: 'linear-gradient(145deg, #f43f5e 0%, #be123c 100%)',
+        innerBg: '#e11d48',
+        borderCol: '#fecdd3',
+        topLeftSticker: 'stickers/sb_moon.png',
+        topRightSticker: 'stickers/sb_blue_bird.png',
+        centerSticker: 'stickers/canva_cake.png'
       },
       {
         id: 'miscellaneous',
@@ -2532,56 +2475,14 @@
         cover: 'photos/Miscellaneous/IMG_0915.JPG',
         isUpcoming: false,
         title: 'Miscellaneous',
-        subLabel: 'ARCHIVE • 35MM',
-        badge: 'miscellaneous',
-        themeColor: '#243042',
-        coverBg: 'linear-gradient(155deg, #2d3c52 0%, #1c2636 100%)',
-        innerBg: '#253245',
-        borderCol: 'rgba(235, 225, 205, 0.28)',
+        badge: '🎞️ misc',
+        themeColor: '#2563eb',
+        coverBg: 'linear-gradient(145deg, #3b82f6 0%, #1d4ed8 100%)',
+        innerBg: '#2563eb',
+        borderCol: '#bfdbfe',
         topLeftSticker: 'stickers/canva_camera.png',
+        topRightSticker: 'stickers/sb_twin_stars.png',
         centerSticker: 'stickers/sb_star_ladybug.png'
-      },
-      {
-        id: 'live_events',
-        folder: 'photos/Live Events',
-        title: 'Live Events',
-        subLabel: 'COMING SOON',
-        badge: 'live events',
-        isUpcoming: true,
-        themeColor: '#2e253d',
-        coverBg: 'linear-gradient(155deg, #392e4a 0%, #231b30 100%)',
-        innerBg: '#302640',
-        borderCol: 'rgba(235, 225, 205, 0.25)',
-        topLeftSticker: 'stickers/sb_party_hat.png',
-        centerSticker: 'stickers/vinyl_sticker.png'
-      },
-      {
-        id: 'environment',
-        folder: 'photos/Environment',
-        title: 'Environment',
-        subLabel: 'COMING SOON',
-        badge: 'environment',
-        isUpcoming: true,
-        themeColor: '#233834',
-        coverBg: 'linear-gradient(155deg, #2b4540 0%, #192b28 100%)',
-        innerBg: '#243b36',
-        borderCol: 'rgba(235, 225, 205, 0.25)',
-        topLeftSticker: 'stickers/sb_caterpillar.png',
-        centerSticker: 'stickers/sb_dragonfly.png'
-      },
-      {
-        id: 'features',
-        folder: 'photos/Features',
-        title: 'Features',
-        subLabel: 'COMING SOON',
-        badge: 'features',
-        isUpcoming: true,
-        themeColor: '#47282c',
-        coverBg: 'linear-gradient(155deg, #543035 0%, #361d20 100%)',
-        innerBg: '#47282c',
-        borderCol: 'rgba(235, 225, 205, 0.25)',
-        topLeftSticker: 'stickers/sb_moon.png',
-        centerSticker: 'stickers/canva_cake.png'
       }
     ];
 
@@ -2632,7 +2533,7 @@
       });
     })();
 
-    // RENDER COFFEE TABLE BOOKS (TACTILE LINEN BOOKCLOTH COVERS, TAPED PRINTS & ARCHIVAL PAPER LABELS)
+    // RENDER COFFEE TABLE BOOKS (100% CONSISTENT ROUNDED EDGES, STICKER ART & CENTERED BUBBLE PILLS!)
     function renderBooks() {
       const shelf = document.getElementById('books-shelf');
       shelf.innerHTML = '';
@@ -2649,29 +2550,26 @@
         const hardcover = document.createElement('div');
         hardcover.className = 'book-hardcover';
         hardcover.style.background = b.coverBg;
-        hardcover.style.border = `1px solid ${b.borderCol || 'rgba(255,255,255,0.25)'}`;
+        hardcover.style.border = `1.5px solid ${b.borderCol || 'rgba(255,255,255,0.4)'}`;
         hardcover.title = `${b.title || b.badge} — Click to open book!`;
 
-        // Tactile Editorial Cover Centerpiece: Taped Archival Print or Subtle Stamp
+        // Unified Sticker-Book Cover Design for ALL books:
+        // Soft rounded inner card, two corner stickers, Polaroid photo (for books with photos!) or cute center sticker, and centered rounded bubble title pill!
         const centerVisual = (!b.isStickerBook && !b.isDiaryBook && !b.isUpcoming && b.cover)
-          ? `<div class="relative z-10 bg-[#faf6ee] p-1 pb-2.5 rounded-[2px] shadow-md rotate-[-1.5deg] w-[72px] h-[82px] sm:w-[82px] sm:h-[94px] flex items-center justify-center my-0.5 pointer-events-none border border-stone-300/80">
-               <div class="w-7 h-2 bg-[#efe2bd]/85 border border-stone-400/40 absolute -top-1 left-1/2 -translate-x-1/2 rotate-[2deg] shadow-sm"></div>
-               <img src="${b.cover}" alt="" class="w-full h-full object-cover rounded-[1px]">
+          ? `<div class="relative z-10 bg-white p-1 pb-2.5 rounded-[4px] shadow-md rotate-[-3deg] w-14 h-16 sm:w-16 sm:h-[70px] flex items-center justify-center -my-1 pointer-events-none border border-stone-200">
+               <div class="w-6 h-2 bg-[#f3e5be]/90 border border-stone-300/60 absolute -top-1.5 left-1/2 -translate-x-1/2 rotate-[4deg] shadow-sm"></div>
+               <img src="${b.cover}" alt="" class="w-full h-full object-cover rounded-[2px]">
              </div>`
-          : `<div class="relative z-10 w-[68px] h-[76px] sm:w-[76px] sm:h-[86px] rounded-[3px] bg-black/15 border border-white/15 flex items-center justify-center p-2 my-0.5 pointer-events-none shadow-inner">
-               <img src="${b.centerSticker}" alt="" class="w-full h-full object-contain drop-shadow-md">
-             </div>`;
+          : `<img src="${b.centerSticker}" alt="" class="w-12 h-14 sm:w-14 sm:h-16 object-contain relative z-10 drop-shadow-lg -my-1 pointer-events-none">`;
 
         hardcover.innerHTML = `
-          <div class="w-full h-full relative flex flex-col items-center justify-between overflow-hidden rounded-[4px] border border-amber-100/20 p-2 select-none shadow-inner" style="background: ${b.innerBg};">
-            <div class="w-full flex items-center justify-between z-20 pointer-events-none border-b border-amber-100/15 pb-1">
-              <span class="font-mono-exif text-[7.5px] sm:text-[8px] tracking-[0.14em] uppercase text-amber-100/75 truncate">${b.subLabel || 'ARCHIVE'}</span>
-              <img src="${b.topLeftSticker}" alt="" class="w-4 h-4 sm:w-4.5 sm:h-4.5 object-contain opacity-90 drop-shadow-sm">
+          <div class="w-full h-full relative flex flex-col items-center justify-between overflow-hidden rounded-xl border border-white/45 p-1.5 select-none shadow-inner" style="background: ${b.innerBg};">
+            <div class="w-full flex justify-between items-start z-20 pointer-events-none">
+              <img src="${b.topLeftSticker}" alt="" class="w-6 h-6 sm:w-7 sm:h-7 object-contain rotate-[-14deg] drop-shadow">
+              <img src="${b.topRightSticker}" alt="" class="w-6 h-6 sm:w-7 sm:h-7 object-contain rotate-[12deg] drop-shadow">
             </div>
             ${centerVisual}
-            <div class="relative z-20 w-full bg-[#f7f2e6] px-1.5 py-1 rounded-[2px] shadow-sm border border-stone-400/60 text-center flex flex-col items-center justify-center">
-              <span class="font-cute font-bold text-[12.5px] sm:text-[13.5px] leading-none tracking-tight text-stone-900 whitespace-nowrap overflow-hidden text-ellipsis w-full">${b.badge}</span>
-            </div>
+            <span class="relative z-20 w-[94%] bg-[#faf7f0] font-cute font-bold text-[12px] sm:text-[13px] leading-none py-1 px-1.5 rounded-full shadow-md border border-stone-300 text-center flex items-center justify-center whitespace-nowrap overflow-hidden text-ellipsis" style="color: ${b.themeColor};">${b.badge}</span>
           </div>
         `;
 
