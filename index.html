@@ -3044,7 +3044,6 @@
         booksShelfDragged = false;
         startX = e.clientX;
         startY = e.clientY;
-        try { item.setPointerCapture(e.pointerId); } catch (_) {}
       });
 
       item.addEventListener('pointermove', (e) => {
@@ -3054,6 +3053,7 @@
         if (!moved && Math.hypot(dx, dy) > 8) {
           moved = true;
           booksShelfDragged = true;
+          try { item.setPointerCapture(e.pointerId); } catch (_) {}
           item.style.zIndex = '50';
           item.style.transition = 'none';
           playSparkleNote(1760.0, 0.018, 0.1);
@@ -6560,7 +6560,7 @@
     // Progressive Web App Service Worker Registration (with immediate update check)
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', () => {
-        navigator.serviceWorker.register('./sw.js?v=6').then((reg) => {
+        navigator.serviceWorker.register('./sw.js?v=7').then((reg) => {
           reg.update();
         }).catch((err) => {
           console.log('SW registration:', err);
