@@ -173,6 +173,12 @@
       filter: drop-shadow(0 3px 5px rgba(0, 0, 0, 0.35));
     }
 
+    #ladybug-cursor-follower.is-crayon-cursor {
+      width: 68px;
+      height: 68px;
+      filter: drop-shadow(0 6px 10px rgba(0, 0, 0, 0.42));
+    }
+
     @media (pointer: fine) {
       html.custom-ladybug-active #ladybug-cursor-follower {
         display: block;
@@ -435,166 +441,79 @@
       }
     }
 
-    /* 3D Wooden Wall Shelf Ledge Under the Books */
+    /* Vintage Carved Scalloped Wooden Wall Shelf Under the Books (from shelf.jpg) */
     .books-shelf-plank {
       position: relative;
       z-index: 15;
-      margin: -2px 0.5rem 0 0.5rem;
-      height: 22px;
-      border-radius: 4px 4px 7px 7px;
-      background:
-        repeating-linear-gradient(
-          90deg,
-          rgba(255, 255, 255, 0.03) 0px,
-          rgba(255, 255, 255, 0.03) 18px,
-          rgba(60, 32, 12, 0.05) 18px,
-          rgba(60, 32, 12, 0.05) 36px
-        ),
-        linear-gradient(
-          180deg,
-          #d8b384 0%,
-          #c49a68 26%,
-          #a47846 32%,
-          #8c6234 88%,
-          #6e4b24 100%
-        );
-      border: 1.5px solid #5c3d1c;
-      box-shadow:
-        0 14px 24px -4px rgba(28, 19, 10, 0.38),
-        0 5px 10px rgba(0, 0, 0, 0.22),
-        inset 0 2px 0 rgba(255, 245, 225, 0.65);
+      margin: -6px 0.25rem 0 0.25rem;
+      height: clamp(46px, 6.2vw, 76px);
+      background-image: url("stickers/wooden_shelf_wide.png");
+      background-size: 100% 100%;
+      background-repeat: no-repeat;
+      background-position: top center;
+      filter: drop-shadow(0 14px 20px rgba(28, 19, 10, 0.34));
+      pointer-events: none;
     }
 
-    /* Shelf Support Brackets Underneath */
-    .books-shelf-plank::before,
-    .books-shelf-plank::after {
-      content: "";
+    /* Real-Life "Abigail" Crayons Docked on the Side of the Open Sticker Book */
+    .sb-crayons-side-dock {
       position: absolute;
-      top: 100%;
-      width: 18px;
-      height: 16px;
-      background: linear-gradient(180deg, #5c3d1c 0%, #78522b 100%);
-      border: 1.5px solid #452c12;
-      border-top: none;
-      border-radius: 0 0 5px 5px;
-      box-shadow: 0 6px 10px rgba(0, 0, 0, 0.25);
-    }
-
-    .books-shelf-plank::before {
-      left: 12%;
-    }
-
-    .books-shelf-plank::after {
-      right: 12%;
-    }
-
-    /* Interactive Crayon Box on the Shelf (to the left of Sticker Book) */
-    .shelf-crayon-pack {
-      width: 128px;
-      height: 190px;
-      position: relative;
+      right: calc(100% + 8px);
+      bottom: 4px;
       display: flex;
-      flex-direction: column;
-      justify-content: flex-end;
-      padding-top: 26px;
+      align-items: flex-end;
+      gap: 2px;
+      padding: 8px 8px 6px 8px;
+      background: rgba(255, 253, 245, 0.92);
+      border: 2px solid #1800ad;
+      border-radius: 14px;
+      box-shadow:
+        0 20px 44px rgba(0, 0, 0, 0.48),
+        0 0 0 2px #fde047;
+      z-index: 45;
       user-select: none;
     }
 
-    @media (max-width: 639px) {
-      .shelf-crayon-pack {
-        width: 112px;
-        height: 166px;
-        padding-top: 22px;
+    /* When Sticker Book is shifted left (because a Photo Book or Diary is also open), dock crayons on the right side of the Sticker Book so they stay onscreen! */
+    .sticker-book-stage.is-shifted-left .sb-crayons-side-dock {
+      right: auto;
+      left: calc(100% + 8px);
+    }
+
+    @media (max-width: 900px) {
+      .sb-crayons-side-dock,
+      .sticker-book-stage.is-shifted-left .sb-crayons-side-dock {
+        right: auto;
+        left: 8px;
+        bottom: calc(100% + 6px);
       }
     }
 
-    .shelf-crayons-row {
-      display: flex;
-      align-items: flex-end;
-      justify-content: center;
-      gap: 4px;
-      padding: 0 7px;
-      margin-bottom: -14px;
+    .sb-real-crayon {
+      width: 22px;
+      height: 196px;
+      position: relative;
+      flex-shrink: 0;
+      transition: transform 0.22s cubic-bezier(0.34, 1.56, 0.64, 1), filter 0.18s ease;
+      filter: drop-shadow(0 3px 4px rgba(0, 0, 0, 0.28));
+    }
+
+    @media (max-width: 639px) {
+      .sb-real-crayon {
+        width: 18px;
+        height: 152px;
+      }
+    }
+
+    .sb-real-crayon:hover {
+      transform: translateY(-14px) scale(1.04);
       z-index: 10;
     }
 
-    .shelf-crayon-stick {
-      width: 14px;
-      height: 76px;
-      border-radius: 3px 3px 2px 2px;
-      position: relative;
-      cursor: pointer;
-      transition: transform 0.24s cubic-bezier(0.34, 1.56, 0.64, 1), filter 0.2s ease;
-      box-shadow: inset -2px 0 3px rgba(0,0,0,0.28), inset 2px 0 2px rgba(255,255,255,0.35), 0 3px 5px rgba(0,0,0,0.25);
-      border: 1px solid rgba(0,0,0,0.35);
-    }
-
-    .shelf-crayon-stick::before {
-      content: "";
-      position: absolute;
-      bottom: 100%;
-      left: -1px;
-      right: -1px;
-      height: 15px;
-      background: inherit;
-      clip-path: polygon(50% 0%, 12% 100%, 88% 100%);
-      filter: brightness(1.08);
-    }
-
-    .shelf-crayon-stick::after {
-      content: "";
-      position: absolute;
-      top: 10px;
-      left: 0;
-      right: 0;
-      height: 28px;
-      background: rgba(255, 255, 255, 0.78);
-      border-top: 2px solid rgba(0,0,0,0.45);
-      border-bottom: 2px solid rgba(0,0,0,0.45);
-    }
-
-    .shelf-crayon-stick:hover {
-      transform: translateY(-14px) rotate(-3deg);
-      filter: brightness(1.08);
-    }
-
-    .shelf-crayon-stick.is-selected {
-      transform: translateY(-24px) scale(1.08);
-      box-shadow: 0 0 0 2.5px #fde047, 0 8px 14px rgba(0,0,0,0.35);
-      z-index: 25;
-    }
-
-    .shelf-crayon-box-body {
-      height: 112px;
-      width: 100%;
-      border-radius: 7px 7px 9px 9px;
-      background: linear-gradient(155deg, #fde047 0%, #facc15 55%, #eab308 100%);
-      border: 2px solid #ca8a04;
-      box-shadow:
-        -3px 0 6px rgba(0,0,0,0.22),
-        0 12px 22px -6px rgba(24,0,173,0.22),
-        inset 0 2px 0 rgba(255,255,255,0.65);
-      position: relative;
+    .sb-real-crayon.is-selected {
+      transform: translateY(-26px) scale(1.08);
+      filter: drop-shadow(0 0 6px #fde047) drop-shadow(0 8px 14px rgba(0, 0, 0, 0.42));
       z-index: 20;
-      padding: 6px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: space-between;
-      overflow: hidden;
-    }
-
-    .shelf-crayon-box-body::before {
-      content: "";
-      position: absolute;
-      top: -12px;
-      left: 14%;
-      right: 14%;
-      height: 22px;
-      background: #78350f;
-      border-radius: 50%;
-      opacity: 0.22;
-      pointer-events: none;
     }
 
     /* Page Doodle Canvas Overlay (Profile Scrapbook & Open Gallery Books) */
@@ -610,7 +529,6 @@
 
     body.is-crayon-mode .page-crayon-canvas {
       pointer-events: auto;
-      cursor: crosshair;
     }
 
     #crayon-active-toolbar {
@@ -1865,6 +1783,8 @@
     <!-- 3D ANIMATED STICKER BOOK (OPENS AT BOTTOM-RIGHT • SCROLLABLE, RESIZABLE & PEELABLE) -->
     <div id="sticker-book-stage" class="sticker-book-stage" aria-hidden="true">
       <div class="sticker-book-3d-wrapper">
+        <!-- Real-Life "Abigail" Crayons Docked on the Side of the Open Sticker Book -->
+        <div id="sticker-book-crayons-side" class="sb-crayons-side-dock" aria-label="Abigail Crayons"></div>
         
         <!-- Corner Drag-to-Resize Handle -->
         <div id="sticker-book-resize-corner" class="book-resize-corner" title="Drag corner to resize book!">
@@ -2580,22 +2500,8 @@
       { src: 'photos/Miscellaneous/IMG_0915.JPG', title: 'Miscellaneous Study 03 (Abigail Morra / TMU)', info: '1/60 sec • f/1.6 • ISO-80 • (Abigail Morra / TMU)', book: 'miscellaneous' }
     ];
 
-    // COFFEE TABLE BOOKS CATALOG (DIARY ON THE FAR LEFT!)
+    // COFFEE TABLE BOOKS CATALOG (STICKERS ON FAR LEFT, DIARY ON FAR RIGHT, DRAGGABLE TO REORDER!)
     const BOOKS = [
-      {
-        id: 'diary_book',
-        isDiaryBook: true,
-        isUpcoming: false,
-        title: 'Guestbook Diary',
-        badge: '💌 diary!',
-        themeColor: '#d97706',
-        coverBg: 'linear-gradient(145deg, #f59e0b 0%, #d97706 100%)',
-        innerBg: '#d97706',
-        borderCol: '#fef08a',
-        topLeftSticker: 'stickers/ladybug_sticker.png',
-        topRightSticker: 'stickers/sb_clay_star.png',
-        centerSticker: 'stickers/sb_miffy_book.png'
-      },
       {
         id: 'sticker_book',
         isStickerBook: true,
@@ -2711,6 +2617,20 @@
         topLeftSticker: 'stickers/canva_camera.png',
         topRightSticker: 'stickers/sb_twin_stars.png',
         centerSticker: 'stickers/sb_star_ladybug.png'
+      },
+      {
+        id: 'diary_book',
+        isDiaryBook: true,
+        isUpcoming: false,
+        title: 'Guestbook Diary',
+        badge: '💌 diary!',
+        themeColor: '#d97706',
+        coverBg: 'linear-gradient(145deg, #f59e0b 0%, #d97706 100%)',
+        innerBg: '#d97706',
+        borderCol: '#fef08a',
+        topLeftSticker: 'stickers/ladybug_sticker.png',
+        topRightSticker: 'stickers/sb_clay_star.png',
+        centerSticker: 'stickers/sb_miffy_book.png'
       }
     ];
 
@@ -2728,52 +2648,122 @@
       playSparkleNote(dir > 0 ? 1975.53 : 1567.98, 0.022, 0.14);
     }
 
-    // Smooth mouse/pointer drag-to-scroll on the books shelf
     let booksShelfDragged = false;
-    (function initBooksShelfDragScroll() {
-      const shelf = document.getElementById('books-shelf');
-      if (!shelf) return;
-      let isDown = false;
-      let startX = 0;
-      let scrollLeft = 0;
-
-      shelf.addEventListener('pointerdown', (e) => {
-        if (e.pointerType === 'touch') return; // let native touch momentum handle touch
-        isDown = true;
-        booksShelfDragged = false;
-        startX = e.pageX - shelf.offsetLeft;
-        scrollLeft = shelf.scrollLeft;
-      });
-
-      window.addEventListener('pointermove', (e) => {
-        if (!isDown) return;
-        const x = e.pageX - shelf.offsetLeft;
-        const walk = (x - startX) * 1.4;
-        if (Math.abs(walk) > 6) {
-          booksShelfDragged = true;
-          shelf.scrollLeft = scrollLeft - walk;
-        }
-      });
-
-      window.addEventListener('pointerup', () => {
-        isDown = false;
-        setTimeout(() => { booksShelfDragged = false; }, 60);
-      });
-    })();
 
     // =============================================================
-    // INTERACTIVE SHELF CRAYONS (LEFT OF STICKER BOOK) FOR DOODLING ON PROFILE & GALLERY BOOKS
+    // REAL-LIFE "ABIGAIL" CRAYONS (ON THE SIDE OF OPEN STICKER BOOK + CRAYON CURSOR!)
     // =============================================================
     const SHELF_CRAYONS = [
-      { id: 'black',  color: '#1c1917', label: 'Midnight Black' },
-      { id: 'blue',   color: '#1800ad', label: 'Cobalt Blue' },
-      { id: 'red',    color: '#dc2626', label: 'Cherry Red' },
-      { id: 'yellow', color: '#eab308', label: 'Sunshine Yellow' },
-      { id: 'green',  color: '#16a34a', label: 'Forest Green' },
-      { id: 'pink',   color: '#db2777', label: 'Berry Pink' }
+      { id: 'black',  color: '#1c1917', wrapper: '#e5e5e4', label: 'Black' },
+      { id: 'brown',  color: '#6b3719', wrapper: '#d99b66', label: 'Brown' },
+      { id: 'pink',   color: '#ec297b', wrapper: '#f96ca7', label: 'Carnation Pink' },
+      { id: 'red',    color: '#c91c22', wrapper: '#f06266', label: 'Red' },
+      { id: 'orange', color: '#f25818', wrapper: '#fa7d39', label: 'Orange' },
+      { id: 'yellow', color: '#eab308', wrapper: '#fde047', label: 'Yellow' },
+      { id: 'green',  color: '#2e9e14', wrapper: '#97dc32', label: 'Green' },
+      { id: 'blue',   color: '#1438a6', wrapper: '#5c87e8', label: 'Blue' },
+      { id: 'purple', color: '#4f269c', wrapper: '#8560e4', label: 'Violet Purple' },
+      { id: 'eraser', color: 'eraser',  wrapper: '#ffffff', wax: '#f5f5f4', label: 'White Crayon (Eraser)' }
     ];
     let activeShelfCrayon = null; // null, color hex string, or 'eraser'
     const BOOK_PAGE_DOODLE_CANVASES = {};
+
+    function buildAbigailCrayonSVG(c, uid) {
+      const waxCol = c.wax || c.color;
+      const wrapCol = c.wrapper || c.color;
+      const gradWaxId = `wax_${uid}_${c.id}`;
+      const gradWrapId = `wrap_${uid}_${c.id}`;
+      return `
+        <svg viewBox="0 0 44 360" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" style="display:block;overflow:visible;">
+          <defs>
+            <linearGradient id="${gradWaxId}" x1="0%" y1="0%" x2="100%" y2="0%">
+              <stop offset="0%" stop-color="${waxCol}" stop-opacity="1"/>
+              <stop offset="28%" stop-color="#ffffff" stop-opacity="0.28"/>
+              <stop offset="55%" stop-color="${waxCol}" stop-opacity="1"/>
+              <stop offset="100%" stop-color="#000000" stop-opacity="0.35"/>
+            </linearGradient>
+            <linearGradient id="${gradWrapId}" x1="0%" y1="0%" x2="100%" y2="0%">
+              <stop offset="0%" stop-color="${wrapCol}"/>
+              <stop offset="26%" stop-color="#ffffff" stop-opacity="0.32"/>
+              <stop offset="56%" stop-color="${wrapCol}"/>
+              <stop offset="100%" stop-color="#000000" stop-opacity="0.28"/>
+            </linearGradient>
+          </defs>
+          <!-- Tapered Real-Life Wax Cone Tip & Shoulder -->
+          <polygon points="15,2 29,2 38,44 6,44" fill="${waxCol}"/>
+          <polygon points="15,2 29,2 38,44 6,44" fill="url(#${gradWaxId})"/>
+          <rect x="4" y="43" width="36" height="15" rx="1.5" fill="${waxCol}"/>
+          <rect x="4" y="43" width="36" height="15" rx="1.5" fill="url(#${gradWaxId})"/>
+          <!-- Paper Wrapper Cylinder -->
+          <rect x="3" y="56" width="38" height="284" rx="1.5" fill="${wrapCol}"/>
+          <rect x="3" y="56" width="38" height="284" rx="1.5" fill="url(#${gradWrapId})" stroke="rgba(0,0,0,0.22)" stroke-width="0.8"/>
+          <!-- Top Iconic Wavy Double Black Stripe Band -->
+          <path d="M3,74 Q12,74 16,78 Q22,84 28,78 Q32,74 41,74 L41,84 Q32,84 28,88 Q22,94 16,88 Q12,84 3,84 Z" fill="#18181b"/>
+          <path d="M3,91 Q12,91 16,95 Q22,101 28,95 Q32,91 41,91 L41,99 Q32,99 28,103 Q22,109 16,103 Q12,99 3,99 Z" fill="#18181b"/>
+          <!-- Center Vertical Black Oval Cartouche with "Abigail" Instead of "Crayola" -->
+          <rect x="6.5" y="132" width="31" height="138" rx="15.5" fill="#18181b" stroke="${wrapCol}" stroke-width="1.2"/>
+          <text x="22" y="199"
+                fill="${wrapCol}"
+                font-family="'Fredoka', 'Arial Rounded MT Bold', sans-serif"
+                font-weight="700"
+                font-size="25"
+                letter-spacing="0.5"
+                text-anchor="middle"
+                dominant-baseline="central"
+                transform="rotate(90 22 199)">Abigail</text>
+          <!-- Bottom Wavy Double Black Stripe Band -->
+          <path d="M3,298 Q12,298 16,302 Q22,308 28,302 Q32,298 41,298 L41,307 Q32,307 28,311 Q22,317 16,311 Q12,307 3,307 Z" fill="#18181b"/>
+          <path d="M3,314 Q12,314 16,318 Q22,324 28,318 Q32,314 41,314 L41,322 Q32,322 28,326 Q22,332 16,326 Q12,322 3,322 Z" fill="#18181b"/>
+          <!-- Bottom Exposed Wax Base -->
+          <rect x="4" y="339" width="36" height="19" rx="2" fill="${waxCol}"/>
+          <rect x="4" y="339" width="36" height="19" rx="2" fill="url(#${gradWaxId})"/>
+        </svg>
+      `;
+    }
+
+    function buildAbigailCrayonCursorDataURI(c) {
+      const waxCol = c.wax || (c.color === 'eraser' ? '#f5f5f4' : c.color);
+      const wrapCol = c.wrapper || (c.color === 'eraser' ? '#ffffff' : c.color);
+      // Angled at -40deg with the pointed wax tip at (5, 2) so the tip of the crayon matches the cursor hotspot!
+      const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 96 96" width="96" height="96">
+        <g transform="translate(5, 2) rotate(-40) translate(-11, -1)">
+          <polygon points="7.5,1 14.5,1 19,21 3,21" fill="${waxCol}" stroke="#18181b" stroke-width="0.9"/>
+          <rect x="2" y="20" width="18" height="7" rx="1" fill="${waxCol}" stroke="#18181b" stroke-width="0.8"/>
+          <rect x="1.5" y="26" width="19" height="68" rx="1.5" fill="${wrapCol}" stroke="#18181b" stroke-width="1"/>
+          <rect x="2" y="31" width="18" height="3.5" fill="#18181b"/>
+          <rect x="2" y="36.5" width="18" height="2.8" fill="#18181b"/>
+          <rect x="3.5" y="43" width="15" height="36" rx="7.5" fill="#18181b"/>
+          <text x="11" y="61" fill="${wrapCol}" font-family="Arial, sans-serif" font-weight="bold" font-size="7.8" text-anchor="middle" dominant-baseline="central" transform="rotate(90 11 61)">Abigail</text>
+          <rect x="2" y="82.5" width="18" height="3" fill="#18181b"/>
+          <rect x="2" y="87" width="18" height="2.5" fill="#18181b"/>
+          <rect x="2" y="93" width="18" height="6" rx="1" fill="${waxCol}" stroke="#18181b" stroke-width="0.8"/>
+        </g>
+      </svg>`;
+      return 'data:image/svg+xml;utf8,' + encodeURIComponent(svg);
+    }
+
+    function renderStickerBookCrayonsDock() {
+      const dock = document.getElementById('sticker-book-crayons-side');
+      if (!dock) return;
+      dock.innerHTML = SHELF_CRAYONS.map((c) => {
+        const isSel = activeShelfCrayon === c.color;
+        return `
+          <div class="sb-real-crayon ${isSel ? 'is-selected' : ''}"
+               data-shelf-crayon="${c.color}"
+               title="${c.label} — Click to pick up & doodle!">
+            ${buildAbigailCrayonSVG(c, 'dock')}
+          </div>
+        `;
+      }).join('');
+
+      dock.querySelectorAll('[data-shelf-crayon]').forEach((el) => {
+        el.addEventListener('click', (e) => {
+          e.stopPropagation();
+          const col = el.getAttribute('data-shelf-crayon');
+          selectShelfCrayon(col);
+        });
+      });
+    }
 
     function drawWaxCrayonStroke(ctx, x0, y0, x1, y1, color, isEraser) {
       if (!ctx) return;
@@ -2793,14 +2783,12 @@
         ctx.strokeStyle = color;
         ctx.lineCap = 'round';
         ctx.lineJoin = 'round';
-        // Soft core crayon stroke
         ctx.globalAlpha = 0.85;
         ctx.lineWidth = 5.5;
         ctx.beginPath();
         ctx.moveTo(x0, y0);
         ctx.lineTo(x1, y1);
         ctx.stroke();
-        // Wax texture grain along stroke
         const dist = Math.hypot(x1 - x0, y1 - y0);
         const steps = Math.max(1, Math.ceil(dist / 2.5));
         ctx.fillStyle = color;
@@ -2835,7 +2823,6 @@
 
       canvas.addEventListener('pointerdown', (e) => {
         if (!activeShelfCrayon) return;
-        e.stopPropagation();
         drawing = true;
         lastPt = getCoords(e);
         const ctx = canvas.getContext('2d');
@@ -2851,9 +2838,9 @@
         try { canvas.setPointerCapture(e.pointerId); } catch (_) {}
       });
 
+      // Do NOT call e.stopPropagation() on pointermove so the custom cursor follower never freezes!
       canvas.addEventListener('pointermove', (e) => {
         if (!drawing || !activeShelfCrayon) return;
-        e.stopPropagation();
         const pt = getCoords(e);
         const ctx = canvas.getContext('2d');
         drawWaxCrayonStroke(
@@ -2884,19 +2871,15 @@
       bar.id = 'crayon-active-toolbar';
       bar.className = 'flex items-center gap-2 bg-[#fffef8] border-2 border-[#1800ad] rounded-full px-3.5 py-1.5 shadow-2xl select-none';
       bar.innerHTML = `
-        <span class="font-cute font-bold text-sm sm:text-base text-[#1800ad] mr-0.5">🖍️ doodle mode:</span>
-        <div id="crayon-toolbar-swatches" class="flex items-center gap-1.5"></div>
-        <button type="button" id="crayon-toolbar-eraser" onclick="selectShelfCrayon('eraser')"
-                class="font-cute font-bold text-xs sm:text-sm px-2.5 py-0.5 rounded-full bg-pink-100 text-pink-800 border border-pink-300 hover:bg-pink-200 transition">
-          🧽 eraser
-        </button>
+        <span class="font-cute font-bold text-sm sm:text-base text-[#1800ad] mr-0.5">🖍️ Abigail crayon:</span>
+        <div id="crayon-toolbar-swatches" class="flex items-center gap-1"></div>
         <button type="button" onclick="clearVisiblePageDoodles()"
                 class="font-cute font-bold text-xs sm:text-sm px-2.5 py-0.5 rounded-full bg-stone-100 text-stone-700 border border-stone-300 hover:bg-red-50 hover:text-red-700 transition">
           🗑️ clear page
         </button>
         <button type="button" onclick="selectShelfCrayon(null)"
                 class="font-cute font-bold text-xs sm:text-sm px-2.5 py-0.5 rounded-full bg-[#1800ad] text-[#fde047] border border-[#fde047] hover:scale-105 transition">
-          ✓ done
+          ✓ put crayon back
         </button>
       `;
       document.body.appendChild(bar);
@@ -2907,7 +2890,20 @@
       document.body.classList.toggle('is-crayon-mode', Boolean(activeShelfCrayon));
       document.querySelectorAll('.page-crayon-canvas').forEach(wireCrayonDoodleCanvas);
 
-      // Update sticks in the shelf crayon box
+      // Transform the cursor into the exact colored "Abigail" crayon you picked up (or back to the ladybug)!
+      const follower = document.getElementById('ladybug-cursor-follower');
+      const followerImg = document.getElementById('ladybug-cursor-img');
+      if (follower && followerImg) {
+        if (activeShelfCrayon) {
+          const crayonObj = SHELF_CRAYONS.find((c) => c.color === activeShelfCrayon) || SHELF_CRAYONS[0];
+          follower.classList.add('is-crayon-cursor');
+          followerImg.src = buildAbigailCrayonCursorDataURI(crayonObj);
+        } else {
+          follower.classList.remove('is-crayon-cursor');
+          followerImg.src = 'stickers/ladybug_cursor_48.png';
+        }
+      }
+
       document.querySelectorAll('[data-shelf-crayon]').forEach((el) => {
         const val = el.getAttribute('data-shelf-crayon');
         el.classList.toggle('is-selected', val === activeShelfCrayon);
@@ -2915,19 +2911,17 @@
 
       const bar = ensureFloatingCrayonToolbar();
       const swatches = document.getElementById('crayon-toolbar-swatches');
-      const eraserBtn = document.getElementById('crayon-toolbar-eraser');
       if (swatches) {
-        swatches.innerHTML = SHELF_CRAYONS.map((c) => `
-          <button type="button"
-                  onclick="selectShelfCrayon('${c.color}')"
-                  title="${c.label}"
-                  style="background:${c.color};"
-                  class="w-5 h-5 rounded-full border border-stone-700 transition-transform ${activeShelfCrayon === c.color ? 'scale-125 ring-2 ring-[#fde047]' : ' opacity-85 hover:scale-110'}"></button>
-        `).join('');
-      }
-      if (eraserBtn) {
-        eraserBtn.classList.toggle('ring-2', activeShelfCrayon === 'eraser');
-        eraserBtn.classList.toggle('ring-[#1800ad]', activeShelfCrayon === 'eraser');
+        swatches.innerHTML = SHELF_CRAYONS.map((c) => {
+          const bg = c.color === 'eraser' ? '#ffffff' : c.color;
+          return `
+            <button type="button"
+                    onclick="selectShelfCrayon('${c.color}')"
+                    title="${c.label}"
+                    style="background:${bg};"
+                    class="w-4 h-4 sm:w-5 sm:h-5 rounded-full border border-stone-700 transition-transform ${activeShelfCrayon === c.color ? 'scale-125 ring-2 ring-[#1800ad]' : 'opacity-85 hover:scale-110'}"></button>
+          `;
+        }).join('');
       }
       bar.classList.toggle('is-visible', Boolean(activeShelfCrayon));
     }
@@ -2947,7 +2941,6 @@
     }
 
     function clearVisiblePageDoodles() {
-      // Clear current open Gallery Book spread if open, and current active Profile Scrapbook spread
       if (isPhotoBookOpen) {
         ['left', 'right'].forEach((side) => {
           const key = `${currentBookId}__${currentPhotoSpreadIdx}__${side}`;
@@ -2967,78 +2960,100 @@
       playSparkleNote(1318.5, 0.025, 0.15);
     }
 
-    function createShelfCrayonBoxElement() {
-      const wrap = document.createElement('div');
-      wrap.className = 'book-item';
-      wrap.title = 'Pick a crayon to doodle on the Profile Book or Gallery Books!';
+    // =============================================================
+    // RENDER & REORDER COFFEE TABLE BOOKS ON THE WOODEN SHELF
+    // =============================================================
+    function makeBookItemReorderable(item, bookObj) {
+      let dragging = false;
+      let startX = 0;
+      let startY = 0;
+      let moved = false;
 
-      const sticksHtml = SHELF_CRAYONS.map((c) => `
-        <div class="shelf-crayon-stick ${activeShelfCrayon === c.color ? 'is-selected' : ''}"
-             data-shelf-crayon="${c.color}"
-             style="background: ${c.color};"
-             title="${c.label} Crayon • Click to doodle!"></div>
-      `).join('');
-
-      wrap.innerHTML = `
-        <div class="shelf-crayon-pack">
-          <div class="shelf-crayons-row">
-            ${sticksHtml}
-          </div>
-          <div class="shelf-crayon-box-body">
-            <div class="w-full flex items-center justify-between px-0.5 pointer-events-none">
-              <img src="stickers/sb_clay_star.png" alt="" class="w-5 h-5 object-contain rotate-[-12deg] drop-shadow">
-              <span class="font-mono-exif text-[9px] font-bold tracking-wider uppercase text-amber-900/80">6 WAX</span>
-              <img src="stickers/ladybug_sticker.png" alt="" class="w-5 h-5 object-contain rotate-[12deg] drop-shadow">
-            </div>
-            <button type="button"
-                    data-shelf-crayon="eraser"
-                    title="Pink Eraser • Click to erase doodles!"
-                    class="shelf-eraser-btn px-2.5 py-0.5 rounded-md bg-pink-300 border border-pink-500 shadow-sm font-cute font-bold text-[11px] text-pink-950 hover:scale-105 transition ${activeShelfCrayon === 'eraser' ? 'ring-2 ring-[#1800ad]' : ''}">
-              🧽 eraser
-            </button>
-            <span class="w-[96%] bg-[#faf7f0] font-cute font-bold text-[12px] sm:text-[13px] leading-none py-1 px-1.5 rounded-full shadow-md border border-stone-300 text-center flex items-center justify-center whitespace-nowrap text-[#b45309]">
-              🖍️ crayons!
-            </span>
-          </div>
-        </div>
-      `;
-
-      wrap.querySelectorAll('[data-shelf-crayon]').forEach((el) => {
-        el.addEventListener('click', (e) => {
-          e.stopPropagation();
-          if (booksShelfDragged) return;
-          const color = el.getAttribute('data-shelf-crayon');
-          selectShelfCrayon(color);
-        });
+      item.addEventListener('pointerdown', (e) => {
+        if (e.button !== undefined && e.button !== 0) return;
+        dragging = true;
+        moved = false;
+        booksShelfDragged = false;
+        startX = e.clientX;
+        startY = e.clientY;
+        try { item.setPointerCapture(e.pointerId); } catch (_) {}
       });
 
-      // Clicking the yellow box body itself picks the first crayon (or puts away if already drawing)
-      const boxBody = wrap.querySelector('.shelf-crayon-box-body');
-      if (boxBody) {
-        boxBody.addEventListener('click', () => {
-          if (booksShelfDragged) return;
-          if (activeShelfCrayon) {
-            selectShelfCrayon(null);
-          } else {
-            selectShelfCrayon(SHELF_CRAYONS[1].color); // Cobalt Blue default!
-          }
-        });
-      }
+      item.addEventListener('pointermove', (e) => {
+        if (!dragging) return;
+        const dx = e.clientX - startX;
+        const dy = e.clientY - startY;
+        if (!moved && Math.hypot(dx, dy) > 8) {
+          moved = true;
+          booksShelfDragged = true;
+          item.style.zIndex = '50';
+          item.style.transition = 'none';
+          playSparkleNote(1760.0, 0.018, 0.1);
+        }
+        if (!moved) return;
 
-      return wrap;
+        item.style.transform = `translate3d(${dx}px, ${Math.max(-24, Math.min(18, dy - 10))}px, 0) rotate(${Math.max(-8, Math.min(8, dx * 0.08))}deg) scale(1.06)`;
+
+        // Check if dragged past a neighbor book on the shelf to swap!
+        const shelf = document.getElementById('books-shelf');
+        if (!shelf) return;
+        const siblings = Array.from(shelf.querySelectorAll('.book-item'));
+        const curIdx = siblings.indexOf(item);
+        const itemRect = item.getBoundingClientRect();
+        const itemCenter = itemRect.left + itemRect.width * 0.5;
+
+        for (let i = 0; i < siblings.length; i++) {
+          if (i === curIdx) continue;
+          const sib = siblings[i];
+          const r = sib.getBoundingClientRect();
+          const sibCenter = r.left + r.width * 0.5;
+          if ((curIdx < i && itemCenter > sibCenter + 6) || (curIdx > i && itemCenter < sibCenter - 6)) {
+            // Reorder in BOOKS array & DOM!
+            const fromIdx = BOOKS.findIndex((b) => b.id === bookObj.id);
+            const toBookId = sib.getAttribute('data-book-id');
+            const toIdx = BOOKS.findIndex((b) => b.id === toBookId);
+            if (fromIdx !== -1 && toIdx !== -1 && fromIdx !== toIdx) {
+              const [removed] = BOOKS.splice(fromIdx, 1);
+              BOOKS.splice(toIdx, 0, removed);
+              if (curIdx < i) {
+                shelf.insertBefore(item, sib.nextSibling);
+              } else {
+                shelf.insertBefore(item, sib);
+              }
+              startX = e.clientX;
+              startY = e.clientY;
+              item.style.transform = 'translate3d(0, -10px, 0) scale(1.06)';
+              playSparkleNote(2093.0, 0.02, 0.11);
+            }
+            break;
+          }
+        }
+      });
+
+      const finishBookDrag = (e) => {
+        if (!dragging) return;
+        dragging = false;
+        try { item.releasePointerCapture(e.pointerId); } catch (_) {}
+        item.style.transition = '';
+        item.style.transform = '';
+        item.style.zIndex = '';
+        if (moved) {
+          playSparkleNote(1567.98, 0.022, 0.14);
+          setTimeout(() => { booksShelfDragged = false; }, 80);
+        }
+      };
+
+      item.addEventListener('pointerup', finishBookDrag);
+      item.addEventListener('pointercancel', finishBookDrag);
     }
 
-    // RENDER COFFEE TABLE BOOKS (100% CONSISTENT ROUNDED EDGES, STICKER ART & CENTERED BUBBLE PILLS!)
     function renderBooks() {
       const shelf = document.getElementById('books-shelf');
       shelf.innerHTML = '';
 
       BOOKS.forEach((b) => {
-        // Place the Crayon Box directly to the left of the Sticker Book!
-        if (b.isStickerBook) {
-          shelf.appendChild(createShelfCrayonBoxElement());
-        }
         const item = document.createElement('div');
+        item.setAttribute('data-book-id', b.id);
         const activeClass = b.isStickerBook
           ? (isStickerBookOpen ? 'is-sticker-book-open' : '')
           : b.isDiaryBook
@@ -3050,10 +3065,8 @@
         hardcover.className = 'book-hardcover';
         hardcover.style.background = b.coverBg;
         hardcover.style.border = `1.5px solid ${b.borderCol || 'rgba(255,255,255,0.4)'}`;
-        hardcover.title = `${b.title || b.badge} — Click to open book!`;
+        hardcover.title = `${b.title || b.badge} — Click to open • Drag to reorder on shelf!`;
 
-        // Unified Sticker-Book Cover Design for ALL books:
-        // Soft rounded inner card, two corner stickers, Polaroid photo (for books with photos!) or cute center sticker, and centered rounded bubble title pill!
         const centerVisual = (!b.isStickerBook && !b.isDiaryBook && !b.isUpcoming && b.cover)
           ? `<div class="relative z-10 bg-white p-1 pb-2.5 rounded-[4px] shadow-md rotate-[-3deg] w-14 h-16 sm:w-16 sm:h-[70px] flex items-center justify-center -my-1 pointer-events-none border border-stone-200">
                <div class="w-6 h-2 bg-[#f3e5be]/90 border border-stone-300/60 absolute -top-1.5 left-1/2 -translate-x-1/2 rotate-[4deg] shadow-sm"></div>
@@ -3073,6 +3086,7 @@
         `;
 
         item.appendChild(hardcover);
+        makeBookItemReorderable(item, b);
 
         item.addEventListener('click', () => {
           if (booksShelfDragged) return;
@@ -3098,6 +3112,8 @@
 
         shelf.appendChild(item);
       });
+
+      renderStickerBookCrayonsDock();
     }
 
     // =============================================================
@@ -4191,16 +4207,22 @@
 
       if (stepDist > 0.5 && stepDist < 300) {
         totalDistMoved += stepDist;
-        // Oscillating scuttle wiggle based on distance + speed
-        const maxWiggle = Math.min(20, 5 + stepDist * 0.65);
-        const wiggleDeg = Math.sin(totalDistMoved * 0.32) * maxWiggle;
-        const scaleVal = isPointerPressed ? 0.9 : 1.0;
-        cursorImg.style.transform = `rotate(${wiggleDeg.toFixed(1)}deg) scale(${scaleVal})`;
+        if (activeShelfCrayon) {
+          // Steady drawing crayon feel when holding an Abigail crayon!
+          const tiltDeg = isPointerPressed ? -6 : 0;
+          cursorImg.style.transform = `rotate(${tiltDeg}deg) scale(${isPointerPressed ? 0.96 : 1.0})`;
+        } else {
+          // Oscillating scuttle wiggle based on distance + speed for the ladybug
+          const maxWiggle = Math.min(20, 5 + stepDist * 0.65);
+          const wiggleDeg = Math.sin(totalDistMoved * 0.32) * maxWiggle;
+          const scaleVal = isPointerPressed ? 0.9 : 1.0;
+          cursorImg.style.transform = `rotate(${wiggleDeg.toFixed(1)}deg) scale(${scaleVal})`;
 
-        clearTimeout(wiggleResetTimer);
-        wiggleResetTimer = setTimeout(() => {
-          cursorImg.style.transform = `rotate(0deg) scale(${isPointerPressed ? 0.9 : 1.0})`;
-        }, 90);
+          clearTimeout(wiggleResetTimer);
+          wiggleResetTimer = setTimeout(() => {
+            cursorImg.style.transform = `rotate(0deg) scale(${isPointerPressed ? 0.9 : 1.0})`;
+          }, 90);
+        }
 
         // Trigger delicate sparkle sound & tiny star particle ONLY when not dragging a sticker!
         if (!isStickerDragInProgress && !isPointerPressed) {
@@ -4215,22 +4237,22 @@
           }
         }
       }
-    }, { passive: true });
+    }, { passive: true, capture: true });
 
     window.addEventListener('pointerdown', (e) => {
       if (e.pointerType === 'touch') return;
       isPointerPressed = true;
-      cursorImg.style.transform = 'rotate(-12deg) scale(0.88)';
+      cursorImg.style.transform = activeShelfCrayon ? 'rotate(-6deg) scale(0.96)' : 'rotate(-12deg) scale(0.88)';
       if (!isStickerDragInProgress) {
         spawnSparkleParticle(e.clientX, e.clientY);
       }
-    }, { passive: true });
+    }, { passive: true, capture: true });
 
     window.addEventListener('pointerup', () => {
       isPointerPressed = false;
       isStickerDragInProgress = false;
       cursorImg.style.transform = 'rotate(0deg) scale(1)';
-    }, { passive: true });
+    }, { passive: true, capture: true });
 
     // =============================================================
     // DRAGGABLE INTERACTIVE HERO, WHITE PAGE & BOOK PAGE STICKERS
