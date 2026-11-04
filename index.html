@@ -642,18 +642,18 @@
       height: 188px;
       position: relative;
       background: #1c1a17;
-      border-radius: 1px 2.5px 2.5px 1px;
+      border-radius: 1.5px 3px 3px 1.5px;
       box-shadow:
-        1.5px 1px 0 rgba(244, 239, 226, 0.88),
-        3px 2px 0 rgba(20, 18, 15, 0.38),
+        2px 1px 0 rgba(244, 239, 226, 0.92),
+        3.5px 2.5px 0 rgba(20, 18, 15, 0.42),
         -4px 6px 14px rgba(0, 0, 0, 0.28),
-        0 14px 24px -5px rgba(15, 10, 5, 0.44),
-        inset 0 1px 0.5px rgba(255, 255, 255, 0.28),
-        inset -1px 0 1.5px rgba(0, 0, 0, 0.24),
-        inset 0 -1.5px 2px rgba(0, 0, 0, 0.32);
+        0 14px 24px -5px rgba(15, 10, 5, 0.42),
+        inset 0 1.5px 1px rgba(255, 255, 255, 0.38),
+        inset -1.5px 0 2px rgba(0, 0, 0, 0.22),
+        inset 0 -2px 2.5px rgba(0, 0, 0, 0.32);
       transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
       overflow: hidden;
-      padding: 10px 9px 10px 17px;
+      padding: 10px 9px 10px 18px;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -663,7 +663,7 @@
       .book-hardcover {
         width: clamp(128px, 9.5vw, 154px);
         height: clamp(176px, 13.2vw, 214px);
-        padding: 11px 10px 11px 19px;
+        padding: 11px 10px 11px 20px;
       }
     }
 
@@ -674,45 +674,45 @@
       top: 0;
       bottom: 0;
       left: 0;
-      width: 15px;
+      width: 16px;
       background: linear-gradient(
         90deg,
-        rgba(0, 0, 0, 0.34) 0px,
-        rgba(255, 255, 255, 0.32) 2px,
-        rgba(255, 255, 255, 0.14) 5px,
-        rgba(255, 255, 255, 0.03) 8px,
-        rgba(0, 0, 0, 0.42) 10px,
-        rgba(0, 0, 0, 0.22) 11.5px,
-        rgba(255, 255, 255, 0.26) 12.5px,
-        rgba(255, 255, 255, 0.0) 15px
+        rgba(0, 0, 0, 0.32) 0px,
+        rgba(255, 255, 255, 0.42) 2px,
+        rgba(255, 255, 255, 0.22) 5.5px,
+        rgba(255, 255, 255, 0.04) 8.5px,
+        rgba(0, 0, 0, 0.38) 10.5px,
+        rgba(0, 0, 0, 0.22) 12px,
+        rgba(255, 255, 255, 0.38) 13px,
+        rgba(255, 255, 255, 0.0) 16px
       );
       z-index: 25;
       pointer-events: none;
     }
 
-    /* Subtle Matte Bookcloth Lighting & Woven Linen Texture Across Cover */
+    /* Subtle Matte Bookcloth Lighting & Paper Texture Sheen Across Cover */
     .book-hardcover::after {
       content: '';
       position: absolute;
       inset: 0;
       background:
-        repeating-linear-gradient(0deg, rgba(255, 255, 255, 0.018) 0px, rgba(255, 255, 255, 0.018) 1px, transparent 1px, transparent 2px),
-        repeating-linear-gradient(90deg, rgba(0, 0, 0, 0.022) 0px, rgba(0, 0, 0, 0.022) 1px, transparent 1px, transparent 2px),
-        linear-gradient(125deg, rgba(255, 255, 255, 0.12) 0%, rgba(255, 255, 255, 0.01) 48%, rgba(0, 0, 0, 0.22) 100%);
+        radial-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 0),
+        linear-gradient(132deg, rgba(255, 255, 255, 0.16) 0%, rgba(255, 255, 255, 0.02) 45%, rgba(0, 0, 0, 0.18) 100%);
+      background-size: 4px 4px, 100% 100%;
       z-index: 15;
       pointer-events: none;
     }
 
     .book-item:hover .book-hardcover {
-      transform: translateY(-8px) rotate(-1deg) scale(1.03);
+      transform: translateY(-10px) rotate(-1.5deg) scale(1.04);
       box-shadow:
-        2px 1.5px 0 rgba(244, 239, 226, 0.92),
-        3.5px 2.5px 0 rgba(20, 18, 15, 0.42),
+        2.5px 1.5px 0 rgba(244, 239, 226, 0.95),
+        4px 3px 0 rgba(20, 18, 15, 0.45),
         -6px 14px 22px rgba(0, 0, 0, 0.32),
-        0 22px 32px -6px rgba(15, 10, 5, 0.48),
-        inset 0 1px 0.5px rgba(255, 255, 255, 0.34),
-        inset -1px 0 1.5px rgba(0, 0, 0, 0.24),
-        inset 0 -1.5px 2px rgba(0, 0, 0, 0.32);
+        0 22px 32px -6px rgba(15, 10, 5, 0.46),
+        inset 0 1.5px 1px rgba(255, 255, 255, 0.42),
+        inset -1.5px 0 2px rgba(0, 0, 0, 0.22),
+        inset 0 -2px 2.5px rgba(0, 0, 0, 0.32);
     }
 
     .book-item.is-active .book-hardcover {
@@ -820,12 +820,11 @@
     }
 
     .book-item.is-sticker-book-open .book-hardcover {
-      transform: translateY(-9px) rotateY(-10deg) scale(1.03);
+      transform: translateY(-10px) rotateY(-14deg) scale(1.05);
       box-shadow:
-        2px 1.5px 0 rgba(244, 239, 226, 0.96),
-        4px 3px 0 rgba(20, 18, 15, 0.45),
-        0 0 0 1.5px rgba(250, 247, 240, 0.85),
-        10px 22px 34px -4px rgba(0, 0, 0, 0.5);
+        0 0 0 2.5px #facc15,
+        0 0 28px rgba(250, 204, 21, 0.45),
+        10px 22px 34px -4px rgba(0, 0, 0, 0.45);
     }
 
     .sticker-book-stage {
@@ -902,14 +901,14 @@
     .sticker-book-3d-wrapper {
       position: relative;
       transform-style: preserve-3d;
-      border-radius: 10px;
-      background: #1c2d6b;
+      border-radius: 16px;
+      background: #1800ad;
       padding: 8px 10px 10px 10px;
       box-shadow:
         0 28px 65px -8px rgba(0, 0, 0, 0.65),
-        0 4px 16px rgba(0, 0, 0, 0.35),
-        inset 0 1px 0 rgba(255, 255, 255, 0.22);
-      border: 1.5px solid rgba(255, 255, 255, 0.18);
+        0 0 0 2.5px #fde047,
+        inset 0 1px 0 rgba(255, 255, 255, 0.3);
+      border: 2px solid #0f0070;
     }
 
     @media (min-width: 640px) {
@@ -1124,33 +1123,32 @@
     }
 
     .sb-tab-btn {
-      font-family: 'Space Mono', monospace;
-      font-size: 0.72rem;
+      font-family: 'Gaegu', 'Fredoka', 'Covered By Your Grace', cursive;
+      font-size: 0.86rem;
       font-weight: 700;
-      letter-spacing: 0.03em;
-      height: 27px;
-      padding: 0 7px;
-      border-radius: 6px 6px 0 0;
+      height: 29px;
+      padding: 0 5px;
+      border-radius: 10px 10px 0 0;
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      gap: 3px;
-      background: rgba(255, 255, 255, 0.14);
-      color: #faf7f0;
-      border: 1px solid rgba(255, 255, 255, 0.24);
+      gap: 2px;
+      background: rgba(255, 255, 255, 0.16);
+      color: #ffffff;
+      border: 1px solid rgba(255, 255, 255, 0.28);
       border-bottom: none;
       white-space: nowrap;
       transition: all 0.2s ease;
     }
 
     .sb-tab-btn:hover {
-      background: rgba(255, 255, 255, 0.24);
-      transform: translateY(-1px);
+      background: rgba(255, 255, 255, 0.28);
+      transform: translateY(-2px);
     }
 
     .sb-tab-btn.is-active {
       background: #fdfbf7;
-      color: #1c1917;
+      color: #1800ad;
       box-shadow: 0 -3px 10px rgba(0, 0, 0, 0.15);
     }
 
@@ -1159,11 +1157,11 @@
     }
 
     .sb-trash-dropzone.is-trash-hovered {
-      background: #b91c1c !important;
+      background: #ef4444 !important;
       color: #ffffff !important;
-      border-color: #faf7f0 !important;
-      transform: translateY(-3px) scale(1.18) !important;
-      box-shadow: 0 0 14px rgba(185, 28, 28, 0.65);
+      border-color: #fde047 !important;
+      transform: translateY(-4px) scale(1.24) rotate(-8deg) !important;
+      box-shadow: 0 0 18px rgba(239, 68, 68, 0.75);
       z-index: 80;
     }
 
@@ -1172,24 +1170,22 @@
        ------------------------------------------------------------- */
     .book-resize-corner {
       position: absolute;
-      top: -10px;
-      left: -10px;
+      top: -12px;
+      left: -12px;
       z-index: 60;
-      height: 26px;
-      padding: 0 9px;
-      border-radius: 4px;
-      background: #faf7f0;
-      color: #292524;
-      border: 1px solid #78716c;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.32);
+      height: 32px;
+      padding: 0 10px;
+      border-radius: 999px;
+      background: #fde047;
+      color: #1800ad;
+      border: 2px solid #1800ad;
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.35);
       display: inline-flex;
       align-items: center;
       gap: 4px;
-      font-family: 'Space Mono', monospace;
+      font-family: 'Gaegu', 'Fredoka', cursive;
       font-weight: 700;
-      font-size: 0.68rem;
-      letter-spacing: 0.04em;
-      text-transform: uppercase;
+      font-size: 0.95rem;
       cursor: nwse-resize;
       user-select: none;
       touch-action: none;
@@ -1197,8 +1193,8 @@
     }
 
     .book-resize-corner:hover {
-      transform: scale(1.05);
-      background: #ffffff;
+      transform: scale(1.08);
+      background: #fef08a;
     }
 
     .book-resize-corner:active {
@@ -1886,27 +1882,27 @@
         <div id="sticker-book-crayons-side" class="sb-crayons-side-dock" aria-label="Abigail Crayons"></div>
         
         <!-- Corner Drag-to-Resize Handle -->
-        <div id="sticker-book-resize-corner" class="book-resize-corner" title="Drag corner to resize book">
+        <div id="sticker-book-resize-corner" class="book-resize-corner" title="Drag corner to resize book!">
           <span>⤡</span>
-          <span class="hidden sm:inline">resize</span>
+          <span class="hidden sm:inline">drag size</span>
         </div>
 
         <!-- 3D Swinging Cover Flap on Open -->
         <div id="sticker-book-cover-flap" class="sticker-book-cover-flap"></div>
 
-        <!-- Top Page Tabs & Controls -->
+        <!-- Top Page Tabs & Controls (Cute Handwritten Font — Fits cleanly with zero scrollbar) -->
         <div class="flex items-center justify-between pl-14 sm:pl-20 pr-1 pb-1.5 select-none gap-1 relative z-20">
           <div class="sb-tabs-row flex items-center gap-1 flex-1 min-w-0 overflow-hidden">
-            <button type="button" onclick="switchStickerSpread('all')" id="sb-tab-all" class="sb-tab-btn is-active" title="All Stickers">ALL</button>
-            <button type="button" onclick="switchStickerSpread(0)" id="sb-tab-0" class="sb-tab-btn" title="Spread 1: Cats & Friends">I</button>
-            <button type="button" onclick="switchStickerSpread(1)" id="sb-tab-1" class="sb-tab-btn" title="Spread 2: Objects & Film">II</button>
-            <button type="button" onclick="switchStickerSpread(2)" id="sb-tab-2" class="sb-tab-btn" title="Spread 3: Botanicals & Bugs">III</button>
-            <button type="button" onclick="switchStickerSpread(3)" id="sb-tab-3" class="sb-tab-btn" title="Spread 4: Portraits">IV</button>
-            <button type="button" onclick="switchStickerSpread(4)" id="sb-tab-4" class="sb-tab-btn" title="Spread 5: Washi Tape">TAPE</button>
+            <button type="button" onclick="switchStickerSpread('all')" id="sb-tab-all" class="sb-tab-btn is-active" title="All Stickers (Scrollable!)">✦ all</button>
+            <button type="button" onclick="switchStickerSpread(0)" id="sb-tab-0" class="sb-tab-btn" title="Spread 1: Cats & Friends">🐾 pals</button>
+            <button type="button" onclick="switchStickerSpread(1)" id="sb-tab-1" class="sb-tab-btn" title="Spread 2: Magic & Doodles">✨ magic</button>
+            <button type="button" onclick="switchStickerSpread(2)" id="sb-tab-2" class="sb-tab-btn" title="Spread 3: Garden Bugs & Vinyl">🦋 bugs</button>
+            <button type="button" onclick="switchStickerSpread(3)" id="sb-tab-3" class="sb-tab-btn" title="Spread 4: Clear Face Stickers">😊 faces</button>
+            <button type="button" onclick="switchStickerSpread(4)" id="sb-tab-4" class="sb-tab-btn" title="Spread 5: Cute Washi Tape">🎀 tape</button>
           </div>
           <div class="flex items-center gap-1 flex-shrink-0">
-            <button type="button" id="sb-trash-tab" class="sb-tab-btn sb-trash-dropzone" title="Drag any sticker here to remove it">REMOVE</button>
-            <button type="button" onclick="clearExtraHeroStickers()" class="sb-tab-btn" title="Reset placed stickers">↺</button>
+            <button type="button" id="sb-trash-tab" class="sb-tab-btn sb-trash-dropzone" title="Drag any sticker here to delete it!">🗑️</button>
+            <button type="button" onclick="clearExtraHeroStickers()" class="sb-tab-btn" title="Reset / Clear extra stickers">↺</button>
             <button type="button" onclick="toggleStickerBook(false)" class="sb-tab-btn" title="Close Sticker Book">✕</button>
           </div>
         </div>
@@ -1937,25 +1933,25 @@
       <div id="photo-book-wrapper" class="sticker-book-3d-wrapper">
 
         <!-- Corner Drag-to-Resize Handle -->
-        <div id="photo-book-resize-corner" class="book-resize-corner" title="Drag corner to resize book">
+        <div id="photo-book-resize-corner" class="book-resize-corner" title="Click and drag corner to make book bigger!">
           <span>⤡</span>
-          <span class="hidden sm:inline">resize</span>
+          <span class="hidden sm:inline">drag bigger</span>
         </div>
 
         <!-- 3D Swinging Cover Flap on Open -->
         <div id="photo-book-cover-flap" class="sticker-book-cover-flap"></div>
 
         <!-- Top Book Header Bar (Title Tab, Page Flip Controls, Maximize & Close) -->
-        <div class="flex items-center justify-between pl-14 sm:pl-24 pr-1.5 pb-1.5 select-none gap-1 overflow-x-auto">
-          <div class="flex items-center gap-2 flex-shrink-0">
-            <span id="pb-title-tab" class="sb-tab-btn is-active text-xs">ALL WORKS</span>
-            <span id="pb-page-indicator" class="font-mono-exif text-white/90 text-[11px] tracking-wider px-1 sm:px-2 whitespace-nowrap">1–2 / 34</span>
+        <div class="flex items-center justify-between pl-12 sm:pl-28 pr-1.5 pb-1.5 select-none gap-1 overflow-x-auto">
+          <div class="flex items-center gap-1.5 flex-shrink-0">
+            <span id="pb-title-tab" class="sb-tab-btn is-active text-xs sm:text-sm">✦ all works</span>
+            <span id="pb-page-indicator" class="font-cute text-white text-sm sm:text-lg font-bold px-1 sm:px-2 whitespace-nowrap">1–2 / 34</span>
           </div>
           <div class="flex items-center gap-1 sm:gap-1.5 flex-shrink-0">
-            <button type="button" id="pb-trash-tab" class="sb-tab-btn sb-trash-dropzone" title="Drag any sticker here to remove it">REMOVE</button>
-            <button type="button" id="pb-top-prev" onclick="stepPhotoBookSpread(-1)" class="sb-tab-btn" title="Previous Pages (or swipe right)">‹<span class="hidden sm:inline"> PREV</span></button>
-            <button type="button" id="pb-top-next" onclick="stepPhotoBookSpread(1)" class="sb-tab-btn" title="Next Pages (or swipe left)"><span class="hidden sm:inline">NEXT </span>›</button>
-            <button type="button" id="pb-max-btn" onclick="togglePhotoBookMaximize()" class="sb-tab-btn" title="Expand to full screen">⤢ <span class="hidden sm:inline">EXPAND</span></button>
+            <button type="button" id="pb-trash-tab" class="sb-tab-btn sb-trash-dropzone" title="Drag any sticker here to delete it!">🗑️</button>
+            <button type="button" id="pb-top-prev" onclick="stepPhotoBookSpread(-1)" class="sb-tab-btn" title="Previous Pages (or swipe right)">‹<span class="hidden sm:inline"> prev</span></button>
+            <button type="button" id="pb-top-next" onclick="stepPhotoBookSpread(1)" class="sb-tab-btn" title="Next Pages (or swipe left)"><span class="hidden sm:inline">next </span>›</button>
+            <button type="button" id="pb-max-btn" onclick="togglePhotoBookMaximize()" class="sb-tab-btn" title="Open as big as the whole page!">⤢ <span class="hidden sm:inline">full page</span></button>
             <button type="button" onclick="closePhotoBook()" class="sb-tab-btn" title="Close Book">✕</button>
           </div>
         </div>
@@ -1989,18 +1985,18 @@
 
     <!-- 3D INTERACTIVE SHARED GUESTBOOK DIARY (SIMPLIFIED & CLEAN!) -->
     <div id="diary-book-stage" class="sticker-book-stage" aria-hidden="true">
-      <div id="diary-book-wrapper" class="sticker-book-3d-wrapper" style="background: #8a5a1e; border-color: rgba(255,255,255,0.22);">
+      <div id="diary-book-wrapper" class="sticker-book-3d-wrapper" style="background: #d97706; border-color: #fef08a;">
 
-        <!-- 3D Swinging Cover Flap Matching the Ochre Linen Guestbook -->
-        <div id="diary-book-cover-flap" class="sticker-book-cover-flap" style="background: linear-gradient(145deg, #996620 0%, #784d15 100%);"></div>
+        <!-- 3D Swinging Cover Flap Matching the Golden-Amber Diary Book -->
+        <div id="diary-book-cover-flap" class="sticker-book-cover-flap" style="background: linear-gradient(145deg, #f59e0b 0%, #d97706 100%);"></div>
 
-        <!-- Simple Top Guestbook Bar -->
-        <div class="flex items-center justify-between pl-4 pr-1.5 pb-1.5 select-none gap-1">
-          <span class="sb-tab-btn is-active text-xs" style="color: #784d15;">GUESTBOOK</span>
+        <!-- Simple Top Diary Bar -->
+        <div class="flex items-center justify-between pl-12 sm:pl-24 pr-1.5 pb-1.5 select-none gap-1">
+          <span class="sb-tab-btn is-active text-xs sm:text-sm" style="color: #d97706;">💌 diary</span>
           <div class="flex items-center gap-1 flex-shrink-0">
             <button type="button" onclick="stepDiaryEntryPage(-1)" id="diary-prev-btn" class="sb-tab-btn" title="Newer Notes">‹</button>
             <button type="button" onclick="stepDiaryEntryPage(1)" id="diary-next-btn" class="sb-tab-btn" title="Older Notes">›</button>
-            <button type="button" onclick="closeDiaryBook()" class="sb-tab-btn" title="Close Guestbook">✕</button>
+            <button type="button" onclick="closeDiaryBook()" class="sb-tab-btn" title="Close Diary">✕</button>
           </div>
         </div>
 
@@ -2010,38 +2006,38 @@
           <div id="diary-page-left" class="photo-book-page page-left relative flex flex-col justify-between p-3 sm:p-4 text-left overflow-y-auto"
                style="background: repeating-linear-gradient(0deg, #fffdf8 0px, #fffdf8 25px, rgba(180, 160, 130, 0.22) 25px, rgba(180, 160, 130, 0.22) 26px);">
             <div class="w-full space-y-2">
-              <span class="font-serif italic font-semibold text-base text-stone-800 block">Leave a note in the guestbook</span>
+              <span class="font-cute font-bold text-lg text-stone-800 block">leave a note ★</span>
 
-              <input id="diary-author-input" type="text" maxlength="28" placeholder="Your name..."
-                     class="w-full px-2.5 py-1 rounded-sm bg-white/90 border border-stone-300 font-serif text-sm text-stone-900 placeholder:text-stone-400 focus:outline-none focus:border-stone-700">
+              <input id="diary-author-input" type="text" maxlength="28" placeholder="your name..."
+                     class="w-full px-2.5 py-1 rounded bg-white/90 border border-stone-300 font-cute font-bold text-base text-stone-900 placeholder:text-stone-400 focus:outline-none focus:border-[#d97706]">
 
-              <textarea id="diary-note-input" rows="2" maxlength="180" placeholder="Write a message..."
-                        class="w-full px-2.5 py-1 rounded-sm bg-white/90 border border-stone-300 font-serif text-sm text-stone-900 leading-snug placeholder:text-stone-400 focus:outline-none focus:border-stone-700 resize-none"></textarea>
+              <textarea id="diary-note-input" rows="2" maxlength="180" placeholder="write a little message..."
+                        class="w-full px-2.5 py-1 rounded bg-white/90 border border-stone-300 font-cute font-bold text-base text-stone-900 leading-tight placeholder:text-stone-400 focus:outline-none focus:border-[#d97706] resize-none"></textarea>
 
               <!-- Simple Doodle Pad -->
-              <div id="diary-doodle-box" class="relative rounded-sm border border-stone-300 bg-[#fffef9] overflow-hidden">
+              <div id="diary-doodle-box" class="relative rounded border border-stone-300 bg-[#fffef9] overflow-hidden">
                 <canvas id="diary-doodle-canvas" width="340" height="110"
                         class="w-full h-[88px] block touch-none cursor-crosshair"></canvas>
                 <div id="diary-doodle-stickers-layer" class="absolute inset-0 pointer-events-none overflow-hidden"></div>
-                <span id="diary-canvas-hint" class="pointer-events-none absolute top-1.5 right-2 font-mono-exif text-[10px] uppercase tracking-wider text-stone-400 select-none">sketch pad</span>
+                <span id="diary-canvas-hint" class="pointer-events-none absolute top-1 right-2 font-cute text-xs text-stone-400 select-none">doodle here ✏️</span>
               </div>
 
               <!-- 4 Simple Pens + Clear -->
               <div class="flex items-center justify-between pt-0.5">
                 <div class="flex items-center gap-2">
-                  <button type="button" onclick="setDiaryPen('#1c1917', false, this)" class="diary-crayon-btn is-selected w-4 h-4 rounded-full bg-[#1c1917] border border-stone-400" title="Black Ink"></button>
-                  <button type="button" onclick="setDiaryPen('#1800ad', false, this)" class="diary-crayon-btn w-4 h-4 rounded-full bg-[#1800ad] border border-stone-400" title="Cobalt Ink"></button>
-                  <button type="button" onclick="setDiaryPen('#9e2a2b', false, this)" class="diary-crayon-btn w-4 h-4 rounded-full bg-[#9e2a2b] border border-stone-400" title="Crimson Ink"></button>
-                  <button type="button" onclick="setDiaryPen('#8c2f4b', false, this)" class="diary-crayon-btn w-4 h-4 rounded-full bg-[#8c2f4b] border border-stone-400" title="Rose Ink"></button>
+                  <button type="button" onclick="setDiaryPen('#1c1917', false, this)" class="diary-crayon-btn is-selected w-5 h-5 rounded-full bg-[#1c1917] border border-stone-400" title="Black"></button>
+                  <button type="button" onclick="setDiaryPen('#1800ad', false, this)" class="diary-crayon-btn w-5 h-5 rounded-full bg-[#1800ad] border border-stone-400" title="Blue"></button>
+                  <button type="button" onclick="setDiaryPen('#dc2626', false, this)" class="diary-crayon-btn w-5 h-5 rounded-full bg-[#dc2626] border border-stone-400" title="Red"></button>
+                  <button type="button" onclick="setDiaryPen('#db2777', false, this)" class="diary-crayon-btn w-5 h-5 rounded-full bg-[#db2777] border border-stone-400" title="Pink"></button>
                 </div>
                 <button type="button" onclick="clearDiaryCanvas()"
-                        class="px-2 py-0.5 rounded-sm bg-stone-200 hover:bg-stone-300 font-mono-exif text-[10px] uppercase tracking-wider text-stone-700">clear</button>
+                        class="px-2 py-0.5 rounded bg-stone-200 hover:bg-stone-300 font-cute font-bold text-xs text-stone-700">clear</button>
               </div>
             </div>
 
             <button type="button" id="diary-submit-btn" onclick="submitDiaryEntry()"
-                    class="w-full py-1.5 px-4 rounded-sm bg-stone-900 hover:bg-stone-800 text-[#faf7f0] border border-stone-700 font-mono-exif text-xs uppercase tracking-widest shadow-sm transition-all">
-              Pin Note
+                    class="w-full py-1.5 px-4 rounded-full bg-[#1800ad] hover:bg-[#2208d6] text-[#fde047] border-2 border-[#fde047] font-cute font-bold text-lg shadow transition-all">
+              pin note ★
             </button>
           </div>
 
@@ -2060,7 +2056,7 @@
           <div id="diary-page-right" class="photo-book-page page-right relative flex flex-col justify-between p-3 sm:p-4 text-left overflow-y-auto"
                style="background: repeating-linear-gradient(0deg, #fffdf8 0px, #fffdf8 25px, rgba(180, 160, 130, 0.22) 25px, rgba(180, 160, 130, 0.22) 26px);">
             <div class="w-full flex items-center justify-between border-b border-stone-300/80 pb-1 mb-2">
-              <span class="font-serif italic font-semibold text-base text-stone-800">Notes</span>
+              <span class="font-cute font-bold text-lg text-stone-800">notes 🐾</span>
               <span id="diary-entries-count" class="font-mono-exif text-[10px] uppercase tracking-wider text-stone-500">page 1</span>
             </div>
             <div id="diary-entries-list" class="w-full flex-1 flex flex-col gap-2.5 overflow-y-auto pr-0.5">
@@ -2075,7 +2071,7 @@
     <section class="max-w-[1400px] mx-auto pt-6 pb-12 px-2 sm:px-6 md:px-8 relative">
       <!-- Left Shelf Scroll Button -->
       <button type="button" onclick="scrollBooksShelf(-1)" aria-label="Scroll books left"
-              class="flex items-center justify-center w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-[#faf7f0]/95 text-stone-800 border border-stone-400/80 shadow-md hover:bg-white hover:scale-105 active:scale-95 transition-all absolute left-1.5 sm:left-3 top-1/2 -translate-y-1/2 z-40 font-serif text-lg leading-none">
+              class="flex items-center justify-center w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-[#1800ad] text-[#fde047] border-2 border-[#fde047] shadow-lg hover:scale-110 active:scale-95 transition-transform absolute left-1.5 sm:left-3 top-1/2 -translate-y-1/2 z-40 font-cute font-bold text-xl">
         ‹
       </button>
 
@@ -2088,7 +2084,7 @@
 
       <!-- Right Shelf Scroll Button -->
       <button type="button" onclick="scrollBooksShelf(1)" aria-label="Scroll books right"
-              class="flex items-center justify-center w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-[#faf7f0]/95 text-stone-800 border border-stone-400/80 shadow-md hover:bg-white hover:scale-105 active:scale-95 transition-all absolute right-1.5 sm:right-3 top-1/2 -translate-y-1/2 z-40 font-serif text-lg leading-none">
+              class="flex items-center justify-center w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-[#1800ad] text-[#fde047] border-2 border-[#fde047] shadow-lg hover:scale-110 active:scale-95 transition-transform absolute right-1.5 sm:left-auto sm:right-3 top-1/2 -translate-y-1/2 z-40 font-cute font-bold text-xl">
         ›
       </button>
     </section>
@@ -2606,12 +2602,11 @@
         isStickerBook: true,
         isUpcoming: false,
         title: 'Stickers',
-        subtitle: 'ARCHIVE I',
-        badge: 'STICKERS',
-        themeColor: '#1c2d6b',
-        coverBg: 'linear-gradient(145deg, #21357d 0%, #162457 100%)',
-        innerBg: '#1c2d6b',
-        borderCol: 'rgba(255,255,255,0.22)',
+        badge: '★ stickers!',
+        themeColor: '#1800ad',
+        coverBg: 'linear-gradient(145deg, #1800ad 0%, #2b14cc 100%)',
+        innerBg: '#150096',
+        borderCol: '#fde047',
         topLeftSticker: 'stickers/sb_clay_star.png',
         topRightSticker: 'stickers/sb_miffy_book.png',
         centerSticker: 'stickers/sb_wizard_cat.png'
@@ -2621,13 +2616,12 @@
         folder: 'photos/General or Spot News',
         cover: 'photos/General or Spot News/MOR_TWO_1.JPG.jpg',
         isUpcoming: false,
-        title: 'Spot News',
-        subtitle: 'REPORTAGE',
-        badge: 'SPOT NEWS',
-        themeColor: '#9e2a2b',
-        coverBg: 'linear-gradient(145deg, #ad3233 0%, #822021 100%)',
-        innerBg: '#9e2a2b',
-        borderCol: 'rgba(255,255,255,0.22)',
+        title: 'General or Spot News',
+        badge: '🗞️ spot news',
+        themeColor: '#dc2626',
+        coverBg: 'linear-gradient(145deg, #ef4444 0%, #b91c1c 100%)',
+        innerBg: '#dc2626',
+        borderCol: '#fecaca',
         topLeftSticker: 'stickers/sb_black_cat.png',
         topRightSticker: 'stickers/sb_yellow_starburst.png',
         centerSticker: 'stickers/canva_camera.png'
@@ -2637,13 +2631,12 @@
         folder: 'photos/Sports',
         cover: 'photos/Sports/MOR_THREE_1.JPEG',
         title: 'Sports',
-        subtitle: 'ACTION',
-        badge: 'SPORTS',
+        badge: '⚡ sports',
         isUpcoming: false,
-        themeColor: '#234f38',
-        coverBg: 'linear-gradient(145deg, #2b5e43 0%, #1b3f2c 100%)',
-        innerBg: '#234f38',
-        borderCol: 'rgba(255,255,255,0.22)',
+        themeColor: '#16a34a',
+        coverBg: 'linear-gradient(145deg, #22c55e 0%, #15803d 100%)',
+        innerBg: '#16a34a',
+        borderCol: '#bbf7d0',
         topLeftSticker: 'stickers/sb_stitched_star.png',
         topRightSticker: 'stickers/sb_yellow_starburst.png',
         centerSticker: 'stickers/sb_star_boots.png'
@@ -2653,13 +2646,12 @@
         folder: 'photos/Photo Essay',
         cover: 'photos/Photo Essay/MOR_FIVE_12.jpg',
         title: 'Photo Essay',
-        subtitle: 'TORONTO',
-        badge: 'PHOTO ESSAY',
+        badge: '📖 photo essay',
         isUpcoming: false,
-        themeColor: '#8c2f4b',
-        coverBg: 'linear-gradient(145deg, #9e3756 0%, #73233b 100%)',
-        innerBg: '#8c2f4b',
-        borderCol: 'rgba(255,255,255,0.22)',
+        themeColor: '#db2777',
+        coverBg: 'linear-gradient(145deg, #ec4899 0%, #be185d 100%)',
+        innerBg: '#db2777',
+        borderCol: '#fbcfe8',
         topLeftSticker: 'stickers/sb_pink_button.png',
         topRightSticker: 'stickers/sb_clay_star.png',
         centerSticker: 'stickers/sb_three_kittens.png'
@@ -2668,13 +2660,12 @@
         id: 'live_events',
         folder: 'photos/Live Events',
         title: 'Live Events',
-        subtitle: 'UPCOMING',
-        badge: 'LIVE EVENTS',
+        badge: '🎶 live events',
         isUpcoming: true,
-        themeColor: '#4a3059',
-        coverBg: 'linear-gradient(145deg, #583a69 0%, #3a2447 100%)',
-        innerBg: '#4a3059',
-        borderCol: 'rgba(255,255,255,0.22)',
+        themeColor: '#7c3aed',
+        coverBg: 'linear-gradient(145deg, #8b5cf6 0%, #5b21b6 100%)',
+        innerBg: '#7c3aed',
+        borderCol: '#ddd6fe',
         topLeftSticker: 'stickers/sb_party_hat.png',
         topRightSticker: 'stickers/sb_pink_starburst.png',
         centerSticker: 'stickers/vinyl_sticker.png'
@@ -2683,13 +2674,12 @@
         id: 'environment',
         folder: 'photos/Environment',
         title: 'Environment',
-        subtitle: 'UPCOMING',
-        badge: 'ENVIRONMENT',
+        badge: '🌿 environment',
         isUpcoming: true,
-        themeColor: '#2d5a52',
-        coverBg: 'linear-gradient(145deg, #366b62 0%, #224740 100%)',
-        innerBg: '#2d5a52',
-        borderCol: 'rgba(255,255,255,0.22)',
+        themeColor: '#0d9488',
+        coverBg: 'linear-gradient(145deg, #14b8a6 0%, #0f766e 100%)',
+        innerBg: '#0d9488',
+        borderCol: '#99f6e4',
         topLeftSticker: 'stickers/sb_caterpillar.png',
         topRightSticker: 'stickers/sb_pink_butterfly.png',
         centerSticker: 'stickers/sb_dragonfly.png'
@@ -2698,13 +2688,12 @@
         id: 'features',
         folder: 'photos/Features',
         title: 'Features',
-        subtitle: 'UPCOMING',
-        badge: 'FEATURES',
+        badge: '✨ features',
         isUpcoming: true,
-        themeColor: '#a83847',
-        coverBg: 'linear-gradient(145deg, #b84252 0%, #8a2b38 100%)',
-        innerBg: '#a83847',
-        borderCol: 'rgba(255,255,255,0.22)',
+        themeColor: '#e11d48',
+        coverBg: 'linear-gradient(145deg, #f43f5e 0%, #be123c 100%)',
+        innerBg: '#e11d48',
+        borderCol: '#fecdd3',
         topLeftSticker: 'stickers/sb_moon.png',
         topRightSticker: 'stickers/sb_blue_bird.png',
         centerSticker: 'stickers/canva_cake.png'
@@ -2715,12 +2704,11 @@
         cover: 'photos/Miscellaneous/IMG_0915.JPG',
         isUpcoming: false,
         title: 'Miscellaneous',
-        subtitle: '35MM & DIGITAL',
-        badge: 'MISCELLANEOUS',
-        themeColor: '#284b7a',
-        coverBg: 'linear-gradient(145deg, #31598f 0%, #1e3b61 100%)',
-        innerBg: '#284b7a',
-        borderCol: 'rgba(255,255,255,0.22)',
+        badge: '🎞️ misc',
+        themeColor: '#2563eb',
+        coverBg: 'linear-gradient(145deg, #3b82f6 0%, #1d4ed8 100%)',
+        innerBg: '#2563eb',
+        borderCol: '#bfdbfe',
         topLeftSticker: 'stickers/canva_camera.png',
         topRightSticker: 'stickers/sb_twin_stars.png',
         centerSticker: 'stickers/sb_star_ladybug.png'
@@ -2729,13 +2717,12 @@
         id: 'diary_book',
         isDiaryBook: true,
         isUpcoming: false,
-        title: 'Guestbook',
-        subtitle: 'VISITOR NOTES',
-        badge: 'GUESTBOOK',
-        themeColor: '#996620',
-        coverBg: 'linear-gradient(145deg, #ad7528 0%, #7d5116 100%)',
-        innerBg: '#996620',
-        borderCol: 'rgba(255,255,255,0.22)',
+        title: 'Guestbook Diary',
+        badge: '💌 diary!',
+        themeColor: '#d97706',
+        coverBg: 'linear-gradient(145deg, #f59e0b 0%, #d97706 100%)',
+        innerBg: '#d97706',
+        borderCol: '#fef08a',
         topLeftSticker: 'stickers/ladybug_sticker.png',
         topRightSticker: 'stickers/sb_clay_star.png',
         centerSticker: 'stickers/sb_miffy_book.png'
@@ -3336,35 +3323,24 @@
         
         const hardcover = document.createElement('div');
         hardcover.className = 'book-hardcover';
-        hardcover.style.background = b.coverBg || b.innerBg || b.themeColor;
-        hardcover.title = `${b.title} — Click to open • Drag to reorder on shelf`;
+        hardcover.style.background = b.innerBg || b.themeColor || b.coverBg;
+        hardcover.title = `${b.title || b.badge} — Click to open • Drag to reorder on shelf!`;
 
-        const hasPhotoCover = (!b.isStickerBook && !b.isDiaryBook && !b.isUpcoming && b.cover);
-
-        const centerVisual = hasPhotoCover
-          ? `<div class="relative z-20 my-auto flex items-center justify-center pointer-events-none">
-               <div class="relative bg-[#faf7f0] p-1 pb-3 rounded-[1.5px] shadow-[0_6px_14px_rgba(0,0,0,0.42)] rotate-[-1.5deg] w-[74px] h-[86px] sm:w-[84px] sm:h-[96px] border border-stone-300/80">
-                 <div class="w-7 h-2 bg-[#efe4c6]/90 border border-stone-400/40 absolute -top-1.5 left-1/2 -translate-x-1/2 rotate-[2deg] shadow-sm"></div>
-                 <img src="${b.cover}" alt="" class="w-full h-full object-cover rounded-[1px]">
-               </div>
-               <img src="${b.topRightSticker}" alt="" class="w-7 h-7 sm:w-8 sm:h-8 object-contain absolute -bottom-1.5 -right-2.5 rotate-[10deg] drop-shadow-[0_3px_6px_rgba(0,0,0,0.4)] z-30">
+        const centerVisual = (!b.isStickerBook && !b.isDiaryBook && !b.isUpcoming && b.cover)
+          ? `<div class="relative z-20 bg-[#fffdf9] p-1 pb-2.5 rounded-[2px] shadow-[0_6px_14px_rgba(0,0,0,0.36)] rotate-[-2.5deg] w-14 h-16 sm:w-16 sm:h-[72px] flex items-center justify-center -my-1 pointer-events-none border border-stone-200/90">
+               <div class="w-6 h-2 bg-[#f3e5be]/90 border border-stone-300/60 absolute -top-1.5 left-1/2 -translate-x-1/2 rotate-[3deg] shadow-sm"></div>
+               <img src="${b.cover}" alt="" class="w-full h-full object-cover rounded-[1px]">
              </div>`
-          : `<div class="relative z-20 my-auto w-[74px] h-[86px] sm:w-[84px] sm:h-[96px] rounded-[2px] border border-white/15 bg-black/15 shadow-inner flex items-center justify-center pointer-events-none">
-               <img src="${b.centerSticker}" alt="" class="w-12 h-12 sm:w-14 sm:h-14 object-contain drop-shadow-[0_5px_10px_rgba(0,0,0,0.38)]">
-               <img src="${b.topLeftSticker}" alt="" class="w-6 h-6 sm:w-7 sm:h-7 object-contain absolute -bottom-1.5 -right-2 rotate-[8deg] drop-shadow-[0_3px_5px_rgba(0,0,0,0.38)]">
-             </div>`;
+          : `<img src="${b.centerSticker}" alt="" class="w-12 h-14 sm:w-14 sm:h-16 object-contain relative z-20 drop-shadow-[0_6px_10px_rgba(0,0,0,0.35)] -my-1 pointer-events-none">`;
 
         hardcover.innerHTML = `
-          <div class="w-full h-full relative z-20 flex flex-col justify-between select-none">
-            <div class="w-full text-left border-b border-white/20 pb-1 pointer-events-none">
-              <div class="font-serif font-semibold text-[13px] sm:text-[14.5px] leading-[1.08] tracking-tight text-[#faf7f0] truncate drop-shadow-[0_1px_1px_rgba(0,0,0,0.35)]">${b.title}</div>
-              <div class="font-mono-exif text-[7.5px] sm:text-[8px] uppercase tracking-[0.14em] text-[#faf7f0]/75 mt-0.5 truncate">${b.subtitle || ''}</div>
+          <div class="w-full h-full relative z-20 flex flex-col items-center justify-between select-none">
+            <div class="w-full flex justify-between items-start z-20 pointer-events-none">
+              <img src="${b.topLeftSticker}" alt="" class="w-6 h-6 sm:w-7 sm:h-7 object-contain rotate-[-12deg] drop-shadow-md">
+              <img src="${b.topRightSticker}" alt="" class="w-6 h-6 sm:w-7 sm:h-7 object-contain rotate-[11deg] drop-shadow-md">
             </div>
             ${centerVisual}
-            <div class="w-full flex items-center justify-between pt-0.5 border-t border-white/15 pointer-events-none">
-              <span class="font-mono-exif text-[7px] uppercase tracking-[0.14em] text-[#faf7f0]/65">A. MORRA</span>
-              <span class="font-mono-exif text-[7px] uppercase tracking-[0.1em] text-[#faf7f0]/65">${b.isUpcoming ? 'SOON' : '35MM'}</span>
-            </div>
+            <span class="relative z-20 w-[96%] bg-[#faf7f0] font-cute font-bold text-[12px] sm:text-[13px] leading-none py-1 px-1.5 rounded-full shadow-md border border-stone-300/90 text-center flex items-center justify-center whitespace-nowrap overflow-hidden text-ellipsis" style="color: ${b.themeColor};">${b.badge}</span>
           </div>
         `;
 
@@ -6776,7 +6752,7 @@
     // Progressive Web App Service Worker Registration (with immediate update check)
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', () => {
-        navigator.serviceWorker.register('./sw.js?v=8').then((reg) => {
+        navigator.serviceWorker.register('./sw.js?v=9').then((reg) => {
           reg.update();
         }).catch((err) => {
           console.log('SW registration:', err);
