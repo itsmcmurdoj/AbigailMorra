@@ -93,7 +93,7 @@
   <link rel="icon" type="image/png" sizes="256x256" href="stickers/gilbert_icon_tight.png">
   <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
   <link rel="manifest" href="site.webmanifest">
-  <meta name="theme-color" content="#162bc5">
+  <meta name="theme-color" content="#fe46b8">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="apple-mobile-web-app-title" content="Abigail Morra">
@@ -221,11 +221,11 @@
     }
 
     /* -------------------------------------------------------------
-       BLUE HERO CANVAS (CANVA #1800AD TEXTURED 16:9 DESIGN)
+       PINK HERO CANVAS (CANVA SLIDE 1 HOT-PINK CRUMPLED PAPER 16:9 DESIGN)
        ------------------------------------------------------------- */
     .hero-blue-canvas {
-      background-color: #1800AD;
-      background-image: url("stickers/canva_blue_texture_bg.png?v=4");
+      background-color: #fe46b8;
+      background-image: url("stickers/canva_pink_texture_bg.jpg?v=2");
       background-size: cover;
       background-position: center;
       position: relative;
@@ -241,11 +241,13 @@
       }
     }
 
-    /* Hand-Torn Deckle Sketchbook Paper Edge at the Top of the Paper Sheet */
     .torn-paper-edge {
       display: none;
     }
 
+    /* -------------------------------------------------------------
+       SLIDE 2 GRAPH-PAPER GRID SHEET UNDER THE HEADER
+       ------------------------------------------------------------- */
     .tactile-paper-sheet {
       position: relative;
       z-index: 25;
@@ -253,48 +255,21 @@
       display: flex;
       flex-direction: column;
       margin-top: 0;
-      background-color: #f8f4e9;
+      background-color: #f3f1f1;
       background-image:
-        radial-gradient(rgba(115, 98, 72, 0.13) 1px, transparent 1px),
-        radial-gradient(rgba(140, 120, 90, 0.08) 0.9px, transparent 0.9px),
-        repeating-linear-gradient(
-          0deg,
-          transparent 0px,
-          transparent 31px,
-          rgba(165, 148, 120, 0.11) 31px,
-          rgba(165, 148, 120, 0.11) 32px
-        ),
-        linear-gradient(
-          180deg,
-          #fdfbf6 0%,
-          #f8f4e9 22%,
-          #f2ecdc 100%
-        );
-      background-size: 20px 20px, 11px 11px, 100% 32px, 100% 100%;
-      background-position: 0 0, 5px 7px, 0 12px, 0 0;
-      border-top: 1px solid rgba(255, 253, 248, 0.88);
+        linear-gradient(to right, rgba(30, 30, 30, 0.095) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(30, 30, 30, 0.095) 1px, transparent 1px),
+        radial-gradient(ellipse at 28% 35%, rgba(255, 255, 255, 0.55) 0%, transparent 55%),
+        radial-gradient(ellipse at 74% 68%, rgba(0, 0, 0, 0.03) 0%, transparent 50%),
+        linear-gradient(180deg, #f5f3f3 0%, #f1efef 52%, #eceaea 100%);
+      background-size: 36px 36px, 36px 36px, 100% 100%, 100% 100%, 100% 100%;
+      background-position: 0 0, 0 0, 0 0, 0 0, 0 0;
+      border-top: 1px solid rgba(0, 0, 0, 0.08);
       box-shadow:
-        0 -8px 22px rgba(7, 2, 45, 0.32),
-        inset 0 1px 0 rgba(255, 255, 255, 0.9),
-        inset 0 0 65px rgba(145, 125, 90, 0.12);
+        inset 0 2px 6px rgba(0, 0, 0, 0.05);
     }
 
-    /* Subtle, Fine Archival Cotton Paper Deckle Edge (Less Cartoony!) */
-    .tactile-paper-sheet::before {
-      content: "";
-      position: absolute;
-      top: -11px;
-      left: 0;
-      right: 0;
-      height: 13px;
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 24' preserveAspectRatio='none'%3E%3Cdefs%3E%3Cfilter id='fineDeckle' x='-2%25' y='-20%25' width='104%25' height='140%25'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.04 0.18' numOctaves='3' seed='11' result='noise'/%3E%3CfeDisplacementMap in='SourceGraphic' in2='noise' scale='3.5' xChannelSelector='R' yChannelSelector='G'/%3E%3C/filter%3E%3C/defs%3E%3Cpath filter='url(%23fineDeckle)' fill='%23e8e0cf' opacity='0.75' d='M-20,24 L-20,10 Q360,7 720,10 T1460,9 L1460,24 Z'/%3E%3Cpath filter='url(%23fineDeckle)' fill='%23fdfbf6' d='M-20,24 L-20,13 Q360,10 720,13 T1460,12 L1460,24 Z'/%3E%3C/svg%3E");
-      background-size: 100% 100%;
-      background-repeat: no-repeat;
-      filter: drop-shadow(0 -2px 4px rgba(5, 0, 38, 0.22));
-      pointer-events: none;
-      z-index: 26;
-    }
-
+    .tactile-paper-sheet::before,
     .tactile-paper-sheet::after {
       display: none;
     }
@@ -407,52 +382,27 @@
     }
 
     /* -------------------------------------------------------------
-       COFFEE TABLE BOOKS & SHELF
+       SLIDE 2 FLAT-LAY BOOKS ROW AT THE TOP OF THE GRAPH PAPER
        ------------------------------------------------------------- */
     .book-shelf {
-      display: flex;
-      align-items: flex-end;
-      gap: 1.05rem;
-      overflow-x: auto;
-      overflow-y: visible;
-      -webkit-overflow-scrolling: touch;
-      touch-action: pan-x pan-y;
-      scroll-behavior: smooth;
-      padding: 1.6rem 1.25rem 0.35rem 1.25rem;
-      scrollbar-width: none;
-      perspective: 1200px;
-      cursor: grab;
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 1.25rem;
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 0.5rem 0.5rem 0.75rem 0.5rem;
+      align-items: end;
+      justify-items: center;
       position: relative;
       z-index: 20;
     }
 
-    .book-shelf:active {
-      cursor: grabbing;
-    }
-
-    .book-shelf::-webkit-scrollbar {
-      display: none;
-    }
-
-    @media (min-width: 768px) {
+    @media (min-width: 640px) {
       .book-shelf {
-        gap: clamp(0.85rem, 1.35vw, 1.45rem);
-        padding: 1.75rem 1.5rem 0.4rem 1.5rem;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: clamp(1.25rem, 3.2vw, 2.75rem);
+        padding: 0.75rem 1rem 1rem 1rem;
       }
-    }
-
-    /* Vintage Carved Scalloped Wooden Wall Shelf Under the Books (from shelf.jpg) */
-    .books-shelf-plank {
-      position: relative;
-      z-index: 15;
-      margin: -6px 0.25rem 0 0.25rem;
-      height: clamp(46px, 6.2vw, 76px);
-      background-image: url("stickers/wooden_shelf_wide.png");
-      background-size: 100% 100%;
-      background-repeat: no-repeat;
-      background-position: top center;
-      filter: drop-shadow(0 14px 20px rgba(28, 19, 10, 0.34));
-      pointer-events: none;
     }
 
     /* Real-Life "Abigail" Crayons + Eraser Drawer on the Side of the Open Sticker Book (Pushable In & Out!) */
@@ -621,119 +571,47 @@
     }
 
     .book-item {
-      flex-shrink: 0;
+      width: 100%;
+      max-width: 245px;
       cursor: url("stickers/ladybug_cursor.png") 5 2, pointer;
       position: relative;
-      transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+      transition: transform 0.32s cubic-bezier(0.16, 1, 0.3, 1), filter 0.32s ease;
       user-select: none;
     }
 
-    .book-item:first-child {
-      margin-left: auto;
-    }
-
-    .book-item:last-child {
-      margin-right: auto;
-    }
-
-    /* Realistic Hardcover Book Mockup (Crisp Corners, 3D French-Groove Spine Crease & Page-Block Rim) */
+    /* Realistic Flat-Lay Canva Hardcover Book Cover */
     .book-hardcover {
-      width: 136px;
-      height: 188px;
+      width: 100%;
+      aspect-ratio: 440 / 575;
       position: relative;
-      background: #1c1a17;
-      border-radius: 1.5px 3px 3px 1.5px;
+      background: transparent;
+      border-radius: 2px 3px 3px 2px;
       box-shadow:
-        2px 1px 0 rgba(244, 239, 226, 0.92),
-        3.5px 2.5px 0 rgba(20, 18, 15, 0.42),
-        -4px 6px 14px rgba(0, 0, 0, 0.28),
-        0 14px 24px -5px rgba(15, 10, 5, 0.42),
-        inset 0 1.5px 1px rgba(255, 255, 255, 0.38),
-        inset -1.5px 0 2px rgba(0, 0, 0, 0.22),
-        inset 0 -2px 2.5px rgba(0, 0, 0, 0.32);
-      transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+        -3px 5px 12px rgba(0, 0, 0, 0.16),
+        0 10px 22px -6px rgba(0, 0, 0, 0.24);
+      transition: transform 0.32s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.32s ease;
       overflow: hidden;
-      padding: 10px 9px 10px 18px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      padding: 0;
+      display: block;
     }
 
-    @media (min-width: 640px) {
-      .book-hardcover {
-        width: clamp(128px, 9.5vw, 154px);
-        height: clamp(176px, 13.2vw, 214px);
-        padding: 11px 10px 11px 20px;
-      }
-    }
-
-    /* Realistic 3D Hardcover Spine Ridge & Deep Vertical Hinge Groove on Left Edge */
-    .book-hardcover::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      bottom: 0;
-      left: 0;
-      width: 16px;
-      background: linear-gradient(
-        90deg,
-        rgba(0, 0, 0, 0.32) 0px,
-        rgba(255, 255, 255, 0.42) 2px,
-        rgba(255, 255, 255, 0.22) 5.5px,
-        rgba(255, 255, 255, 0.04) 8.5px,
-        rgba(0, 0, 0, 0.38) 10.5px,
-        rgba(0, 0, 0, 0.22) 12px,
-        rgba(255, 255, 255, 0.38) 13px,
-        rgba(255, 255, 255, 0.0) 16px
-      );
-      z-index: 25;
-      pointer-events: none;
-    }
-
-    /* Subtle Matte Bookcloth Lighting & Paper Texture Sheen Across Cover */
+    .book-hardcover::before,
     .book-hardcover::after {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background:
-        radial-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 0),
-        linear-gradient(132deg, rgba(255, 255, 255, 0.16) 0%, rgba(255, 255, 255, 0.02) 45%, rgba(0, 0, 0, 0.18) 100%);
-      background-size: 4px 4px, 100% 100%;
-      z-index: 15;
-      pointer-events: none;
+      display: none;
     }
 
     .book-item:hover .book-hardcover {
-      transform: translateY(-10px) rotate(-1.5deg) scale(1.04);
+      transform: translateY(-8px) rotate(-1.2deg) scale(1.03);
       box-shadow:
-        2.5px 1.5px 0 rgba(244, 239, 226, 0.95),
-        4px 3px 0 rgba(20, 18, 15, 0.45),
-        -6px 14px 22px rgba(0, 0, 0, 0.32),
-        0 22px 32px -6px rgba(15, 10, 5, 0.46),
-        inset 0 1.5px 1px rgba(255, 255, 255, 0.42),
-        inset -1.5px 0 2px rgba(0, 0, 0, 0.22),
-        inset 0 -2px 2.5px rgba(0, 0, 0, 0.32);
+        -5px 12px 22px rgba(0, 0, 0, 0.22),
+        0 18px 28px -6px rgba(0, 0, 0, 0.30);
     }
 
-    .book-item.is-active .book-hardcover {
-      transform: translateY(-8px) scale(1.03);
+    .book-item.is-sticker-book-open .book-hardcover {
+      transform: translateY(-8px) scale(1.035);
       box-shadow:
-        0 0 0 2.5px #162bc5,
-        0 0 24px rgba(22, 43, 197, 0.35),
-        8px 20px 32px -4px rgba(0,0,0,0.4);
-    }
-
-    /* Active ribbon bookmark indicator */
-    .book-item.is-active::after {
-      content: '';
-      position: absolute;
-      bottom: -8px;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 12px;
-      height: 12px;
-      background-color: #162bc5;
-      clip-path: polygon(50% 0%, 100% 100%, 0% 100%);
+        0 0 0 3px #fe46b8,
+        0 18px 30px -4px rgba(0, 0, 0, 0.34);
     }
 
     .book-inner-photo {
@@ -1744,120 +1622,109 @@
   </div>
 
   <!-- =============================================================
-       1. BLUE HERO: ABIGAIL'S CANVA COLLAGE DESIGN (INTERACTIVE & MOVEABLE)
+       1. HOT PINK HERO: ABIGAIL'S CANVA SLIDE 1 COLLAGE DESIGN (INTERACTIVE & MOVEABLE)
        ============================================================= -->
   <header class="hero-blue-canvas relative flex items-center justify-center overflow-hidden select-none">
 
-    <!-- CENTER ARTIST NAME (MATCHING CANVA 2-LINE EDITORIAL SERIF) -->
-    <div class="relative z-15 text-center pointer-events-none select-none px-4" style="margin-top: 2%;">
-      <h1 class="text-white font-normal tracking-normal leading-[0.94] drop-shadow-sm"
-          style="font-family: 'EB Garamond', 'Newsreader', Georgia, serif; font-size: clamp(3.2rem, 8.8vw, 10.5rem);">
-        Abigail<br>Morra
-      </h1>
+    <!-- Accessible Screen-Reader / SEO Title -->
+    <h1 class="sr-only">Abigail Morra — Photography Portfolio</h1>
+
+    <!-- CENTER HANDWRITTEN "port / folio" BRUSH LETTERING FROM CANVA SLIDE 1 -->
+    <div class="absolute pointer-events-none select-none"
+         style="left: 29.69%; top: 26.39%; width: 40.43%; z-index: 15;">
+      <img src="stickers/canva_portfolio_title.png?v=2"
+           alt="Abigail Morra Portfolio"
+           class="w-full h-auto block drop-shadow-sm pointer-events-none">
     </div>
 
     <!-- -----------------------------------------------------------
-         INTERACTIVE MOVEABLE CANVA STICKERS (EXACT 1920x1080 POSITIONS)
+         INTERACTIVE MOVEABLE CANVA STICKERS (EXACT SLIDE 1 POSITIONS)
          ----------------------------------------------------------- -->
     <div id="hero-stickers-layer" class="absolute inset-0 pointer-events-none z-20">
 
       <!-- 1. TOP-LEFT GRUNGE RED STARS ON OLD PAPER CUTOUT -->
       <div class="drag-item pointer-events-auto"
-           style="left: 4.39%; top: 14.44%; width: 12.88%; z-index: 23;"
+           style="left: 2.60%; top: 5.20%; width: 12.88%; z-index: 23;"
            title="Drag me! ★">
         <img src="stickers/canva_grunge_stars.png?v=3" alt="Red Grunge Stars Sticker" class="w-full h-auto block drop-shadow-lg pointer-events-none">
       </div>
 
-      <!-- 2. LEFT HORIZONTAL POLAROID PHOTO (DOORWAY PRINTS & MINI FLIP CAMERA — CRISP HIGH-RES!) -->
+      <!-- 2. BIRTHDAY CAKE SLICE WITH CANDLE -->
       <div class="drag-item pointer-events-auto"
-           style="left: 9.85%; top: 26.58%; width: 18.26%; z-index: 20;"
-           title="Drag me! 📸">
-        <img src="stickers/canva_polaroid_couch_left.png?v=3" alt="Doorway Prints Polaroid Sticker" class="w-full h-auto block drop-shadow-2xl pointer-events-none">
-      </div>
-
-      <!-- 3. BIRTHDAY CAKE SLICE WITH CANDLE -->
-      <div class="drag-item pointer-events-auto"
-           style="left: 26.17%; top: 6.30%; width: 12.08%; z-index: 22;"
+           style="left: 26.95%; top: 2.50%; width: 11.20%; z-index: 22;"
            title="Drag me! 🎂">
         <img src="stickers/canva_cake.png" alt="Birthday Cake Sticker" class="w-full h-auto block drop-shadow-lg pointer-events-none">
       </div>
 
-      <!-- 4. TOP-CENTER SKETCHED BLACK STAR -->
+      <!-- 3. TOP-CENTER SKETCHED BLACK STAR -->
       <div class="drag-item pointer-events-auto"
-           style="left: 42.24%; top: 13.06%; width: 8.52%; z-index: 21;"
+           style="left: 43.75%; top: 12.00%; width: 8.52%; z-index: 21;"
            title="Drag me! ★">
         <img src="stickers/canva_star.png" alt="Star Sticker" class="w-full h-auto block drop-shadow-md pointer-events-none">
       </div>
 
-      <!-- 5. VINTAGE RANGEFINDER 35MM CAMERA -->
+      <!-- 4. VINTAGE RANGEFINDER 35MM CAMERA -->
       <div class="drag-item pointer-events-auto"
-           style="left: 56.15%; top: 7.04%; width: 21.43%; z-index: 14;"
+           style="left: 58.05%; top: 7.50%; width: 21.43%; z-index: 14;"
            title="Drag me! 📷">
         <img src="stickers/canva_camera.png" alt="35mm Camera Sticker" class="w-full h-auto block drop-shadow-xl pointer-events-none">
       </div>
 
-      <!-- 6. LIT MATCHSTICK (MOVED BETWEEN CAMERA, GILBERT & POLAROID) -->
+      <!-- 5. LIT MATCHSTICK -->
       <div class="drag-item pointer-events-auto"
            style="left: 73.65%; top: 36.11%; width: 4.82%; z-index: 22;"
            title="Drag me! 🔥">
         <img src="stickers/canva_match.png" alt="Lit Match Sticker" class="w-full h-auto block drop-shadow-md pointer-events-none">
       </div>
 
-      <!-- 7. RANSOM CUTOUT LETTERS "ABi" -->
+      <!-- 6. RANSOM CUTOUT LETTERS "ABi" -->
       <div class="drag-item pointer-events-auto"
-           style="left: 80.57%; top: 12.31%; width: 8.41%; z-index: 22;"
+           style="left: 80.20%; top: 17.00%; width: 8.20%; z-index: 22;"
            title="Drag me! ✨">
         <img src="stickers/canva_abi.png" alt="ABi Cutout Letters" class="w-full h-auto block drop-shadow-md pointer-events-none">
       </div>
 
-      <!-- 8. GILBERT THE CAT FULL-BODY CUTOUT (TAP TO MEET GILBERT, OR DRAG!) -->
+      <!-- 7. GILBERT THE CAT FULL-BODY CUTOUT (TAP TO MEET GILBERT, OR DRAG!) -->
       <div id="drag-gilbert" class="drag-item pointer-events-auto"
-           style="left: 79.17%; top: 24.07%; width: 19.56%; z-index: 24;"
+           style="left: 79.80%; top: 24.80%; width: 17.50%; z-index: 24;"
            title="Gilbert the Cat 🐾 (Drag to move, or tap to meet Gilbert!)">
         <img src="stickers/canva_gilbert_full.png" alt="Gilbert the Cat" class="w-full h-auto block drop-shadow-2xl pointer-events-none">
       </div>
 
-      <!-- 9. RIGHT BALCONY POLAROID PHOTO (CRISP HIGH-RES!) -->
+      <!-- 8. BOTTOM-RIGHT SKETCHED BLACK STAR (BELOW GILBERT) -->
       <div class="drag-item pointer-events-auto"
-           style="left: 63.62%; top: 55.00%; width: 17.42%; z-index: 23;"
-           title="Drag me! 📸">
-        <img src="stickers/canva_polaroid_balcony_v2.png?v=3" alt="Balcony Polaroid Photo" class="w-full h-auto block drop-shadow-2xl pointer-events-none">
+           style="left: 80.20%; top: 79.80%; width: 8.52%; z-index: 23;"
+           title="Drag me! ★">
+        <img src="stickers/canva_star.png" alt="Star Sticker" class="w-full h-auto block drop-shadow-md pointer-events-none">
       </div>
 
-      <!-- 9B. RED HEART CUTOUT STICKER NEXT TO BALCONY POLAROID -->
+      <!-- 9. PEEKING HAND EYES FRAMER -->
       <div class="drag-item pointer-events-auto"
-           style="left: 79.64%; top: 79.58%; width: 4.95%; z-index: 24;"
-           title="Drag me! ❤️">
-        <img src="stickers/canva_red_heart.png?v=3" alt="Red Heart Sticker" class="w-full h-auto block drop-shadow-lg pointer-events-none">
+           style="left: 70.40%; top: 56.10%; width: 6.85%; z-index: 23;"
+           title="Drag me! 👀">
+        <img src="stickers/canva_hand_eyes.png" alt="Peeking Hand Eyes Sticker" class="w-full h-auto block drop-shadow-lg pointer-events-none">
       </div>
 
       <!-- 10. GREEN & ORANGE GECKO / LIZARD (CLICK TO PLAY GECKO SNAKE GAME!) -->
       <div id="drag-gecko" class="drag-item pointer-events-auto"
            data-sticker-src="stickers/canva_gecko.png"
-           style="left: 17.97%; top: 45.37%; width: 14.17%; z-index: 21;"
+           style="left: 17.97%; top: 37.00%; width: 14.17%; z-index: 21;"
            title="Green & Orange Gecko 🦎 (Click me to play Gecko Garden Snake! 🕹️)">
         <img src="stickers/canva_gecko.png" alt="Gecko Sticker" class="w-full h-auto block drop-shadow-lg pointer-events-none">
       </div>
 
-      <!-- 11. LEFT SKETCHED BLACK STAR -->
+      <!-- 11. MIDDLE-LEFT SKETCHED BLACK STAR -->
       <div class="drag-item pointer-events-auto"
-           style="left: 3.10%; top: 45.20%; width: 11.20%; z-index: 21;"
+           style="left: 3.40%; top: 40.80%; width: 11.00%; z-index: 21;"
            title="Drag me! ★">
         <img src="stickers/canva_star_left.png" alt="Star Sticker" class="w-full h-auto block drop-shadow-md pointer-events-none">
       </div>
 
       <!-- 12. STAR SOCKS & MARY JANE SHOES -->
       <div class="drag-item pointer-events-auto"
-           style="left: -1.50%; top: 58.50%; width: 24.00%; z-index: 22;"
+           style="left: -1.20%; top: 56.80%; width: 23.80%; z-index: 22;"
            title="Drag me! 👞">
         <img src="stickers/canva_shoes.png" alt="Star Socks and Mary Jane Shoes Sticker" class="w-full h-auto block drop-shadow-xl pointer-events-none">
-      </div>
-
-      <!-- 13. PEEKING HAND EYES FRAMER -->
-      <div class="drag-item pointer-events-auto"
-           style="left: 29.69%; top: 74.35%; width: 6.85%; z-index: 23;"
-           title="Drag me! 👀">
-        <img src="stickers/canva_hand_eyes.png" alt="Peeking Hand Eyes Sticker" class="w-full h-auto block drop-shadow-lg pointer-events-none">
       </div>
 
     </div>
@@ -1867,13 +1734,40 @@
   </header>
 
   <!-- =============================================================
-       2. COFFEE TABLE BOOKS SHELF & MULTI-COLUMN MASONRY GALLERY
-       (TACTILE SKETCHBOOK PAPER SHEET TAPED ONTO THE BLUE WITH WASHI TAPE!)
+       2. SLIDE 2 GRAPH-PAPER CANVAS & FLAT-LAY COFFEE TABLE BOOKS
        ============================================================= -->
   <main id="white-page-main" class="tactile-paper-sheet w-full relative flex-1 min-h-[360px]">
 
-    <!-- WHITE PAGE STICKERS LAYER (EMPTY BY DEFAULT — WASHI TAPE REMAINS IN STICKER BOOK!) -->
-    <div id="white-page-stickers-layer" class="absolute inset-0 pointer-events-none z-30 overflow-visible"></div>
+    <!-- WHITE PAGE STICKERS LAYER (INCLUDES ABIGAIL'S 4 CANVA CRAYON DOODLES FROM SLIDE 2!) -->
+    <div id="white-page-stickers-layer" class="absolute inset-0 pointer-events-none z-30 overflow-visible">
+      <!-- Doodle 1: Yellow & Orange Crayon Stars (Left) -->
+      <div class="drag-item pointer-events-auto"
+           style="left: 1.0%; top: 380px; width: 8.6%; z-index: 24;"
+           title="Crayon Stars ★ (Drag me!)">
+        <img src="stickers/doodle_yellow_stars.png?v=2" alt="Yellow Crayon Stars Doodle" class="w-full h-auto block pointer-events-none">
+      </div>
+
+      <!-- Doodle 2: Pink Crayon Swirl (Bottom-Left) -->
+      <div class="drag-item pointer-events-auto"
+           style="left: 5.5%; bottom: 26px; width: 17.0%; z-index: 24;"
+           title="Pink Crayon Swirl 〰️ (Drag me!)">
+        <img src="stickers/doodle_pink_swirl.png?v=2" alt="Pink Crayon Swirl Doodle" class="w-full h-auto block pointer-events-none">
+      </div>
+
+      <!-- Doodle 3: Blue & Mint Crayon Frog (Right) -->
+      <div class="drag-item pointer-events-auto"
+           style="right: 1.8%; top: 385px; width: 8.5%; z-index: 24;"
+           title="Crayon Frog 🐸 (Drag me!)">
+        <img src="stickers/doodle_blue_frog.png?v=2" alt="Blue Crayon Frog Doodle" class="w-full h-auto block pointer-events-none">
+      </div>
+
+      <!-- Doodle 4: Shaded Red Crayon Star (Bottom-Right) -->
+      <div class="drag-item pointer-events-auto"
+           style="right: 1.2%; bottom: 18px; width: 12.8%; z-index: 24;"
+           title="Red Crayon Star ★ (Drag me!)">
+        <img src="stickers/doodle_red_star.png?v=2" alt="Red Crayon Star Doodle" class="w-full h-auto block pointer-events-none">
+      </div>
+    </div>
 
     <!-- 3D ANIMATED STICKER BOOK (OPENS AT BOTTOM-RIGHT • SCROLLABLE, RESIZABLE & PEELABLE) -->
     <div id="sticker-book-stage" class="sticker-book-stage" aria-hidden="true">
@@ -2067,33 +1961,15 @@
       </div>
     </div>
     
-    <!-- COFFEE TABLE BOOKS SHELF (WITH 3D WOODEN SHELF LEDGE UNDER THE BOOKS) -->
-    <section class="max-w-[1400px] mx-auto pt-6 pb-12 px-2 sm:px-6 md:px-8 relative">
-      <!-- Left Shelf Scroll Button -->
-      <button type="button" onclick="scrollBooksShelf(-1)" aria-label="Scroll books left"
-              class="flex items-center justify-center w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-[#1800ad] text-[#fde047] border-2 border-[#fde047] shadow-lg hover:scale-110 active:scale-95 transition-transform absolute left-1.5 sm:left-3 top-1/2 -translate-y-1/2 z-40 font-cute font-bold text-xl">
-        ‹
-      </button>
-
+    <!-- SLIDE 2 FLAT-LAY BOOKS ROW AT THE TOP OF THE GRAPH PAPER -->
+    <section class="max-w-7xl mx-auto px-3 sm:px-6 pt-6 sm:pt-9 pb-2 w-full relative z-20">
       <div id="books-shelf" class="book-shelf">
-        <!-- Dynamically populated tactile linen hardcover books -->
+        <!-- Dynamically populated with Abigail's 4 Canva book covers from Slide 2 -->
       </div>
-
-      <!-- 3D Wooden Shelf Plank Underneath the Books -->
-      <div class="books-shelf-plank" aria-hidden="true"></div>
-
-      <!-- Right Shelf Scroll Button -->
-      <button type="button" onclick="scrollBooksShelf(1)" aria-label="Scroll books right"
-              class="flex items-center justify-center w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-[#1800ad] text-[#fde047] border-2 border-[#fde047] shadow-lg hover:scale-110 active:scale-95 transition-transform absolute right-1.5 sm:left-auto sm:right-3 top-1/2 -translate-y-1/2 z-40 font-cute font-bold text-xl">
-        ›
-      </button>
     </section>
 
-    <!-- =============================================================
-         ROUGH / HANDMADE INDIE ZINE & SCRAPBOOK (FLIPPABLE 3-SPREAD BOOK)
-         (Torn paper, masking tape, duct tape, glue smudges, real TMU ID card, sticky note & Abi's words)
-         ============================================================= -->
-    <section id="profile-newspaper-section" class="max-w-[1360px] mx-auto px-2 sm:px-5 md:px-8 pb-16 pt-1 relative z-20">
+    <!-- ROUGH / HANDMADE INDIE ZINE & SCRAPBOOK (FLIPPABLE 3-SPREAD BOOK) -->
+    <section id="profile-newspaper-section" class="max-w-7xl mx-auto px-2 sm:px-6 pt-4 pb-16 sm:pb-24 w-full relative z-20">
       <!-- Hidden SVG Filter for Rough Paper & Glue Smudge Distortion -->
       <svg width="0" height="0" class="absolute pointer-events-none" aria-hidden="true">
         <defs>
@@ -2598,134 +2474,55 @@
     // COFFEE TABLE BOOKS CATALOG (STICKERS ON FAR LEFT, DIARY ON FAR RIGHT, DRAGGABLE TO REORDER!)
     const BOOKS = [
       {
-        id: 'sticker_book',
-        isStickerBook: true,
+        id: 'photo_essay',
+        folder: 'photos/Photo Essay',
+        cover: 'photos/Photo Essay/MOR_FIVE_12.jpg',
+        canvaCoverImg: 'stickers/book_cover_photo_essay.png?v=2',
+        title: 'Photo Essay',
+        badge: '📖 photo essay',
         isUpcoming: false,
-        title: 'Stickers',
-        badge: '★ stickers!',
-        themeColor: '#1800ad',
-        coverBg: 'linear-gradient(145deg, #1800ad 0%, #2b14cc 100%)',
-        innerBg: '#150096',
-        borderCol: '#fde047',
-        topLeftSticker: 'stickers/sb_clay_star.png',
-        topRightSticker: 'stickers/sb_miffy_book.png',
-        centerSticker: 'stickers/sb_wizard_cat.png'
+        themeColor: '#d93813',
+        coverBg: 'linear-gradient(145deg, #e0441d 0%, #b82c0c 100%)',
+        innerBg: '#d93813',
+        borderCol: '#fed7aa'
       },
       {
         id: 'general_spot_news',
         folder: 'photos/General or Spot News',
         cover: 'photos/General or Spot News/MOR_TWO_1.JPG.jpg',
+        canvaCoverImg: 'stickers/book_cover_spot_news.png?v=2',
         isUpcoming: false,
-        title: 'General or Spot News',
+        title: 'Spot News',
         badge: '🗞️ spot news',
-        themeColor: '#dc2626',
-        coverBg: 'linear-gradient(145deg, #ef4444 0%, #b91c1c 100%)',
-        innerBg: '#dc2626',
-        borderCol: '#fecaca',
-        topLeftSticker: 'stickers/sb_black_cat.png',
-        topRightSticker: 'stickers/sb_yellow_starburst.png',
-        centerSticker: 'stickers/canva_camera.png'
+        themeColor: '#5c87d6',
+        coverBg: 'linear-gradient(145deg, #82adee 0%, #537cc7 100%)',
+        innerBg: '#5c87d6',
+        borderCol: '#dbeafe'
       },
       {
         id: 'sports',
         folder: 'photos/Sports',
         cover: 'photos/Sports/MOR_THREE_1.JPEG',
-        title: 'Sports',
+        canvaCoverImg: 'stickers/book_cover_sports.png?v=2',
+        title: 'Sports — The New Era Magazine',
         badge: '⚡ sports',
         isUpcoming: false,
-        themeColor: '#16a34a',
-        coverBg: 'linear-gradient(145deg, #22c55e 0%, #15803d 100%)',
-        innerBg: '#16a34a',
-        borderCol: '#bbf7d0',
-        topLeftSticker: 'stickers/sb_stitched_star.png',
-        topRightSticker: 'stickers/sb_yellow_starburst.png',
-        centerSticker: 'stickers/sb_star_boots.png'
+        themeColor: '#7a1c24',
+        coverBg: 'linear-gradient(145deg, #8b222b 0%, #5e131a 100%)',
+        innerBg: '#7a1c24',
+        borderCol: '#fecdd3'
       },
       {
-        id: 'photo_essay',
-        folder: 'photos/Photo Essay',
-        cover: 'photos/Photo Essay/MOR_FIVE_12.jpg',
-        title: 'Photo Essay',
-        badge: '📖 photo essay',
+        id: 'sticker_book',
+        isStickerBook: true,
         isUpcoming: false,
-        themeColor: '#db2777',
-        coverBg: 'linear-gradient(145deg, #ec4899 0%, #be185d 100%)',
-        innerBg: '#db2777',
-        borderCol: '#fbcfe8',
-        topLeftSticker: 'stickers/sb_pink_button.png',
-        topRightSticker: 'stickers/sb_clay_star.png',
-        centerSticker: 'stickers/sb_three_kittens.png'
-      },
-      {
-        id: 'live_events',
-        folder: 'photos/Live Events',
-        title: 'Live Events',
-        badge: '🎶 live events',
-        isUpcoming: true,
-        themeColor: '#7c3aed',
-        coverBg: 'linear-gradient(145deg, #8b5cf6 0%, #5b21b6 100%)',
-        innerBg: '#7c3aed',
-        borderCol: '#ddd6fe',
-        topLeftSticker: 'stickers/sb_party_hat.png',
-        topRightSticker: 'stickers/sb_pink_starburst.png',
-        centerSticker: 'stickers/vinyl_sticker.png'
-      },
-      {
-        id: 'environment',
-        folder: 'photos/Environment',
-        title: 'Environment',
-        badge: '🌿 environment',
-        isUpcoming: true,
-        themeColor: '#0d9488',
-        coverBg: 'linear-gradient(145deg, #14b8a6 0%, #0f766e 100%)',
-        innerBg: '#0d9488',
-        borderCol: '#99f6e4',
-        topLeftSticker: 'stickers/sb_caterpillar.png',
-        topRightSticker: 'stickers/sb_pink_butterfly.png',
-        centerSticker: 'stickers/sb_dragonfly.png'
-      },
-      {
-        id: 'features',
-        folder: 'photos/Features',
-        title: 'Features',
-        badge: '✨ features',
-        isUpcoming: true,
-        themeColor: '#e11d48',
-        coverBg: 'linear-gradient(145deg, #f43f5e 0%, #be123c 100%)',
-        innerBg: '#e11d48',
-        borderCol: '#fecdd3',
-        topLeftSticker: 'stickers/sb_moon.png',
-        topRightSticker: 'stickers/sb_blue_bird.png',
-        centerSticker: 'stickers/canva_cake.png'
-      },
-      {
-        id: 'miscellaneous',
-        folder: 'photos/Miscellaneous',
-        cover: 'photos/Miscellaneous/IMG_0915.JPG',
-        isUpcoming: false,
-        title: 'Miscellaneous',
-        badge: '🎞️ misc',
-        themeColor: '#2563eb',
-        coverBg: 'linear-gradient(145deg, #3b82f6 0%, #1d4ed8 100%)',
-        innerBg: '#2563eb',
-        borderCol: '#bfdbfe',
-        topLeftSticker: 'stickers/canva_camera.png',
-        topRightSticker: 'stickers/sb_twin_stars.png',
-        centerSticker: 'stickers/sb_star_ladybug.png'
-      },
-      {
-        id: 'diary_book',
-        isDiaryBook: true,
-        isUpcoming: false,
-        title: 'Guestbook Diary',
-        badge: '💌 diary!',
-        themeColor: '#d97706',
-        coverBg: 'linear-gradient(145deg, #f59e0b 0%, #d97706 100%)',
-        innerBg: '#d97706',
-        borderCol: '#fef08a',
-        topLeftSticker: 'stickers/ladybug_sticker.png',
-        topRightSticker: 'stickers/sb_clay_star.png',
-        centerSticker: 'stickers/sb_miffy_book.png'
+        canvaCoverImg: 'stickers/book_cover_stickers.png?v=2',
+        title: 'Stickers',
+        badge: '★ stickers!',
+        themeColor: '#1800ad',
+        coverBg: 'linear-gradient(145deg, #f3d73b 0%, #eab308 100%)',
+        innerBg: '#150096',
+        borderCol: '#fde047'
       }
     ];
 
@@ -3254,35 +3051,30 @@
 
         item.style.transform = `translate3d(${dx}px, ${Math.max(-24, Math.min(18, dy - 10))}px, 0) rotate(${Math.max(-8, Math.min(8, dx * 0.08))}deg) scale(1.06)`;
 
-        // Check if dragged past a neighbor book on the shelf to swap!
+        // Check if dragged over a neighbor book across any of the 3 shelf tiers to swap!
         const shelf = document.getElementById('books-shelf');
         if (!shelf) return;
         const siblings = Array.from(shelf.querySelectorAll('.book-item'));
         const curIdx = siblings.indexOf(item);
         const itemRect = item.getBoundingClientRect();
-        const itemCenter = itemRect.left + itemRect.width * 0.5;
+        const itemCenterX = itemRect.left + itemRect.width * 0.5;
+        const itemCenterY = itemRect.top + itemRect.height * 0.5;
 
         for (let i = 0; i < siblings.length; i++) {
           if (i === curIdx) continue;
           const sib = siblings[i];
           const r = sib.getBoundingClientRect();
-          const sibCenter = r.left + r.width * 0.5;
-          if ((curIdx < i && itemCenter > sibCenter + 6) || (curIdx > i && itemCenter < sibCenter - 6)) {
-            // Reorder in BOOKS array & DOM!
+          const sibCenterX = r.left + r.width * 0.5;
+          const sibCenterY = r.top + r.height * 0.5;
+          if (Math.hypot(itemCenterX - sibCenterX, itemCenterY - sibCenterY) < Math.max(48, r.width * 0.52)) {
             const fromIdx = BOOKS.findIndex((b) => b.id === bookObj.id);
             const toBookId = sib.getAttribute('data-book-id');
             const toIdx = BOOKS.findIndex((b) => b.id === toBookId);
             if (fromIdx !== -1 && toIdx !== -1 && fromIdx !== toIdx) {
               const [removed] = BOOKS.splice(fromIdx, 1);
               BOOKS.splice(toIdx, 0, removed);
-              if (curIdx < i) {
-                shelf.insertBefore(item, sib.nextSibling);
-              } else {
-                shelf.insertBefore(item, sib);
-              }
               startX = e.clientX;
               startY = e.clientY;
-              item.style.transform = 'translate3d(0, -10px, 0) scale(1.06)';
               playSparkleNote(2093.0, 0.02, 0.11);
             }
             break;
@@ -3299,6 +3091,7 @@
         item.style.zIndex = '';
         if (moved) {
           playSparkleNote(1567.98, 0.022, 0.14);
+          renderBooks();
           setTimeout(() => { booksShelfDragged = false; }, 80);
         }
       };
@@ -3309,6 +3102,7 @@
 
     function renderBooks() {
       const shelf = document.getElementById('books-shelf');
+      if (!shelf) return;
       shelf.innerHTML = '';
 
       BOOKS.forEach((b) => {
@@ -3320,28 +3114,15 @@
             ? (isDiaryBookOpen ? 'is-sticker-book-open' : '')
             : ((isPhotoBookOpen && b.id === currentBookId) ? 'is-sticker-book-open' : '');
         item.className = `book-item ${activeClass}`;
-        
+
         const hardcover = document.createElement('div');
         hardcover.className = 'book-hardcover';
-        hardcover.style.background = b.innerBg || b.themeColor || b.coverBg;
-        hardcover.title = `${b.title || b.badge} — Click to open • Drag to reorder on shelf!`;
-
-        const centerVisual = (!b.isStickerBook && !b.isDiaryBook && !b.isUpcoming && b.cover)
-          ? `<div class="relative z-20 bg-[#fffdf9] p-1 pb-2.5 rounded-[2px] shadow-[0_6px_14px_rgba(0,0,0,0.36)] rotate-[-2.5deg] w-14 h-16 sm:w-16 sm:h-[72px] flex items-center justify-center -my-1 pointer-events-none border border-stone-200/90">
-               <div class="w-6 h-2 bg-[#f3e5be]/90 border border-stone-300/60 absolute -top-1.5 left-1/2 -translate-x-1/2 rotate-[3deg] shadow-sm"></div>
-               <img src="${b.cover}" alt="" class="w-full h-full object-cover rounded-[1px]">
-             </div>`
-          : `<img src="${b.centerSticker}" alt="" class="w-12 h-14 sm:w-14 sm:h-16 object-contain relative z-20 drop-shadow-[0_6px_10px_rgba(0,0,0,0.35)] -my-1 pointer-events-none">`;
+        hardcover.title = `${b.title || b.badge} — Click to open • Drag to reorder!`;
 
         hardcover.innerHTML = `
-          <div class="w-full h-full relative z-20 flex flex-col items-center justify-between select-none">
-            <div class="w-full flex justify-between items-start z-20 pointer-events-none">
-              <img src="${b.topLeftSticker}" alt="" class="w-6 h-6 sm:w-7 sm:h-7 object-contain rotate-[-12deg] drop-shadow-md">
-              <img src="${b.topRightSticker}" alt="" class="w-6 h-6 sm:w-7 sm:h-7 object-contain rotate-[11deg] drop-shadow-md">
-            </div>
-            ${centerVisual}
-            <span class="relative z-20 w-[96%] bg-[#faf7f0] font-cute font-bold text-[12px] sm:text-[13px] leading-none py-1 px-1.5 rounded-full shadow-md border border-stone-300/90 text-center flex items-center justify-center whitespace-nowrap overflow-hidden text-ellipsis" style="color: ${b.themeColor};">${b.badge}</span>
-          </div>
+          <img src="${b.canvaCoverImg}"
+               alt="${b.title || 'Book Cover'}"
+               class="w-full h-full object-cover block pointer-events-none select-none">
         `;
 
         item.appendChild(hardcover);
@@ -6752,7 +6533,7 @@
     // Progressive Web App Service Worker Registration (with immediate update check)
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', () => {
-        navigator.serviceWorker.register('./sw.js?v=9').then((reg) => {
+        navigator.serviceWorker.register('./sw.js?v=10').then((reg) => {
           reg.update();
         }).catch((err) => {
           console.log('SW registration:', err);
