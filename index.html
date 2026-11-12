@@ -385,31 +385,29 @@
        SLIDE 2 FLAT-LAY BOOKS ROW AT THE TOP OF THE GRAPH PAPER
        ------------------------------------------------------------- */
     .book-shelf {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 0.85rem;
-      max-width: 1240px;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: flex-end;
+      gap: 0.9rem 1rem;
+      max-width: 1180px;
       margin: 0 auto;
-      padding: 0.5rem 0.5rem 0.75rem 0.5rem;
-      align-items: end;
-      justify-items: center;
+      padding: 0.5rem 0.5rem 0.85rem 0.5rem;
       position: relative;
       z-index: 20;
     }
 
     @media (min-width: 640px) {
       .book-shelf {
-        grid-template-columns: repeat(5, minmax(0, 1fr));
-        gap: 1.15rem;
-        padding: 0.75rem 0.75rem 1rem 0.75rem;
+        gap: 1.25rem 1.4rem;
+        padding: 0.75rem 0.75rem 1.1rem 0.75rem;
       }
     }
 
     @media (min-width: 1024px) {
       .book-shelf {
-        grid-template-columns: repeat(9, minmax(0, 1fr));
-        gap: clamp(0.65rem, 1.2vw, 1.15rem);
-        padding: 0.75rem 0.5rem 1rem 0.5rem;
+        gap: 1.35rem 1.65rem;
+        padding: 0.85rem 1rem 1.25rem 1rem;
       }
     }
 
@@ -579,12 +577,26 @@
     }
 
     .book-item {
-      width: 100%;
-      max-width: 245px;
-      cursor: url("stickers/ladybug_cursor.png") 5 2, pointer;
+      width: calc(33.333% - 0.75rem);
+      max-width: 150px;
+      cursor: url("stickers/ladybug_cursor.png") 5 2, grab;
       position: relative;
-      transition: transform 0.32s cubic-bezier(0.16, 1, 0.3, 1), filter 0.32s ease;
+      transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1), filter 0.28s ease;
       user-select: none;
+      touch-action: pan-y;
+    }
+
+    @media (min-width: 640px) {
+      .book-item {
+        width: clamp(138px, 16.5vw, 188px);
+        max-width: 188px;
+      }
+    }
+
+    .book-item.is-book-dragging {
+      cursor: grabbing !important;
+      z-index: 90 !important;
+      filter: drop-shadow(0 20px 28px rgba(0, 0, 0, 0.36));
     }
 
     /* Realistic Flat-Lay Canva Hardcover Book Cover */
@@ -1746,10 +1758,14 @@
        ============================================================= -->
   <main id="white-page-main" class="tactile-paper-sheet w-full relative flex-1 min-h-[360px]">
 
+    <!-- Crayon Doodle Overlay for the Graph-Paper Desk Background -->
+    <canvas id="graph-paper-crayon-canvas" class="page-crayon-canvas" data-crayon-page="graph-paper" width="1600" height="1200" style="z-index: 15;"></canvas>
+
     <!-- WHITE PAGE STICKERS LAYER (INCLUDES ABIGAIL'S 4 CANVA CRAYON DOODLES FROM SLIDE 2!) -->
     <div id="white-page-stickers-layer" class="absolute inset-0 pointer-events-none z-30 overflow-visible">
       <!-- Doodle 1: Yellow & Orange Crayon Stars (Left) -->
       <div class="drag-item pointer-events-auto"
+           data-on-white-page="true"
            style="left: 1.0%; top: 380px; width: 8.6%; z-index: 24;"
            title="Crayon Stars ★ (Drag me!)">
         <img src="stickers/doodle_yellow_stars.png?v=2" alt="Yellow Crayon Stars Doodle" class="w-full h-auto block pointer-events-none">
@@ -1757,6 +1773,7 @@
 
       <!-- Doodle 2: Pink Crayon Swirl (Bottom-Left) -->
       <div class="drag-item pointer-events-auto"
+           data-on-white-page="true"
            style="left: 5.5%; bottom: 26px; width: 17.0%; z-index: 24;"
            title="Pink Crayon Swirl 〰️ (Drag me!)">
         <img src="stickers/doodle_pink_swirl.png?v=2" alt="Pink Crayon Swirl Doodle" class="w-full h-auto block pointer-events-none">
@@ -1764,6 +1781,7 @@
 
       <!-- Doodle 3: Blue & Mint Crayon Frog (Right) -->
       <div class="drag-item pointer-events-auto"
+           data-on-white-page="true"
            style="right: 1.8%; top: 385px; width: 8.5%; z-index: 24;"
            title="Crayon Frog 🐸 (Drag me!)">
         <img src="stickers/doodle_blue_frog.png?v=2" alt="Blue Crayon Frog Doodle" class="w-full h-auto block pointer-events-none">
@@ -1771,6 +1789,7 @@
 
       <!-- Doodle 4: Shaded Red Crayon Star (Bottom-Right) -->
       <div class="drag-item pointer-events-auto"
+           data-on-white-page="true"
            style="right: 1.2%; bottom: 18px; width: 12.8%; z-index: 24;"
            title="Red Crayon Star ★ (Drag me!)">
         <img src="stickers/doodle_red_star.png?v=2" alt="Red Crayon Star Doodle" class="w-full h-auto block pointer-events-none">
@@ -1887,18 +1906,25 @@
 
     <!-- 3D INTERACTIVE SHARED GUESTBOOK DIARY (SIMPLIFIED & CLEAN!) -->
     <div id="diary-book-stage" class="sticker-book-stage" aria-hidden="true">
-      <div id="diary-book-wrapper" class="sticker-book-3d-wrapper" style="background: #d97706; border-color: #fef08a;">
+      <div id="diary-book-wrapper" class="sticker-book-3d-wrapper" style="background: #e85298; border-color: #fbcfe8;">
 
-        <!-- 3D Swinging Cover Flap Matching the Golden-Amber Diary Book -->
-        <div id="diary-book-cover-flap" class="sticker-book-cover-flap" style="background: linear-gradient(145deg, #f59e0b 0%, #d97706 100%);"></div>
+        <!-- Corner Drag-to-Resize Handle -->
+        <div id="diary-book-resize-corner" class="book-resize-corner" title="Click and drag corner to make guestbook bigger!">
+          <span>⤡</span>
+          <span class="hidden sm:inline">drag bigger</span>
+        </div>
 
-        <!-- Simple Top Diary Bar -->
-        <div class="flex items-center justify-between pl-12 sm:pl-24 pr-1.5 pb-1.5 select-none gap-1">
-          <span class="sb-tab-btn is-active text-xs sm:text-sm" style="color: #d97706;">💌 diary</span>
+        <!-- 3D Swinging Cover Flap Matching the Pink Floral Guestbook -->
+        <div id="diary-book-cover-flap" class="sticker-book-cover-flap" style="background: linear-gradient(145deg, #f472b6 0%, #db2777 100%);"></div>
+
+        <!-- Simple Top Guestbook Bar -->
+        <div class="flex items-center justify-between pl-12 sm:pl-28 pr-1.5 pb-1.5 select-none gap-1">
+          <span class="sb-tab-btn is-active text-xs sm:text-sm" style="color: #be185d;">💌 guestbook</span>
           <div class="flex items-center gap-1 flex-shrink-0">
             <button type="button" onclick="stepDiaryEntryPage(-1)" id="diary-prev-btn" class="sb-tab-btn" title="Newer Notes">‹</button>
             <button type="button" onclick="stepDiaryEntryPage(1)" id="diary-next-btn" class="sb-tab-btn" title="Older Notes">›</button>
-            <button type="button" onclick="closeDiaryBook()" class="sb-tab-btn" title="Close Diary">✕</button>
+            <button type="button" id="diary-max-btn" onclick="toggleDiaryBookMaximize()" class="sb-tab-btn" title="Open as big as the whole page!">⤢ <span class="hidden sm:inline">full page</span></button>
+            <button type="button" onclick="closeDiaryBook()" class="sb-tab-btn" title="Close Guestbook">✕</button>
           </div>
         </div>
 
@@ -2259,9 +2285,6 @@
         })();
       </script>
     </section>
-
-    <!-- Hidden legacy container for compatibility -->
-    <div id="masonry-gallery" class="hidden"></div>
 
   </main>
 
@@ -3186,8 +3209,30 @@
     }
 
     // =============================================================
-    // RENDER & REORDER COFFEE TABLE BOOKS ON THE WOODEN SHELF
+    // RENDER & REORDER COFFEE TABLE BOOKS ON THE GRAPH-PAPER DESK
     // =============================================================
+    const BOOKS_ORDER_STORAGE_KEY = 'abigail_books_order_v1';
+
+    (function restoreSavedBooksOrder() {
+      try {
+        const raw = localStorage.getItem(BOOKS_ORDER_STORAGE_KEY);
+        if (!raw) return;
+        const ids = JSON.parse(raw);
+        if (!Array.isArray(ids) || ids.length === 0) return;
+        BOOKS.sort((a, b) => {
+          const ia = ids.indexOf(a.id);
+          const ib = ids.indexOf(b.id);
+          return (ia === -1 ? 999 : ia) - (ib === -1 ? 999 : ib);
+        });
+      } catch (e) {}
+    })();
+
+    function saveBooksOrder() {
+      try {
+        localStorage.setItem(BOOKS_ORDER_STORAGE_KEY, JSON.stringify(BOOKS.map((b) => b.id)));
+      } catch (e) {}
+    }
+
     function makeBookItemReorderable(item, bookObj) {
       let dragging = false;
       let startX = 0;
@@ -3196,6 +3241,7 @@
 
       item.addEventListener('pointerdown', (e) => {
         if (e.button !== undefined && e.button !== 0) return;
+        if (activeShelfCrayon) return;
         dragging = true;
         moved = false;
         booksShelfDragged = false;
@@ -3205,55 +3251,99 @@
 
       item.addEventListener('pointermove', (e) => {
         if (!dragging) return;
-        const dx = e.clientX - startX;
-        const dy = e.clientY - startY;
-        if (!moved && Math.hypot(dx, dy) > 8) {
+        let dx = e.clientX - startX;
+        let dy = e.clientY - startY;
+        if (!moved && Math.hypot(dx, dy) > 7) {
           moved = true;
           booksShelfDragged = true;
           try { item.setPointerCapture(e.pointerId); } catch (_) {}
-          item.style.zIndex = '50';
+          item.classList.add('is-book-dragging');
           item.style.transition = 'none';
           playSparkleNote(1760.0, 0.018, 0.1);
         }
         if (!moved) return;
 
-        item.style.transform = `translate3d(${dx}px, ${Math.max(-24, Math.min(18, dy - 10))}px, 0) rotate(${Math.max(-8, Math.min(8, dx * 0.08))}deg) scale(1.06)`;
-
-        // Check if dragged over a neighbor book across any of the 3 shelf tiers to swap!
         const shelf = document.getElementById('books-shelf');
-        if (!shelf) return;
-        const siblings = Array.from(shelf.querySelectorAll('.book-item'));
-        const curIdx = siblings.indexOf(item);
-        const itemRect = item.getBoundingClientRect();
-        const itemCenterX = itemRect.left + itemRect.width * 0.5;
-        const itemCenterY = itemRect.top + itemRect.height * 0.5;
+        if (shelf) {
+          const siblings = Array.from(shelf.querySelectorAll('.book-item'));
+          const curIdx = siblings.indexOf(item);
 
-        for (let i = 0; i < siblings.length; i++) {
-          if (i === curIdx) continue;
-          const sib = siblings[i];
-          const r = sib.getBoundingClientRect();
-          const sibCenterX = r.left + r.width * 0.5;
-          const sibCenterY = r.top + r.height * 0.5;
-          if (Math.hypot(itemCenterX - sibCenterX, itemCenterY - sibCenterY) < Math.max(48, r.width * 0.52)) {
-            const fromIdx = BOOKS.findIndex((b) => b.id === bookObj.id);
-            const toBookId = sib.getAttribute('data-book-id');
-            const toIdx = BOOKS.findIndex((b) => b.id === toBookId);
-            if (fromIdx !== -1 && toIdx !== -1 && fromIdx !== toIdx) {
-              const [removed] = BOOKS.splice(fromIdx, 1);
-              BOOKS.splice(toIdx, 0, removed);
-              startX = e.clientX;
-              startY = e.clientY;
+          for (let i = 0; i < siblings.length; i++) {
+            if (i === curIdx) continue;
+            const sib = siblings[i];
+            const r = sib.getBoundingClientRect();
+            const padX = r.width * 0.12;
+            const padY = r.height * 0.12;
+            if (
+              e.clientX >= r.left + padX &&
+              e.clientX <= r.right - padX &&
+              e.clientY >= r.top + padY &&
+              e.clientY <= r.bottom - padY
+            ) {
+              // Record pre-swap positions of all other books for smooth FLIP animation
+              const prevRects = new Map();
+              siblings.forEach((el) => {
+                if (el !== item) prevRects.set(el, el.getBoundingClientRect());
+              });
+              const oldLeft = item.offsetLeft;
+              const oldTop = item.offsetTop;
+
+              // Reorder in DOM
+              if (curIdx < i) {
+                shelf.insertBefore(item, sib.nextSibling);
+              } else {
+                shelf.insertBefore(item, sib);
+              }
+
+              // Reorder in BOOKS array
+              const fromIdx = BOOKS.findIndex((b) => b.id === bookObj.id);
+              const toBookId = sib.getAttribute('data-book-id');
+              const toIdx = BOOKS.findIndex((b) => b.id === toBookId);
+              if (fromIdx !== -1 && toIdx !== -1 && fromIdx !== toIdx) {
+                const [removed] = BOOKS.splice(fromIdx, 1);
+                BOOKS.splice(toIdx, 0, removed);
+                saveBooksOrder();
+              }
+
+              // Adjust startX/startY by item's new natural slot offset so dragged book stays pinned under cursor
+              const newLeft = item.offsetLeft;
+              const newTop = item.offsetTop;
+              startX += (newLeft - oldLeft);
+              startY += (newTop - oldTop);
+              dx = e.clientX - startX;
+              dy = e.clientY - startY;
+
+              // Animate sibling books sliding into their new slots
+              prevRects.forEach((oldR, el) => {
+                const newR = el.getBoundingClientRect();
+                const sdx = oldR.left - newR.left;
+                const sdy = oldR.top - newR.top;
+                if (Math.hypot(sdx, sdy) > 1) {
+                  el.animate(
+                    [
+                      { transform: `translate3d(${sdx}px, ${sdy}px, 0)` },
+                      { transform: 'translate3d(0, 0, 0)' }
+                    ],
+                    { duration: 240, easing: 'cubic-bezier(0.22, 1, 0.36, 1)' }
+                  );
+                }
+              });
+
               playSparkleNote(2093.0, 0.02, 0.11);
+              break;
             }
-            break;
           }
         }
+
+        const rot = Math.max(-7, Math.min(7, dx * 0.06));
+        item.style.transform = `translate3d(${dx}px, ${dy - 6}px, 0) rotate(${rot}deg) scale(1.06)`;
       });
 
       const finishBookDrag = (e) => {
         if (!dragging) return;
         dragging = false;
         try { item.releasePointerCapture(e.pointerId); } catch (_) {}
+        item.classList.remove('is-book-dragging');
         item.style.transition = '';
         item.style.transform = '';
         item.style.zIndex = '';
@@ -3998,72 +4088,6 @@
       return mount;
     }
 
-    // =============================================================
-    // ABIGAIL POST — INTERACTIVE PROFILE NEWSPAPER & OPEN PHOTOBOOK
-    // =============================================================
-    const PROFILE_SPREADS = [
-      {
-        mode: 'two-page',
-        rightSrc: 'photos/Photo Essay/MOR_FIVE_12.jpg',
-        plateTitle: 'PLATE I',
-        plateSubtitle: 'Portrait & Colour Study — Toronto, ON',
-        caption: 'From the “Photo Essay” series — lavender gable & autumn maple leaves in Toronto. Click the photograph to inspect full-screen.'
-      },
-      {
-        mode: 'full-bleed',
-        src: 'photos/Photo Essay/MOR_FIVE_1.jpg',
-        caption: 'Autumn canopy & overhead utility lines in Toronto — from Abigail Morra’s neighbourhood photo essay.'
-      },
-      {
-        mode: 'full-bleed',
-        src: 'photos/Profile/abigail_portrait.jpg',
-        caption: 'Abigail Morra in Toronto — photographed on location for the “Abigail Post” portfolio edition. Click any spread below to preview in the book.'
-      }
-    ];
-
-    function selectProfileSpread(idx) {
-      const spread = PROFILE_SPREADS[idx] || PROFILE_SPREADS[2];
-      const container = document.getElementById('profile-hero-spread-content');
-      const captionEl = document.getElementById('profile-hero-caption');
-      if (!container) return;
-
-      for (let i = 0; i < 3; i++) {
-        const card = document.getElementById(`profile-mini-spread-${i}`);
-        if (card) {
-          card.classList.toggle('is-active-spread', i === idx);
-        }
-      }
-
-      if (spread.mode === 'two-page') {
-        container.innerHTML = `
-          <div class="w-full h-full grid grid-cols-2 bg-[#fbf9f3]">
-            <div class="p-4 sm:p-8 flex flex-col justify-between items-start text-stone-500 select-none">
-              <span class="font-mono-exif text-[10px] sm:text-xs tracking-widest uppercase text-stone-400">${spread.plateTitle}</span>
-              <div>
-                <p class="font-headline italic text-base sm:text-xl text-stone-800 leading-snug">${spread.plateSubtitle}</p>
-                <p class="font-mono-exif text-[9px] sm:text-[10px] uppercase tracking-widest text-stone-400 mt-1">35MM / DIGITAL ARCHIVE • TMU</p>
-              </div>
-              <span class="font-mono-exif text-xs text-stone-400">01</span>
-            </div>
-            <div class="p-3 sm:p-6 flex items-center justify-center bg-[#fbf9f3]">
-              <img src="${spread.rightSrc}" alt="" onclick="openLightboxOnPhoto('${spread.rightSrc}')" class="max-h-full max-w-full object-contain shadow-md cursor-pointer hover:scale-[1.02] transition-transform">
-            </div>
-          </div>
-        `;
-      } else {
-        container.innerHTML = `
-          <img id="profile-hero-spread-img"
-               src="${spread.src}"
-               alt="Abigail Morra Spread"
-               onclick="openLightboxOnPhoto('${spread.src}')"
-               class="w-full h-full object-cover cursor-pointer transition-all duration-300">
-        `;
-      }
-
-      if (captionEl) captionEl.textContent = spread.caption;
-      playSparkleNote(1760.0, 0.025, 0.16);
-    }
-
     function openLightboxOnPhoto(src) {
       if (activeShelfCrayon) return;
       const modal = document.getElementById('photo-lightbox');
@@ -4299,6 +4323,8 @@
         if (e.key === 'Escape') closePhotoBook();
         if (e.key === 'ArrowLeft') stepPhotoBookSpread(-1);
         if (e.key === 'ArrowRight') stepPhotoBookSpread(1);
+      } else if (isDiaryBookOpen) {
+        if (e.key === 'Escape') closeDiaryBook();
       } else if (isStickerBookOpen) {
         if (e.key === 'Escape') toggleStickerBook(false);
       }
@@ -4585,9 +4611,6 @@
     }
 
     function tryAttachStickerToWhitePage(el, cx, cy, dropW, dropH) {
-      // On mobile screens (< 768px), keep stickers on the blue header or open photo book pages only!
-      if (window.innerWidth < 768) return false;
-
       // First check if dropped onto the About Me Scrapbook Book: attach to the currently open spread page so it stays on that page when flipping!
       const zineStage = document.getElementById('zine-scrapbook-pages-stage');
       const activeZineSpread = document.getElementById('zine-spread-' + (window.currentZineSpreadIdx || 0));
@@ -4965,7 +4988,20 @@
       });
     }
 
-    document.querySelectorAll('.drag-item').forEach(makeDraggable);
+    const INITIAL_STICKER_HOMES = [];
+    document.querySelectorAll('.drag-item').forEach((el) => {
+      INITIAL_STICKER_HOMES.push({
+        el,
+        parent: el.parentElement,
+        left: el.style.left,
+        top: el.style.top,
+        right: el.style.right,
+        bottom: el.style.bottom,
+        width: el.style.width,
+        zIndex: el.style.zIndex
+      });
+      makeDraggable(el);
+    });
 
     // =============================================================
     // 3D ANIMATED STICKER BOOK ENGINE (PEEL & DRAG TO BLUE CANVAS, WHITE PAGE, OR OPEN PHOTO BOOK)
@@ -5085,6 +5121,7 @@
         if (launcher) launcher.style.opacity = '0';
         playSparkleTwinkle();
       } else {
+        if (activeShelfCrayon) selectShelfCrayon(null);
         stage.classList.remove('is-open');
         stage.setAttribute('aria-hidden', 'true');
         if (launcher) launcher.style.opacity = '1';
@@ -5319,9 +5356,26 @@
         removeStickerFromAllBookPages(el);
         el.remove();
       });
-      document.querySelectorAll('.drag-item').forEach((el) => {
-        if (el.style.display === 'none') el.style.display = '';
+      INITIAL_STICKER_HOMES.forEach((h) => {
+        removeStickerFromAllBookPages(h.el);
+        h.el.style.display = '';
+        h.el.style.position = 'absolute';
+        h.el.style.left = h.left;
+        h.el.style.top = h.top;
+        h.el.style.right = h.right;
+        h.el.style.bottom = h.bottom;
+        h.el.style.width = h.width;
+        h.el.style.zIndex = h.zIndex;
+        if (h.parent && h.el.parentElement !== h.parent) {
+          h.parent.appendChild(h.el);
+        }
       });
+      clearVisiblePageDoodles();
+      const gpCanvas = document.getElementById('graph-paper-crayon-canvas');
+      if (gpCanvas) {
+        const gpCtx = gpCanvas.getContext('2d');
+        if (gpCtx) gpCtx.clearRect(0, 0, gpCanvas.width, gpCanvas.height);
+      }
       playSparkleNote(1760, 0.03, 0.2);
     }
 
@@ -6445,7 +6499,8 @@
 
     function playGeckoEatSound() {
       try {
-        const ctx = getStickerAudioCtx();
+        const ctx = getAudioCtx();
+        if (!ctx) return;
         const now = ctx.currentTime;
         const osc = ctx.createOscillator();
         const gain = ctx.createGain();
@@ -6463,7 +6518,8 @@
 
     function playGeckoBonkSound() {
       try {
-        const ctx = getStickerAudioCtx();
+        const ctx = getAudioCtx();
+        if (!ctx) return;
         const now = ctx.currentTime;
         const osc = ctx.createOscillator();
         const gain = ctx.createGain();
@@ -7261,15 +7317,14 @@
       }
     });
 
-    // INITIALIZE SHELF & MASONRY GALLERY
+    // INITIALIZE SHELF & CRAYON CANVASES
     renderBooks();
-    renderMasonry();
     document.querySelectorAll('.page-crayon-canvas').forEach(wireCrayonDoodleCanvas);
 
     // Progressive Web App Service Worker Registration (with immediate update check)
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', () => {
-        navigator.serviceWorker.register('./sw.js?v=11').then((reg) => {
+        navigator.serviceWorker.register('./sw.js?v=12').then((reg) => {
           reg.update();
         }).catch((err) => {
           console.log('SW registration:', err);
