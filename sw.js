@@ -1,4 +1,4 @@
-const CACHE_NAME = 'abigail-portfolio-v46';
+const CACHE_NAME = 'abigail-portfolio-v47';
 const PRECACHE_ASSETS = [
   './',
   './index.html',
@@ -14,7 +14,12 @@ const PRECACHE_ASSETS = [
   './stickers/book_cover_photo_essay.png',
   './stickers/book_cover_spot_news.png',
   './stickers/book_cover_sports.png',
+  './stickers/book_cover_misc_blue.png',
+  './stickers/book_cover_live_events.png',
+  './stickers/book_cover_environment.png',
+  './stickers/book_cover_features.png',
   './stickers/book_cover_stickers.png',
+  './stickers/book_cover_diary_pink.png',
   './stickers/doodle_yellow_stars.png',
   './stickers/doodle_pink_swirl.png',
   './stickers/doodle_blue_frog.png',
