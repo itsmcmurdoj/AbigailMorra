@@ -394,7 +394,8 @@
       margin: 0 auto;
       padding: 0.5rem 0.5rem 0.85rem 0.5rem;
       position: relative;
-      z-index: 20;
+      z-index: 30;
+      pointer-events: none;
     }
 
     @media (min-width: 640px) {
@@ -560,20 +561,23 @@
       z-index: 20;
     }
 
-    /* Page Doodle Canvas Overlay (Profile Scrapbook & Open Gallery Books) */
+    /* Desk Background Crayon Doodle Canvases (Always stay behind books & never vanish on close!) */
     .page-crayon-canvas {
       position: absolute;
       inset: 0;
       width: 100%;
       height: 100%;
-      z-index: 65;
-      pointer-events: none;
+      z-index: 10;
+      pointer-events: none !important;
       touch-action: none;
     }
 
-    body.is-crayon-mode .page-crayon-canvas {
-      pointer-events: auto !important;
-      z-index: 85 !important;
+    #hero-crayon-canvas {
+      z-index: 15 !important;
+    }
+
+    #graph-paper-crayon-canvas {
+      z-index: 10 !important;
     }
 
     .book-item {
@@ -581,6 +585,7 @@
       max-width: 150px;
       cursor: url("stickers/ladybug_cursor.png") 5 2, grab;
       position: relative;
+      pointer-events: auto;
       transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1), filter 0.28s ease;
       user-select: none;
       touch-action: pan-y;
@@ -1649,6 +1654,9 @@
     <!-- Accessible Screen-Reader / SEO Title -->
     <h1 class="sr-only">Abigail Morra — Photography Portfolio</h1>
 
+    <!-- Crayon Doodle Overlay for the Pink Hero Paper Background -->
+    <canvas id="hero-crayon-canvas" class="page-crayon-canvas" data-crayon-page="hero" width="1600" height="900"></canvas>
+
     <!-- CENTER HANDWRITTEN "port / folio" BRUSH LETTERING FROM CANVA SLIDE 1 (UNCLIPPED) -->
     <div class="absolute pointer-events-none select-none"
          style="left: 28.52%; top: 22.92%; width: 42.58%; z-index: 18;">
@@ -1758,11 +1766,11 @@
        ============================================================= -->
   <main id="white-page-main" class="tactile-paper-sheet w-full relative flex-1 min-h-[360px]">
 
-    <!-- Crayon Doodle Overlay for the Graph-Paper Desk Background -->
-    <canvas id="graph-paper-crayon-canvas" class="page-crayon-canvas" data-crayon-page="graph-paper" width="1600" height="1200" style="z-index: 15;"></canvas>
+    <!-- Crayon Doodle Overlay for the Graph-Paper Desk Background (Strictly Behind All Books) -->
+    <canvas id="graph-paper-crayon-canvas" class="page-crayon-canvas" data-crayon-page="graph-paper" width="1600" height="1200"></canvas>
 
-    <!-- WHITE PAGE STICKERS LAYER (INCLUDES ABIGAIL'S 4 CANVA CRAYON DOODLES FROM SLIDE 2!) -->
-    <div id="white-page-stickers-layer" class="absolute inset-0 pointer-events-none z-30 overflow-visible">
+    <!-- WHITE PAGE STICKERS LAYER (STRICTLY BEHIND ALL BOOKS, INCLUDES ABIGAIL'S 4 CANVA CRAYON DOODLES FROM SLIDE 2!) -->
+    <div id="white-page-stickers-layer" class="absolute inset-0 pointer-events-none overflow-visible" style="z-index: 12;">
       <!-- Doodle 1: Yellow & Orange Crayon Stars (Left) -->
       <div class="drag-item pointer-events-auto"
            data-on-white-page="true"
@@ -1996,14 +2004,14 @@
     </div>
     
     <!-- SLIDE 2 FLAT-LAY BOOKS ROW AT THE TOP OF THE GRAPH PAPER -->
-    <section class="max-w-7xl mx-auto px-3 sm:px-6 pt-6 sm:pt-9 pb-2 w-full relative z-20">
+    <section class="max-w-7xl mx-auto px-3 sm:px-6 pt-6 sm:pt-9 pb-2 w-full relative z-30 pointer-events-none">
       <div id="books-shelf" class="book-shelf">
         <!-- Dynamically populated with Abigail's 4 Canva book covers from Slide 2 -->
       </div>
     </section>
 
     <!-- ROUGH / HANDMADE INDIE ZINE & SCRAPBOOK (FLIPPABLE 3-SPREAD BOOK) -->
-    <section id="profile-newspaper-section" class="max-w-7xl mx-auto px-2 sm:px-6 pt-4 pb-16 sm:pb-24 w-full relative z-20">
+    <section id="profile-newspaper-section" class="max-w-7xl mx-auto px-2 sm:px-6 pt-4 pb-16 sm:pb-24 w-full relative z-25 pointer-events-none" style="z-index: 25;">
       <!-- Hidden SVG Filter for Rough Paper & Glue Smudge Distortion -->
       <svg width="0" height="0" class="absolute pointer-events-none" aria-hidden="true">
         <defs>
@@ -2014,7 +2022,7 @@
         </defs>
       </svg>
 
-      <div class="zine-scrapbook-spread">
+      <div class="zine-scrapbook-spread pointer-events-auto">
         <div id="zine-scrapbook-pages-stage" class="zine-scrapbook-pages p-0 flex flex-col justify-center relative overflow-hidden rounded-[14px] shadow-2xl">
 
           <div class="zine-spreads-stack">
@@ -2073,9 +2081,6 @@
                 coming soon ...
               </p>
             </div>
-
-            <!-- Crayon Doodle Overlay for Profile Spread 1 -->
-            <canvas class="page-crayon-canvas" data-crayon-page="zine-0" width="1280" height="720"></canvas>
           </div>
 
           <!-- =========================================================
@@ -2132,9 +2137,6 @@
                  style="--base-rot: -4deg;"
                  title="Wiggle caterpillar 🐛">
             </div>
-
-            <!-- Crayon Doodle Overlay for Profile Spread 2 -->
-            <canvas class="page-crayon-canvas" data-crayon-page="zine-1" width="1280" height="720"></canvas>
           </div>
 
           <!-- =========================================================
@@ -2168,9 +2170,6 @@
                 coming soon ...
               </p>
             </div>
-
-            <!-- Crayon Doodle Overlay for Profile Spread 3 -->
-            <canvas class="page-crayon-canvas" data-crayon-page="zine-2" width="1280" height="720"></canvas>
           </div>
 
           </div><!-- /.zine-spreads-stack -->
@@ -3001,13 +3000,44 @@
       }
     }
 
-    function drawWaxCrayonStroke(ctx, x0, y0, x1, y1, color, isEraser) {
+    function syncDeskCrayonCanvasResolution(canvas) {
+      if (!canvas) return;
+      const rect = canvas.getBoundingClientRect();
+      if (rect.width <= 0 || rect.height <= 0) return;
+      const dpr = Math.min(window.devicePixelRatio || 1, 2);
+      const targetW = Math.max(320, Math.round(rect.width * dpr));
+      const targetH = Math.max(240, Math.round(rect.height * dpr));
+      if (canvas._initializedDeskSize && Math.abs(canvas.width - targetW) < 4 && Math.abs(canvas.height - targetH) < 4) {
+        return;
+      }
+      let snapshot = null;
+      if (canvas._initializedDeskSize && canvas.width > 0 && canvas.height > 0) {
+        snapshot = document.createElement('canvas');
+        snapshot.width = canvas.width;
+        snapshot.height = canvas.height;
+        snapshot.getContext('2d').drawImage(canvas, 0, 0);
+      }
+      canvas.width = targetW;
+      canvas.height = targetH;
+      canvas._crayonScale = dpr;
+      canvas._initializedDeskSize = true;
+      if (snapshot) {
+        canvas.getContext('2d').drawImage(snapshot, 0, 0, targetW, targetH);
+      }
+    }
+
+    function syncAllDeskCrayonCanvases() {
+      syncDeskCrayonCanvasResolution(document.getElementById('hero-crayon-canvas'));
+      syncDeskCrayonCanvasResolution(document.getElementById('graph-paper-crayon-canvas'));
+    }
+
+    function drawWaxCrayonStroke(ctx, x0, y0, x1, y1, color, isEraser, scale = 1) {
       if (!ctx) return;
       ctx.save();
       if (isEraser) {
         ctx.globalCompositeOperation = 'destination-out';
         ctx.strokeStyle = 'rgba(0,0,0,1)';
-        ctx.lineWidth = 28;
+        ctx.lineWidth = 28 * scale;
         ctx.lineCap = 'round';
         ctx.lineJoin = 'round';
         ctx.beginPath();
@@ -3020,21 +3050,22 @@
         ctx.lineCap = 'round';
         ctx.lineJoin = 'round';
         ctx.globalAlpha = 0.88;
-        ctx.lineWidth = 5.5;
+        ctx.lineWidth = 5.5 * scale;
         ctx.beginPath();
         ctx.moveTo(x0, y0);
         ctx.lineTo(x1, y1);
         ctx.stroke();
         const dist = Math.hypot(x1 - x0, y1 - y0);
-        const steps = Math.max(1, Math.ceil(dist / 2.5));
+        const stepPx = 2.5 * scale;
+        const steps = Math.max(1, Math.ceil(dist / stepPx));
         ctx.fillStyle = color;
         for (let i = 0; i <= steps; i++) {
           const t = i / steps;
-          const bx = x0 + (x1 - x0) * t + (Math.random() - 0.5) * 3.8;
-          const by = y0 + (y1 - y0) * t + (Math.random() - 0.5) * 3.8;
+          const bx = x0 + (x1 - x0) * t + (Math.random() - 0.5) * 3.8 * scale;
+          const by = y0 + (y1 - y0) * t + (Math.random() - 0.5) * 3.8 * scale;
           ctx.globalAlpha = 0.28 + Math.random() * 0.35;
           ctx.beginPath();
-          ctx.arc(bx, by, 1.4 + Math.random() * 1.6, 0, Math.PI * 2);
+          ctx.arc(bx, by, (1.4 + Math.random() * 1.6) * scale, 0, Math.PI * 2);
           ctx.fill();
         }
       }
@@ -3042,34 +3073,47 @@
     }
 
     function getVisibleCrayonCanvasAt(clientX, clientY) {
-      const canvases = document.querySelectorAll('.page-crayon-canvas, #diary-doodle-canvas');
-      // Check open floating books (Gallery Photo Book / Diary Book) first since they float above the page
-      const sorted = Array.from(canvases).sort((a, b) => {
-        const aInModalBook = Boolean(a.closest('.sticker-book-stage.is-open'));
-        const bInModalBook = Boolean(b.closest('.sticker-book-stage.is-open'));
-        return (bInModalBook ? 1 : 0) - (aInModalBook ? 1 : 0);
-      });
-      for (const c of sorted) {
-        if (c.closest('.is-inactive-spread')) continue;
-        const stage = c.closest('.sticker-book-stage');
-        if (stage && !stage.classList.contains('is-open')) continue;
+      // Allow doodling in the Guestbook Diary note pad if open & hovered; otherwise doodle onto the Pink Header or Graph-Paper Desk (strictly behind all books!)
+      if (isDiaryBookOpen) {
+        const diaryCanvas = document.getElementById('diary-doodle-canvas');
+        if (diaryCanvas) {
+          const dr = diaryCanvas.getBoundingClientRect();
+          if (dr.width > 0 && dr.height > 0 && clientX >= dr.left && clientX <= dr.right && clientY >= dr.top && clientY <= dr.bottom) {
+            return {
+              canvas: diaryCanvas,
+              x: ((clientX - dr.left) / dr.width) * diaryCanvas.width,
+              y: ((clientY - dr.top) / dr.height) * diaryCanvas.height,
+              scale: 1
+            };
+          }
+        }
+      }
+      const deskCanvases = [
+        document.getElementById('hero-crayon-canvas'),
+        document.getElementById('graph-paper-crayon-canvas')
+      ];
+      for (const c of deskCanvases) {
+        if (!c) continue;
+        syncDeskCrayonCanvasResolution(c);
         const r = c.getBoundingClientRect();
         if (r.width <= 0 || r.height <= 0) continue;
         if (clientX >= r.left && clientX <= r.right && clientY >= r.top && clientY <= r.bottom) {
           return {
             canvas: c,
             x: ((clientX - r.left) / r.width) * c.width,
-            y: ((clientY - r.top) / r.height) * c.height
+            y: ((clientY - r.top) / r.height) * c.height,
+            scale: c._crayonScale || 1
           };
         }
       }
       return null;
     }
 
-    // Global Crayon Drawing Engine (works across Profile Scrapbook, Open Gallery Books & Diary without ever being blocked by inner hotspots!)
+    // Global Crayon Drawing Engine (draws onto the Pink Header & Graph-Paper Desk strictly behind all books, persisting when Sticker Book closes!)
     (function initGlobalCrayonDrawingEngine() {
       let isDrawingWithCrayon = false;
       let activeCanvas = null;
+      let activeScale = 1;
       let lastPt = null;
 
       window.addEventListener('pointerdown', (e) => {
@@ -3078,11 +3122,15 @@
         if (
           e.target.closest('button') ||
           e.target.closest('a') ||
+          e.target.closest('input') ||
+          e.target.closest('textarea') ||
           e.target.closest('[data-shelf-crayon]') ||
           e.target.closest('#sb-crayons-drawer-handle') ||
           e.target.closest('.book-resize-corner') ||
           e.target.closest('.book-item') ||
-          e.target.closest('#sticker-book-scroll')
+          e.target.closest('#sticker-book-stage') ||
+          e.target.closest('#photo-book-stage') ||
+          (e.target.closest('#diary-book-stage') && !e.target.closest('#diary-doodle-box'))
         ) {
           return;
         }
@@ -3092,6 +3140,7 @@
         e.preventDefault();
         isDrawingWithCrayon = true;
         activeCanvas = hit.canvas;
+        activeScale = hit.scale || 1;
         lastPt = { x: hit.x, y: hit.y };
         const ctx = activeCanvas.getContext('2d');
         drawWaxCrayonStroke(
@@ -3101,7 +3150,8 @@
           lastPt.x + 0.3,
           lastPt.y + 0.3,
           activeShelfCrayon === 'eraser' ? '#000' : activeShelfCrayon,
-          activeShelfCrayon === 'eraser'
+          activeShelfCrayon === 'eraser',
+          activeScale
         );
       }, { capture: true });
 
@@ -3115,6 +3165,7 @@
         }
         if (activeCanvas !== hit.canvas || !lastPt) {
           activeCanvas = hit.canvas;
+          activeScale = hit.scale || 1;
           lastPt = { x: hit.x, y: hit.y };
         }
         const ctx = activeCanvas.getContext('2d');
@@ -3125,7 +3176,8 @@
           hit.x,
           hit.y,
           activeShelfCrayon === 'eraser' ? '#000' : activeShelfCrayon,
-          activeShelfCrayon === 'eraser'
+          activeShelfCrayon === 'eraser',
+          activeScale
         );
         lastPt = { x: hit.x, y: hit.y };
       }, { capture: true });
@@ -3982,17 +4034,7 @@
     }
 
     function attachSavedBookPageStickers(leftPage, rightPage) {
-      const leftKey = `${currentBookId}__${currentPhotoSpreadIdx}__left`;
-      const rightKey = `${currentBookId}__${currentPhotoSpreadIdx}__right`;
-      if (BOOK_PAGE_STICKERS[leftKey]) {
-        BOOK_PAGE_STICKERS[leftKey].forEach((st) => leftPage.appendChild(st));
-      }
-      if (BOOK_PAGE_STICKERS[rightKey]) {
-        BOOK_PAGE_STICKERS[rightKey].forEach((st) => rightPage.appendChild(st));
-      }
-      // Attach persistent Crayon Doodle Canvas to both pages of the open gallery book!
-      leftPage.appendChild(getOrCreateBookPageDoodleCanvas(leftKey));
-      rightPage.appendChild(getOrCreateBookPageDoodleCanvas(rightKey));
+      // Stickers and crayon doodles stay strictly on the desk background behind all books!
     }
 
     function renderPhotoBookSpread(animDir) {
@@ -4494,7 +4536,7 @@
     let topStickerZ = 35;
 
     function tryAttachStickerToOpenPhotoPage(el, cx, cy, dropW, dropH) {
-      // 1. Check if Guestbook Diary is open: allow dropping stickers from the Sticker Book into the Diary Doodle Box or Diary Pages!
+      // Only attach inside the Guestbook Diary's dedicated note doodle box; never stick stickers on top of Photo Books or Scrapbook Books!
       if (isDiaryBookOpen) {
         const doodleBox = document.getElementById('diary-doodle-box');
         const doodleStickersLayer = document.getElementById('diary-doodle-stickers-layer');
@@ -4524,124 +4566,11 @@
             return true;
           }
         }
-
-        const dLeft = document.getElementById('diary-page-left');
-        const dRight = document.getElementById('diary-page-right');
-        if (dLeft && dRight) {
-          const lRect = dLeft.getBoundingClientRect();
-          const rRect = dRight.getBoundingClientRect();
-          const unionLeft = lRect.left - 18;
-          const unionRight = rRect.right + 18;
-          const unionTop = Math.min(lRect.top, rRect.top) - 18;
-          const unionBottom = Math.max(lRect.bottom, rRect.bottom) + 18;
-          if (cx >= unionLeft && cx <= unionRight && cy >= unionTop && cy <= unionBottom) {
-            const isRightSide = cx >= lRect.right;
-            const targetPage = isRightSide ? dRight : dLeft;
-            const pRect = targetPage.getBoundingClientRect();
-            if (pRect.width > 0 && pRect.height > 0) {
-              const wPct = Math.max(10, Math.min(38, (dropW / pRect.width) * 100));
-              const actualWPx = (wPct / 100) * pRect.width;
-              const actualHPx = dropH || actualWPx;
-              const rawLeftPct = ((cx - pRect.left - actualWPx * 0.5) / pRect.width) * 100;
-              const rawTopPct = ((cy - pRect.top - actualHPx * 0.5) / pRect.height) * 100;
-              const lPct = Math.max(-4, Math.min(88, rawLeftPct));
-              const tPct = Math.max(-4, Math.min(88, rawTopPct));
-
-              removeStickerFromAllBookPages(el);
-              topStickerZ += 1;
-              el.style.position = 'absolute';
-              el.style.width = `${wPct.toFixed(2)}%`;
-              el.style.left = `${lPct.toFixed(2)}%`;
-              el.style.top = `${tPct.toFixed(2)}%`;
-              el.style.right = 'auto';
-              el.style.bottom = 'auto';
-              el.style.zIndex = topStickerZ;
-              targetPage.appendChild(el);
-              return true;
-            }
-          }
-        }
       }
-
-      if (!isPhotoBookOpen) return false;
-      const leftPage = document.getElementById('photo-page-left');
-      const rightPage = document.getElementById('photo-page-right');
-      if (!leftPage || !rightPage) return false;
-
-      const lRect = leftPage.getBoundingClientRect();
-      const rRect = rightPage.getBoundingClientRect();
-      const unionLeft = lRect.left - 18;
-      const unionRight = rRect.right + 18;
-      const unionTop = Math.min(lRect.top, rRect.top) - 18;
-      const unionBottom = Math.max(lRect.bottom, rRect.bottom) + 18;
-
-      if (cx < unionLeft || cx > unionRight || cy < unionTop || cy > unionBottom) {
-        return false;
-      }
-
-      const isRightSide = cx >= lRect.right;
-      const targetPage = isRightSide ? rightPage : leftPage;
-      const side = isRightSide ? 'right' : 'left';
-      const pRect = targetPage.getBoundingClientRect();
-      if (pRect.width <= 0 || pRect.height <= 0) return false;
-
-      const wPct = Math.max(8, Math.min(54, (dropW / pRect.width) * 100));
-      const actualWPx = (wPct / 100) * pRect.width;
-      const actualHPx = dropH || actualWPx;
-      const rawLeftPct = ((cx - pRect.left - actualWPx * 0.5) / pRect.width) * 100;
-      const rawTopPct = ((cy - pRect.top - actualHPx * 0.5) / pRect.height) * 100;
-      const lPct = Math.max(-8, Math.min(92, rawLeftPct));
-      const tPct = Math.max(-8, Math.min(90, rawTopPct));
-
-      removeStickerFromAllBookPages(el);
-      topStickerZ += 1;
-      el.style.position = 'absolute';
-      el.style.width = `${wPct.toFixed(2)}%`;
-      el.style.left = `${lPct.toFixed(2)}%`;
-      el.style.top = `${tPct.toFixed(2)}%`;
-      el.style.right = 'auto';
-      el.style.bottom = 'auto';
-      el.style.zIndex = topStickerZ;
-      targetPage.appendChild(el);
-
-      const pageKey = `${currentBookId}__${currentPhotoSpreadIdx}__${side}`;
-      if (!BOOK_PAGE_STICKERS[pageKey]) BOOK_PAGE_STICKERS[pageKey] = [];
-      BOOK_PAGE_STICKERS[pageKey].push(el);
-      return true;
+      return false;
     }
 
     function tryAttachStickerToWhitePage(el, cx, cy, dropW, dropH) {
-      // First check if dropped onto the About Me Scrapbook Book: attach to the currently open spread page so it stays on that page when flipping!
-      const zineStage = document.getElementById('zine-scrapbook-pages-stage');
-      const activeZineSpread = document.getElementById('zine-spread-' + (window.currentZineSpreadIdx || 0));
-      if (zineStage && activeZineSpread) {
-        const zRect = zineStage.getBoundingClientRect();
-        if (cx >= zRect.left - 12 && cx <= zRect.right + 12 && cy >= zRect.top - 12 && cy <= zRect.bottom + 12) {
-          const pRect = activeZineSpread.getBoundingClientRect();
-          if (pRect.width > 0 && pRect.height > 0) {
-            const restoredWidth = el.dataset.heroWidth || '10%';
-            el.style.width = restoredWidth;
-            const wPx = ((parseFloat(restoredWidth) || 10) / 100) * pRect.width;
-            const hPx = dropH || wPx * 0.5;
-            const rawLeftPct = ((cx - pRect.left - wPx * 0.5) / pRect.width) * 100;
-            const rawTopPct = ((cy - pRect.top - hPx * 0.5) / pRect.height) * 100;
-            const leftPct = Math.max(-4, Math.min(94, rawLeftPct));
-            const topPct = Math.max(-6, Math.min(92, rawTopPct));
-
-            removeStickerFromAllBookPages(el);
-            topStickerZ += 1;
-            el.style.position = 'absolute';
-            el.style.left = `${leftPct.toFixed(2)}%`;
-            el.style.top = `${topPct.toFixed(2)}%`;
-            el.style.right = 'auto';
-            el.style.bottom = 'auto';
-            el.style.zIndex = topStickerZ;
-            activeZineSpread.appendChild(el);
-            return true;
-          }
-        }
-      }
-
       const heroCanvas = document.querySelector('header.hero-blue-canvas');
       const whiteMain = document.getElementById('white-page-main');
       const whiteLayer = document.getElementById('white-page-stickers-layer');
@@ -4965,6 +4894,7 @@
       }
 
       el.addEventListener('pointerdown', (e) => {
+        if (activeShelfCrayon) return;
         if (e.button !== undefined && e.button !== 0) return;
         e.stopPropagation();
         isDragging = true;
@@ -5371,11 +5301,13 @@
         }
       });
       clearVisiblePageDoodles();
-      const gpCanvas = document.getElementById('graph-paper-crayon-canvas');
-      if (gpCanvas) {
-        const gpCtx = gpCanvas.getContext('2d');
-        if (gpCtx) gpCtx.clearRect(0, 0, gpCanvas.width, gpCanvas.height);
-      }
+      ['hero-crayon-canvas', 'graph-paper-crayon-canvas'].forEach((cid) => {
+        const c = document.getElementById(cid);
+        if (c) {
+          const ctx = c.getContext('2d');
+          if (ctx) ctx.clearRect(0, 0, c.width, c.height);
+        }
+      });
       playSparkleNote(1760, 0.03, 0.2);
     }
 
@@ -7320,11 +7252,18 @@
     // INITIALIZE SHELF & CRAYON CANVASES
     renderBooks();
     document.querySelectorAll('.page-crayon-canvas').forEach(wireCrayonDoodleCanvas);
+    syncAllDeskCrayonCanvases();
+    let deskCanvasResizeTimer = null;
+    window.addEventListener('resize', () => {
+      clearTimeout(deskCanvasResizeTimer);
+      deskCanvasResizeTimer = setTimeout(syncAllDeskCrayonCanvases, 140);
+    });
 
     // Progressive Web App Service Worker Registration (with immediate update check)
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', () => {
-        navigator.serviceWorker.register('./sw.js?v=12').then((reg) => {
+        syncAllDeskCrayonCanvases();
+        navigator.serviceWorker.register('./sw.js?v=13').then((reg) => {
           reg.update();
         }).catch((err) => {
           console.log('SW registration:', err);
